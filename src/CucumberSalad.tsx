@@ -23,8 +23,15 @@ loadFont({
 });
 
 export const FPS = timeline.fps;
-export const TOTAL_FRAMES = timeline.totalFrames;
+const VIDEO_FRAMES = timeline.totalFrames;
 const SEGMENTS = timeline.segments;
+
+// Outro: the last shot fades to black, then "Thanks for watching!" pops
+// in and holds on black.
+const FADE_START = VIDEO_FRAMES - 30; // last second of the final shot
+const TEXT_IN = VIDEO_FRAMES - 10;
+const OUTRO_HOLD = 75; // frames of black after the video ends
+export const TOTAL_FRAMES = VIDEO_FRAMES + OUTRO_HOLD;
 
 /**
  * Map a time in the original clip (seconds) to a frame in the edit.
@@ -38,7 +45,7 @@ const srcToOut = (seconds: number) => {
       return Math.round(seg.outStart + (f - seg.srcStart) / seg.speed);
     }
   }
-  return TOTAL_FRAMES - 1;
+  return VIDEO_FRAMES - 1;
 };
 
 /** Slow-motion stretches, with back-to-back slow segments merged. */
@@ -170,17 +177,82 @@ const slowMoZoom = (frame: number) => {
   return 1;
 };
 
+const ThanksForWatching: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const pop = spring({
+    frame: frame - TEXT_IN,
+    fps,
+    config: { damping: 9, stiffness: 140, mass: 0.8 },
+  });
+  const underline = spring({
+    frame: frame - TEXT_IN - 8,
+    fps,
+    config: { damping: 18, stiffness: 120 },
+  });
+
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 22,
+          opacity: interpolate(pop, [0, 0.3], [0, 1], {
+            extrapolateRight: "clamp",
+          }),
+          transform: `scale(${0.4 + 0.6 * pop})`,
+        }}
+      >
+        <span
+          style={{
+            fontFamily,
+            fontWeight: 700,
+            fontSize: 96,
+            color: "white",
+            textAlign: "center",
+            lineHeight: 1.1,
+            textShadow: "0 4px 24px rgba(63,155,58,0.45)",
+          }}
+        >
+          Thanks for
+          <br />
+          watching!
+        </span>
+        <div
+          style={{
+            width: 260 * underline,
+            height: 10,
+            borderRadius: 999,
+            background: "linear-gradient(90deg, #3f9b3a, #8fd16a)",
+          }}
+        />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 export const CucumberSalad: React.FC = () => {
   const frame = useCurrentFrame();
   const slow = slowMoAmount(frame);
   const zoom = slowMoZoom(frame);
-  const heroStart = SEGMENTS[SEGMENTS.length - 1].outStart;
+  const toBlack = interpolate(frame, [FADE_START, VIDEO_FRAMES], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.quad),
+  });
 
   return (
     <AbsoluteFill style={{ backgroundColor: "black" }}>
-      <AbsoluteFill style={{ transform: `scale(${zoom})` }}>
-        <OffthreadVideo src={staticFile("cucumber-salad-graded.mp4")} muted />
-      </AbsoluteFill>
+      <Sequence durationInFrames={VIDEO_FRAMES}>
+        <AbsoluteFill style={{ transform: `scale(${zoom})` }}>
+          <OffthreadVideo
+            src={staticFile("cucumber-salad-graded.mp4")}
+            muted
+          />
+        </AbsoluteFill>
+      </Sequence>
 
       {/* Soft vignette during slow motion */}
       <AbsoluteFill
@@ -210,6 +282,10 @@ export const CucumberSalad: React.FC = () => {
         </div>
       </AbsoluteFill>
 
+      {/* Fade to black, then the outro text */}
+      <AbsoluteFill style={{ backgroundColor: "black", opacity: toBlack }} />
+      <ThanksForWatching />
+
       {/* Original music, faded out at the end */}
       <Audio
         src={staticFile("cucumber-salad.mp4")}
@@ -232,8 +308,8 @@ export const CucumberSalad: React.FC = () => {
           <Audio src={staticFile("sfx/whoosh.wav")} volume={0.45} />
         </Sequence>
       ))}
-      <Sequence from={heroStart + 4}>
-        <Audio src={staticFile("sfx/chime.wav")} volume={0.45} />
+      <Sequence from={TEXT_IN}>
+        <Audio src={staticFile("sfx/chime.wav")} volume={0.5} />
       </Sequence>
     </AbsoluteFill>
   );
