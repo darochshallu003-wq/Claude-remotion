@@ -4,8 +4,10 @@ Reads public/cucumber-salad.mp4 (720x1280, 30 fps) and writes:
   public/cucumber-salad-graded.mp4  1080x1920, 30 fps, video only
   src/timeline.json                 segment map used by the Remotion comp
 
-Slow segments are motion-interpolated (minterpolate) so they play smoothly
-instead of repeating frames. Segment edges sit on the clip's scene cuts so
+Slow segments (speed < 1) are motion-interpolated (minterpolate) so they
+play smoothly instead of repeating frames; fast segments (speed > 1) drop
+frames to tighten long or repetitive stretches. Source ranges left out of
+SEGMENTS are cut. Slow-segment edges sit on the clip's scene cuts so
 interpolation never blends two different shots.
 
 Usage: python3 scripts/prepare_video.py
@@ -23,16 +25,20 @@ FPS = 30
 
 # (start_frame, end_frame, speed) in source frames, end exclusive.
 SEGMENTS = [
-    (0, 492, 1.0),
+    (0, 74, 1.0),  # opening preview of the finished salad
+    (74, 423, 1.6),  # peeling the cucumber into ribbons (long, repetitive)
+    (423, 492, 1.5),  # showing and opening the yogurt cup
     (492, 509, 0.5),  # yogurt dropping into the bowl
-    (509, 537, 1.0),
+    (509, 537, 1.0),  # salt from the shaker
     (537, 591, 0.5),  # pepper, chilli flakes and coriander falling in
-    (591, 718, 1.0),
+    (591, 718, 1.3),  # mixing the dressing
     (718, 762, 0.5),  # cucumber ribbons sliding into the bowl
-    (762, 885, 1.0),
-    (885, 957, 0.5),  # sesame and pomegranate seeds
-    (957, 1091, 1.0),
-    (1091, 1180, 0.6),  # final hero shot
+    (762, 885, 1.3),  # mixing in the cucumber
+    (885, 902, 0.5),  # sesame seeds
+    # 902-923 cut: nothing happens between the sesame and the pomegranate
+    (923, 957, 0.5),  # pomegranate seeds
+    (957, 1091, 1.5),  # mixing with chopsticks
+    (1091, 1180, 1.0),  # final hero shot
 ]
 
 GRADE = ",".join(
@@ -53,12 +59,14 @@ def main() -> None:
     out_frame = 0
     for i, (start, end, speed) in enumerate(SEGMENTS):
         chain = f"[0:v]trim=start_frame={start}:end_frame={end},setpts=PTS-STARTPTS"
-        if speed != 1.0:
+        if speed < 1.0:
             chain += (
                 f",minterpolate=fps={FPS / speed:g}:mi_mode=mci:mc_mode=aobmc"
                 f":me_mode=bidir:vsbmc=1:scd=fdiff"
                 f",setpts=PTS/{speed:g},fps={FPS}"
             )
+        elif speed > 1.0:
+            chain += f",setpts=PTS/{speed:g},fps={FPS}"
         parts.append(chain + f"[s{i}]")
         length = round((end - start) / speed)
         timeline.append(

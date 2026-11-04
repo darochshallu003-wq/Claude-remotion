@@ -1,76 +1,97 @@
 {
   "fps": 30,
-  "totalFrames": 1426,
+  "totalFrames": 1069,
   "segments": [
     {
       "srcStart": 0,
-      "srcEnd": 492,
+      "srcEnd": 74,
       "speed": 1.0,
       "outStart": 0,
-      "outEnd": 492
+      "outEnd": 74
+    },
+    {
+      "srcStart": 74,
+      "srcEnd": 423,
+      "speed": 1.6,
+      "outStart": 74,
+      "outEnd": 292
+    },
+    {
+      "srcStart": 423,
+      "srcEnd": 492,
+      "speed": 1.5,
+      "outStart": 292,
+      "outEnd": 338
     },
     {
       "srcStart": 492,
       "srcEnd": 509,
       "speed": 0.5,
-      "outStart": 492,
-      "outEnd": 526
+      "outStart": 338,
+      "outEnd": 372
     },
     {
       "srcStart": 509,
       "srcEnd": 537,
       "speed": 1.0,
-      "outStart": 526,
-      "outEnd": 554
+      "outStart": 372,
+      "outEnd": 400
     },
     {
       "srcStart": 537,
       "srcEnd": 591,
       "speed": 0.5,
-      "outStart": 554,
-      "outEnd": 662
+      "outStart": 400,
+      "outEnd": 508
     },
     {
       "srcStart": 591,
       "srcEnd": 718,
-      "speed": 1.0,
-      "outStart": 662,
-      "outEnd": 789
+      "speed": 1.3,
+      "outStart": 508,
+      "outEnd": 606
     },
     {
       "srcStart": 718,
       "srcEnd": 762,
       "speed": 0.5,
-      "outStart": 789,
-      "outEnd": 877
+      "outStart": 606,
+      "outEnd": 694
     },
     {
       "srcStart": 762,
       "srcEnd": 885,
-      "speed": 1.0,
-      "outStart": 877,
-      "outEnd": 1000
+      "speed": 1.3,
+      "outStart": 694,
+      "outEnd": 789
     },
     {
       "srcStart": 885,
+      "srcEnd": 902,
+      "speed": 0.5,
+      "outStart": 789,
+      "outEnd": 823
+    },
+    {
+      "srcStart": 923,
       "srcEnd": 957,
       "speed": 0.5,
-      "outStart": 1000,
-      "outEnd": 1144
+      "outStart": 823,
+      "outEnd": 891
     },
     {
       "srcStart": 957,
       "srcEnd": 1091,
-      "speed": 1.0,
-      "outStart": 1144,
-      "outEnd": 1278
+      "speed": 1.5,
+      "outStart": 891,
+      "outEnd": 980
     },
     {
       "srcStart": 1091,
       "srcEnd": 1180,
-      "speed": 0.6,
-      "outStart": 1278,
-      "outEnd": 1426
+      "speed": 1.0,
+      "outStart": 980,
+      "outEnd": 1069
     }
   ]
 }
