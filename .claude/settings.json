@@ -1,13 +1,15 @@
 {
-  "enabledPlugins": {
-    "superpowers@superpowers-dev": true
-  },
-  "extraKnownMarketplaces": {
-    "superpowers-dev": {
-      "source": {
-        "source": "directory",
-        "path": "/home/user/Claude-remotion/.claude/plugins/superpowers"
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CLAUDE_PLUGIN_ROOT=\"$CLAUDE_PROJECT_DIR/.claude\" \"$CLAUDE_PROJECT_DIR/.claude/hooks/run-hook.cmd\" session-start"
+          }
+        ]
       }
-    }
+    ]
   }
 }
