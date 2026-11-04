@@ -1,0 +1,13 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-dev": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-dev": {
+      "source": {
+        "source": "directory",
+        "path": "/home/user/Claude-remotion/.claude/plugins/superpowers"
+      }
+    }
+  }
+}
