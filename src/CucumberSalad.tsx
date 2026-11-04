@@ -46,7 +46,8 @@ const GROUPS: Group[] = [
     until: 23.8, // dressing is mixed; cucumber comes next
     items: [
       { name: "Greek Yogurt", color: "#7fb6d9", at: 16.75 },
-      { name: "Salt & Black Pepper", color: "#5b5b5b", at: 18.3 },
+      { name: "Salt", color: "#b9c2cc", at: 17.6 }, // from the shaker
+      { name: "Black Pepper", color: "#3a3a3a", at: 18.3 }, // from the spoon
       { name: "Chilli Flakes", color: "#e0452b", at: 18.6 },
       { name: "Fresh Coriander", color: "#2f8f3a", at: 19.0 },
     ],
