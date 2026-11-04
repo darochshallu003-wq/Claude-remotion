@@ -1,0 +1,76 @@
+{
+  "fps": 30,
+  "totalFrames": 1426,
+  "segments": [
+    {
+      "srcStart": 0,
+      "srcEnd": 492,
+      "speed": 1.0,
+      "outStart": 0,
+      "outEnd": 492
+    },
+    {
+      "srcStart": 492,
+      "srcEnd": 509,
+      "speed": 0.5,
+      "outStart": 492,
+      "outEnd": 526
+    },
+    {
+      "srcStart": 509,
+      "srcEnd": 537,
+      "speed": 1.0,
+      "outStart": 526,
+      "outEnd": 554
+    },
+    {
+      "srcStart": 537,
+      "srcEnd": 591,
+      "speed": 0.5,
+      "outStart": 554,
+      "outEnd": 662
+    },
+    {
+      "srcStart": 591,
+      "srcEnd": 718,
+      "speed": 1.0,
+      "outStart": 662,
+      "outEnd": 789
+    },
+    {
+      "srcStart": 718,
+      "srcEnd": 762,
+      "speed": 0.5,
+      "outStart": 789,
+      "outEnd": 877
+    },
+    {
+      "srcStart": 762,
+      "srcEnd": 885,
+      "speed": 1.0,
+      "outStart": 877,
+      "outEnd": 1000
+    },
+    {
+      "srcStart": 885,
+      "srcEnd": 957,
+      "speed": 0.5,
+      "outStart": 1000,
+      "outEnd": 1144
+    },
+    {
+      "srcStart": 957,
+      "srcEnd": 1091,
+      "speed": 1.0,
+      "outStart": 1144,
+      "outEnd": 1278
+    },
+    {
+      "srcStart": 1091,
+      "srcEnd": 1180,
+      "speed": 0.6,
+      "outStart": 1278,
+      "outEnd": 1426
+    }
+  ]
+}

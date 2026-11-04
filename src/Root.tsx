@@ -1,16 +1,16 @@
 import { Composition } from "remotion";
-import { CucumberSalad, FPS } from "./CucumberSalad";
+import { CucumberSalad, FPS, TOTAL_FRAMES } from "./CucumberSalad";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <Composition
       id="CucumberSalad"
       component={CucumberSalad}
-      // Source clip: 720x1280, 30 fps, 39.33 s
-      durationInFrames={Math.floor(39.33 * FPS)}
+      // Graded slow-motion master from scripts/prepare_video.py
+      durationInFrames={TOTAL_FRAMES}
       fps={FPS}
-      width={720}
-      height={1280}
+      width={1080}
+      height={1920}
     />
   );
 };
