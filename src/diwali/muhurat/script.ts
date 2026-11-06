@@ -9,7 +9,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 6.71,
+    seconds: 6.73,
     enter: "fade",
     vo: "Stock market तो दिवाली की छुट्टी पर बंद रहता है… फिर भी उसी दिन, सिर्फ़ एक घंटे के लिए खुलता है। क्यों?",
     tag: "MARKET · FIG. 01",
@@ -19,7 +19,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "what",
-    seconds: 4.67,
+    seconds: 4.62,
     enter: "wipe",
     vo: "इसे मुहूर्त ट्रेडिंग कहते हैं। शुभ मुहूर्त में, एक घंटे का ख़ास session।",
     tag: "MUHURAT · FIG. 02",
@@ -29,7 +29,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "why",
-    seconds: 6.08,
+    seconds: 6.1,
     enter: "cut",
     vo: "क्योंकि कई व्यापारियों के लिए, दिवाली से हिसाब-किताब का नया साल, यानी नया संवत, शुरू होता है।",
     dark: false,
@@ -40,7 +40,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "history",
-    seconds: 6.59,
+    seconds: 6.63,
     enter: "iris",
     vo: "BSE में ये परंपरा 1957 से मानी जाती है, और NSE में 1992 से।",
     dark: false,
@@ -51,7 +51,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "bohni",
-    seconds: 7.26,
+    seconds: 7.3,
     enter: "wipe",
     vo: "ज़्यादातर लोग इसमें बड़ा दाँव नहीं लगाते। बस शुभ शुरुआत के लिए थोड़ा सा निवेश। जैसे दुकान की पहली बोहनी।",
     tag: "MINDSET · FIG. 05",
@@ -61,7 +61,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "note",
-    seconds: 5.99,
+    seconds: 5.98,
     enter: "cut",
     vo: "पर याद रहे: मुहूर्त शुभ हो सकता है, पर market की कोई guarantee नहीं। निवेश, सोच-समझकर।",
     tag: "NOTE · FIG. 06",
@@ -72,7 +72,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.17,
+    seconds: 5.12,
     enter: "iris",
     vo: "आप इस बार मुहूर्त ट्रेडिंग करेंगे? Comment करो। शुभ दीपावली, और शुभ लाभ!",
     tag: "YOUR TURN · FIG. 07",
