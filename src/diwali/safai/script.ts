@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 7.26,
+    seconds: 7.28,
     enter: "fade",
     vo: "दिवाली से पहले पूरे घर की सफ़ाई क्यों? सिर्फ़ लक्ष्मी जी के स्वागत के लिए… या इसके पीछे कोई practical वजह भी है?",
     tag: "SAFAI · FIG. 01",
@@ -20,7 +20,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "belief",
-    seconds: 3.8,
+    seconds: 3.75,
     enter: "wipe",
     vo: "मान्यता है, कि लक्ष्मी साफ़ और रोशन घर में ही आती हैं।",
     dark: false,
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "timing",
-    seconds: 4.69,
+    seconds: 4.66,
     enter: "cut",
     vo: "पर timing देखिए: दिवाली आती है, बारिश का मौसम ख़त्म होने के ठीक बाद।",
     dark: false,
@@ -42,7 +42,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "damp",
-    seconds: 4.14,
+    seconds: 4.09,
     enter: "iris",
     vo: "महीनों की नमी से दीवारों पर सीलन, फफूँद, और कोनों में कीड़े।",
     dark: false,
@@ -53,7 +53,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "fix",
-    seconds: 9.63,
+    seconds: 9.75,
     enter: "wipe",
     vo: "तो सफ़ाई, पुताई, और चूना। चूना दीवारों को कीटाणुओं और फफूँद से बचाने में मदद करता है। और गद्दे-रज़ाइयाँ धूप में, ताकि सर्दी से पहले सब तैयार।",
     dark: false,
@@ -71,7 +71,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "smart",
-    seconds: 5.22,
+    seconds: 5.19,
     enter: "iris",
     vo: "यानी त्योहार के बहाने, मौसम बदलने की तैयारी। बड़ों का पुराना smart system।",
     tag: "SMART · FIG. 06",
@@ -81,7 +81,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.64,
+    seconds: 4.59,
     enter: "iris",
     vo: "आपके घर में दिवाली की सफ़ाई का सबसे मुश्किल काम कौनसा है? Comment करो!",
     tag: "YOUR TURN · FIG. 07",
