@@ -1,0 +1,17 @@
+narak Diwali01Narak
+stories Diwali02Stories
+owl Diwali03Owl
+govardhan Diwali04Govardhan
+bhaidooj Diwali05BhaiDooj
+colours Diwali06Colours
+delhiair Diwali07DelhiAir
+green Diwali08Green
+diyascience Diwali09DiyaScience
+varq Diwali10Varq
+safai Diwali11Safai
+spacephoto Diwali12SpacePhoto
+sweets Diwali13Sweets
+muhurat Diwali14Muhurat
+bahikhata Diwali15BahiKhata
+world Diwali16World
+dice Diwali17Dice

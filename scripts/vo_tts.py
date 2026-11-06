@@ -33,6 +33,20 @@ SAY = {
     "curcumin": "कर्क्यूमिन",
     "turmeric latte": "टर्मरिक लाटे",
     "cafés": "कैफ़े",
+    # diwali series
+    "PM 2.5": "पी एम टू पॉइंट फ़ाइव",
+    "AQI": "ए क्यू आई",
+    "CSIR-NEERI": "सी एस आई आर नीरी",
+    "SWAS": "स्वास",
+    "STAR": "स्टार",
+    "SAFAL": "सफल",
+    "FSSAI": "एफ़ एस एस ए आई",
+    "BSE": "बी एस ई",
+    "NSE": "एन एस ई",
+    "PIB": "पी आई बी",
+    "NASA": "नासा",
+    "WhatsApp": "व्हाट्सऐप",
+    "Comment": "कमेंट",
 }
 
 
@@ -56,7 +70,7 @@ async def main() -> None:
         # cut any pause longer than 0.15 s down to 0.15 s and trim the ends
         subprocess.run(
             [
-                "ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af",
+                "ffmpeg", "-nostdin", "-v", "error", "-y", "-i", str(raw), "-af",
                 "silenceremove=start_periods=1:start_threshold=-45dB"
                 ":stop_periods=-1:stop_threshold=-45dB:stop_duration=0.15:stop_silence=0.15",
                 "-c:a", "libmp3lame", "-q:a", "2", str(out / f"{scene_id}.mp3"),

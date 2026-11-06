@@ -1,0 +1,110 @@
+import type { Shot } from "../kit";
+
+// Ep 7: Why North India's air turns toxic in November: Diwali crackers,
+// stubble burning in Punjab/Haryana, winter temperature inversion, low wind
+// speeds, plus year-round vehicle, dust, construction and industry sources.
+
+export const HAS_VOICEOVER = true;
+
+export const SCRIPT: Shot[] = [
+  {
+    id: "hook",
+    seconds: 7.47,
+    enter: "fade",
+    vo: "हर साल दिवाली के बाद दिल्ली की हवा ज़हरीली हो जाती है, और सारा दोष पटाखों पर जाता है। पर पूरी कहानी ये नहीं है।",
+    tag: "AIR · FIG. 01",
+    setup: "Sirf patakhe?",
+    punch: "Poori kahani nahi",
+    layout: { type: "hero", art: "smog", size: 720 },
+  },
+  {
+    id: "crackers",
+    seconds: 6.63,
+    enter: "wipe",
+    vo: "हाँ, पटाखे एक ही रात में धुआँ और बहुत महीन कण, यानी PM 2.5, तेज़ी से बढ़ा देते हैं।",
+    tag: "CAUSE 1 · FIG. 02",
+    setup: "Cause 1:",
+    punch: "Patakhe",
+    layout: { type: "hero", art: "anar", size: 420, pills: ["PM 2.5 SPIKE", "EK HI RAAT MEIN"] },
+  },
+  {
+    id: "stubble",
+    seconds: 9.95,
+    enter: "cut",
+    vo: "पर इसी मौसम में पंजाब और हरियाणा के खेतों में पराली जलती है, ताकि अगली फ़सल के लिए खेत जल्दी साफ़ हो सके। और ये धुआँ हवा के साथ दिल्ली तक पहुँचता है।",
+    dark: false,
+    tag: "CAUSE 2 · FIG. 03",
+    setup: "Cause 2:",
+    punch: "Parali",
+    layout: { type: "hero", art: "field", size: 700, pills: ["PUNJAB · HARYANA", "DHUAN → DILLI"] },
+  },
+  {
+    id: "inversion",
+    seconds: 9.13,
+    enter: "iris",
+    vo: "फिर आती है ठंड। ऊपर की गर्म हवा, एक ढक्कन की तरह, नीचे की ठंडी हवा और धुएँ को फँसा लेती है। इसे temperature inversion कहते हैं।",
+    tag: "CAUSE 3 · FIG. 04",
+    setup: "Cause 3:",
+    punch: "Hawa ka dhakkan",
+    layout: { type: "hero", art: "inversion", size: 720, caption: "टेम्परेचर इन्वर्ज़न" },
+  },
+  {
+    id: "wind",
+    seconds: 5.87,
+    enter: "cut",
+    vo: "और नवंबर में हवा की रफ़्तार कम होती है। तो धुआँ उड़कर बाहर नहीं जाता, वहीं जमा रहता है।",
+    tag: "CAUSE 4 · FIG. 05",
+    setup: "Cause 4:",
+    punch: "Dheemi hawa",
+    layout: { type: "hero", art: "emoji:🍃", size: 360, pills: ["HAWA DHEEMI", "DHUAN WAHIN JAMA"] },
+  },
+  {
+    id: "local",
+    seconds: 5.27,
+    enter: "wipe",
+    vo: "ऊपर से गाड़ियाँ, सड़क की धूल, कंस्ट्रक्शन, और फ़ैक्ट्रियाँ, जो पूरे साल चलती हैं।",
+    dark: false,
+    tag: "CAUSE 5 · FIG. 06",
+    setup: "Cause 5:",
+    punch: "Roz ka pradushan",
+    layout: {
+      type: "cards",
+      items: [
+        { art: "emoji:🚗", title: "गाड़ियाँ" },
+        { art: "emoji:🏗️", title: "कंस्ट्रक्शन" },
+        { art: "emoji:🏭", title: "फ़ैक्ट्री" },
+        { art: "emoji:💨", title: "धूल" },
+      ],
+    },
+  },
+  {
+    id: "recap",
+    seconds: 6.61,
+    enter: "cut",
+    vo: "तो दिल्ली का स्मॉग एक cocktail है: पटाखे, पराली, ठंड का ढक्कन, धीमी हवा, और रोज़ का प्रदूषण।",
+    dark: false,
+    tag: "RECAP · FIG. 07",
+    setup: "Smog =",
+    punch: "Ek cocktail",
+    layout: {
+      type: "list",
+      items: [
+        { art: "anar", title: "Patakhe" },
+        { art: "field", title: "Parali" },
+        { art: "inversion", title: "Thand ka dhakkan" },
+        { art: "emoji:🍃", title: "Dheemi hawa" },
+        { art: "smog", title: "Roz ka pradushan" },
+      ],
+    },
+  },
+  {
+    id: "cta",
+    seconds: 5.91,
+    enter: "iris",
+    vo: "आपके शहर का AQI आज कितना है? Comment करो। और बाहर जाओ, तो mask साथ रखो।",
+    tag: "YOUR TURN · FIG. 08",
+    setup: "Aapke sheher ka",
+    punch: "AQI kitna?",
+    layout: { type: "cta", ask: "आपके शहर का AQI?", wish: "साफ़ हवा वाली दिवाली", english: "BREATHE SAFE!" },
+  },
+];

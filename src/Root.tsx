@@ -2,6 +2,7 @@ import { Composition } from "remotion";
 import { CucumberSalad, FPS, TOTAL_FRAMES } from "./CucumberSalad";
 import { ONION_TOTAL_FRAMES, OnionExplainer } from "./onion/OnionExplainer";
 import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
+import { EPISODES } from "./diwali/episodes";
 import { DHANTERAS_TOTAL_FRAMES, DhanterasExplainer } from "./dhanteras/DhanterasExplainer";
 
 export const RemotionRoot: React.FC = () => {
@@ -40,6 +41,9 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      {EPISODES.map((e) => (
+        <Composition key={e.id} id={e.id} component={e.Component} durationInFrames={e.totalFrames} fps={30} width={1080} height={1920} />
+      ))}
     </>
   );
 };
