@@ -20,7 +20,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "newyear",
-    seconds: 7.23,
+    seconds: 7.28,
     enter: "wipe",
     vo: "क्योंकि कई व्यापारी परिवारों के लिए, ख़ासकर गुजरात में, दिवाली साल का आख़िरी दिन है। और अगले दिन, नया साल।",
     dark: false,
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "chopda",
-    seconds: 7.16,
+    seconds: 7.23,
     enter: "cut",
     vo: "दिवाली पर होता है चोपड़ा पूजन: नई बही पर शुभ-लाभ लिखा जाता है, और लक्ष्मी-गणेश के साथ, उसकी पूजा होती है।",
     dark: false,
@@ -49,7 +49,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "shubhlabh",
-    seconds: 4.86,
+    seconds: 4.81,
     enter: "iris",
     vo: "और शुभ-लाभ? लोक मान्यता में, ये गणेश जी के दो बेटों के नाम हैं।",
     tag: "SHUBH LABH · FIG. 04",
@@ -59,7 +59,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "motto",
-    seconds: 4.98,
+    seconds: 4.95,
     enter: "cut",
     vo: "मतलब: मुनाफ़ा कमाओ, पर अच्छाई के साथ। Business का सबसे पुराना motto।",
     tag: "MOTTO · FIG. 05",
@@ -69,7 +69,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "today",
-    seconds: 5.63,
+    seconds: 5.6,
     enter: "wipe",
     vo: "आज भी कई दुकानों में, laptop और software के साथ-साथ, लाल बही की पूजा होती है।",
     dark: false,
@@ -80,7 +80,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.62,
+    seconds: 4.54,
     enter: "iris",
     vo: "आपके घर या दुकान में चोपड़ा पूजन होता है? Comment करो। शुभ लाभ!",
     tag: "YOUR TURN · FIG. 07",
