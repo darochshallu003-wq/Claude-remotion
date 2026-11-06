@@ -1,12 +1,12 @@
 # Haldi explainer: voiceover script (Hinglish)
 
-Regenerate the AI voice with `python3 scripts/vo_tts.py haldi`, or record one clip per scene as `public/haldi/vo/<file>.mp3`; then run `python3 scripts/vo_timing.py haldi` and re-render.
+Regenerate the AI voice with `python3 scripts/vo_tts.py haldi` (questions are asked by a second voice), or record one clip per scene as `public/haldi/vo/<file>.mp3`; then run `python3 scripts/vo_timing.py haldi` and re-render.
 
 ## 1. `hook.mp3`  (~6.27 s)
 
 हल्दी को superfood कहते हैं… पर एक problem है। आपका शरीर इसे लगभग absorb ही नहीं करता।
 
-## 2. `dadi.mp3`  (~5.55 s)
+## 2. `dadi.mp3`  (~5.63 s)
 
 फिर भी दादी, हल्दी वाले दूध में हमेशा एक चुटकी काली मिर्च डालती थीं। आख़िर क्यों?
 
@@ -26,7 +26,7 @@ Regenerate the AI voice with `python3 scripts/vo_tts.py haldi`, or record one cl
 
 काली मिर्च में होता है piperine, वही जो इसे तीखा बनाता है। ये liver के इस safai process को धीमा कर देता है… ताकि curcumin ज़्यादा देर टिक सके।
 
-## 7. `study.mp3`  (~11.24 s)
+## 7. `study.mp3`  (~11.22 s)
 
 1998 में Bangalore के scientists ने इसे test किया, और ये study Planta Medica journal में छपी। लोगों को दो gram curcumin दिया गया। अकेले — blood में लगभग कुछ नहीं दिखा।
 
@@ -34,9 +34,9 @@ Regenerate the AI voice with `python3 scripts/vo_tts.py haldi`, or record one cl
 
 फिर साथ में सिर्फ़ बीस milligram piperine मिलाया… और absorption बढ़ गया, दो हज़ार percent! यानी बीस गुना।
 
-## 9. `milk.mp3`  (~6.68 s)
+## 9. `milk.mp3`  (~6.92 s)
 
-और दूध क्यों? क्योंकि curcumin पानी में नहीं, fat में घुलता है। दूध या घी का fat इसमें मदद करता है।
+और दूध ही क्यों? क्योंकि curcumin पानी में नहीं, fat में घुलता है। दूध या घी का fat इसमें मदद करता है।
 
 ## 10. `tadka.mp3`  (~7.69 s)
 
@@ -50,9 +50,9 @@ Regenerate the AI voice with `python3 scripts/vo_tts.py haldi`, or record one cl
 
 आज यही नुस्खा, दुनिया भर के cafés में turmeric latte बनकर बिक रहा है।
 
-## 13. `recipe.mp3`  (~6.83 s)
+## 13. `recipe.mp3`  (~7.23 s)
 
-तो सही तरीका? एक cup गर्म दूध, आधा चम्मच हल्दी, एक चुटकी काली मिर्च… और चाहें तो थोड़ा सा घी।
+तो सही तरीका क्या है? एक cup गर्म दूध, आधा चम्मच हल्दी, एक चुटकी काली मिर्च… और चाहें तो थोड़ा सा घी।
 
 ## 14. `caution.mp3`  (~9.66 s)
 

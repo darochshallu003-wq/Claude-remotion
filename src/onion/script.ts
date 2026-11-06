@@ -34,7 +34,7 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "knife",
-    seconds: 7.21,
+    seconds: 7.23,
     enter: "cut",
     vo: "लेकिन जैसे ही चाकू चलता है… दीवारें टूटती हैं, दोनों मिल जाते हैं, और एक chemical reaction शुरू हो जाता है।",
   },
@@ -64,9 +64,9 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "garlic",
-    seconds: 7.4,
+    seconds: 7.91,
     enter: "wipe",
-    vo: "और इसका सबूत? लहसुन। लहसुन में पहला enzyme है, पर दूसरा नहीं। इसलिए smell तेज़… पर आँसू ज़ीरो।",
+    vo: "और इसका सबूत क्या है? लहसुन। लहसुन में पहला enzyme है, पर दूसरा नहीं। इसलिए smell तेज़… पर आँसू ज़ीरो।",
   },
   {
     id: "ignobel",
@@ -76,15 +76,15 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "why",
-    seconds: 6.59,
+    seconds: 6.68,
     enter: "iris",
     vo: "पर प्याज़ ऐसा करता क्यों है? Self-defence. जो भी जानवर इसे काटे, उसके मुँह पर सीधा tear gas।",
   },
   {
     id: "tips",
-    seconds: 9.83,
+    seconds: 10.14,
     enter: "wipe",
-    vo: "तो अगली बार बचना है? प्याज़ को तीस minute fridge में रखिए। तेज़ चाकू use कीजिए। जड़ वाला हिस्सा सबसे last में काटिए। और पास में पंखा चला दीजिए।",
+    vo: "तो आँसुओं से बचें कैसे? प्याज़ को तीस minute fridge में रखिए। तेज़ चाकू use कीजिए। जड़ वाला हिस्सा सबसे last में काटिए। और पास में पंखा चला दीजिए।",
   },
   {
     id: "cta",

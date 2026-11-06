@@ -20,7 +20,7 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "dadi",
-    seconds: 5.55,
+    seconds: 5.63,
     enter: "cut",
     vo: "फिर भी दादी, हल्दी वाले दूध में हमेशा एक चुटकी काली मिर्च डालती थीं। आख़िर क्यों?",
   },
@@ -50,7 +50,7 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "study",
-    seconds: 11.24,
+    seconds: 11.22,
     enter: "wipe",
     vo: "1998 में Bangalore के scientists ने इसे test किया, और ये study Planta Medica journal में छपी। लोगों को दो gram curcumin दिया गया। अकेले — blood में लगभग कुछ नहीं दिखा।",
   },
@@ -62,9 +62,9 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "milk",
-    seconds: 6.68,
+    seconds: 6.92,
     enter: "iris",
-    vo: "और दूध क्यों? क्योंकि curcumin पानी में नहीं, fat में घुलता है। दूध या घी का fat इसमें मदद करता है।",
+    vo: "और दूध ही क्यों? क्योंकि curcumin पानी में नहीं, fat में घुलता है। दूध या घी का fat इसमें मदद करता है।",
   },
   {
     id: "tadka",
@@ -86,9 +86,9 @@ export const SCRIPT: Beat[] = [
   },
   {
     id: "recipe",
-    seconds: 6.83,
+    seconds: 7.23,
     enter: "wipe",
-    vo: "तो सही तरीका? एक cup गर्म दूध, आधा चम्मच हल्दी, एक चुटकी काली मिर्च… और चाहें तो थोड़ा सा घी।",
+    vo: "तो सही तरीका क्या है? एक cup गर्म दूध, आधा चम्मच हल्दी, एक चुटकी काली मिर्च… और चाहें तो थोड़ा सा घी।",
   },
   {
     id: "caution",
