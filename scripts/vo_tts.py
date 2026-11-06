@@ -53,6 +53,11 @@ SAY = {
     "ichor": "आइकोर",
     "springtails": "स्प्रिंगटेल्स",
     "MIT": "एम-आई-टी",
+    # dahi
+    "lactose": "लैक्टोज़",
+    "lactic acid": "लैक्टिक एसिड",
+    "casein": "कैसीन",
+    "casserole": "कैसरोल",
 }
 
 

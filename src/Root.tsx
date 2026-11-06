@@ -5,6 +5,7 @@ import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
 import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
+import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -46,6 +47,14 @@ export const RemotionRoot: React.FC = () => {
         id="MittiExplainer"
         component={MittiExplainer}
         durationInFrames={MITTI_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="DahiExplainer"
+        component={DahiExplainer}
+        durationInFrames={DAHI_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}

@@ -8,7 +8,7 @@ import { useCurrentFrame } from "remotion";
 const INK = "#231F1C";
 
 export type Expression = "smell" | "smile" | "disgust" | "grin" | "neutral";
-export type HairStyle = "long" | "short" | "elder";
+export type HairStyle = "long" | "short" | "elder" | "bun" | "bunGrey";
 
 export type PersonProps = {
   size: number; // rendered width in px
@@ -20,6 +20,7 @@ export type PersonProps = {
   bindi?: boolean;
   mustache?: boolean;
   phone?: boolean; // holding a phone at chest height
+  glasses?: boolean;
   seed?: number; // offsets idle motion so two people don't move in sync
   style?: React.CSSProperties;
 };
@@ -34,6 +35,7 @@ export const Person: React.FC<PersonProps> = ({
   bindi = false,
   mustache = false,
   phone = false,
+  glasses = false,
   seed = 0,
   style,
 }) => {
@@ -42,7 +44,8 @@ export const Person: React.FC<PersonProps> = ({
   const blinkPhase = frame % 110;
   const blink = blinkPhase < 4 && expression !== "smell" && expression !== "disgust";
   const skinShade = shade(skin, -0.18);
-  const hairColor = hair === "elder" ? "#E9E4DA" : "#1B1513";
+  const hairColor = hair === "elder" || hair === "bunGrey" ? "#D9D4CB" : "#1B1513";
+  const isBun = hair === "bun" || hair === "bunGrey";
 
   return (
     <svg viewBox="0 0 400 560" width={size} height={(size * 560) / 400} style={{ overflow: "visible", ...style }}>
@@ -51,6 +54,8 @@ export const Person: React.FC<PersonProps> = ({
         {hair === "long" && (
           <path d="M120 150 C 100 260, 110 330, 130 360 L 270 360 C 290 330, 300 260, 280 150 Z" fill={hairColor} stroke={INK} strokeWidth={6} />
         )}
+
+        {isBun && <circle cx="200" cy="92" r="40" fill={hairColor} stroke={INK} strokeWidth={6} />}
 
         {/* torso / kurta */}
         <path
@@ -100,6 +105,10 @@ export const Person: React.FC<PersonProps> = ({
         {hair === "long" && (
           <path d="M118 210 C 105 130, 150 80, 205 80 C 262 82, 298 130, 282 210 C 275 160, 255 128, 205 118 C 160 126, 128 160, 118 210 Z" fill={hairColor} stroke={INK} strokeWidth={6} />
         )}
+        {isBun && (
+          <path d="M118 205 C 108 128, 152 86, 205 86 C 258 88, 296 128, 282 205 C 276 160, 252 132, 205 126 C 158 132, 126 160, 118 205 Z" fill={hairColor} stroke={INK} strokeWidth={6} />
+        )}
+        {isBun && <path d="M200 88 C 196 104, 196 114, 200 126" stroke={hair === "bunGrey" ? "#A9A39A" : "#3A2E28"} strokeWidth={4} fill="none" />}
         {hair === "long" && <path d="M205 82 C 200 100, 200 110, 204 120" stroke="#3A2E28" strokeWidth={4} fill="none" />}
         {hair === "elder" && (
           <>
@@ -144,6 +153,13 @@ export const Person: React.FC<PersonProps> = ({
           </>
         )}
 
+        {glasses && (
+          <g fill="none" stroke={INK} strokeWidth={5}>
+            <circle cx="168" cy="200" r="24" />
+            <circle cx="232" cy="200" r="24" />
+            <path d="M192 198 C 196 192, 204 192, 208 198 M144 196 L 122 190 M256 196 L 278 190" />
+          </g>
+        )}
         {bindi && <circle cx="200" cy="168" r="7" fill="#C2272D" />}
 
         {/* nose */}
@@ -193,4 +209,10 @@ export const Aman: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
 );
 export const AttarWale: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
   <Person skin="#A06A44" hair="elder" outfit="#EDE6D6" expression="smile" seed={5} {...p} />
+);
+export const Mummy: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#A8704A" hair="bun" outfit="#8E2A3C" dupatta="#E3A52A" bindi expression="neutral" seed={7} {...p} />
+);
+export const Dadi: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#9E6A46" hair="bunGrey" outfit="#E8E0CF" dupatta="#B5501C" bindi glasses expression="smile" seed={11} {...p} />
 );
