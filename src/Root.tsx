@@ -3,6 +3,7 @@ import { CucumberSalad, FPS, TOTAL_FRAMES } from "./CucumberSalad";
 import { ONION_TOTAL_FRAMES, OnionExplainer } from "./onion/OnionExplainer";
 import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
 import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
+import { SHABARI_TOTAL_FRAMES, ShabariReel } from "./shabari/ShabariReel";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -36,6 +37,14 @@ export const RemotionRoot: React.FC = () => {
         id="TamraExplainer"
         component={TamraExplainer}
         durationInFrames={TAMRA_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="ShabariReel"
+        component={ShabariReel}
+        durationInFrames={SHABARI_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}

@@ -15,14 +15,27 @@ finally comes and eats her half-tasted berries.
   music; characters that change look between shots.
 
 ## Approaches
-- **A. AI stills + motion in Remotion (chosen).** User generates ~7 images from
+- A. AI stills + motion in Remotion (first pick, then dropped). User generates ~7 images from
   the prompts below in a free tool; Remotion adds zooms, light, particles,
   crossfades, caption, end card, music. Free; no in-shot character motion.
 - B. A + image-to-video on 2–3 key shots (Higgsfield Kling 3.0 / Seedance).
   Closest to reference; needs credits (account has 0). Can be added later
   by swapping individual stills for clips.
-- C. All art drawn in code like the Onion/Haldi/Tamra explainers. Free but far
-  simpler figures than the reference — works against the point.
+- **C. All art drawn in code like the Onion/Haldi/Tamra explainers (chosen).**
+  Free, no external tools; simpler figures than the reference, but the
+  characters can blink, breathe, cry and move hands, which stills could not.
+
+The user switched to C after seeing the prompts. The prompts below are kept
+in case the reel is redone with AI stills later.
+
+## As built (C)
+- Composition `ShabariReel` (`src/shabari/`): `art.tsx` characters and props,
+  `world.tsx` scenery, `scenes.tsx` seven scenes, `ShabariReel.tsx` assembly
+  (15-frame cross-fades, fixed caption, typed end card "SHABARI KE BER" /
+  "Prem mein, jootha bhi prasad ban gaya"). 1050 frames = 35 s.
+- Music: `scripts/shabari_music.py` → `public/shabari/music.wav`
+  (tanpura drone, bansuri-like Raag Bhupali melody, swarmandal shimmers).
+- Render: `npx remotion render ShabariReel out/shabari-reel.mp4`.
 
 ## Decided
 - Story: Shabari. Caption (fixed, top, white rounded box like the reference):
