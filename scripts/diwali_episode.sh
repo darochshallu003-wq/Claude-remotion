@@ -3,7 +3,7 @@
 # Usage: scripts/diwali_episode.sh <slug> <CompositionId> [--no-render]
 set -euo pipefail
 cd "$(dirname "$0")/.."
-python3 scripts/vo_tts.py "diwali/$1" </dev/null
+python3 scripts/vo_tts.py "diwali/$1" hi-IN-MadhurNeural +15% 0.3 </dev/null
 python3 scripts/vo_timing.py "diwali/$1"
 if [ "${3:-}" != "--no-render" ]; then
   mkdir -p out/diwali

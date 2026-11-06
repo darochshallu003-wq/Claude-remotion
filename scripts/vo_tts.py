@@ -4,11 +4,11 @@ Reads each scene's `vo` line from src/<project>/script.ts and writes
 public/<project>/vo/<scene id>.mp3 using edge-tts (needs the host
 speech.platform.bing.com to be reachable). Technical terms in SAY get a
 phonetic spelling in the spoken text only, so the voice says them clearly.
-The voice's 1-1.5 s sentence pauses are cut to 0.15 s.
+The voice's 1-1.5 s sentence pauses are cut to `pause` seconds.
 
-Usage: python3 scripts/vo_tts.py <project> [voice] [rate]
+Usage: python3 scripts/vo_tts.py <project> [voice] [rate] [pause]
   e.g.  python3 scripts/vo_tts.py haldi
-  defaults: hi-IN-MadhurNeural  +22%
+  defaults: hi-IN-MadhurNeural  +22%  0.15 (seconds kept per pause)
 Then run scripts/vo_timing.py <project> to fit the scenes to the clips.
 """
 
@@ -56,6 +56,7 @@ async def main() -> None:
     project = sys.argv[1]
     voice = sys.argv[2] if len(sys.argv) > 2 else "hi-IN-MadhurNeural"
     rate = sys.argv[3] if len(sys.argv) > 3 else "+22%"
+    pause = sys.argv[4] if len(sys.argv) > 4 else "0.15"
     script = ROOT / "src" / project / "script.ts"
     out = ROOT / "public" / project / "vo"
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
@@ -67,12 +68,13 @@ async def main() -> None:
             spoken = re.sub(re.escape(k), v, spoken, flags=re.I)
         raw = out / f"{scene_id}.raw.mp3"
         await edge_tts.Communicate(spoken, voice, rate=rate, proxy=proxy).save(str(raw))
-        # cut any pause longer than 0.15 s down to 0.15 s and trim the ends
+        # cut any pause longer than `pause` s down to `pause` s and trim the ends
         subprocess.run(
             [
                 "ffmpeg", "-nostdin", "-v", "error", "-y", "-i", str(raw), "-af",
                 "silenceremove=start_periods=1:start_threshold=-45dB"
-                ":stop_periods=-1:stop_threshold=-45dB:stop_duration=0.15:stop_silence=0.15",
+                ":stop_periods=-1:stop_threshold=-45dB"
+                f":stop_duration={pause}:stop_silence={pause}",
                 "-c:a", "libmp3lame", "-q:a", "2", str(out / f"{scene_id}.mp3"),
             ],
             check=True,
