@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 5.94,
+    seconds: 7.11,
     enter: "fade",
     vo: "आप जो दिवाली मनाते हैं, वो सिर्फ़ राम की कहानी नहीं है। एक दिवाली… पाँच कहानियाँ।",
     tag: "DIWALI · FIG. 01",
@@ -20,7 +20,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "ram",
-    seconds: 8.39,
+    seconds: 9.73,
     enter: "wipe",
     vo: "पहली, उत्तर भारत की। चौदह साल के वनवास और रावण पर जीत के बाद, राम अयोध्या लौटे। और लोगों ने दीयों से उनका स्वागत किया।",
     dark: false,
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "night",
-    seconds: 5.27,
+    seconds: 6.39,
     enter: "cut",
     vo: "और वो रात थी कार्तिक अमावस्या। बिना चाँद की रात। इसीलिए हर घर में दीये।",
     tag: "AMAVASYA · FIG. 03",
@@ -41,7 +41,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "south",
-    seconds: 7.04,
+    seconds: 8.29,
     enter: "iris",
     vo: "दूसरी, दक्षिण भारत की। कृष्ण और सत्यभामा की नरकासुर पर जीत। वहाँ दीपावली, इसी जीत की सुबह है।",
     tag: "STORY 2 · FIG. 04",
@@ -51,7 +51,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "kali",
-    seconds: 7.88,
+    seconds: 9.2,
     enter: "wipe",
     vo: "तीसरी, पूरब की। बंगाल, ओडिशा और असम में, इसी अमावस्या पर काली पूजा होती है। माँ काली को लाल गुड़हल चढ़ता है।",
     tag: "STORY 3 · FIG. 05",
@@ -62,7 +62,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "jain",
-    seconds: 7.38,
+    seconds: 8.65,
     enter: "iris",
     vo: "चौथी, जैन धर्म की। ये भगवान महावीर का निर्वाण दिवस है। बिहार के पावापुरी में, इसी दिन उन्हें मोक्ष मिला।",
     dark: false,
@@ -73,7 +73,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "sikh",
-    seconds: 8.87,
+    seconds: 9.95,
     enter: "wipe",
     vo: "और पाँचवीं, सिख धर्म की: बंदी छोड़ दिवस। गुरु हरगोबिंद साहिब जी ग्वालियर के किले से रिहा हुए, और अपने साथ बावन राजाओं को भी छुड़ाया।",
     tag: "STORY 5 · FIG. 07",
@@ -83,7 +83,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "recap",
-    seconds: 6.73,
+    seconds: 7.4,
     enter: "cut",
     vo: "तो एक ही रात में: राम की वापसी, नरकासुर पर जीत, काली पूजा, महावीर निर्वाण, और बंदी छोड़ दिवस।",
     dark: false,
@@ -103,7 +103,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.07,
+    seconds: 6.2,
     enter: "iris",
     vo: "आपके घर में कौन सी कहानी सुनाई जाती है? Comment में बताइए। Happy Diwali!",
     tag: "YOUR TURN · FIG. 09",
