@@ -32,6 +32,8 @@ type Config = {
   outroSeconds?: number;
   /** Frames into each scene before its voiceover clip starts. */
   voLeadFrames?: number;
+  /** Social handle shown on the outro, e.g. "@mythmitao". */
+  handle?: string;
 };
 
 const Enterer: React.FC<{ enter: Enter; children: React.ReactNode }> = ({ enter, children }) => {
@@ -66,7 +68,7 @@ const Enterer: React.FC<{ enter: Enter; children: React.ReactNode }> = ({ enter,
   return <AbsoluteFill>{children}</AbsoluteFill>;
 };
 
-const Outro: React.FC = () => {
+const Outro: React.FC<{ handle?: string }> = ({ handle }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const toBlack = interpolate(frame, [0, 24], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
@@ -101,6 +103,26 @@ const Outro: React.FC = () => {
           watching!
         </span>
         <div style={{ width: 280 * line, height: 10, borderRadius: 999, background: `linear-gradient(90deg, ${C.purple}, ${C.orange})` }} />
+        {handle && (
+          <div
+            style={{
+              marginTop: 26,
+              opacity: line,
+              transform: `translateY(${(1 - line) * 20}px)`,
+              border: `4px solid ${C.orange}`,
+              borderRadius: 999,
+              padding: "14px 40px",
+              fontFamily: HEAD,
+              fontWeight: 700,
+              fontSize: 60,
+              letterSpacing: 2,
+              color: C.cream,
+              whiteSpace: "nowrap",
+            }}
+          >
+            FOLLOW <span style={{ color: C.orange, textTransform: "none" }}>{handle}</span>
+          </div>
+        )}
       </div>
     </AbsoluteFill>
   );
@@ -114,6 +136,7 @@ export const makeExplainer = ({
   music = "onion/music.wav",
   outroSeconds = 2.8,
   voLeadFrames = 4,
+  handle,
 }: Config) => {
   let t = 0;
   const placed = script.map((b) => {
@@ -146,7 +169,7 @@ export const makeExplainer = ({
         })}
 
         <Sequence from={scenesEnd - 6}>
-          <Outro />
+          <Outro handle={handle} />
         </Sequence>
 
         <Audio

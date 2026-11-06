@@ -15,6 +15,8 @@ import { C, DEVA, HEAD, MONO } from "../onion/theme";
 import { GOLD } from "../dhanteras/art";
 import { renderArt } from "./art";
 
+export const HANDLE = "@mythmitao";
+
 // Data-driven scenes for the Diwali fact series. An episode is a script of
 // Shots: the voiceover line plus a layout (hero / cards / list / vs /
 // number / type / cta) naming art from ./art. Elements enter on cues given
@@ -151,6 +153,27 @@ const Mark: React.FC<{ ok: boolean; at: number }> = ({ ok, at }) => {
     </div>
   );
 };
+
+/** Always-on channel watermark, top right above the header rule. */
+const HandleTag: React.FC<{ dark: boolean }> = ({ dark }) => (
+  <div
+    style={{
+      position: "absolute",
+      top: 128,
+      right: 70,
+      padding: "6px 18px",
+      borderRadius: 999,
+      background: dark ? "rgba(240,138,36,0.16)" : "rgba(181,80,28,0.10)",
+      border: `2px solid ${dark ? C.orange : C.rust}`,
+      fontFamily: MONO,
+      fontSize: 30,
+      letterSpacing: 1,
+      color: dark ? C.orange : C.rust,
+    }}
+  >
+    {HANDLE}
+  </div>
+);
 
 const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => {
   const frame = useCurrentFrame();
@@ -311,7 +334,8 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
     <AbsoluteFill>
       {dark ? <DarkBg /> : <PaperBg />}
       {dark && <Sparks count={L.type === "cta" ? 34 : 14} />}
-      <Header left={shot.tag} right="DIWALI LAB" dark={dark} />
+      <Header left={shot.tag} right="" dark={dark} />
+      <HandleTag dark={dark} />
       <Headline setup={shot.setup} punch={shot.punch} dark={dark} punchColor={shot.punchColor ?? (dark ? GOLD : C.rust)} punchSize={shot.punchSize ?? (shot.punch.length > 18 ? 96 : 118)} />
       {body}
       {sfx.map((s, i) => (
@@ -327,5 +351,5 @@ export const makeEpisode = (slug: string, script: Shot[], hasVoiceover: boolean)
     const S: React.FC = () => <ShotScene shot={shot} index={i} />;
     scenes[shot.id] = S;
   });
-  return makeExplainer({ script, scenes, voDir: `diwali/${slug}/vo`, hasVoiceover, voLeadFrames: 2 });
+  return makeExplainer({ script, scenes, voDir: `diwali/${slug}/vo`, hasVoiceover, voLeadFrames: 2, handle: HANDLE });
 };
