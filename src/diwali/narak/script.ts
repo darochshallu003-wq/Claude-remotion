@@ -9,7 +9,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 9.61,
+    seconds: 8.36,
     enter: "fade",
     vo: "दिवाली से एक दिन पहले, सूरज निकलने से पहले, तेल और उबटन से नहाना… ये रिवाज़ आया कहाँ से? कहानी एक असुर की है।",
     tag: "CHHOTI DIWALI · FIG. 01",
@@ -20,7 +20,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "naraka",
-    seconds: 9.47,
+    seconds: 8.22,
     enter: "wipe",
     vo: "नरकासुर। भूदेवी, यानी धरती का बेटा, और प्राग्ज्योतिषपुर का राजा। उसे वरदान था: उसे सिर्फ़ उसकी माँ ही मार सकती है।",
     dark: false,
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "captive",
-    seconds: 6.39,
+    seconds: 5.79,
     enter: "cut",
     vo: "इसी घमंड में उसने देवताओं को हराया, और सोलह हज़ार से ज़्यादा राजकुमारियों को क़ैद कर लिया।",
     dark: false,
@@ -42,7 +42,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "battle",
-    seconds: 10.74,
+    seconds: 9.44,
     enter: "iris",
     vo: "तब कृष्ण, सत्यभामा के साथ युद्ध में उतरे। सत्यभामा, भूदेवी का अवतार मानी जाती हैं… और कहानी के मशहूर रूप में, आख़िरी वार उन्हीं का था।",
     tag: "THE BATTLE · FIG. 04",
@@ -52,7 +52,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "wish",
-    seconds: 5.65,
+    seconds: 5.07,
     enter: "cut",
     vo: "मरते वक़्त नरकासुर ने माँगा, कि उसकी मौत का दिन, रोशनी के साथ मनाया जाए।",
     tag: "LAST WISH · FIG. 05",
@@ -62,7 +62,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "bath",
-    seconds: 10.74,
+    seconds: 9.73,
     enter: "wipe",
     vo: "कहते हैं युद्ध के बाद कृष्ण ने सुबह-सुबह तेल से स्नान किया। इसीलिए आज भी सूरज निकलने से पहले अभ्यंग स्नान होता है: तेल मालिश, उबटन, फिर स्नान।",
     dark: false,
@@ -80,7 +80,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "names",
-    seconds: 7.79,
+    seconds: 6.56,
     enter: "iris",
     vo: "इसीलिए इसे रूप चौदस भी कहते हैं। गुजरात में काली चौदस। और ज़्यादातर घरों में, छोटी दिवाली।",
     dark: false,
@@ -99,7 +99,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "south",
-    seconds: 9.2,
+    seconds: 7.95,
     enter: "wipe",
     vo: "और South India में? वहाँ इसी सुबह असली दीपावली मनाई जाती है। तेल स्नान, नए कपड़े, और पटाखे, सब इसी दिन।",
     tag: "SOUTH INDIA · FIG. 08",
@@ -109,7 +109,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 6.32,
+    seconds: 5.14,
     enter: "iris",
     vo: "आपके यहाँ छोटी दिवाली कैसे मनाते हैं? Comment में बताइए। शुभ छोटी दिवाली!",
     tag: "YOUR TURN · FIG. 09",

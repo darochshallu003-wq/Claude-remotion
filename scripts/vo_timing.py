@@ -5,7 +5,7 @@ scene's `seconds` in src/<project>/script.ts to its clip length plus a short
 breath, and turns HAS_VOICEOVER on there so the clips play and the music
 ducks under them.
 
-Usage: python3 scripts/vo_timing.py <project>
+Usage: python3 scripts/vo_timing.py <project> [breath seconds, default 0.25]
 """
 
 import pathlib
@@ -29,6 +29,7 @@ def main() -> None:
     if len(sys.argv) < 2:
         raise SystemExit(__doc__)
     project = sys.argv[1]
+    breath = float(sys.argv[2]) if len(sys.argv) > 2 else BREATH
     script = ROOT / "src" / project / "script.ts"
     vo = ROOT / "public" / project / "vo"
     text = script.read_text()
@@ -38,7 +39,7 @@ def main() -> None:
         raise SystemExit(f"missing clips in {vo}: {', '.join(missing)}")
     total = 0.0
     for i in ids:
-        secs = round(duration(vo / f"{i}.mp3") + BREATH, 2)
+        secs = round(duration(vo / f"{i}.mp3") + breath, 2)
         total += secs
         text = re.sub(rf'(id: "{i}",\s*seconds: )[0-9.]+', rf"\g<1>{secs}", text)
         print(f"{i:10s} {secs:6.2f} s")

@@ -30,6 +30,8 @@ type Config = {
   hasVoiceover: boolean;
   music?: string;
   outroSeconds?: number;
+  /** Frames into each scene before its voiceover clip starts. */
+  voLeadFrames?: number;
 };
 
 const Enterer: React.FC<{ enter: Enter; children: React.ReactNode }> = ({ enter, children }) => {
@@ -111,6 +113,7 @@ export const makeExplainer = ({
   hasVoiceover,
   music = "onion/music.wav",
   outroSeconds = 2.8,
+  voLeadFrames = 4,
 }: Config) => {
   let t = 0;
   const placed = script.map((b) => {
@@ -161,7 +164,7 @@ export const makeExplainer = ({
 
         {hasVoiceover &&
           placed.map((p) => (
-            <Sequence key={`vo-${p.id}`} from={p.start + 4}>
+            <Sequence key={`vo-${p.id}`} from={p.start + voLeadFrames}>
               <Audio src={staticFile(`${voDir}/${p.id}.mp3`)} volume={1} />
             </Sequence>
           ))}

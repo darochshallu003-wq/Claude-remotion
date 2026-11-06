@@ -327,5 +327,5 @@ export const makeEpisode = (slug: string, script: Shot[], hasVoiceover: boolean)
     const S: React.FC = () => <ShotScene shot={shot} index={i} />;
     scenes[shot.id] = S;
   });
-  return makeExplainer({ script, scenes, voDir: `diwali/${slug}/vo`, hasVoiceover });
+  return makeExplainer({ script, scenes, voDir: `diwali/${slug}/vo`, hasVoiceover, voLeadFrames: 2 });
 };
