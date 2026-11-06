@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 5.27,
+    seconds: 5.24,
     enter: "fade",
     vo: "Green crackers! नाम सुनकर लगता है, बिल्कुल साफ़ पटाखे। पर क्या सच में?",
     tag: "GREEN · FIG. 01",
@@ -32,7 +32,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "what",
-    seconds: 6.51,
+    seconds: 6.54,
     enter: "cut",
     vo: "इनमें बेरियम नाइट्रेट जैसे ज़हरीले केमिकल हटाए या घटाए गए, और धूल दबाने वाले additives डाले गए।",
     dark: false,
@@ -50,7 +50,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "names",
-    seconds: 3.27,
+    seconds: 3.18,
     enter: "iris",
     vo: "इनके तीन type हैं: SWAS, STAR और SAFAL।",
     tag: "TYPES · FIG. 04",
@@ -61,7 +61,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "result",
-    seconds: 3.18,
+    seconds: 3.1,
     enter: "cut",
     vo: "नतीजा? लगभग तीस प्रतिशत कम प्रदूषण।",
     tag: "RESULT · FIG. 05",
@@ -72,7 +72,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "but",
-    seconds: 7.02,
+    seconds: 7.04,
     enter: "wipe",
     vo: "पर ध्यान दीजिए: तीस प्रतिशत कम, मतलब बाक़ी प्रदूषण अब भी है। Green crackers कम गंदे हैं… साफ़ नहीं।",
     tag: "THE CATCH · FIG. 06",
@@ -82,7 +82,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "spot",
-    seconds: 8.7,
+    seconds: 8.79,
     enter: "iris",
     vo: "असली green cracker पहचानें कैसे? डिब्बे पर हरा CSIR-NEERI logo, और QR code देखें। Scan करके check भी कर सकते हैं।",
     dark: false,
@@ -93,7 +93,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.81,
+    seconds: 4.76,
     enter: "iris",
     vo: "आप इस बार green crackers लेंगे, या बिना पटाखे की दिवाली? Comment करो।",
     tag: "YOUR TURN · FIG. 08",
