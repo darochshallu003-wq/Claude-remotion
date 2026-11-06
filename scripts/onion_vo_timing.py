@@ -17,7 +17,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "src" / "onion" / "script.ts"
 COMP = ROOT / "src" / "onion" / "OnionExplainer.tsx"
 VO = ROOT / "public" / "onion" / "vo"
-BREATH = 0.6  # seconds after each line before the next scene
+BREATH = 0.25  # seconds after each line before the next scene
 
 
 def duration(path: pathlib.Path) -> float:

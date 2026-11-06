@@ -6,7 +6,7 @@ speech.platform.bing.com to be reachable). A few technical terms get a
 phonetic spelling in the spoken text only, so the voice says them clearly.
 
 Usage: python3 scripts/onion_tts.py [voice] [rate]
-  defaults: hi-IN-MadhurNeural  +10%
+  defaults: hi-IN-MadhurNeural  +22%
 Then run scripts/onion_vo_timing.py to fit the scenes to the clips.
 """
 
@@ -32,7 +32,7 @@ SAY = {
 
 async def main() -> None:
     voice = sys.argv[1] if len(sys.argv) > 1 else "hi-IN-MadhurNeural"
-    rate = sys.argv[2] if len(sys.argv) > 2 else "+10%"
+    rate = sys.argv[2] if len(sys.argv) > 2 else "+22%"
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
     text = SCRIPT.read_text()
     lines = re.findall(r'id: "([a-z]+)",.*?vo: "(.*?)",\n', text, re.S)
@@ -45,12 +45,12 @@ async def main() -> None:
         tts = edge_tts.Communicate(spoken, voice, rate=rate, proxy=proxy)
         await tts.save(str(raw))
         # The voice pauses 1-1.5 s after every sentence; cut any pause
-        # longer than 0.3 s down to 0.3 s (silence only) and trim the ends.
+        # longer than 0.15 s down to 0.15 s (silence only) and trim the ends.
         subprocess.run(
             [
                 "ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af",
                 "silenceremove=start_periods=1:start_threshold=-45dB"
-                ":stop_periods=-1:stop_threshold=-45dB:stop_duration=0.3:stop_silence=0.3",
+                ":stop_periods=-1:stop_threshold=-45dB:stop_duration=0.15:stop_silence=0.15",
                 "-c:a", "libmp3lame", "-q:a", "2", str(OUT / f"{scene_id}.mp3"),
             ],
             check=True,

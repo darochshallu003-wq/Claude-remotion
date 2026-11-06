@@ -274,8 +274,8 @@ export const Twist: React.FC = () => {
           ?
         </div>
       </AbsoluteFill>
-      <Headline setup="Par rukiye…" punch="Asli twist baaki hai" dark />
-      <Pill text="SIRF REACTION ≠ AANSU" x={290} y={1100} delay={22} accent />
+      <Headline setup="Par rukiye…" punch="Sirf reaction se aansu nahi" dark />
+      <Pill text="REACTION ≠ AANSU" x={340} y={1100} delay={22} accent />
       <Sfx at={20} src="onion/tick.wav" volume={0.6} />
     </AbsoluteFill>
   );
