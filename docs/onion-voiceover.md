@@ -1,6 +1,6 @@
 # Onion explainer: voiceover script (Hinglish)
 
-Record one clip per scene and save it as `public/onion/vo/<file>.mp3`, then run `python3 scripts/onion_vo_timing.py` and re-render. To regenerate the AI voice instead, run `python3 scripts/onion_tts.py`.
+Regenerate the AI voice with `python3 scripts/vo_tts.py onion`, or record one clip per scene as `public/onion/vo/<file>.mp3`; then run `python3 scripts/vo_timing.py onion` and re-render.
 
 ## 1. `hook.mp3`  (~6.15 s)
 

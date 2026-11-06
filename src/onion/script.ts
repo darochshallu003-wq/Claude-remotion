@@ -8,14 +8,10 @@
 //
 // `enter` is the transition into the scene.
 
-export type Enter = "cut" | "iris" | "wipe" | "fade";
+import type { Beat } from "../explainer/Explainer";
 
-export type Beat = {
-  id: string;
-  seconds: number;
-  enter: Enter;
-  vo: string;
-};
+// Set by scripts/vo_timing.py once public/onion/vo/<scene id>.mp3 exist.
+export const HAS_VOICEOVER = true;
 
 export const SCRIPT: Beat[] = [
   {
@@ -98,7 +94,5 @@ export const SCRIPT: Beat[] = [
   },
 ];
 
-/** Frames of overlap for transitions (the incoming scene draws over). */
-export const TRANSITION_FRAMES = 14;
 /** Fade-to-black outro with "Thanks for watching!" after the last scene. */
 export const OUTRO_SECONDS = 2.8;

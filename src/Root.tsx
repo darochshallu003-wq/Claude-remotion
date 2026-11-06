@@ -1,6 +1,7 @@
 import { Composition } from "remotion";
 import { CucumberSalad, FPS, TOTAL_FRAMES } from "./CucumberSalad";
 import { ONION_TOTAL_FRAMES, OnionExplainer } from "./onion/OnionExplainer";
+import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -18,6 +19,14 @@ export const RemotionRoot: React.FC = () => {
         id="OnionExplainer"
         component={OnionExplainer}
         durationInFrames={ONION_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="HaldiExplainer"
+        component={HaldiExplainer}
+        durationInFrames={HALDI_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}

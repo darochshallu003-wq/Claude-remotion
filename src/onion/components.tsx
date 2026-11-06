@@ -289,7 +289,9 @@ export const Stamp: React.FC<{
   color?: string;
   rotate?: number;
   size?: number;
-}> = ({ text, x, y, at, color = C.red, rotate = -9, size = 74 }) => {
+  /** "multiply" reads as ink on paper; use "normal" on dark scenes. */
+  blend?: "multiply" | "normal";
+}> = ({ text, x, y, at, color = C.red, rotate = -9, size = 74, blend = "multiply" }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   if (frame < at) return null;
@@ -311,7 +313,7 @@ export const Stamp: React.FC<{
         letterSpacing: 3,
         color,
         whiteSpace: "nowrap",
-        mixBlendMode: "multiply",
+        mixBlendMode: blend,
         textTransform: "uppercase",
       }}
     >
