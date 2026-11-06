@@ -21,7 +21,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "twist",
-    seconds: 4.02,
+    seconds: 3.97,
     enter: "wipe",
     vo: "काजू कटली का सबसे दिलचस्प fact: काजू भारत का है ही नहीं!",
     tag: "KAJU · FIG. 02",
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "origin",
-    seconds: 5.07,
+    seconds: 5.05,
     enter: "cut",
     vo: "काजू का पेड़ ब्राज़ील से है। सोलहवीं सदी में पुर्तगाली इसे गोवा लेकर आए।",
     dark: false,
@@ -42,7 +42,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "today",
-    seconds: 5.65,
+    seconds: 5.67,
     enter: "iris",
     vo: "और आज भारत, दुनिया के सबसे बड़े काजू उगाने और process करने वाले देशों में से एक है।",
     tag: "TODAY · FIG. 04",
@@ -52,7 +52,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "soan",
-    seconds: 8.41,
+    seconds: 8.5,
     enter: "wipe",
     vo: "अब सोन पापड़ी। ये बनती है चीनी की चाशनी को बेसन और घी के साथ, बार-बार खींचकर। इसीलिए इसमें धागों जैसी परतें होती हैं।",
     dark: false,
@@ -63,7 +63,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "meme",
-    seconds: 7.02,
+    seconds: 7.06,
     enter: "cut",
     vo: "और ये इंटरनेट की सबसे बड़ी meme मिठाई है: वो डिब्बा जो घर-घर घूमकर, कभी-कभी वापस आपके पास आ जाता है।",
     tag: "MEME · FIG. 06",
@@ -73,7 +73,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "defend",
-    seconds: 6.85,
+    seconds: 6.87,
     enter: "wipe",
     vo: "पर सोन पापड़ी के बचाव में: इसमें खोया नहीं होता। इसलिए ये खोये वाली मिठाइयों से कहीं ज़्यादा दिन टिकती है।",
     dark: false,
@@ -90,7 +90,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.47,
+    seconds: 4.42,
     enter: "iris",
     vo: "तो बताओ, आप Team काजू कटली हो, या Team सोन पापड़ी? Comment करो!",
     tag: "YOUR TURN · FIG. 08",
