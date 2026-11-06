@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 5.43,
+    seconds: 5.41,
     enter: "fade",
     vo: "आसमान में लाल, हरा, सुनहरा… पर नीला पटाखा बहुत कम दिखता है। ऐसा क्यों?",
     tag: "PATAKHE · FIG. 01",
@@ -20,7 +20,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "metal",
-    seconds: 6.73,
+    seconds: 6.78,
     enter: "wipe",
     vo: "पटाखे का रंग, बारूद से नहीं, धातु से आता है। हर धातु गर्म होकर, अपना एक ख़ास रंग छोड़ती है।",
     dark: false,
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "redgreen",
-    seconds: 3.49,
+    seconds: 3.39,
     enter: "cut",
     vo: "लाल रंग के लिए स्ट्रॉन्शियम। और हरे के लिए बेरियम।",
     tag: "COLOURS · FIG. 03",
@@ -51,7 +51,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "blue",
-    seconds: 9.08,
+    seconds: 9.18,
     enter: "iris",
     vo: "और नीला, कॉपर से। पर दिक़्क़त ये है: नीला रंग देने वाला कॉपर कंपाउंड, ज़्यादा गर्मी में टूट जाता है। आग थोड़ी तेज़ हुई… और नीला ग़ायब।",
     tag: "THE PROBLEM · FIG. 05",
@@ -61,7 +61,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "hardest",
-    seconds: 4.59,
+    seconds: 4.54,
     enter: "cut",
     vo: "इसीलिए नीला, पटाखा बनाने वालों के लिए सबसे मुश्किल रंग माना जाता है।",
     tag: "THE PROBLEM · FIG. 06",
@@ -72,7 +72,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "kitchen",
-    seconds: 7.14,
+    seconds: 7.16,
     enter: "wipe",
     vo: "और इसका सबूत आपकी रसोई में है: गैस की नीली लौ पर थोड़ा नमक गिरे, तो लौ पीली हो जाती है। वो सोडियम है।",
     dark: false,
@@ -83,7 +83,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "recap",
-    seconds: 6.13,
+    seconds: 6.15,
     enter: "cut",
     vo: "तो याद रखिए: लाल स्ट्रॉन्शियम, हरा बेरियम, पीला सोडियम, और नीला, सबसे नखरे वाला, कॉपर।",
     dark: false,
