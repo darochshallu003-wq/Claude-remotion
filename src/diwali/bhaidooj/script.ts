@@ -9,7 +9,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 7.23,
+    seconds: 7.26,
     enter: "fade",
     vo: "धनतेरस पर जिस यमराज से बचने के लिए दीया जलाते हैं… भाई दूज पर वही यमराज, एक प्यार करने वाले भाई हैं।",
     tag: "BHAI DOOJ · FIG. 01",
@@ -19,7 +19,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "siblings",
-    seconds: 4.62,
+    seconds: 4.57,
     enter: "wipe",
     vo: "यम और यमुना, सूर्य देव की संतान हैं। यानी, भाई और बहन।",
     dark: false,
@@ -30,7 +30,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "invite",
-    seconds: 4.86,
+    seconds: 4.83,
     enter: "cut",
     vo: "यमुना बार-बार भाई को घर बुलाती थीं। पर यम, अपने काम में व्यस्त रहते।",
     dark: false,
@@ -41,7 +41,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "visit",
-    seconds: 7.74,
+    seconds: 7.81,
     enter: "iris",
     vo: "आख़िरकार, कार्तिक शुक्ल द्वितीया को यम बहन के घर पहुँचे। यमुना ने तिलक लगाया, आरती उतारी, और प्यार से खाना खिलाया।",
     tag: "THE VISIT · FIG. 04",
@@ -58,7 +58,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "boon",
-    seconds: 7.14,
+    seconds: 7.16,
     enter: "wipe",
     vo: "ख़ुश होकर यम ने वरदान दिया: जो भाई इस दिन बहन के घर जाकर तिलक करवाएगा, उसे अकाल मृत्यु का डर नहीं होगा।",
     tag: "VARDAAN · FIG. 05",
@@ -68,7 +68,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "names",
-    seconds: 6.97,
+    seconds: 6.99,
     enter: "iris",
     vo: "इसीलिए इसे यम द्वितीया भी कहते हैं। महाराष्ट्र में भाऊबीज, बंगाल में भाई फोंटा, और नेपाल में भाई टीका।",
     dark: false,
