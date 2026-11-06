@@ -9,7 +9,7 @@ import type { Beat } from "../explainer/Explainer";
 // serum levels; with 20 mg piperine bioavailability rose by 2000%.
 
 export const HAS_VOICEOVER = true;
-export const OUTRO_SECONDS = 2.8;
+export const OUTRO_SECONDS = 3.5;
 
 export const SCRIPT: Beat[] = [
   {

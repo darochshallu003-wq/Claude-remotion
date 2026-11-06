@@ -12,7 +12,7 @@ import type { Beat } from "../explainer/Explainer";
 // A teaspoon of fresh dahi carries on the order of a billion live bacteria.
 
 export const HAS_VOICEOVER = true;
-export const OUTRO_SECONDS = 2.8;
+export const OUTRO_SECONDS = 3.5;
 
 export const SCRIPT: Beat[] = [
   {

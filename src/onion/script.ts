@@ -95,4 +95,4 @@ export const SCRIPT: Beat[] = [
 ];
 
 /** Fade-to-black outro with "Thanks for watching!" after the last scene. */
-export const OUTRO_SECONDS = 2.8;
+export const OUTRO_SECONDS = 3.5;
