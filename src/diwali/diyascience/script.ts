@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 5.99,
+    seconds: 5.98,
     enter: "fade",
     vo: "दीये में तेल नीचे है, और लौ ऊपर। तो बाती तक तेल चढ़ता कैसे है? Gravity के उलटा?",
     tag: "DIYA · FIG. 01",
@@ -21,7 +21,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "capillary",
-    seconds: 7.11,
+    seconds: 7.14,
     enter: "wipe",
     vo: "जवाब है capillary action। रुई के धागों के बीच बहुत पतली जगहें होती हैं, और तेल उन्हीं में ऊपर चढ़ जाता है।",
     dark: false,
@@ -32,7 +32,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "same",
-    seconds: 5.87,
+    seconds: 5.86,
     enter: "cut",
     vo: "यही science tissue paper में पानी फैलाता है, और पौधों में पानी ऊपर चढ़ाने में मदद करता है।",
     dark: false,
@@ -43,7 +43,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "vapour",
-    seconds: 7.02,
+    seconds: 7.04,
     enter: "iris",
     vo: "और मज़ेदार बात: असल में बाती नहीं जलती। जलती है तेल की भाप। बाती बस उसे ऊपर पहुँचाने का रास्ता है।",
     tag: "FUN FACT · FIG. 04",
@@ -53,7 +53,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "oil",
-    seconds: 9.11,
+    seconds: 9.22,
     enter: "wipe",
     vo: "घी या सरसों का तेल? घी को पूजा में पवित्र माना जाता है, और सरसों का तेल सस्ता और हर घर में आसानी से मिलता है। दोनों से दीया जलता है।",
     dark: false,
@@ -64,7 +64,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "tips",
-    seconds: 10.09,
+    seconds: 10.21,
     enter: "cut",
     vo: "तीन काम के tips: नए दीये जलाने से पहले कुछ घंटे पानी में भिगो दो, ताकि वो तेल कम सोखें। बाती छोटी रखो, धुआँ कम होगा। और दीये पर्दों से दूर रखो।",
     dark: false,
@@ -82,7 +82,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.47,
+    seconds: 4.4,
     enter: "iris",
     vo: "आप इस दिवाली कितने दीये जलाओगे? Comment करो। शुभ दीपावली!",
     tag: "YOUR TURN · FIG. 07",
