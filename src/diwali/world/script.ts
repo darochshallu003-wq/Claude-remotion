@@ -11,7 +11,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 6.25,
+    seconds: 6.27,
     enter: "fade",
     vo: "एक देश, जहाँ दिवाली पर कुत्तों की पूजा होती है। और कई देश, जहाँ दिवाली सरकारी छुट्टी है।",
     tag: "WORLD · FIG. 01",
@@ -32,7 +32,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "kukur",
-    seconds: 8.0,
+    seconds: 8.07,
     enter: "cut",
     vo: "कुत्तों को गेंदे की माला पहनाई जाती है, तिलक लगता है, और ख़ास खाना मिलता है। क्योंकि कुत्ते को यमराज का दूत माना जाता है।",
     tag: "KUKUR TIHAR · FIG. 03",
@@ -42,7 +42,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "days",
-    seconds: 7.21,
+    seconds: 7.26,
     enter: "iris",
     vo: "और बाकी दिन? कौवों के लिए काग तिहार, फिर गाय और लक्ष्मी पूजा, फिर गोवर्धन पूजा, और आख़िर में भाई टीका।",
     dark: false,
@@ -62,7 +62,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "holiday",
-    seconds: 8.58,
+    seconds: 8.67,
     enter: "wipe",
     vo: "और दिवाली सरकारी छुट्टी है: मॉरीशस, फ़िजी, सिंगापुर, त्रिनिदाद और टोबैगो, सूरीनाम, श्रीलंका, और मलेशिया के ज़्यादातर हिस्सों में।",
     tag: "HOLIDAY · FIG. 05",
@@ -82,7 +82,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "why",
-    seconds: 6.9,
+    seconds: 6.92,
     enter: "cut",
     vo: "क्यों? क्योंकि सौ साल से भी पहले, गिरमिटिया मज़दूर बनकर गए लाखों भारतीय, अपने साथ दिवाली भी ले गए।",
     dark: false,
@@ -93,7 +93,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.83,
+    seconds: 4.78,
     enter: "iris",
     vo: "आप ये reel कौनसे देश से देख रहे हो? Comment में बताओ! Happy Diwali!",
     tag: "YOUR TURN · FIG. 07",
