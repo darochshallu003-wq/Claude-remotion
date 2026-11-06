@@ -18,7 +18,7 @@ import { C, FPS, HEAD } from "./theme";
 // Set to true once public/onion/vo/<scene id>.mp3 files exist (one per
 // scene, each scene's `seconds` set to its clip length). The music then
 // ducks under the voice.
-const HAS_VOICEOVER = false;
+const HAS_VOICEOVER = true;
 
 type Placed = { id: string; enter: Enter; start: number; frames: number };
 
