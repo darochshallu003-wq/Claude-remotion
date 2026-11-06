@@ -10,7 +10,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 7.74,
+    seconds: 9.32,
     enter: "fade",
     vo: "लक्ष्मी जी धन की देवी हैं… पर उनकी सवारी है उल्लू। वही उल्लू, जिसे हम बेवकूफ़ी की गाली मानते हैं। ऐसा क्यों?",
     tag: "LAKSHMI · FIG. 01",
@@ -21,7 +21,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "night",
-    seconds: 7.79,
+    seconds: 8.82,
     enter: "wipe",
     vo: "पहला कारण: उल्लू अंधेरे में भी देख सकता है। और लक्ष्मी पूजा होती है अमावस्या की रात, जब सबसे ज़्यादा अंधेरा होता है।",
     tag: "REASON 1 · FIG. 02",
@@ -31,7 +31,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "farm",
-    seconds: 7.02,
+    seconds: 8.27,
     enter: "cut",
     vo: "दूसरा: उल्लू खेतों में चूहे खाता है। किसान के लिए उल्लू मतलब अनाज की रक्षा। और अनाज ही असली धन था।",
     dark: false,
@@ -42,7 +42,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "lesson",
-    seconds: 8.96,
+    seconds: 10.04,
     enter: "iris",
     vo: "और एक मान्यता ये भी है: जो पैसे के पीछे अंधा होकर दौड़ता है, वो उल्लू बन जाता है। लक्ष्मी उस पर सवार रहती हैं, वो लक्ष्मी पर नहीं।",
     tag: "REASON 3 · FIG. 04",
@@ -52,7 +52,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "ganesh",
-    seconds: 7.79,
+    seconds: 9.08,
     enter: "wipe",
     vo: "अब दूसरा सवाल: दिवाली पर लक्ष्मी के साथ गणेश क्यों? क्योंकि गणेश बुद्धि के देवता हैं। और बिना बुद्धि के, धन टिकता नहीं।",
     dark: false,
@@ -63,7 +63,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "order",
-    seconds: 4.64,
+    seconds: 5.75,
     enter: "cut",
     vo: "इसीलिए पूजा में पहले गणेश, फिर लक्ष्मी। पहले समझ… फिर पैसा।",
     dark: false,
@@ -80,7 +80,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "protect",
-    seconds: 9.51,
+    seconds: 10.93,
     enter: "iris",
     vo: "और एक ज़रूरी बात: भारत में उल्लू संरक्षित पक्षी है। दिवाली के आस-पास अंधविश्वास में इनकी तस्करी बढ़ जाती है। उल्लू पकड़ना या बेचना, अपराध है।",
     tag: "NOTE · FIG. 07",
@@ -91,7 +91,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 4.62,
+    seconds: 5.72,
     enter: "iris",
     vo: "ये बात आपको पहले पता थी? Comment में बताइए। शुभ दीपावली!",
     tag: "YOUR TURN · FIG. 08",
