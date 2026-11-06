@@ -9,7 +9,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 7.47,
+    seconds: 7.52,
     enter: "fade",
     vo: "हर साल दिवाली के बाद दिल्ली की हवा ज़हरीली हो जाती है, और सारा दोष पटाखों पर जाता है। पर पूरी कहानी ये नहीं है।",
     tag: "AIR · FIG. 01",
@@ -19,7 +19,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "crackers",
-    seconds: 6.63,
+    seconds: 6.66,
     enter: "wipe",
     vo: "हाँ, पटाखे एक ही रात में धुआँ और बहुत महीन कण, यानी PM 2.5, तेज़ी से बढ़ा देते हैं।",
     tag: "CAUSE 1 · FIG. 02",
@@ -29,7 +29,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "stubble",
-    seconds: 9.95,
+    seconds: 10.06,
     enter: "cut",
     vo: "पर इसी मौसम में पंजाब और हरियाणा के खेतों में पराली जलती है, ताकि अगली फ़सल के लिए खेत जल्दी साफ़ हो सके। और ये धुआँ हवा के साथ दिल्ली तक पहुँचता है।",
     dark: false,
@@ -40,7 +40,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "inversion",
-    seconds: 9.13,
+    seconds: 9.25,
     enter: "iris",
     vo: "फिर आती है ठंड। ऊपर की गर्म हवा, एक ढक्कन की तरह, नीचे की ठंडी हवा और धुएँ को फँसा लेती है। इसे temperature inversion कहते हैं।",
     tag: "CAUSE 3 · FIG. 04",
@@ -50,7 +50,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "wind",
-    seconds: 5.87,
+    seconds: 5.86,
     enter: "cut",
     vo: "और नवंबर में हवा की रफ़्तार कम होती है। तो धुआँ उड़कर बाहर नहीं जाता, वहीं जमा रहता है।",
     tag: "CAUSE 4 · FIG. 05",
@@ -60,7 +60,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "local",
-    seconds: 5.27,
+    seconds: 5.26,
     enter: "wipe",
     vo: "ऊपर से गाड़ियाँ, सड़क की धूल, कंस्ट्रक्शन, और फ़ैक्ट्रियाँ, जो पूरे साल चलती हैं।",
     dark: false,
@@ -79,7 +79,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "recap",
-    seconds: 6.61,
+    seconds: 6.63,
     enter: "cut",
     vo: "तो दिल्ली का स्मॉग एक cocktail है: पटाखे, पराली, ठंड का ढक्कन, धीमी हवा, और रोज़ का प्रदूषण।",
     dark: false,
@@ -99,7 +99,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.91,
+    seconds: 5.89,
     enter: "iris",
     vo: "आपके शहर का AQI आज कितना है? Comment करो। और बाहर जाओ, तो mask साथ रखो।",
     tag: "YOUR TURN · FIG. 08",
