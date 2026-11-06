@@ -11,7 +11,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 5.27,
+    seconds: 5.24,
     enter: "fade",
     vo: "मिठाई पर ये चमकती परत… क्या सच में चाँदी है? और हाँ, आप उसे खा रहे हैं!",
     tag: "VARQ · FIG. 01",
@@ -21,7 +21,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "real",
-    seconds: 5.55,
+    seconds: 5.58,
     enter: "wipe",
     vo: "हाँ, असली वर्क़ शुद्ध चाँदी का होता है। इतना पतला, कि हाथ लगाते ही टूट जाता है।",
     dark: false,
@@ -43,7 +43,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "ban",
-    seconds: 9.95,
+    seconds: 10.09,
     enter: "iris",
     vo: "पहले ये परतें जानवरों की आँतों से बनती थीं। इसलिए 2016 में FSSAI ने जानवरों से बने वर्क़ पर रोक लगा दी। अब ये मशीनों से बनता है।",
     tag: "RULE · FIG. 04",
@@ -53,7 +53,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "norm",
-    seconds: 7.59,
+    seconds: 7.66,
     enter: "wipe",
     vo: "FSSAI का नियम: चाँदी 999 शुद्धता वाली हो, और वज़न, एक square metre में 2.8 gram तक।",
     dark: false,
@@ -75,7 +75,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "test",
-    seconds: 8.46,
+    seconds: 8.5,
     enter: "wipe",
     vo: "Test कैसे करें? थोड़ा सा वर्क़ उंगलियों में मसलें। असली चाँदी पाउडर बनकर ग़ायब हो जाती है। एल्युमिनियम, छोटी सी गोली बन जाता है।",
     dark: false,
@@ -93,7 +93,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.43,
+    seconds: 5.41,
     enter: "iris",
     vo: "आपको वर्क़ वाली मिठाई पसंद है, या बिना वर्क़ की? Comment करो। शुभ दीपावली!",
     tag: "YOUR TURN · FIG. 08",
