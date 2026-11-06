@@ -30,7 +30,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "blessing",
-    seconds: 6.92,
+    seconds: 6.97,
     enter: "cut",
     vo: "पार्वती जीतीं, और उन्होंने आशीर्वाद दिया: जो इस रात पासे खेलेगा, उसके घर पूरे साल समृद्धि रहेगी।",
     dark: false,
@@ -41,7 +41,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "shagun",
-    seconds: 4.31,
+    seconds: 4.28,
     enter: "iris",
     vo: "इसीलिए कुछ जगह, दिवाली की रात ताश खेलना शगुन माना जाता है।",
     tag: "PARAMPARA · FIG. 04",
@@ -62,7 +62,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "law",
-    seconds: 7.55,
+    seconds: 7.57,
     enter: "cut",
     vo: "और याद रखिए: भारत के ज़्यादातर राज्यों में, पैसों वाला जुआ क़ानूनन अपराध है। शगुन के लिए खेलो, दाँव के लिए नहीं।",
     tag: "NOTE · FIG. 06",
@@ -73,7 +73,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.07,
+    seconds: 5.05,
     enter: "iris",
     vo: "आपके घर दिवाली पर कौनसा game खेला जाता है? Comment करो। शुभ दीपावली!",
     tag: "YOUR TURN · FIG. 07",
