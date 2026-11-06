@@ -45,6 +45,15 @@ SAY = {
     "WHO": "डब्ल्यू-एच-ओ",
     "RO.": "आर-ओ।",
     "DNA": "डी-एन-ए",
+    # photo (CO2 / H2O before O2 so the longer formulas match first)
+    "CO2": "सी-ओ-टू",
+    "H2O": "एच-टू-ओ",
+    "O2": "ओ-टू",
+    "Swiggy": "स्विगी",
+    "autotrophic": "ऑटो-ट्रॉफ़िक",
+    "chloroplasts": "क्लोरोप्लास्ट्स",
+    "chlorophyll": "क्लोरोफ़िल",
+    "stomata": "स्टोमैटा",
 }
 
 

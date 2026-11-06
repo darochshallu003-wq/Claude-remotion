@@ -30,6 +30,8 @@ type Config = {
   hasVoiceover: boolean;
   music?: string;
   outroSeconds?: number;
+  /** End card; defaults to the series' dark "Thanks for watching!". */
+  outro?: React.FC;
 };
 
 const Enterer: React.FC<{ enter: Enter; children: React.ReactNode }> = ({ enter, children }) => {
@@ -111,6 +113,7 @@ export const makeExplainer = ({
   hasVoiceover,
   music = "onion/music.wav",
   outroSeconds = 2.8,
+  outro: OutroCard = Outro,
 }: Config) => {
   let t = 0;
   const placed = script.map((b) => {
@@ -143,7 +146,7 @@ export const makeExplainer = ({
         })}
 
         <Sequence from={scenesEnd - 6}>
-          <Outro />
+          <OutroCard />
         </Sequence>
 
         <Audio
