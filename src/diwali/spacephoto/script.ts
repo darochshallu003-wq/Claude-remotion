@@ -11,7 +11,7 @@ export const HAS_VOICEOVER = true;
 export const SCRIPT: Shot[] = [
   {
     id: "hook",
-    seconds: 7.86,
+    seconds: 7.93,
     enter: "fade",
     vo: "ये photo आपने WhatsApp पर ज़रूर देखी होगी: NASA ने दिखाया, दिवाली की रात भारत ऐसा दिखता है। पर ये सच नहीं है।",
     tag: "FACT CHECK · FIG. 01",
@@ -23,7 +23,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "what",
-    seconds: 6.92,
+    seconds: 6.94,
     enter: "wipe",
     vo: "असल में ये अमेरिकी satellites के, कई सालों के data को जोड़कर बनाई गई image है। एक रात की photo नहीं।",
     tag: "TRUTH · FIG. 02",
@@ -33,7 +33,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "colours",
-    seconds: 8.43,
+    seconds: 8.5,
     enter: "cut",
     vo: "और ये रंग? ये पटाखों के रंग नहीं हैं। ये दिखाते हैं कि कौनसे शहर की रोशनी, किस साल पहली बार दिखी। यानी शहरों का बढ़ना।",
     dark: false,
@@ -44,7 +44,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "nasa",
-    seconds: 5.84,
+    seconds: 5.86,
     enter: "iris",
     vo: "NASA ख़ुद कह चुका है: दिवाली की extra रोशनी, अंतरिक्ष से शायद पहचान में ही नहीं आती।",
     tag: "NASA SAYS · FIG. 04",
@@ -54,7 +54,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "real",
-    seconds: 8.51,
+    seconds: 8.6,
     enter: "wipe",
     vo: "2012 में NASA ने दिवाली के आस-पास भारत की असली night image जारी की थी। वो इतनी रंगीन नहीं, बस पीली-सफ़ेद रोशनी।",
     tag: "REAL · FIG. 05",
@@ -64,7 +64,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "tips",
-    seconds: 7.26,
+    seconds: 7.3,
     enter: "cut",
     vo: "तो forward करने से पहले: image को reverse search करो, source देखो, और PIB fact check पर एक बार check करो।",
     dark: false,
@@ -82,7 +82,7 @@ export const SCRIPT: Shot[] = [
   },
   {
     id: "cta",
-    seconds: 5.65,
+    seconds: 5.62,
     enter: "iris",
     vo: "ये photo आपको इस साल कितनी बार आई? Comment करो, और ये reel उसी group में भेज दो!",
     tag: "YOUR TURN · FIG. 07",
