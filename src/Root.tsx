@@ -4,6 +4,7 @@ import { ONION_TOTAL_FRAMES, OnionExplainer } from "./onion/OnionExplainer";
 import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
 import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
+import { CastSheet } from "./dev/CastSheet";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -49,6 +50,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition id="CastSheet" component={CastSheet} durationInFrames={1} fps={30} width={1080} height={1300} />
     </>
   );
 };

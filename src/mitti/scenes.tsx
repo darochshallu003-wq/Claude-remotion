@@ -24,6 +24,7 @@ import {
 } from "../onion/components";
 import { C, DEVA, HEAD, MONO } from "../onion/theme";
 import { AttarBottle, Beetroot, Geosmin, Nose, RAIN, RainOnSoil, RED, SOIL, Springtail, Streptomyces } from "./art";
+import { Aman, AttarWale, Riya } from "./people";
 
 // "Kraft paper" look for the short nature-mystery format: warm brown paper,
 // black setup line + red punch line, red label tags, warm-black drama scenes.
@@ -102,6 +103,43 @@ const Tag: React.FC<{ text: string; x: number; y: number; at: number; rotate?: n
   );
 };
 
+/** Wavy scent lines drifting from (x0,y0) toward (x1,y1). */
+const ScentWisps: React.FC<{ x0: number; y0: number; x1: number; y1: number; start: number }> = ({ x0, y0, x1, y1, start }) => {
+  const frame = useCurrentFrame();
+  if (frame < start) return null;
+  return (
+    <svg style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }} width={1080} height={1920}>
+      {[0, 1, 2].map((i) => {
+        const t = ((frame - start + i * 14) % 42) / 42;
+        const x = x0 + (x1 - x0) * t;
+        const y = y0 + (y1 - y0) * t + (i - 1) * 26;
+        return (
+          <path
+            key={i}
+            d={`M${x - 50} ${y} q 12 -14 25 0 q 12 14 25 0 q 12 -14 25 0 q 12 14 25 0`}
+            fill="none"
+            stroke={RED}
+            strokeWidth={6}
+            strokeLinecap="round"
+            opacity={Math.sin(Math.PI * t)}
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+/** Comic speech bubble with Devanagari text. */
+const SpeechBubble: React.FC<{ text: string; x: number; y: number; at: number }> = ({ text, x, y, at }) => {
+  const e = useEnter(at, { damping: 9, stiffness: 240 });
+  return (
+    <div style={{ position: "absolute", left: x, top: y, transform: `scale(${e})`, transformOrigin: "left bottom" }}>
+      <div style={{ padding: "10px 30px", borderRadius: 40, background: "white", border: `5px solid ${INK}`, fontFamily: DEVA, fontSize: 64, color: RED }}>{text}</div>
+      <div style={{ position: "absolute", left: 30, bottom: -22, width: 0, height: 0, borderLeft: "16px solid transparent", borderRight: "16px solid transparent", borderTop: `24px solid ${INK}` }} />
+    </div>
+  );
+};
+
 // ===========================================================================
 
 export const Hook: React.FC = () => {
@@ -119,10 +157,15 @@ export const Hook: React.FC = () => {
           <Headline setup="Par ye khushboo" punch="Aati kahan se hai?" dark={false} punchColor={RED} punchAt={2} delay={0} />
         </From>
       )}
-      <PaperCard x={110} y={580} w={860} h={760} delay={cue(0.04)} rotate={-2} seed="rain">
-        <RainOnSoil frame={frame} w={808} h={708} />
+      <PaperCard x={70} y={590} w={740} h={620} delay={cue(0.04)} rotate={-2} seed="rain">
+        <RainOnSoil frame={frame} w={688} h={568} />
       </PaperCard>
-      <Tag text="JUNE · PEHLI BAARISH" x={150} y={1290} at={cue(0.25)} />
+      <Tag text="JUNE · PEHLI BAARISH" x={100} y={1250} at={cue(0.25)} />
+      {/* Riya breathes in the first-rain smell */}
+      <div style={{ position: "absolute", left: 650, top: 1010, opacity: useEnter(cue(0.08)) }}>
+        <Riya size={340} expression={frame < switchAt ? "smell" : "neutral"} />
+      </div>
+      <ScentWisps x0={560} y0={1110} x1={760} y1={1200} start={cue(0.1)} />
       <Sfx at={switchAt} src="onion/tick.wav" volume={0.5} />
     </AbsoluteFill>
   );
@@ -371,12 +414,15 @@ export const Kannauj: React.FC = () => {
       <KraftBg />
       <Header left="INDIA · FIG. 07" right="KANNAUJ, UP" dark={false} />
       <Headline setup="Sadiyon se bottle mein" punch="Mitti attar" dark={false} punchColor={RED} />
-      <PaperCard x={150} y={600} w={780} h={700} delay={cue(0.08)} rotate={-2} caption="मिट्टी अत्तर" label="KANNAUJ" seed="attar">
+      <PaperCard x={60} y={590} w={660} h={640} delay={cue(0.08)} rotate={-2} caption="मिट्टी अत्तर" label="KANNAUJ" seed="attar">
         <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", transform: `translateY(${float}px)` }}>
-          <AttarBottle size={600} />
+          <AttarBottle size={470} />
         </AbsoluteFill>
       </PaperCard>
-      <Tag text="PAKI HUI MITTI SE DISTILL" x={170} y={1350} at={cue(0.55)} />
+      <div style={{ position: "absolute", left: 700, top: 990, opacity: useEnter(cue(0.25)) }}>
+        <AttarWale size={330} />
+      </div>
+      <Tag text="PAKI HUI MITTI SE DISTILL" x={100} y={1290} at={cue(0.55)} />
       <Sfx at={cue(0.08)} src="sfx/pop.wav" volume={0.4} />
     </AbsoluteFill>
   );
@@ -389,11 +435,15 @@ export const Beet: React.FC = () => {
       <KraftBg />
       <Header left="BUT · FIG. 08" right="TEAM HATE" dark={false} />
       <Headline setup="Par kuch logon ko" punch="Bilkul pasand nahi!" dark={false} punchColor={RED} punchSize={110} />
-      <div style={{ position: "absolute", left: 540 - 190, top: 620, opacity: useEnter(cue(0.3)), transform: `rotate(${-6}deg)` }}>
-        <Beetroot size={380} />
+      <div style={{ position: "absolute", left: 70, top: 660, opacity: useEnter(cue(0.15)), transform: `rotate(${-6}deg)` }}>
+        <Beetroot size={330} />
       </div>
-      <Stamp text="Same geosmin" x={540} y={1230} at={cue(0.6)} color={RED} rotate={-6} size={84} />
-      <Tag text="CHUKANDAR KA 'MITTI' SWAAD" x={210} y={1360} at={cue(0.75)} />
+      <div style={{ position: "absolute", left: 560, top: 600, opacity: useEnter(cue(0.25)) }}>
+        <Aman size={420} expression="disgust" />
+      </div>
+      <SpeechBubble text="छी!" x={820} y={560} at={cue(0.35)} />
+      <Stamp text="Same geosmin" x={540} y={1290} at={cue(0.6)} color={RED} rotate={-6} size={84} />
+      <Tag text="CHUKANDAR KA 'MITTI' SWAAD" x={210} y={1410} at={cue(0.75)} />
       <Sfx at={cue(0.6)} src="onion/thud.wav" volume={0.55} />
     </AbsoluteFill>
   );
@@ -409,17 +459,23 @@ export const Cta: React.FC = () => {
       <WarmDark />
       <Header left="YOUR TURN · FIG. 09" right="COMMENT" dark />
       <Headline setup="Aap kis team mein ho?" punch="Send it to that friend" dark punchColor={RED} punchSize={100} />
-      <div style={{ position: "absolute", left: 60, top: 590, width: 420, padding: "22px 0", textAlign: "center", background: "#F1E7D2", transform: "rotate(-3deg)", opacity: useEnter(cue(0.05)) }}>
+      <div style={{ position: "absolute", left: 120, top: 560, opacity: useEnter(cue(0.03)) }}>
+        <Riya size={260} expression="grin" />
+      </div>
+      <div style={{ position: "absolute", left: 700, top: 560, opacity: useEnter(cue(0.13)) }}>
+        <Aman size={260} expression="disgust" />
+      </div>
+      <div style={{ position: "absolute", left: 60, top: 930, width: 420, padding: "22px 0", textAlign: "center", background: "#F1E7D2", transform: "rotate(-3deg)", opacity: useEnter(cue(0.05)) }}>
         <div style={{ fontFamily: DEVA, fontSize: 52, color: INK }}>मिट्टी की खुशबू</div>
         <div style={{ fontFamily: MONO, fontSize: 22, letterSpacing: 3, color: "#7A6A55" }}>TEAM PETRICHOR</div>
       </div>
-      <div style={{ position: "absolute", left: 600, top: 590, width: 420, padding: "22px 0", textAlign: "center", background: "#F1E7D2", transform: "rotate(3deg)", opacity: useEnter(cue(0.15)) }}>
+      <div style={{ position: "absolute", left: 600, top: 930, width: 420, padding: "22px 0", textAlign: "center", background: "#F1E7D2", transform: "rotate(3deg)", opacity: useEnter(cue(0.15)) }}>
         <div style={{ fontFamily: DEVA, fontSize: 52, color: INK }}>चुकंदर? छी!</div>
         <div style={{ fontFamily: MONO, fontSize: 22, letterSpacing: 3, color: "#7A6A55" }}>TEAM BEETROOT-HATE</div>
       </div>
-      <div style={{ position: "absolute", left: 540 - 50, top: 610, width: 100, height: 100, borderRadius: "50%", background: RED, color: "white", fontFamily: HEAD, fontWeight: 700, fontSize: 44, display: "flex", alignItems: "center", justifyContent: "center", transform: `scale(${vs})` }}>VS</div>
+      <div style={{ position: "absolute", left: 540 - 50, top: 720, width: 100, height: 100, borderRadius: "50%", background: RED, color: "white", fontFamily: HEAD, fontWeight: 700, fontSize: 44, display: "flex", alignItems: "center", justifyContent: "center", transform: `scale(${vs})` }}>VS</div>
       {/* phone with the friend chat */}
-      <div style={{ position: "absolute", left: 540 - 230, top: 800, width: 460, height: 560, borderRadius: 48, background: "#121212", border: "8px solid #2C2C2C", opacity: phone, transform: `translateY(${(1 - phone) * 80}px)` }}>
+      <div style={{ position: "absolute", left: 540 - 230, top: 1080, width: 460, height: 400, borderRadius: 48, background: "#121212", border: "8px solid #2C2C2C", opacity: phone, transform: `translateY(${(1 - phone) * 80}px)` }}>
         <div style={{ padding: "26px 28px", display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid #2A2A2A" }}>
           <div style={{ width: 46, height: 46, borderRadius: "50%", background: "#555" }} />
           <span style={{ fontFamily: MONO, fontSize: 24, color: "#ddd" }}>That Friend</span>
