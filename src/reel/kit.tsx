@@ -11,8 +11,8 @@ import {
   useVideoConfig,
 } from "remotion";
 import { loadFont } from "@remotion/fonts";
-import { Person } from "../mitti/people";
-import WORDS from "./words.json";
+import type { Beat } from "../explainer/Explainer";
+import { Person, PersonProps } from "../mitti/people";
 
 // Look of the step-by-step whiteboard reel: warm graph paper, a heavy
 // rounded display face, word-synced captions up top, a numbered step
@@ -59,15 +59,35 @@ export const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as 
 const VO_DELAY = 4;
 const FPS = 30;
 
-type Word = { t: string; s: number; e: number; hi: boolean };
-const sceneWords = (id: string): Word[] => (WORDS as Record<string, { words: Word[] }>)[id]?.words ?? [];
+/** One scene of a reel script. */
+export type Step = Beat & {
+  /** Step number shown in the heading badge; omitted on intro/outro. */
+  step?: number;
+  /** Heading; the word after "|" is drawn in the accent colour. */
+  title: string;
+};
+
+export type Word = { t: string; s: number; e: number; hi: boolean };
+/** Per-scene caption timings, as written by scripts/reel_tts.py. */
+export type Words = Record<string, { duration: number; words: Word[] }>;
+
+/** The teacher's look: cast-style Person props, always in a lab coat. */
+export type TeacherLook = Pick<PersonProps, "skin" | "hair" | "outfit" | "bindi" | "mustache"> & { skin: string };
+export const TEACHERS = {
+  female: { skin: "#C68B5E", hair: "bun", outfit: "#C2532E", bindi: true },
+  male: { skin: "#A86F48", hair: "short", outfit: "#2F5D8A", mustache: true },
+} satisfies Record<string, TeacherLook>;
+
+/** Which reel is playing: its word timings and teacher (see Reel.tsx). */
+export const ReelContext = React.createContext<{ words: Words; teacher: TeacherLook }>({ words: {}, teacher: TEACHERS.female });
+const useSceneWords = (id: string): Word[] => React.useContext(ReelContext).words[id]?.words ?? [];
 
 /**
  * Returns `at(needle, nth)`: the scene frame at which the nth spoken word
  * containing `needle` starts, so visuals land on the word that names them.
  */
 export const useAt = (id: string) => {
-  const words = sceneWords(id);
+  const words = useSceneWords(id);
   return (needle: string, nth = 0) => {
     const hits = words.filter((w) => w.t.toLowerCase().includes(needle.toLowerCase()));
     const w = hits[nth] ?? hits[hits.length - 1];
@@ -131,7 +151,7 @@ const chunk = (words: Word[]) => {
 export const Captions: React.FC<{ id: string }> = ({ id }) => {
   const frame = useCurrentFrame();
   const t = (frame - VO_DELAY) / FPS;
-  const chunks = chunk(sceneWords(id));
+  const chunks = chunk(useSceneWords(id));
   let ci = 0;
   chunks.forEach((c, i) => {
     if (c[0].s - 0.05 <= t) ci = i;
@@ -242,7 +262,8 @@ export const StepHeading: React.FC<{ title: string; step?: number }> = ({ title,
 export const Teacher: React.FC<{ id: string; point?: boolean; enter?: boolean }> = ({ id, point = false, enter = false }) => {
   const frame = useCurrentFrame();
   const t = (frame - VO_DELAY) / FPS;
-  const talking = sceneWords(id).some((w) => t >= w.s && t <= w.e + 0.04);
+  const look = React.useContext(ReelContext).teacher;
+  const talking = useSceneWords(id).some((w) => t >= w.s && t <= w.e + 0.04);
   const expression = talking ? (Math.floor(frame / 4) % 2 === 0 ? "grin" : "smile") : "smile";
   const rise = enter ? usePopRaw(frame, 6) : 1;
   const breathe = Math.sin((frame + 13 * 37) / 18) * 3;
@@ -259,7 +280,7 @@ export const Teacher: React.FC<{ id: string; point?: boolean; enter?: boolean }>
         transform: `translateY(${(1 - rise) * 500}px)`,
       }}
     >
-      <Person size={size} skin="#C68B5E" hair="bun" outfit="#C2532E" bindi glasses expression={expression} seed={13} style={{ position: "absolute", inset: 0 }} />
+      <Person size={size} {...look} glasses expression={expression} seed={13} style={{ position: "absolute", inset: 0 }} />
       {/* lab coat + pointing arm, drawn over the kurta in the same 400x560 space */}
       <svg viewBox="0 0 400 560" width={size} height={(size * 560) / 400} style={{ position: "absolute", inset: 0, overflow: "visible" }}>
         <g transform={`translate(0 ${breathe})`} stroke={K.ink} strokeWidth={6} strokeLinejoin="round">
@@ -275,8 +296,8 @@ export const Teacher: React.FC<{ id: string; point?: boolean; enter?: boolean }>
             <g transform={`rotate(${wave} 110 420)`}>
               <path d="M110 420 C 70 400, 40 360, 36 300" fill="none" stroke={K.ink} strokeWidth={66} strokeLinecap="round" />
               <path d="M110 420 C 70 400, 40 360, 36 300" fill="none" stroke={K.white} strokeWidth={54} strokeLinecap="round" />
-              <rect x="27" y="196" width="20" height="62" rx="10" fill="#C68B5E" strokeWidth={5} />
-              <ellipse cx="38" cy="268" rx="30" ry="28" fill="#C68B5E" strokeWidth={5} />
+              <rect x="27" y="196" width="20" height="62" rx="10" fill={look.skin} strokeWidth={5} />
+              <ellipse cx="38" cy="268" rx="30" ry="28" fill={look.skin} strokeWidth={5} />
               <path d="M22 262 C 30 270, 46 270, 54 262" fill="none" strokeWidth={4} />
             </g>
           )}

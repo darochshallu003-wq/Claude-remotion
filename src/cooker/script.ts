@@ -1,9 +1,9 @@
-import type { Beat } from "../explainer/Explainer";
+import type { Step } from "../reel/kit";
 
 // "Pressure cooker में दाल इतनी जल्दी क्यों गलती है?" — a step-by-step
 // whiteboard reel: a lab-coat teacher on graph paper, word-synced captions
 // and numbered step headings. `seconds` and the caption word timings in
-// words.json are written by scripts/cooker_tts.py from the voiceover clips.
+// words.json are written by scripts/reel_tts.py from the voiceover clips.
 // Words wrapped in *stars* are highlighted in the captions (stars are not
 // spoken).
 //
@@ -18,12 +18,6 @@ import type { Beat } from "../explainer/Explainer";
 
 export const OUTRO_SECONDS = 3.2;
 
-export type Step = Beat & {
-  /** Step number shown in the heading badge; omitted on intro/outro. */
-  step?: number;
-  /** Heading; the word after "|" is drawn in the accent colour. */
-  title: string;
-};
 
 export const SCRIPT: Step[] = [
   {

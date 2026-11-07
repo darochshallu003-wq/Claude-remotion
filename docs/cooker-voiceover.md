@@ -2,7 +2,7 @@
 
 Step-by-step whiteboard style: a lab-coat teacher on graph paper, word-synced captions and numbered step headings.
 
-Regenerate the AI voice (hi-IN-SwaraNeural) and the caption timings with `python3 scripts/cooker_tts.py hi-IN-SwaraNeural +18%`; it writes `public/cooker/vo/<id>.mp3`, `src/cooker/words.json` and the scene lengths in `src/cooker/script.ts`. Words in `*stars*` are highlighted in the captions. Render with `npm run render:cooker`.
+Regenerate the AI voice (hi-IN-SwaraNeural) and the caption timings with `python3 scripts/reel_tts.py cooker hi-IN-SwaraNeural +18%`; it writes `public/cooker/vo/<id>.mp3`, `src/cooker/words.json` and the scene lengths in `src/cooker/script.ts`. Words in `*stars*` are highlighted in the captions. Render with `npm run render:cooker`.
 
 ## 1. `hook.mp3`  (~9.91 s)
 

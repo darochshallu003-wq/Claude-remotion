@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate, random, useCurrentFrame } from "remotion";
-import { clamp, FONT, K } from "./kit";
+import { clamp, FONT, K } from "../reel/kit";
 
 // Flat-ink kitchen props for the pressure-cooker reel.
 

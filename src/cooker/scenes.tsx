@@ -1,7 +1,7 @@
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
 import { Cooker, Flame, Gauge, Pot, Thermometer } from "./art";
-import { Card, Checklist, clamp, FONT, K, Sfx, Stage, Stamp, TileText, useAt, usePop } from "./kit";
+import { Card, Checklist, clamp, FONT, K, Sfx, Stage, Stamp, TileText, useAt, usePop } from "../reel/kit";
 import { SCRIPT } from "./script";
 
 const beat = (id: string) => {

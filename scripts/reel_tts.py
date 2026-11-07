@@ -1,14 +1,16 @@
-"""Voiceover + caption timings for the pressure-cooker reel.
+"""Voiceover + caption timings for a whiteboard reel (src/reel).
 
-Reads each scene's `vo` from src/cooker/script.ts, speaks it with edge-tts
+Reads each scene's `vo` from src/<project>/script.ts, speaks it with edge-tts
 (one teacher voice) and writes:
-  public/cooker/vo/<scene id>.mp3
-  src/cooker/words.json   per-scene word timings for the karaoke captions
+  public/<project>/vo/<scene id>.mp3
+  src/<project>/words.json   per-scene word timings for the captions
 and sets each scene's `seconds` in script.ts to the clip length plus a breath.
 Words wrapped in *stars* are flagged as highlights; the stars are not spoken.
 
-Usage: python3 scripts/cooker_tts.py [voice] [rate]
-  defaults: hi-IN-SwaraNeural  +12%
+Usage: python3 scripts/reel_tts.py <project> [voice] [rate]
+  e.g.  python3 scripts/reel_tts.py cooker hi-IN-SwaraNeural +18%
+        python3 scripts/reel_tts.py glass hi-IN-MadhurNeural +15%
+  defaults: hi-IN-SwaraNeural  +18%
 """
 
 import asyncio
@@ -22,9 +24,6 @@ import sys
 import edge_tts
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SCRIPT = ROOT / "src" / "cooker" / "script.ts"
-OUT = ROOT / "public" / "cooker" / "vo"
-WORDS = ROOT / "src" / "cooker" / "words.json"
 BREATH = 0.45
 KEEP = 0.18  # silence kept on each side of a cut sentence pause
 PUNCT = "…।?!,.\"'*"
@@ -106,8 +105,14 @@ def align(tokens: list[str], events, scene: str):
 
 
 async def main() -> None:
-    voice = sys.argv[1] if len(sys.argv) > 1 else "hi-IN-SwaraNeural"
-    rate = sys.argv[2] if len(sys.argv) > 2 else "+12%"
+    if len(sys.argv) < 2:
+        raise SystemExit(__doc__)
+    project = sys.argv[1]
+    voice = sys.argv[2] if len(sys.argv) > 2 else "hi-IN-SwaraNeural"
+    rate = sys.argv[3] if len(sys.argv) > 3 else "+18%"
+    SCRIPT = ROOT / "src" / project / "script.ts"
+    OUT = ROOT / "public" / project / "vo"
+    WORDS = ROOT / "src" / project / "words.json"
     text = SCRIPT.read_text()
     scenes = re.findall(r'id: "([a-z]+)",.*?vo: "(.*?)",\n', text, re.S)
     OUT.mkdir(parents=True, exist_ok=True)

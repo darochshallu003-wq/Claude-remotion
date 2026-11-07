@@ -5,7 +5,8 @@
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render CucumberSalad out/cucumber-salad-labeled.mp4",
-    "render:cooker": "remotion render CookerExplainer out/cooker-explainer.mp4"
+    "render:cooker": "remotion render CookerExplainer out/cooker-explainer.mp4",
+    "render:glass": "remotion render GlassExplainer out/glass-explainer.mp4"
   },
   "dependencies": {
     "@remotion/cli": "4.0.540",

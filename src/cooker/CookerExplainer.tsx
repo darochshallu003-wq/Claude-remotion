@@ -1,14 +1,17 @@
-import { makeExplainer } from "../explainer/Explainer";
+import { makeReel } from "../reel/Reel";
+import { TEACHERS } from "../reel/kit";
 import { SCENES } from "./scenes";
 import { OUTRO_SECONDS, SCRIPT } from "./script";
+import WORDS from "./words.json";
 
-const explainer = makeExplainer({
+const reel = makeReel({
   script: SCRIPT,
   scenes: SCENES,
-  voDir: "cooker/vo",
-  hasVoiceover: true,
+  project: "cooker",
+  words: WORDS,
+  teacher: TEACHERS.female,
   outroSeconds: OUTRO_SECONDS,
 });
 
-export const CookerExplainer = explainer.Component;
-export const COOKER_TOTAL_FRAMES = explainer.totalFrames;
+export const CookerExplainer = reel.Component;
+export const COOKER_TOTAL_FRAMES = reel.totalFrames;

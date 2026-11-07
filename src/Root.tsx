@@ -7,6 +7,7 @@ import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
 import { COOKER_TOTAL_FRAMES, CookerExplainer } from "./cooker/CookerExplainer";
+import { GLASS_TOTAL_FRAMES, GlassExplainer } from "./glass/GlassExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -64,6 +65,14 @@ export const RemotionRoot: React.FC = () => {
         id="CookerExplainer"
         component={CookerExplainer}
         durationInFrames={COOKER_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="GlassExplainer"
+        component={GlassExplainer}
+        durationInFrames={GLASS_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}
