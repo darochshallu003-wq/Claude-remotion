@@ -1,0 +1,90 @@
+{
+  "_comment": "Voiceover for AasmaanSteps. Each chunk is one speech-bubble caption: `cap` is the Roman Hinglish shown on screen (*word* = highlighted), `say` is what the TTS voice speaks, `pose` is the presenter's gesture. Run scripts/vo_words.py aasmaan after editing.",
+  "beats": [
+    {
+      "id": "hook",
+      "chunks": [
+        { "cap": "aasmaan *neela* kyun hai?", "say": "आसमान नीला क्यों है?", "pose": "think" },
+        { "cap": "aur shaam ko *laal* kyun?", "say": "और शाम को लाल क्यों?", "pose": "think" },
+        { "cap": "*6 steps* mein samjho", "say": "छह steps में समझो।", "pose": "count" }
+      ]
+    },
+    {
+      "id": "white",
+      "chunks": [
+        { "cap": "pehli baat:", "say": "पहली बात:", "pose": "count" },
+        { "cap": "sooraj ki roshni", "say": "सूरज की रोशनी", "pose": "point" },
+        { "cap": "*safed* dikhti hai", "say": "सफ़ेद दिखती है,", "pose": "point" },
+        { "cap": "par andar *saat rang* hain", "say": "पर उसके अंदर सात रंग छुपे हैं।", "pose": "open" }
+      ]
+    },
+    {
+      "id": "wave",
+      "chunks": [
+        { "cap": "har rang ek *lehar* hai", "say": "हर रंग एक लहर है।", "pose": "open" },
+        { "cap": "laal ki lehar *lambi*", "say": "लाल की लहर लंबी,", "pose": "point" },
+        { "cap": "neele ki *chhoti*", "say": "नीले की छोटी।", "pose": "point" },
+        { "cap": "ye yaad rakhna!", "say": "ये याद रखना!", "pose": "count" }
+      ]
+    },
+    {
+      "id": "air",
+      "chunks": [
+        { "cap": "ab hawa mein hain", "say": "अब हवा में हैं", "pose": "open" },
+        { "cap": "*nitrogen* aur *oxygen*", "say": "नाइट्रोजन और ऑक्सीजन के", "pose": "point" },
+        { "cap": "ke chhote molecules", "say": "छोटे-छोटे molecules,", "pose": "point" },
+        { "cap": "lehar se *hazaaron guna* chhote", "say": "जो लहर से हज़ारों गुना छोटे हैं।", "pose": "open" }
+      ]
+    },
+    {
+      "id": "scatter",
+      "chunks": [
+        { "cap": "ye molecules", "say": "ये molecules", "pose": "point" },
+        { "cap": "*chhoti lehar* ko", "say": "छोटी लहर को", "pose": "point" },
+        { "cap": "zyada *bikherte* hain", "say": "ज़्यादा बिखेरते हैं।", "pose": "open" },
+        { "cap": "neela, laal se", "say": "नीला, लाल से", "pose": "count" },
+        { "cap": "lagbhag *6 guna* zyada!", "say": "लगभग छह गुना ज़्यादा!", "pose": "count" },
+        { "cap": "naam: *Rayleigh scattering*", "say": "इसे कहते हैं रेले स्कैटरिंग।", "pose": "point" }
+      ]
+    },
+    {
+      "id": "eye",
+      "chunks": [
+        { "cap": "bikhra hua neela", "say": "ये बिखरा हुआ नीला", "pose": "open" },
+        { "cap": "*har disha* se", "say": "हर दिशा से", "pose": "point" },
+        { "cap": "aankh tak aata hai", "say": "हमारी आँख तक आता है,", "pose": "point" },
+        { "cap": "isliye *poora aasmaan* neela", "say": "इसलिए पूरा आसमान नीला दिखता है।", "pose": "open" }
+      ]
+    },
+    {
+      "id": "sunset",
+      "chunks": [
+        { "cap": "aur shaam ko?", "say": "और शाम को?", "pose": "think" },
+        { "cap": "sooraj neeche hota hai", "say": "सूरज नीचे होता है,", "pose": "point" },
+        { "cap": "roshni ko *kaafi zyada hawa*", "say": "तो रोशनी को काफ़ी ज़्यादा हवा", "pose": "open" },
+        { "cap": "paar karni padti hai", "say": "पार करनी पड़ती है।", "pose": "open" },
+        { "cap": "neela raste mein *bikhar jaata*", "say": "नीला रास्ते में ही बिखर जाता है,", "pose": "point" },
+        { "cap": "bachta hai *laal-orange*", "say": "और बचता है लाल-नारंगी!", "pose": "count" }
+      ]
+    },
+    {
+      "id": "recap",
+      "chunks": [
+        { "cap": "bas yahi hai", "say": "बस यही है", "pose": "point" },
+        { "cap": "poora *science*", "say": "पूरा science,", "pose": "open" },
+        { "cap": "*6 steps* mein", "say": "छह steps में।", "pose": "count" }
+      ]
+    },
+    {
+      "id": "cta",
+      "chunks": [
+        { "cap": "ek *twist*:", "say": "पर एक twist:", "pose": "think" },
+        { "cap": "*violet* ki lehar", "say": "violet की लहर", "pose": "point" },
+        { "cap": "aur bhi chhoti hai", "say": "तो और भी छोटी है,", "pose": "point" },
+        { "cap": "toh aasmaan *violet* kyun nahi?", "say": "फिर आसमान violet क्यों नहीं?", "pose": "think" },
+        { "cap": "comment karo *VIOLET*", "say": "Comment करो violet,", "pose": "point" },
+        { "cap": "*part 2* mein bataunga", "say": "पार्ट टू में बताऊँगा।", "pose": "wave" }
+      ]
+    }
+  ]
+}
