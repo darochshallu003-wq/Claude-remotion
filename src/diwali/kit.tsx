@@ -43,6 +43,54 @@ export type Shot = Beat & {
   layout: Layout;
 };
 
+/** Frosted-glass panel ("glass widget") styling for dark and paper scenes. */
+export const glass = (dark: boolean, radius = 28): React.CSSProperties => ({
+  background: dark
+    ? "linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 100%)"
+    : "linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.38) 100%)",
+  border: dark ? "2px solid rgba(255,255,255,0.28)" : "2px solid rgba(255,255,255,0.9)",
+  borderRadius: radius,
+  backdropFilter: "blur(22px) saturate(160%)",
+  WebkitBackdropFilter: "blur(22px) saturate(160%)",
+  boxShadow: dark
+    ? "0 18px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.35)"
+    : "0 18px 36px rgba(90,60,20,0.16), inset 0 1px 0 rgba(255,255,255,1)",
+});
+
+/** Soft colour orbs drifting behind the content so the glass has something to frost. */
+const Orbs: React.FC<{ dark: boolean }> = ({ dark }) => {
+  const frame = useCurrentFrame();
+  const orbs = dark
+    ? [
+        { x: 220, y: 760, r: 330, c: "rgba(240,138,36,0.38)" },
+        { x: 860, y: 1180, r: 360, c: "rgba(142,76,158,0.40)" },
+        { x: 600, y: 1560, r: 300, c: "rgba(232,181,58,0.26)" },
+      ]
+    : [
+        { x: 200, y: 820, r: 320, c: "rgba(240,138,36,0.30)" },
+        { x: 880, y: 1240, r: 340, c: "rgba(200,146,214,0.35)" },
+      ];
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      {orbs.map((o, i) => (
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            left: o.x - o.r + Math.sin(frame / 50 + i * 2) * 40,
+            top: o.y - o.r + Math.cos(frame / 60 + i) * 40,
+            width: o.r * 2,
+            height: o.r * 2,
+            borderRadius: "50%",
+            background: `radial-gradient(circle, ${o.c} 0%, rgba(0,0,0,0) 70%)`,
+            filter: "blur(10px)",
+          }}
+        />
+      ))}
+    </AbsoluteFill>
+  );
+};
+
 const Sfx: React.FC<{ at: number; src: string; volume?: number }> = ({ at, src, volume = 0.5 }) => (
   <Sequence from={Math.max(0, at)} layout="none">
     <Audio src={staticFile(src)} volume={volume} />
@@ -105,7 +153,7 @@ const PillStack: React.FC<{ pills: string[]; y: number; at: number[]; dark: bool
       const accent = i === pills.length - 1 && pills.length > 1;
       const fg = accent ? C.orange : dark ? C.cream : C.ink;
       return (
-        <div key={p} style={{ opacity: e, transform: `translateY(${(1 - e) * 16}px)`, border: `3px solid ${fg}`, color: fg, borderRadius: 999, padding: "10px 28px", fontFamily: MONO, fontSize: 28, letterSpacing: 3, background: accent ? "rgba(240,138,36,0.12)" : "transparent", textAlign: "center" }}>
+        <div key={p} style={{ opacity: e, transform: `translateY(${(1 - e) * 16}px)`, ...glass(dark, 999), ...(accent ? { border: `2px solid ${C.orange}` } : {}), color: fg, padding: "12px 32px", fontFamily: MONO, fontSize: 28, letterSpacing: 3, textAlign: "center" }}>
           {p}
         </div>
       );
@@ -113,35 +161,54 @@ const PillStack: React.FC<{ pills: string[]; y: number; at: number[]; dark: bool
   </div>
 );
 
-const Card: React.FC<{ item: Item; x: number; y: number; w: number; h: number; at: number; i: number }> = ({ item, x, y, w, h, at, i }) => {
+const Card: React.FC<{ item: Item; x: number; y: number; w: number; h: number; at: number; i: number; dark: boolean }> = ({ item, x, y, w, h, at, i, dark }) => {
   const e = useEnter(at, { damping: 13, stiffness: 120 });
   const rot = (i % 2 ? 2.5 : -2.5) + (1 - e) * -8;
   return (
-    <div style={{ position: "absolute", left: x, top: y, width: w, height: h, opacity: interpolate(e, [0, 0.25], [0, 1], clamp), transform: `translateY(${(1 - e) * -70}px) rotate(${rot}deg)`, filter: "drop-shadow(0 16px 26px rgba(0,0,0,0.35))" }}>
-      <div style={{ position: "absolute", inset: 0, background: "#F6EEDC", borderRadius: 10, padding: 18, display: "flex", flexDirection: "column" }}>
-        <div style={{ flex: 1, background: "#EADFC5", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+    <div style={{ position: "absolute", left: x, top: y, width: w, height: h, opacity: interpolate(e, [0, 0.25], [0, 1], clamp), transform: `translateY(${(1 - e) * -70}px) rotate(${rot}deg)`, }}>
+      <div style={{ position: "absolute", inset: 0, ...glass(dark, 30), padding: 18, display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.45)", borderRadius: 20, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
           {renderArt(item.art, Math.min(w, h) * 0.62, Math.max(0, useCurrentFrame() - at), `card${i}`)}
         </div>
-        <div style={{ fontFamily: DEVA, fontSize: w > 400 ? 44 : 36, color: C.ink, textAlign: "center", marginTop: 10, lineHeight: 1.15 }}>{item.title}</div>
-        {item.sub && <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: 2, color: "#6b6052", textAlign: "center", marginTop: 4 }}>{item.sub}</div>}
+        <div style={{ fontFamily: DEVA, fontSize: w > 400 ? 44 : 36, color: dark ? C.cream : C.ink, textAlign: "center", marginTop: 10, lineHeight: 1.15 }}>{item.title}</div>
+        {item.sub && <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: 2, color: dark ? C.muted : "#6b6052", textAlign: "center", marginTop: 4 }}>{item.sub}</div>}
       </div>
     </div>
   );
 };
 
-const Row: React.FC<{ item: Item; y: number; h: number; at: number; i: number }> = ({ item, y, h, at, i }) => {
+const Row: React.FC<{ item: Item; y: number; h: number; at: number; i: number; dark: boolean }> = ({ item, y, h, at, i, dark }) => {
   const e = useEnter(at);
   const frame = useCurrentFrame();
   return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: y, height: h - 24, display: "flex", alignItems: "center", gap: 28, padding: "0 28px", borderRadius: 24, background: "#F6EEDC", border: "3px solid rgba(42,36,32,0.25)", boxShadow: "0 10px 22px rgba(0,0,0,0.14)", opacity: e, transform: `translateX(${(1 - e) * 120}px)` }}>
+    <div style={{ position: "absolute", left: 70, right: 70, top: y, height: h - 24, display: "flex", alignItems: "center", gap: 28, padding: "0 28px", ...glass(dark, 28), opacity: e, transform: `translateX(${(1 - e) * 120}px)` }}>
       <div style={{ width: h - 60, height: h - 60, borderRadius: "50%", background: C.ink, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
         {renderArt(item.art, (h - 60) * 0.78, Math.max(0, frame - at), `row${i}`)}
       </div>
       <div style={{ minWidth: 0 }}>
-        <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 52, color: C.ink, textTransform: "uppercase", lineHeight: 1.05 }}>{item.title}</div>
-        {item.sub && <div style={{ fontFamily: DEVA, fontSize: 36, color: "#6b6052", marginTop: 4, lineHeight: 1.2 }}>{item.sub}</div>}
+        <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 52, color: dark ? C.cream : C.ink, textTransform: "uppercase", lineHeight: 1.05 }}>{item.title}</div>
+        {item.sub && <div style={{ fontFamily: DEVA, fontSize: 36, color: dark ? C.muted : "#6b6052", marginTop: 4, lineHeight: 1.2 }}>{item.sub}</div>}
       </div>
     </div>
+  );
+};
+
+/** Empty frosted-glass widget that scales in behind a scene's main art. */
+const GlassPanel: React.FC<{ x: number; y: number; w: number; h: number; at: number; dark: boolean }> = ({ x, y, w, h, at, dark }) => {
+  const e = useEnter(at, { damping: 16, stiffness: 120 });
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        width: w,
+        height: h,
+        ...glass(dark, 44),
+        opacity: interpolate(e, [0, 0.4], [0, 1], clamp),
+        transform: `scale(${0.92 + 0.08 * e})`,
+      }}
+    />
   );
 };
 
@@ -163,7 +230,7 @@ const HandleTag: React.FC<{ dark: boolean }> = ({ dark }) => (
       right: 70,
       padding: "6px 18px",
       borderRadius: 999,
-      background: dark ? "rgba(240,138,36,0.16)" : "rgba(181,80,28,0.10)",
+      ...glass(dark, 999),
       border: `2px solid ${dark ? C.orange : C.rust}`,
       fontFamily: MONO,
       fontSize: 30,
@@ -190,10 +257,11 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
     body = (
       <>
         {L.glow && <AbsoluteFill style={{ background: `radial-gradient(circle at 540px 900px, rgba(255,178,63,0.28) 0%, rgba(0,0,0,0) 520px)` }} />}
+        <GlassPanel x={540 - Math.min(size + 140, 960) / 2} y={600} w={Math.min(size + 140, 960)} h={620} at={cue(0.02)} dark={dark} />
         <div style={{ position: "absolute", left: 0, right: 0, top: 610, height: 600, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Art name={L.art} size={size} at={cue(0.08)} id={`h${index}`} />
         </div>
-        {L.caption && <Caption text={L.caption} y={1240} at={cue(0.35)} dark={dark} />}
+        {L.caption && <Caption text={L.caption} y={1250} at={cue(0.35)} dark={dark} />}
         {pills.length > 0 && <PillStack pills={pills} y={L.caption ? 1350 : 1260} at={pills.map((_, i) => cue(0.45 + i * 0.12))} dark={dark} />}
         {L.stamp && <Stamp text={L.stamp} x={790} y={700} at={cue(0.68)} color={dark ? C.orange : C.red} rotate={-9} size={72} blend={dark ? "normal" : "multiply"} />}
       </>
@@ -220,7 +288,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
           const y = (rows === 1 ? 640 : 590) + r * (h + 40);
           const at = cue(0.1 + (0.7 * i) / n);
           sfx.push({ at, src: "sfx/pop.wav", volume: 0.35 });
-          return <Card key={i} item={it} x={x} y={y} w={w} h={h} at={at} i={i} />;
+          return <Card key={i} item={it} x={x} y={y} w={w} h={h} at={at} i={i} dark={dark} />;
         })}
       </>
     );
@@ -234,7 +302,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
         {L.items.map((it, i) => {
           const at = cue(0.1 + (0.72 * i) / n);
           sfx.push({ at, src: "sfx/pop.wav", volume: 0.4 });
-          return <Row key={i} item={it} y={590 + i * h} h={h} at={at} i={i} />;
+          return <Row key={i} item={it} y={590 + i * h} h={h} at={at} i={i} dark={dark} />;
         })}
       </>
     );
@@ -245,7 +313,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
       const e = useEnter(at);
       return (
         <div style={{ position: "absolute", left: x, top: 620, width: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 18, opacity: e, transform: `translateY(${(1 - e) * 40}px)` }}>
-          <div style={{ width: 420, height: 460, borderRadius: 26, background: dark ? "rgba(243,235,221,0.07)" : "#F6EEDC", border: `4px solid ${dark ? "rgba(243,235,221,0.25)" : "rgba(42,36,32,0.25)"}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+          <div style={{ width: 420, height: 460, ...glass(dark, 34), display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
             {renderArt(it.art, 330, Math.max(0, frame - at), k)}
           </div>
           <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 54, color: fg, textTransform: "uppercase", textAlign: "center", lineHeight: 1.05 }}>{it.title}</div>
@@ -298,7 +366,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
             <Art name={L.art} size={460} at={cue(0.05)} id={`t${index}`} />
           </div>
         )}
-        <div style={{ position: "absolute", left: 80, right: 80, top: L.art ? 1170 : 700, padding: "30px 34px", borderLeft: `8px solid ${C.orange}`, background: dark ? "rgba(243,235,221,0.06)" : "rgba(42,36,32,0.05)" }}>
+        <div style={{ position: "absolute", left: 80, right: 80, top: L.art ? 1170 : 700, padding: "30px 34px", ...glass(dark, 28), borderLeft: `8px solid ${C.orange}` }}>
           <TypeOn text={L.text} start={cue(0.2)} cps={22} style={{ fontFamily: MONO, fontSize: 34, letterSpacing: 1.5, lineHeight: 1.45, color: fg }} />
         </div>
         {L.caption && <Caption text={L.caption} y={L.art ? 1450 : 1150} at={cue(0.6)} dark={dark} size={54} />}
@@ -314,6 +382,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
       <>
         <AbsoluteFill style={{ background: `radial-gradient(circle at 540px 1000px, rgba(255,178,63,0.25) 0%, rgba(0,0,0,0) 600px)` }} />
         <div style={{ position: "absolute", left: 0, right: 0, top: 620, display: "flex", justifyContent: "center" }}>{renderArt("diyas", 960, frame, "ctad")}</div>
+        <GlassPanel x={80} y={820} w={920} h={300} at={cue(0.1)} dark />
         <Caption text={L.ask} y={850} at={cue(0.15)} dark />
         <div style={{ position: "absolute", left: 540, top: 1010, transform: `translateX(-50%) scale(${bubble})`, background: C.orange, color: C.slate, borderRadius: 999, padding: "16px 44px", fontFamily: HEAD, fontWeight: 700, fontSize: 54, letterSpacing: 2, display: "flex", alignItems: "center", gap: 18, whiteSpace: "nowrap" }}>
           COMMENT KARO
@@ -333,6 +402,7 @@ const ShotScene: React.FC<{ shot: Shot; index: number }> = ({ shot, index }) => 
   return (
     <AbsoluteFill>
       {dark ? <DarkBg /> : <PaperBg />}
+      <Orbs dark={dark} />
       {dark && <Sparks count={L.type === "cta" ? 34 : 14} />}
       <Header left={shot.tag} right="" dark={dark} />
       <HandleTag dark={dark} />
