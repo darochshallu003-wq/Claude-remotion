@@ -6,6 +6,7 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
+import { RAM_FPS, RAM_TOTAL_FRAMES, RamReturn } from "./ramayan/RamReturn";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -56,6 +57,14 @@ export const RemotionRoot: React.FC = () => {
         component={DahiExplainer}
         durationInFrames={DAHI_TOTAL_FRAMES}
         fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="RamReturn"
+        component={RamReturn}
+        durationInFrames={RAM_TOTAL_FRAMES}
+        fps={RAM_FPS}
         width={1080}
         height={1920}
       />
