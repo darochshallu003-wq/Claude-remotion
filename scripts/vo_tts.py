@@ -58,6 +58,13 @@ SAY = {
     "lactic acid": "लैक्टिक एसिड",
     "casein": "कैसीन",
     "casserole": "कैसरोल",
+    # tetanus
+    "Clostridium tetani": "क्लॉस्ट्रिडियम टेटनाई",
+    "tetanospasmin": "टेटनो-स्पाज़्मिन",
+    "tetanus": "टिटनेस",
+    "lockjaw": "लॉक-जॉ",
+    "antibodies": "एंटी-बॉडीज़",
+    "spores": "स्पोर्स",
 }
 
 
