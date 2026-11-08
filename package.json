@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render CucumberSalad out/cucumber-salad-labeled.mp4"
+    "render": "remotion render CucumberSalad out/cucumber-salad-labeled.mp4",
+    "render:amv": "remotion render AnimeEdit out/anime-edit.mp4"
   },
   "dependencies": {
     "@remotion/cli": "4.0.540",

@@ -6,6 +6,8 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
+import { AnimeEdit } from "./amv/AnimeEdit";
+import { AMV_TOTAL_FRAMES, FPS as AMV_FPS } from "./amv/edit";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -60,6 +62,14 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
       />
       <Composition id="CastSheet" component={CastSheet} durationInFrames={1} fps={30} width={1080} height={1300} />
+      <Composition
+        id="AnimeEdit"
+        component={AnimeEdit}
+        durationInFrames={AMV_TOTAL_FRAMES}
+        fps={AMV_FPS}
+        width={1080}
+        height={1920}
+      />
     </>
   );
 };
