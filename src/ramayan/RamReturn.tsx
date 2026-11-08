@@ -15,6 +15,8 @@ import {
 import { HANDLE } from "../explainer/Explainer";
 import { FlyingHanuman, Medallion, Vimana, Who } from "./characters";
 import { LAND_PATH } from "./geo";
+import { HAS_VOICEOVER } from "./script";
+import { INTERNAL_END, TOTAL_FRAMES, unwarp, VO_STARTS, warp } from "./timing";
 
 // "History map" reel: Shri Ram's return from Lanka to Ayodhya on the
 // Pushpaka Vimana. Same visual grammar as the animated empire maps:
@@ -32,7 +34,9 @@ loadFont({ family: SANS, url: staticFile("fonts/Poppins-Bold.woff2"), weight: "7
 loadFont({ family: DEVA, url: staticFile("fonts/YatraOne-Devanagari.woff2"), weight: "400" });
 
 export const RAM_FPS = 30;
-export const RAM_TOTAL_FRAMES = 840;
+// Output length follows the voiceover (see timing.ts); the animation below is
+// authored on an internal 0..INTERNAL_END timeline.
+export const RAM_TOTAL_FRAMES = TOTAL_FRAMES;
 const W = 1080;
 const H = 1920;
 
@@ -154,7 +158,7 @@ const CAM: Cam[] = [
   { f: ARRIVE, at: P(26.68, 82.15), z: 2.7 },
   { f: 650, at: P(26.72, 82.15), z: 2.9 },
   { f: 735, at: P(18.4, 79.6), z: 0.6 },
-  { f: RAM_TOTAL_FRAMES, at: P(18.4, 79.6), z: 0.57 },
+  { f: INTERNAL_END, at: P(18.4, 79.6), z: 0.57 },
 ];
 
 const camera = (f: number) => {
@@ -258,7 +262,8 @@ const pop = (f: number, start: number, end: number, fps: number) => {
 
 // ---------- the composition ----------
 export const RamReturn: React.FC = () => {
-  const f = useCurrentFrame();
+  const outFrame = useCurrentFrame();
+  const f = warp(outFrame);
   const { fps } = useVideoConfig();
   const cam = camera(f);
   const z = cam.z;
@@ -502,7 +507,7 @@ export const RamReturn: React.FC = () => {
       <AbsoluteFill style={{ background: "radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%)" }} />
       <AbsoluteFill style={{ background: "#0B0A09", opacity: 1 - mapFadeIn }} />
 
-      <PlayerChrome f={f} km={km} fps={fps} />
+      <PlayerChrome f={f} outFrame={outFrame} km={km} fps={fps} />
 
       {/* end card */}
       {endCard > 0 && (
@@ -520,24 +525,30 @@ export const RamReturn: React.FC = () => {
       )}
 
       {/* sound */}
+      {HAS_VOICEOVER &&
+        VO_STARTS.map((v) => (
+          <Sequence key={v.id} from={v.at} durationInFrames={TOTAL_FRAMES - v.at}>
+            <Audio src={staticFile(`ramayan/vo/${v.id}.mp3`)} volume={1} />
+          </Sequence>
+        ))}
       {LEGS.map((l) => (
-        <Sequence key={l.start} from={l.start - 4} durationInFrames={40}>
-          <Audio src={staticFile("sfx/whoosh.wav")} volume={0.35} />
+        <Sequence key={l.start} from={unwarp(l.start - 4)} durationInFrames={40}>
+          <Audio src={staticFile("sfx/whoosh.wav")} volume={0.18} />
         </Sequence>
       ))}
       {[14, 58, 218, 308, 400, 490, ARRIVE + 10, 692].map((s) => (
-        <Sequence key={s} from={s} durationInFrames={20}>
-          <Audio src={staticFile("sfx/pop.wav")} volume={0.45} />
+        <Sequence key={s} from={unwarp(s)} durationInFrames={20}>
+          <Audio src={staticFile("sfx/pop.wav")} volume={0.25} />
         </Sequence>
       ))}
-      <Sequence from={448} durationInFrames={40}>
-        <Audio src={staticFile("sfx/whoosh.wav")} volume={0.3} />
+      <Sequence from={unwarp(448)} durationInFrames={40}>
+        <Audio src={staticFile("sfx/whoosh.wav")} volume={0.16} />
       </Sequence>
-      <Sequence from={ARRIVE} durationInFrames={60}>
-        <Audio src={staticFile("sfx/chime.wav")} volume={0.55} />
+      <Sequence from={unwarp(ARRIVE)} durationInFrames={60}>
+        <Audio src={staticFile("sfx/chime.wav")} volume={0.35} />
       </Sequence>
-      <Sequence from={764} durationInFrames={60}>
-        <Audio src={staticFile("sfx/chime.wav")} volume={0.45} />
+      <Sequence from={unwarp(764)} durationInFrames={60}>
+        <Audio src={staticFile("sfx/chime.wav")} volume={0.3} />
       </Sequence>
     </AbsoluteFill>
   );
@@ -843,12 +854,15 @@ const Diyas: React.FC<{ toScreen: ToScreen; z: number; f: number }> = ({ toScree
 };
 
 // Fake long-form video player chrome, like a clip from a documentary.
-const PlayerChrome: React.FC<{ f: number; km: number; fps: number }> = ({ f, km, fps }) => {
+const PlayerChrome: React.FC<{ f: number; outFrame: number; km: number; fps: number }> = ({ f, outFrame, km, fps }) => {
   const diwali = interpolate(f, [ARRIVE + 8, ARRIVE + 22], [0, 1], clamp);
-  const secs = Math.floor(f / fps);
-  const t = `0:${String(secs).padStart(2, "0")}`;
-  const total = `0:${String(Math.floor(RAM_TOTAL_FRAMES / fps)).padStart(2, "0")}`;
-  const progress = f / RAM_TOTAL_FRAMES;
+  const clock = (frames: number) => {
+    const secs = Math.floor(frames / fps);
+    return `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+  };
+  const t = clock(outFrame);
+  const total = clock(RAM_TOTAL_FRAMES);
+  const progress = outFrame / RAM_TOTAL_FRAMES;
   return (
     <>
       <div
