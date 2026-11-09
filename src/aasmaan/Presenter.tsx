@@ -75,6 +75,56 @@ const ArmShape: React.FC<{ shoulder: Pt; arm: Arm; wave?: number; flip?: boolean
   );
 };
 
+type Curl = { x: number; y: number; r: number };
+
+// curls around the crown, from one ear over the top to the other
+const BACK_CURLS: Curl[] = Array.from({ length: 15 }, (_, i) => {
+  const a = ((-18 + (i * 216) / 14) * Math.PI) / 180;
+  return { x: 250 + Math.cos(a) * 152, y: 205 - Math.sin(a) * 118, r: 40 + (i % 3) * 5 };
+}).concat([
+  { x: 200, y: 110, r: 44 },
+  { x: 300, y: 112, r: 44 },
+  { x: 250, y: 80, r: 40 },
+]);
+
+// smaller curls hanging over the forehead
+const FRINGE_CURLS: Curl[] = [
+  { x: 156, y: 222, r: 26 },
+  { x: 186, y: 200, r: 30 },
+  { x: 224, y: 192, r: 30 },
+  { x: 264, y: 194, r: 31 },
+  { x: 302, y: 198, r: 29 },
+  { x: 338, y: 216, r: 27 },
+  { x: 236, y: 152, r: 34 },
+  { x: 296, y: 156, r: 32 },
+];
+
+/** Overlapping circles with one shared outline, each with a little spiral. */
+const Curls: React.FC<{ curls: Curl[]; frame: number; fill: React.ReactNode }> = ({ curls, frame, fill }) => {
+  const at = curls.map((c, i) => ({ ...c, y: c.y + Math.sin(frame / 7 + i * 1.3) * 1.6 }));
+  return (
+    <g>
+      {at.map((c, i) => (
+        <circle key={`o${i}`} cx={c.x} cy={c.y} r={c.r} fill={HAIR} stroke={INK} strokeWidth={7} />
+      ))}
+      {fill}
+      {at.map((c, i) => (
+        <circle key={`f${i}`} cx={c.x} cy={c.y} r={c.r - 3.5} fill={HAIR} />
+      ))}
+      {at.map((c, i) => (
+        <path
+          key={`s${i}`}
+          d={`M${c.x - c.r * 0.45} ${c.y + c.r * 0.1} a ${c.r * 0.42} ${c.r * 0.42} 0 1 1 ${c.r * 0.5} ${c.r * 0.32}`}
+          fill="none"
+          stroke="#5A463E"
+          strokeWidth={5}
+          strokeLinecap="round"
+        />
+      ))}
+    </g>
+  );
+};
+
 export const Presenter: React.FC<{
   width: number;
   frame: number;
@@ -122,20 +172,15 @@ export const Presenter: React.FC<{
         <path d="M218 400 L 218 482 C 236 494, 264 494, 282 482 L 282 400 Z" fill={SKIN_DARK} stroke={INK} strokeWidth={6} />
 
         <g transform={`rotate(${tilt} 250 400)`}>
+          {/* hair: a big cloud of curls behind the head */}
+          <Curls curls={BACK_CURLS} frame={frame} fill={<ellipse cx="250" cy="200" rx="150" ry="110" fill={HAIR} />} />
           {/* ears */}
           <ellipse cx="128" cy="300" rx="22" ry="30" fill={SKIN} stroke={INK} strokeWidth={6} />
           <ellipse cx="372" cy="300" rx="22" ry="30" fill={SKIN} stroke={INK} strokeWidth={6} />
           {/* head */}
           <path d="M250 150 C 160 150, 130 220, 132 292 C 134 370, 182 424, 250 424 C 318 424, 366 370, 368 292 C 370 220, 340 150, 250 150 Z" fill={SKIN} stroke={INK} strokeWidth={7} />
-          {/* hair: a tall swept quiff */}
-          <path
-            d="M132 286 C 112 210, 140 128, 214 108 C 236 72, 300 70, 330 104 C 376 128, 384 210, 368 286 C 360 236, 344 206, 318 196 C 300 214, 256 222, 214 214 C 188 226, 160 236, 144 260 Z"
-            fill={HAIR}
-            stroke={INK}
-            strokeWidth={7}
-            strokeLinejoin="round"
-          />
-          <path d="M226 120 C 258 104, 300 112, 320 140" fill="none" stroke="#4A3A34" strokeWidth={6} strokeLinecap="round" />
+          {/* curly fringe over the forehead */}
+          <Curls curls={FRINGE_CURLS} frame={frame} fill={<ellipse cx="250" cy="170" rx="110" ry="40" fill={HAIR} />} />
           {/* brows */}
           <path d={`M178 ${252 - thinking * 8} C 192 ${242 - thinking * 8}, 212 242, 226 250`} fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
           <path d="M274 250 C 288 242, 308 242, 322 252" fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
