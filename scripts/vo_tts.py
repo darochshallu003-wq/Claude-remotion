@@ -67,6 +67,10 @@ SAY = {
     "alpha-": "ऐल्फ़ा-",
     "aconitase": "ऐकोनिटेज़",
     "fumarase": "फ़्यूमरेज़",
+    # fridge
+    "thermostat": "थर्मोस्टैट",
+    "compressor": "कंप्रेसर",
+    "direct cool": "डायरेक्ट कूल",
 }
 
 
@@ -101,7 +105,15 @@ async def main() -> None:
         for k, (who, text) in enumerate(parts):
             raw = out / f"{scene_id}.{k}.raw.mp3"
             v, r = (QUESTION_VOICE, QUESTION_RATE) if who == "q" else (voice, rate)
-            await edge_tts.Communicate(text, v, rate=r, proxy=proxy).save(str(raw))
+            # the service sometimes returns no audio; retry a few times
+            for attempt in range(5):
+                try:
+                    await edge_tts.Communicate(text, v, rate=r, proxy=proxy).save(str(raw))
+                    break
+                except edge_tts.exceptions.NoAudioReceived:
+                    if attempt == 4:
+                        raise
+                    await asyncio.sleep(2 * (attempt + 1))
             raws.append(raw)
         # join the parts, then cut any pause longer than 0.15 s down to
         # 0.15 s and trim the ends

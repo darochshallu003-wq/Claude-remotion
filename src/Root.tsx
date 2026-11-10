@@ -6,6 +6,7 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { SHABARI_TOTAL_FRAMES, ShabariReel } from "./shabari/ShabariReel";
 import { PHOTO_TOTAL_FRAMES, PhotoExplainer } from "./photo/PhotoExplainer";
 import { KREBS_TOTAL_FRAMES, KrebsExplainer } from "./krebs/KrebsExplainer";
+import { FRIDGE_TOTAL_FRAMES, FridgeExplainer } from "./fridge/FridgeExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -63,6 +64,14 @@ export const RemotionRoot: React.FC = () => {
         id="KrebsExplainer"
         component={KrebsExplainer}
         durationInFrames={KREBS_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="FridgeExplainer"
+        component={FridgeExplainer}
+        durationInFrames={FRIDGE_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}
