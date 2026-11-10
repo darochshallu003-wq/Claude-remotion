@@ -54,6 +54,19 @@ SAY = {
     "chloroplasts": "क्लोरोप्लास्ट्स",
     "chlorophyll": "क्लोरोफ़िल",
     "stomata": "स्टोमैटा",
+    # krebs (longer keys first: FADH2 before FAD, NADH before NAD)
+    "FADH2": "एफ-ए-डी-एच-टू",
+    "NADH": "एन-ए-डी-एच",
+    "GTP": "जी-टी-पी",
+    "ATP": "ए-टी-पी",
+    "OAA": "ओ-ए-ए",
+    "TCA": "टी-सी-ए",
+    "CoA": "को-ए",
+    "NEET": "नीट",
+    "Krebs": "क्रेब्स",
+    "alpha-": "ऐल्फ़ा-",
+    "aconitase": "ऐकोनिटेज़",
+    "fumarase": "फ़्यूमरेज़",
 }
 
 
