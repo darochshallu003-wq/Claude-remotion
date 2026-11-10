@@ -5,10 +5,11 @@ import { K } from "./ui";
 // the bottom of the frame. Arms change between gestures, the mouth follows
 // the voice, and he blinks and breathes so he never looks pasted on.
 
-export type Pose = "point" | "open" | "count" | "think" | "wave" | "rest";
+export type Pose = "point" | "open" | "count" | "think" | "wave" | "rest" | "phone";
+export type Mood = "happy" | "sad" | "shock";
 
 type Pt = [number, number];
-type Arm = { elbow: Pt; hand: Pt; finger: number }; // finger: 0 fist, 1 index up
+type Arm = { elbow: Pt; hand: Pt; finger: number }; // finger: 0 open palm, 1 index up, 2 holding a phone
 
 const SKIN = "#B9794F";
 const SKIN_DARK = "#97603C";
@@ -25,6 +26,7 @@ const RIGHT: Record<Pose, Arm> = {
   count: { elbow: [462, 540], hand: [420, 380], finger: 1 },
   wave: { elbow: [474, 450], hand: [478, 288], finger: 0 },
   think: { elbow: [420, 620], hand: [400, 700], finger: 0 },
+  phone: { elbow: [450, 650], hand: [330, 560], finger: 2 },
 };
 const LEFT: Record<Pose, Arm> = {
   rest: { elbow: [80, 620], hand: [100, 700], finger: 0 },
@@ -33,6 +35,7 @@ const LEFT: Record<Pose, Arm> = {
   count: { elbow: [80, 620], hand: [100, 700], finger: 0 },
   wave: { elbow: [80, 620], hand: [100, 700], finger: 0 },
   think: { elbow: [120, 600], hand: [222, 418], finger: 1 },
+  phone: { elbow: [80, 620], hand: [100, 700], finger: 0 },
 };
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -51,6 +54,12 @@ const ArmShape: React.FC<{ shoulder: Pt; arm: Arm; wave?: number; flip?: boolean
       <path d={d} fill="none" stroke={INK} strokeWidth={70} strokeLinecap="round" />
       <path d={d} fill="none" stroke={COAT} strokeWidth={58} strokeLinecap="round" />
       <g transform={`rotate(${wave} ${hx} ${hy})`}>
+        {arm.finger === 2 && (
+          <g>
+            <rect x={hx - 44} y={hy - 120} width={88} height={150} rx={14} fill="#26262E" stroke={INK} strokeWidth={6} />
+            <rect x={hx - 34} y={hy - 108} width={68} height={118} rx={8} fill="#7FB7FF" />
+          </g>
+        )}
         {arm.finger === 1 && (
           <rect x={hx - 9} y={hy - 66} width={18} height={50} rx={9} fill={SKIN} stroke={INK} strokeWidth={5} />
         )}
@@ -132,8 +141,9 @@ export const Presenter: React.FC<{
   prevPose: Pose;
   poseT: number; // 0 → 1 blend from prevPose to pose
   mouth: number; // 0 closed → 1 wide open
+  mood?: Mood;
   style?: React.CSSProperties;
-}> = ({ width, frame, pose, prevPose, poseT, mouth, style }) => {
+}> = ({ width, frame, pose, prevPose, poseT, mouth, mood = "happy", style }) => {
   const breathe = Math.sin(frame / 20) * 4;
   const blink = frame % 96 < 4;
   const r = mix(RIGHT[prevPose], RIGHT[pose], poseT);
@@ -142,7 +152,10 @@ export const Presenter: React.FC<{
   const thinking = pose === "think" ? poseT : prevPose === "think" ? 1 - poseT : 0;
   const tilt = Math.sin(frame / 13) * 1.6 * Math.min(1, mouth * 3) - thinking * 4;
   // eyes look up-right at the card while pointing, up while thinking
-  const look: Pt = pose === "point" || pose === "wave" ? [6, -5] : thinking > 0.5 ? [4, -8] : [3, 0];
+  const look: Pt = pose === "phone" ? [-4, 9] : pose === "point" || pose === "wave" ? [6, -5] : thinking > 0.5 ? [4, -8] : [3, 0];
+  const sad = mood === "sad";
+  const shock = mood === "shock";
+  const tearT = (frame % 46) / 46;
 
   return (
     <svg viewBox="0 0 500 660" width={width} height={(width * 660) / 500} style={{ overflow: "visible", ...style }}>
@@ -182,8 +195,17 @@ export const Presenter: React.FC<{
           {/* curly fringe over the forehead */}
           <Curls curls={FRINGE_CURLS} frame={frame} fill={<ellipse cx="250" cy="170" rx="110" ry="40" fill={HAIR} />} />
           {/* brows */}
-          <path d={`M178 ${252 - thinking * 8} C 192 ${242 - thinking * 8}, 212 242, 226 250`} fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
-          <path d="M274 250 C 288 242, 308 242, 322 252" fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
+          {sad ? (
+            <>
+              <path d="M178 258 C 194 254, 212 246, 226 236" fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
+              <path d="M274 236 C 288 246, 306 254, 322 258" fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
+            </>
+          ) : (
+            <>
+              <path d={`M178 ${252 - thinking * 8 - (shock ? 16 : 0)} C 192 ${242 - thinking * 8 - (shock ? 16 : 0)}, 212 ${242 - (shock ? 16 : 0)}, 226 ${250 - (shock ? 16 : 0)}`} fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
+              <path d={`M274 ${250 - (shock ? 16 : 0)} C 288 ${242 - (shock ? 16 : 0)}, 308 ${242 - (shock ? 16 : 0)}, 322 ${252 - (shock ? 16 : 0)}`} fill="none" stroke={HAIR} strokeWidth={10} strokeLinecap="round" />
+            </>
+          )}
           {/* eyes */}
           {blink ? (
             <>
@@ -193,8 +215,8 @@ export const Presenter: React.FC<{
           ) : (
             [203, 297].map((cx) => (
               <g key={cx}>
-                <ellipse cx={cx} cy={290} rx={24} ry={28} fill="#FFFFFF" stroke={INK} strokeWidth={5} />
-                <circle cx={cx + look[0]} cy={292 + look[1]} r={12} fill={INK} />
+                <ellipse cx={cx} cy={290} rx={shock ? 28 : 24} ry={shock ? 34 : sad ? 24 : 28} fill="#FFFFFF" stroke={INK} strokeWidth={5} />
+                <circle cx={cx + look[0]} cy={292 + look[1]} r={shock ? 9 : 12} fill={INK} />
                 <circle cx={cx + look[0] + 4} cy={287 + look[1]} r={4} fill="#FFFFFF" />
               </g>
             ))
@@ -216,10 +238,24 @@ export const Presenter: React.FC<{
               />
               <ellipse cx="250" cy={372 + mouth * 22} rx={16} ry={4 + mouth * 5} fill="#E86A6A" />
             </g>
+          ) : shock ? (
+            <ellipse cx="250" cy="378" rx="18" ry="22" fill="#7A2320" stroke={INK} strokeWidth={6} />
+          ) : sad ? (
+            <path d="M224 384 C 238 364, 262 364, 276 384" fill="none" stroke={INK} strokeWidth={6} strokeLinecap="round" />
           ) : thinking > 0.5 ? (
             <path d="M232 374 C 244 368, 260 370, 270 378" fill="none" stroke={INK} strokeWidth={6} strokeLinecap="round" />
           ) : (
             <path d="M220 366 C 236 390, 264 390, 280 366" fill="none" stroke={INK} strokeWidth={6} strokeLinecap="round" />
+          )}
+          {/* a tear rolling down when sad */}
+          {sad && (
+            <path
+              d={`M188 ${318 + tearT * 70} c -8 12, -10 20, 0 22 c 10 -2, 8 -10, 0 -22 Z`}
+              fill="#8FD0FF"
+              stroke={INK}
+              strokeWidth={3.5}
+              opacity={1 - tearT * 0.6}
+            />
           )}
         </g>
 
