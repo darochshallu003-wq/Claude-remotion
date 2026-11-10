@@ -71,6 +71,17 @@ SAY = {
     "thermostat": "थर्मोस्टैट",
     "compressor": "कंप्रेसर",
     "direct cool": "डायरेक्ट कूल",
+    # tv (OLED before LED, subpixels before subpixel)
+    "OLED": "ओ-एल-ई-डी",
+    "LED": "एल-ई-डी",
+    "4K": "फ़ोर-के",
+    "3840": "अड़तीस सौ चालीस",
+    "2160": "इक्कीस सौ साठ",
+    "83 लाख": "तिरासी लाख",
+    "subpixels": "सब-पिक्सल्स",
+    "subpixel": "सब-पिक्सल",
+    "polarizers": "पोलराइज़र्स",
+    "TV": "टी-वी",
 }
 
 
