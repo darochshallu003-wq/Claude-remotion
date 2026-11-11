@@ -58,6 +58,10 @@ SAY = {
     "lactic acid": "लैक्टिक एसिड",
     "casein": "कैसीन",
     "casserole": "कैसरोल",
+    # bhaidooj
+    "gift": "गिफ़्ट",
+    "hero": "हीरो",
+    "special": "स्पेशल",
 }
 
 

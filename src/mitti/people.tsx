@@ -21,6 +21,8 @@ export type PersonProps = {
   mustache?: boolean;
   phone?: boolean; // holding a phone at chest height
   glasses?: boolean;
+  tilak?: number; // 0..1, red roli tilak with rice grains on the forehead
+  crown?: "yama" | "krishna"; // gold mukut (Krishna's carries a peacock feather)
   seed?: number; // offsets idle motion so two people don't move in sync
   style?: React.CSSProperties;
 };
@@ -36,6 +38,8 @@ export const Person: React.FC<PersonProps> = ({
   mustache = false,
   phone = false,
   glasses = false,
+  tilak = 0,
+  crown,
   seed = 0,
   style,
 }) => {
@@ -161,6 +165,15 @@ export const Person: React.FC<PersonProps> = ({
           </g>
         )}
         {bindi && <circle cx="200" cy="168" r="7" fill="#C2272D" />}
+        {tilak > 0 && (
+          <g opacity={tilak}>
+            <rect x="193" y={180 - 40 * tilak} width="14" height={40 * tilak} rx="7" fill="#C2272D" />
+            <ellipse cx="197" cy="152" rx="3" ry="5" fill="#FFFFFF" transform="rotate(-20 197 152)" />
+            <ellipse cx="204" cy="162" rx="3" ry="5" fill="#FFFFFF" transform="rotate(25 204 162)" />
+            <ellipse cx="198" cy="171" rx="3" ry="5" fill="#FFFFFF" transform="rotate(-10 198 171)" />
+          </g>
+        )}
+        {crown && <Crown kind={crown} />}
 
         {/* nose */}
         <path d="M200 206 C 196 226, 190 236, 196 242 C 200 245, 206 244, 210 240" fill="none" stroke={INK} strokeWidth={5} strokeLinecap="round" />
@@ -193,6 +206,35 @@ export const Person: React.FC<PersonProps> = ({
   );
 };
 
+/** Gold mukut drawn over the hair line. */
+const Crown: React.FC<{ kind: "yama" | "krishna" }> = ({ kind }) => {
+  const gold = "#E9B42A";
+  if (kind === "krishna") {
+    return (
+      <g>
+        {/* peacock feather */}
+        <path d="M232 112 C 250 70, 262 40, 268 6" fill="none" stroke="#2E7D4F" strokeWidth={6} strokeLinecap="round" />
+        <ellipse cx="270" cy="22" rx="26" ry="38" fill="#2E8B6A" stroke={INK} strokeWidth={5} transform="rotate(12 270 22)" />
+        <ellipse cx="271" cy="26" rx="14" ry="20" fill="#2C5FA8" transform="rotate(12 271 26)" />
+        <ellipse cx="272" cy="30" rx="6" ry="9" fill="#1B2E5C" transform="rotate(12 272 30)" />
+        <path d="M148 128 L 154 92 L 176 112 L 200 80 L 224 112 L 246 92 L 252 128 Z" fill={gold} stroke={INK} strokeWidth={6} strokeLinejoin="round" />
+        <rect x="142" y="120" width="116" height="20" rx="6" fill={gold} stroke={INK} strokeWidth={6} />
+        <circle cx="200" cy="130" r="7" fill="#C2272D" />
+      </g>
+    );
+  }
+  return (
+    <g>
+      <path d="M140 130 L 146 70 L 172 100 L 200 36 L 228 100 L 254 70 L 260 130 Z" fill={gold} stroke={INK} strokeWidth={6} strokeLinejoin="round" />
+      <rect x="134" y="118" width="132" height="24" rx="6" fill={gold} stroke={INK} strokeWidth={6} />
+      <circle cx="200" cy="130" r="8" fill="#2E8B6A" stroke={INK} strokeWidth={3} />
+      <circle cx="166" cy="130" r="5" fill="#C2272D" />
+      <circle cx="234" cy="130" r="5" fill="#C2272D" />
+      <circle cx="200" cy="70" r="7" fill="#C2272D" stroke={INK} strokeWidth={3} />
+    </g>
+  );
+};
+
 /** Lighten (amount > 0) or darken (amount < 0) a #rrggbb colour. */
 const shade = (hex: string, amount: number) => {
   const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
@@ -215,4 +257,18 @@ export const Mummy: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
 );
 export const Dadi: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
   <Person skin="#9E6A46" hair="bunGrey" outfit="#E8E0CF" dupatta="#B5501C" bindi glasses expression="smile" seed={11} {...p} />
+);
+
+// Bhai Dooj cast: the two legends' brother-sister pairs.
+export const Yamraj: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#5E7183" hair="short" outfit="#7A1F2B" dupatta="#E9B42A" mustache crown="yama" expression="neutral" seed={13} {...p} />
+);
+export const Yamuna: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#B07A52" hair="long" outfit="#2F7FA8" dupatta="#9CC3DA" bindi expression="smile" seed={17} {...p} />
+);
+export const Krishna: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#4A78B8" hair="long" outfit="#E9B42A" dupatta="#C2272D" crown="krishna" expression="smile" seed={19} {...p} />
+);
+export const Subhadra: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
+  <Person skin="#B97A50" hair="bun" outfit="#C2477A" dupatta="#E9B42A" bindi expression="smile" seed={23} {...p} />
 );
