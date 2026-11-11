@@ -17,6 +17,11 @@ import type { Beat } from "../explainer/Explainer";
 export const HAS_VOICEOVER = true;
 export const OUTRO_SECONDS = 3.5;
 
+// Where, in seconds into hook.mp3, the narrator starts "इस दिन की असली कहानी"
+// (the room goes dark) and "यमराज" (thunder + slam). scripts/vo_import.py
+// measures these from a recorded voice; they match the AI voice by default.
+export const HOOK_CUES = { story: 3.7, yamraj: 5.3 };
+
 export const SCRIPT: Beat[] = [
   {
     id: "hook",

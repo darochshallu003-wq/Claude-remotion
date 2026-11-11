@@ -7,6 +7,7 @@ import { Grain, INK, KraftBg, Sfx, SpeechBubble, Tag, WarmDark } from "../mitti/
 import { Aman, Riya } from "../mitti/people";
 import { Yamraj, Yamuna } from "./deities";
 import { Bhojan, GOLD, River, Scroll, Thali } from "./art";
+import { HOOK_CUES } from "./script";
 
 const LAB = "TYOHAR LAB";
 
@@ -40,24 +41,26 @@ const Sparkles: React.FC<{ x: number; y: number; w: number; start: number; color
 
 // ===========================================================================
 
-// Cold open, synced to the hook clip (voice starts 4 frames in):
+// Cold open, synced to the hook clip (voice starts 4 frames in); the
+// story/yamraj cue times come from HOOK_CUES in script.ts:
 // 0.0 s "रुको" · 0.6 s "भाई दूज पर सिर्फ़ टीका लगवाकर भाग रहे हो?" ·
 // 3.7 s "इस दिन की असली कहानी…" · 5.3 s "यमराज से जुड़ी है!"
 const at = (s: number) => Math.round(s * 30) + 4;
 
 export const Hook: React.FC = () => {
   const frame = useCurrentFrame();
-  const dark = interpolate(frame, [at(3.5), at(4.6)], [0, 0.82], clamp);
-  const slamAt = at(5.3);
+  const { story, yamraj } = HOOK_CUES;
+  const dark = interpolate(frame, [at(story - 0.2), at(Math.min(story + 0.9, yamraj - 0.2))], [0, 0.82], clamp);
+  const slamAt = at(yamraj);
   const slammed = frame >= slamAt;
   const slam = useEnter(slamAt, { damping: 11, stiffness: 200 });
   const flash = interpolate(frame, [slamAt, slamAt + 10], [1, 0], clamp);
   const shake = slammed && frame < slamAt + 14 ? Math.sin(frame * 3.1) * 18 * (1 - (frame - slamAt) / 14) : 0;
   // brother runs off with his tika, then freezes when the room goes dark
-  const run = interpolate(frame, [0, at(3.4)], [330, 660], clamp);
-  const running = frame < at(3.4);
+  const run = interpolate(frame, [0, at(story - 0.3)], [330, 660], clamp);
+  const running = frame < at(story - 0.3);
   const bob = running ? Math.abs(Math.sin(frame / 3)) * -26 : Math.sin(frame * 1.7) * 3 * (dark > 0.3 ? 1 : 0);
-  const shadow = interpolate(frame, [at(3.7), at(5.2)], [0, 1], clamp);
+  const shadow = interpolate(frame, [at(story), at(yamraj - 0.1)], [0, 1], clamp);
   return (
     <AbsoluteFill style={{ transform: `translate(${shake}px, ${shake * 0.6}px)` }}>
       <KraftBg />
@@ -119,7 +122,7 @@ export const Hook: React.FC = () => {
       <Sfx at={2} src="onion/thud.wav" volume={0.5} />
       <Sfx at={4} src="sfx/whoosh.wav" volume={0.4} />
       <Sfx at={at(1.6)} src="sfx/pop.wav" volume={0.45} />
-      <Sfx at={at(3.5)} src="sfx/whoosh.wav" volume={0.3} />
+      <Sfx at={at(story - 0.2)} src="sfx/whoosh.wav" volume={0.3} />
       <Sfx at={slamAt - 2} src="sfx/thunder.wav" volume={0.9} />
       <Sfx at={slamAt} src="onion/thud.wav" volume={0.7} />
     </AbsoluteFill>
