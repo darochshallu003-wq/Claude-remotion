@@ -20,36 +20,36 @@ export const OUTRO_SECONDS = 3.5;
 // Where, in seconds into hook.mp3, the narrator starts "इस दिन की असली कहानी"
 // (the room goes dark) and "यमराज" (thunder + slam). scripts/vo_import.py
 // measures these from a recorded voice; they match the AI voice by default.
-export const HOOK_CUES = { story: 4.12, yamraj: 6.16 };
+export const HOOK_CUES = { story: 4.62, yamraj: 6.66 };
 
 export const SCRIPT: Beat[] = [
   {
     id: "hook",
-    seconds: 7.67,
+    seconds: 8.29,
     enter: "cut",
     vo: "रुको, भाई दूज पर सिर्फ़ टीका लगवाकर भाग रहे हो? इस दिन की असली कहानी… यमराज से जुड़ी है!",
   },
   {
     id: "kahani",
-    seconds: 6.83,
+    seconds: 7.11,
     enter: "iris",
     vo: "बरसों बाद, यमराज अपनी बहन यमुना के घर पहुँचे। यमुना ने टीका लगाया, और अपने हाथ से खाना खिलाया।",
   },
   {
     id: "vardaan",
-    seconds: 9.21,
+    seconds: 9.27,
     enter: "wipe",
     vo: "खुश होकर यमराज ने वरदान दिया: इस दिन जो भाई बहन से टीका करवाए, उसे अकाल मृत्यु का डर नहीं।",
   },
   {
     id: "twist",
-    seconds: 12.42,
+    seconds: 12.51,
     enter: "iris",
     vo: "लेकिन असली hero टीका नहीं, खाना है। दक्षिण में इस दिन को कहते हैं भगिनी हस्त भोजनम्, यानी बहन के हाथ का खाना।",
   },
   {
     id: "cta",
-    seconds: 8.24,
+    seconds: 7.88,
     enter: "iris",
     vo: "तो इस बार टीके के बाद, बहन के घर खाना पक्का! ये video अपने भाई या बहन को भेजो।",
   },
