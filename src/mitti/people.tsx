@@ -259,13 +259,7 @@ export const Dadi: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
   <Person skin="#9E6A46" hair="bunGrey" outfit="#E8E0CF" dupatta="#B5501C" bindi glasses expression="smile" seed={11} {...p} />
 );
 
-// Bhai Dooj cast: the two legends' brother-sister pairs.
-export const Yamraj: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
-  <Person skin="#5E7183" hair="short" outfit="#7A1F2B" dupatta="#E9B42A" mustache crown="yama" expression="neutral" seed={13} {...p} />
-);
-export const Yamuna: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
-  <Person skin="#B07A52" hair="long" outfit="#2F7FA8" dupatta="#9CC3DA" bindi expression="smile" seed={17} {...p} />
-);
+// Bhai Dooj cast: Krishna and Subhadra (Yamraj and Yamuna are in src/bhaidooj/deities.tsx).
 export const Krishna: React.FC<Partial<PersonProps> & { size: number }> = (p) => (
   <Person skin="#4A78B8" hair="long" outfit="#E9B42A" dupatta="#C2272D" crown="krishna" expression="smile" seed={19} {...p} />
 );

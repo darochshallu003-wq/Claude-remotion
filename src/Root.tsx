@@ -5,6 +5,7 @@ import { HALDI_TOTAL_FRAMES, HaldiExplainer } from "./haldi/HaldiExplainer";
 import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
+import { DeitySheet } from "./dev/DeitySheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
 import { BHAIDOOJ_TOTAL_FRAMES, BhaiDoojExplainer } from "./bhaidooj/BhaiDoojExplainer";
 
@@ -68,6 +69,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition id="DeitySheet" component={DeitySheet} durationInFrames={1} fps={30} width={1080} height={1500} />
       <Composition id="CastSheet" component={CastSheet} durationInFrames={1} fps={30} width={1080} height={1300} />
     </>
   );

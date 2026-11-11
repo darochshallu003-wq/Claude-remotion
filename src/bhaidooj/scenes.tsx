@@ -4,7 +4,8 @@ import { clamp, Header, Headline, Stamp, useCue, useEnter, useFloat } from "../o
 import { C, DEVA, HEAD, MONO } from "../onion/theme";
 import { RED } from "../mitti/art";
 import { Grain, INK, KraftBg, Sfx, SpeechBubble, Tag, WarmDark } from "../mitti/kraft";
-import { Aman, Krishna, Riya, Subhadra, Yamraj, Yamuna } from "../mitti/people";
+import { Aman, Krishna, Riya, Subhadra } from "../mitti/people";
+import { Yamraj, Yamuna } from "./deities";
 import { Bhojan, Diya, GiftBox, GOLD, Garland, Laddoo, River, SAPTARANGI, Scroll, Thali, ThornDoor } from "./art";
 
 const LAB = "TYOHAR LAB";
@@ -150,11 +151,11 @@ export const Kahani: React.FC = () => {
       <div style={{ position: "absolute", left: 0, top: 1480 }}>
         <River width={1080} height={200} />
       </div>
-      <div style={{ position: "absolute", left: walk, top: 700 + bob }}>
-        <Yamraj size={430} expression={tilak > 0.5 ? "smile" : "neutral"} tilak={tilak} />
+      <div style={{ position: "absolute", left: walk - 20, top: 640 + bob }}>
+        <Yamraj size={430} expression={tilak > 0.5 ? (frame > cue(0.8) ? "laugh" : "smile") : "stern"} tilak={tilak} />
       </div>
-      <div style={{ position: "absolute", left: 600, top: 720, opacity: useEnter(cue(0.15)) }}>
-        <Yamuna size={420} expression="grin" />
+      <div style={{ position: "absolute", left: 600, top: 650, opacity: useEnter(cue(0.15)) }}>
+        <Yamuna size={420} holding={frame < cue(0.45) ? "namaste" : "lotus"} expression={frame > cue(0.8) ? "laugh" : "smile"} aura={useEnter(cue(0.15)) * 0.8} />
       </div>
       <AartiThali cx={270} cy={1180} r={110} size={300} at={cue(0.6)} />
       <div style={{ position: "absolute", left: 640, top: 1250, opacity: useEnter(cue(0.8)), transform: `scale(${useEnter(cue(0.8), { damping: 10, stiffness: 180 })})` }}>
@@ -174,15 +175,15 @@ export const Vardaan: React.FC = () => {
   const cue = useCue();
   const frame = useCurrentFrame();
   const glow = interpolate(frame, [cue(0.05), cue(0.25)], [0, 1], clamp);
+  const bless = interpolate(frame, [cue(0.1), cue(0.28)], [0, 1], clamp);
   const open = interpolate(frame, [cue(0.3), cue(0.5)], [0, 1], clamp);
   return (
     <AbsoluteFill>
       <WarmDark />
       <Header left="LEGEND · FIG. 04" right="VARDAAN" dark />
       <Headline setup="Khush hokar Yamraj ne diya…" punch="Vardaan!" dark punchColor={GOLD} punchSize={140} />
-      <div style={{ position: "absolute", left: 40, top: 640, width: 460, height: 460, borderRadius: "50%", background: `radial-gradient(circle, rgba(233,180,42,${0.55 * glow}) 0%, rgba(233,180,42,0) 70%)` }} />
-      <div style={{ position: "absolute", left: 60, top: 640 }}>
-        <Yamraj size={420} expression="smile" tilak={1} />
+      <div style={{ position: "absolute", left: 40, top: 600 }}>
+        <Yamraj size={440} expression="smile" tilak={1} bless={bless} aura={glow} />
       </div>
       <Sparkles x={60} y={900} w={400} start={cue(0.05)} />
       <div style={{ position: "absolute", left: 500, top: 660 }}>
