@@ -6,9 +6,12 @@ works (m4a, mp3, wav, ogg, opus, aac, mp4 video...).
 
 Processing is deliberately light, so the voice keeps its clarity:
   1. master the whole take once: rumble cut, gentle denoise only if the
-     take is noisy (floor above -50 dB), a little EQ (less mud, more presence
-     and air, since phone recordings are often dull), gentle compression,
-     then two-pass linear loudness normalisation to -16 LUFS / -1.5 dBTP;
+     take is noisy (floor above -50 dB), room-echo reduction (WPE
+     dereverberation, then a downward expander that pulls echo tails down
+     after each word), a little EQ (less boom and mud, more presence and
+     air, since phone recordings are often dull), then two-pass linear
+     loudness normalisation to -16 LUFS / -1.5 dBTP. No compressor: it
+     would lift the echo tails back up;
   2. cut each scene's line out of the mastered take;
   3. trim the silence at both ends and shorten pauses longer than 0.45 s
      to 0.3 s with short fades, so no word is clipped;
@@ -26,6 +29,9 @@ Usage:
 --starts gives the second, in the take, where each scene's line begins (one
 per scene, in script order; any point in the pause before the line works).
 Use it when the pauses between lines are too short to split on.
+--no-dereverb skips the echo reduction (for a take recorded somewhere dry).
+
+Needs: pip install numpy soundfile nara_wpe
 """
 
 import json
@@ -44,6 +50,41 @@ KEEP_PAUSE = 0.3  # pauses inside a line are shortened to this, seconds
 MIN_PAUSE = 0.45  # ...if they are longer than this
 EDGE_PAD = 0.08  # silence kept before the first and after the last word
 FADE = 0.015
+DEREVERB = True
+
+
+def wpe_dereverb(x: np.ndarray) -> np.ndarray:
+    """Weighted prediction error dereverberation (single channel)."""
+    from nara_wpe.utils import istft, stft
+    from nara_wpe.wpe import wpe
+
+    size, shift = 2048, 512
+    Y = stft(x[None, :], size=size, shift=shift).transpose(2, 0, 1)  # F x D x T
+    Z = wpe(Y, taps=10, delay=2, iterations=3, statistics_mode="full").transpose(1, 2, 0)
+    z = istft(Z, size=size, shift=shift)[0]
+    return z[: len(x)] if len(z) >= len(x) else np.pad(z, (0, len(x) - len(z)))
+
+
+def expand(x: np.ndarray, sr: int, below: float = 10.0, ratio: float = 3.0, max_cut: float = 18.0,
+           look: float = 0.30, att: float = 0.004, rel: float = 0.05) -> np.ndarray:
+    """Downward expander keyed to recent speech level: sound more than `below`
+    dB under the loudest level of the last `look` s (echo tails, room tone)
+    is pushed down by `ratio`, by at most `max_cut` dB."""
+    step = 0.005
+    hop = int(step * sr)
+    n = len(x) // hop + 1
+    xp = np.pad(x, (0, n * hop - len(x)))
+    db = 20 * np.log10(np.sqrt(np.mean(xp.reshape(n, hop) ** 2, 1)) + 1e-9)
+    w = int(look / step)
+    ref = np.array([db[max(0, i - w) : i + 1].max() for i in range(n)])
+    target = -np.minimum(np.clip(ref - below - db, 0, None) * (ratio - 1), max_cut)
+    g = np.zeros(n)
+    a, r = np.exp(-step / att), np.exp(-step / rel)
+    for i in range(n):
+        prev = g[i - 1] if i else 0.0
+        coef = a if target[i] > prev else r
+        g[i] = coef * prev + (1 - coef) * target[i]
+    return x * np.repeat(10 ** (g / 20), hop)[: len(x)]
 
 
 def ff(*args: str) -> str:
@@ -67,16 +108,20 @@ def master(src: pathlib.Path, dst: pathlib.Path) -> None:
         # denoise only noisy takes: on a quiet one it just adds watery artefacts
         nf = max(-80.0, min(-20.0, floor + 3))
         denoise = f"afftdn=nf={nf:.0f}:nr=6:tn=1," if floor > -50 else ""
+        pre = pathlib.Path(tmp) / "pre.wav"
+        ff("-y", "-i", str(raw), "-af", f"highpass=f=70,{denoise}anull", str(pre))
+        if DEREVERB:
+            x, _ = sf.read(str(pre))
+            y = expand(wpe_dereverb(x), SR)
+            sf.write(str(pre), y / (np.abs(y).max() + 1e-9) * 0.9, SR, subtype="FLOAT")
         chain = (
-            "highpass=f=70,"
-            f"{denoise}"
-            "equalizer=f=250:t=q:w=1.0:g=-2,"
+            "equalizer=f=180:t=q:w=1.0:g=-2,"
+            "equalizer=f=320:t=q:w=1.0:g=-2.5,"
             "equalizer=f=3200:t=q:w=1.2:g=3.5,"
-            "highshelf=f=8000:g=2.5,"
-            "acompressor=threshold=-24dB:ratio=2.5:attack=12:release=180:makeup=2"
+            "highshelf=f=8000:g=2.5"
         )
         shaped = pathlib.Path(tmp) / "shaped.wav"
-        ff("-y", "-i", str(raw), "-af", chain, str(shaped))
+        ff("-y", "-i", str(pre), "-af", chain, str(shaped))
         # two-pass loudnorm: measure, then apply as one linear gain
         log = ff("-i", str(shaped), "-af", "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-")
         m = json.loads(log[log.rindex("{") : log.rindex("}") + 1])
@@ -89,6 +134,7 @@ def master(src: pathlib.Path, dst: pathlib.Path) -> None:
         )
         print(f"mastered take: noise floor {floor:.1f} dB, "
               f"{'denoise at %.0f dB' % nf if denoise else 'no denoise needed'}, "
+              f"{'echo reduced' if DEREVERB else 'no echo reduction'}, "
               f"{m['input_i']} → -16 LUFS")
 
 
@@ -97,7 +143,9 @@ def speech_mask(x: np.ndarray, sr: int, floor: float) -> np.ndarray:
     n = len(x) // frame
     rms = np.sqrt(np.mean(x[: n * frame].reshape(n, frame) ** 2, axis=1) + 1e-12)
     db = 20 * np.log10(rms)
-    loud = db > floor + 14
+    # speech = clearly above the noise floor AND within 25 dB of the speaking
+    # level, so breaths and room tone between lines count as pauses
+    loud = db > max(floor + 14, float(np.percentile(db, 95)) - 25)
     # bridge tiny dips (between syllables) shorter than 120 ms
     k = 0
     while k < n:
@@ -174,6 +222,10 @@ def main() -> None:
         raise SystemExit(__doc__)
     project = sys.argv[1]
     args = sys.argv[2:]
+    if "--no-dereverb" in args:
+        global DEREVERB
+        DEREVERB = False
+        args.remove("--no-dereverb")
     starts: list[float] | None = None
     if "--starts" in args:
         k = args.index("--starts")
