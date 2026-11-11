@@ -4,6 +4,9 @@ import type { Beat } from "../explainer/Explainer";
 // cast. `seconds` is set from the voiceover clips by scripts/vo_timing.py
 // bhaidooj. Questions are voiced by a second, asking voice.
 //
+// The hook is a cold open: the sister's line is asked by the question
+// voice, then Yamraj crashes in. No slow intro before the story.
+//
 // Facts: Bhai Dooj falls on Kartik Shukla Dwitiya, two days after Diwali,
 // and closes the five-day festival; it is also called Yama Dwitiya. In the
 // best-known legend Yama visits his sister Yamuna (Yami), who welcomes him
@@ -22,27 +25,21 @@ export const OUTRO_SECONDS = 3.5;
 export const SCRIPT: Beat[] = [
   {
     id: "hook",
-    seconds: 6.37,
-    enter: "fade",
-    vo: "भाई दूज मतलब बस टीका लगाओ, मिठाई खाओ और gift लो? सच में, बस इतना ही?",
-  },
-  {
-    id: "naam",
-    seconds: 7.67,
+    seconds: 6.97,
     enter: "cut",
-    vo: "इस दिन का एक और नाम है, यम द्वितीया। दिवाली के दो दिन बाद आता है, और पाँच दिन के त्योहार का आख़िरी दिन होता है।",
+    vo: "रुको, भाई दूज पर सिर्फ़ टीका लगवाकर भाग रहे हो? इस दिन की असली कहानी… यमराज से जुड़ी है!",
   },
   {
     id: "kahani",
-    seconds: 8.91,
+    seconds: 7.93,
     enter: "iris",
-    vo: "कहानी कहती है, यमराज बरसों बाद अपनी बहन यमुना से मिलने पहुँचे। यमुना ने टीका लगाया, आरती उतारी, और अपने हाथ से खाना खिलाया।",
+    vo: "बरसों बाद, यमराज अपनी बहन यमुना से मिलने पहुँचे। यमुना ने टीका लगाया, आरती उतारी, और अपने हाथ से खाना खिलाया।",
   },
   {
     id: "vardaan",
-    seconds: 6.99,
+    seconds: 9.95,
     enter: "wipe",
-    vo: "खुश होकर यमराज ने वरदान दिया: जो भाई इस दिन बहन से टीका करवाएगा, उसे अकाल मृत्यु का डर नहीं रहेगा।",
+    vo: "खुश होकर यमराज ने वरदान दिया: जो भाई इस दिन बहन से टीका करवाएगा, उसे अकाल मृत्यु का डर नहीं रहेगा। इसीलिए इस दिन का एक नाम है, यम द्वितीया।",
   },
   {
     id: "twist",

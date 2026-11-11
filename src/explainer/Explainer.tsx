@@ -196,7 +196,7 @@ export const makeExplainer = ({
               from={p.start - overlap}
               durationInFrames={p.frames + overlap + (i === placed.length - 1 ? 30 : 0)}
             >
-              <Enterer enter={i === 0 ? "fade" : p.enter}>
+              <Enterer enter={i === 0 && p.enter !== "cut" ? "fade" : p.enter}>
                 <Scene />
               </Enterer>
             </Sequence>

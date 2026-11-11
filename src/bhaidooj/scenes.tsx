@@ -54,86 +54,107 @@ const Sparkles: React.FC<{ x: number; y: number; w: number; start: number; color
 
 // ===========================================================================
 
+// Cold open, synced to the hook clip (voice starts 4 frames in):
+// 0.0 s "रुको" · 0.6 s "भाई दूज पर सिर्फ़ टीका लगवाकर भाग रहे हो?" ·
+// 3.7 s "इस दिन की असली कहानी…" · 5.3 s "यमराज से जुड़ी है!"
+const at = (s: number) => Math.round(s * 30) + 4;
+
 export const Hook: React.FC = () => {
-  const cue = useCue();
   const frame = useCurrentFrame();
-  const tilak = interpolate(frame, [cue(0.12), cue(0.24)], [0, 1], clamp);
-  const checks = [
-    { t: "TIKA ✓", at: 0.12 },
-    { t: "MITHAI ✓", at: 0.26 },
-    { t: "GIFT ✓", at: 0.4 },
-  ];
+  const dark = interpolate(frame, [at(3.5), at(4.6)], [0, 0.82], clamp);
+  const slamAt = at(5.3);
+  const slammed = frame >= slamAt;
+  const slam = useEnter(slamAt, { damping: 11, stiffness: 200 });
+  const flash = interpolate(frame, [slamAt, slamAt + 10], [1, 0], clamp);
+  const shake = slammed && frame < slamAt + 14 ? Math.sin(frame * 3.1) * 18 * (1 - (frame - slamAt) / 14) : 0;
+  // brother runs off with his tika, then freezes when the room goes dark
+  const run = interpolate(frame, [0, at(3.4)], [330, 660], clamp);
+  const running = frame < at(3.4);
+  const bob = running ? Math.abs(Math.sin(frame / 3)) * -26 : Math.sin(frame * 1.7) * 3 * (dark > 0.3 ? 1 : 0);
+  const shadow = interpolate(frame, [at(3.7), at(5.2)], [0, 1], clamp);
   return (
-    <AbsoluteFill>
+    <AbsoluteFill style={{ transform: `translate(${shake}px, ${shake * 0.6}px)` }}>
       <KraftBg />
-      <Header left="FESTIVAL · FIG. 01" right={LAB} dark={false} />
-      <Headline setup="Bhai Dooj =" punch="Sirf tika?" dark={false} punchColor={RED} punchSize={130} />
-      <div style={{ position: "absolute", left: 40, top: 640 }}>
-        <Riya size={420} expression="smile" />
-      </div>
-      <div style={{ position: "absolute", left: 600, top: 640 }}>
-        <Aman size={420} expression="grin" tilak={tilak} />
-      </div>
-      <div style={{ position: "absolute", left: 320, top: 1150 }}>
-        <Thali size={440} />
-      </div>
-      {checks.map((c, i) => (
-        <Tag key={c.t} text={c.t} x={80 + i * 330} y={1500} at={cue(c.at)} rotate={i % 2 ? 2 : -2} />
-      ))}
-      <SpeechBubble text="बस इतना?!" x={560} y={540} at={cue(0.62)} />
-      {checks.map((c) => (
-        <Sfx key={c.t} at={cue(c.at)} src="sfx/pop.wav" volume={0.45} />
-      ))}
-      <Sfx at={cue(0.62)} src="onion/thud.wav" volume={0.5} />
+      {!slammed && (
+        <>
+          <Header left="BHAI DOOJ · COLD OPEN" right={LAB} dark={dark > 0.4} />
+          {/* visible from frame 0 (it is the thumbnail), with a quick punch bounce */}
+          <div style={{ position: "absolute", top: 222, left: 70, right: 70, textTransform: "uppercase" }}>
+            <div style={{ fontFamily: HEAD, fontWeight: 500, fontSize: 58, color: dark > 0.4 ? C.cream : INK }}>Bhai Dooj pe sirf tika…</div>
+            <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 124, lineHeight: 1.02, color: RED, marginTop: 4, transform: `scale(${1 + 0.12 * Math.max(0, 1 - frame / 8)})`, transformOrigin: "left center" }}>
+              Aur bhaag gaye?!
+            </div>
+          </div>
+          {/* Yamraj's silhouette rising behind the brother */}
+          <div style={{ position: "absolute", left: 300, top: 1500 - shadow * 900, opacity: shadow * 0.9, filter: "brightness(0)" }}>
+            <Yamraj size={560} />
+          </div>
+          {/* speed lines behind the runner */}
+          {running &&
+            [0, 1, 2, 3].map((i) => (
+              <div key={i} style={{ position: "absolute", left: run - 150 - ((frame * 9 + i * 40) % 120), top: 900 + i * 90, width: 120, height: 10, borderRadius: 5, background: INK, opacity: 0.35 }} />
+            ))}
+          <div style={{ position: "absolute", left: 30, top: 760 }}>
+            <Riya size={380} expression={dark > 0.3 ? "neutral" : "disgust"} />
+          </div>
+          <div style={{ position: "absolute", left: 60, top: 1260 }}>
+            <Thali size={300} />
+          </div>
+          <div style={{ position: "absolute", left: run, top: 800 + bob, transform: `scaleX(${running ? -1 : 1})` }}>
+            <Aman size={380} expression={dark > 0.3 ? "disgust" : "grin"} tilak={1} />
+          </div>
+          {dark > 0.3 && (
+            <div style={{ position: "absolute", left: run + 270, top: 860 - ((frame % 30) / 30) * 20, width: 30, height: 44, borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%", background: "#9CC3DA", border: `4px solid ${INK}`, opacity: dark }} />
+          )}
+          <SpeechBubble text="रुको!!" x={250} y={640} at={2} />
+          <Tag text="TIKA ✓  ...AB BHAAGO?" x={560} y={1330} at={at(1.6)} rotate={3} />
+          <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 60%, rgba(60,8,8,${dark * 0.85}) 0%, rgba(10,4,4,${dark}) 80%)`, pointerEvents: "none" }} />
+        </>
+      )}
+      {slammed && (
+        <>
+          <AbsoluteFill style={{ background: "radial-gradient(ellipse at 50% 45%, #7A1414 0%, #3A0808 55%, #120404 100%)" }}>
+            <Grain opacity={0.4} />
+          </AbsoluteFill>
+          <Lightning frame={frame - slamAt} />
+          <div style={{ position: "absolute", left: 0, right: 0, top: 210, textAlign: "center", fontFamily: HEAD, fontWeight: 700, fontSize: 210, color: GOLD, letterSpacing: 6, transform: `scale(${1.8 - 0.8 * slam})`, opacity: Math.min(1, slam * 2), textShadow: "0 8px 40px rgba(240,138,36,0.6)" }}>
+            YAMRAJ
+          </div>
+          <div style={{ position: "absolute", left: 540 - 320, top: 520, transform: `scale(${1.5 - 0.5 * slam})`, transformOrigin: "50% 30%" }}>
+            <Yamraj size={640} aura={1} expression="stern" />
+          </div>
+          <div style={{ position: "absolute", left: 740, top: 1330, transform: `rotate(8deg) translateX(${(1 - slam) * 200}px)` }}>
+            <Aman size={260} expression="disgust" tilak={1} />
+          </div>
+          <Tag text="ASLI KAHANI YAHAN SE →" x={90} y={1560} at={slamAt + 10} />
+        </>
+      )}
+      <AbsoluteFill style={{ background: "white", opacity: slammed ? flash : 0, pointerEvents: "none" }} />
+      <Sfx at={2} src="onion/thud.wav" volume={0.5} />
+      <Sfx at={4} src="sfx/whoosh.wav" volume={0.4} />
+      <Sfx at={at(1.6)} src="sfx/pop.wav" volume={0.45} />
+      <Sfx at={at(3.5)} src="sfx/whoosh.wav" volume={0.3} />
+      <Sfx at={slamAt - 2} src="sfx/thunder.wav" volume={0.9} />
+      <Sfx at={slamAt} src="onion/thud.wav" volume={0.7} />
     </AbsoluteFill>
   );
 };
 
-const DAYS = ["DHANTERAS", "CHHOTI DIWALI", "DIWALI", "GOVARDHAN", "BHAI DOOJ"];
-
-export const Naam: React.FC = () => {
-  const cue = useCue();
-  const frame = useCurrentFrame();
+/** Two jagged bolts that strike and fade. */
+const Lightning: React.FC<{ frame: number }> = ({ frame }) => {
+  const o = interpolate(frame, [0, 3, 6, 9, 16], [1, 0.3, 1, 0.6, 0], clamp);
   return (
-    <AbsoluteFill>
-      <WarmDark />
-      <Header left="CALENDAR · FIG. 02" right="KARTIK MAAS" dark />
-      <Headline setup="Ek aur naam…" punch="Yam Dwitiya" dark punchColor={GOLD} punchSize={130} />
-      {DAYS.map((d, i) => {
-        const at = cue(0.42 + i * 0.07);
-        const last = i === DAYS.length - 1;
-        const lit = interpolate(frame, [at, at + 8], [0, 1], clamp);
-        return (
-          <div key={d} style={{ position: "absolute", left: 40 + i * 202, top: last ? 700 : 760, width: 200, textAlign: "center" }}>
-            <div style={{ display: "flex", justifyContent: "center", transform: `scale(${last ? 1.25 : 1})` }}>
-              <Diya size={170} lit={lit} seed={i} />
-            </div>
-            <div style={{ marginTop: 18, fontFamily: HEAD, fontWeight: 700, fontSize: 46, color: last ? GOLD : C.cream, opacity: 0.4 + 0.6 * lit }}>{`DIN ${i + 1}`}</div>
-            <div style={{ fontFamily: MONO, fontSize: 19, letterSpacing: 1, color: last ? GOLD : "#B9AE9C", opacity: 0.4 + 0.6 * lit }}>{d}</div>
-          </div>
-        );
-      })}
-      <div
-        style={{
-          position: "absolute",
-          left: 846,
-          top: 668,
-          width: 200,
-          height: 420,
-          borderRadius: 30,
-          border: `6px solid ${GOLD}`,
-          opacity: useEnter(cue(0.75)),
-          boxShadow: `0 0 50px rgba(233,180,42,0.45)`,
-        }}
-      />
-      <Tag text="KARTIK SHUKLA DWITIYA" x={120} y={1180} at={cue(0.2)} />
-      <Tag text="DIWALI KE 2 DIN BAAD" x={300} y={1270} at={cue(0.48)} rotate={2} />
-      <Stamp text="AAKHRI DIN" x={540} y={1460} at={cue(0.78)} color={GOLD} blend="normal" rotate={-6} size={84} />
-      {DAYS.map((d, i) => (
-        <Sfx key={d} at={cue(0.42 + i * 0.07)} src="onion/tick.wav" volume={0.4} />
+    <svg width={1080} height={1920} style={{ position: "absolute", left: 0, top: 0, opacity: o }}>
+      {[
+        "M120 0 L 200 260 L 140 280 L 260 560 L 190 580 L 330 900",
+        "M980 0 L 880 300 L 950 320 L 820 620 L 900 640 L 760 980",
+      ].map((d) => (
+        <g key={d}>
+          <path d={d} fill="none" stroke="#FFF1B8" strokeWidth={26} strokeLinejoin="round" opacity={0.35} />
+          <path d={d} fill="none" stroke="white" strokeWidth={9} strokeLinejoin="round" />
+        </g>
       ))}
-      <Sfx at={cue(0.78)} src="onion/thud.wav" volume={0.5} />
-    </AbsoluteFill>
+    </svg>
   );
 };
 
@@ -196,10 +217,12 @@ export const Vardaan: React.FC = () => {
           </div>
         </Scroll>
       </div>
-      <Tag text="TIKA = LAMBI UMAR KI DUA" x={250} y={1300} at={cue(0.7)} />
+      <Tag text="TIKA = LAMBI UMAR KI DUA" x={250} y={1300} at={cue(0.55)} />
+      <Stamp text="YAM DWITIYA" x={540} y={1480} at={cue(0.8)} color={GOLD} blend="normal" rotate={-5} size={92} />
       <Sfx at={cue(0.05)} src="onion/sparkle.wav" volume={0.4} />
       <Sfx at={cue(0.3)} src="sfx/whoosh.wav" volume={0.35} />
-      <Sfx at={cue(0.7)} src="sfx/pop.wav" volume={0.45} />
+      <Sfx at={cue(0.55)} src="sfx/pop.wav" volume={0.45} />
+      <Sfx at={cue(0.8)} src="onion/thud.wav" volume={0.5} />
     </AbsoluteFill>
   );
 };
@@ -467,7 +490,6 @@ export const Cta: React.FC = () => {
 
 export const SCENES: Record<string, React.FC> = {
   hook: Hook,
-  naam: Naam,
   kahani: Kahani,
   vardaan: Vardaan,
   twist: Twist,

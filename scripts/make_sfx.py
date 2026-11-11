@@ -4,6 +4,7 @@ Writes 44.1 kHz stereo WAVs to public/sfx/:
   pop.wav     soft bubbly pop for each ingredient label
   whoosh.wav  airy swoosh going into each slow-motion shot
   chime.wav   light bell chime for the final hero shot
+  thunder.wav thunder clap and rumble (Yamraj's entrance, Bhai Dooj short)
 
 Generated from scratch (numpy), so there are no licensing questions.
 Usage: python3 scripts/make_sfx.py
@@ -79,11 +80,31 @@ def chime() -> np.ndarray:
     return out * np.minimum(1, t / 0.002)
 
 
+def thunder() -> tuple[np.ndarray, np.ndarray]:
+    dur = 2.6
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    # sharp crack: bright noise burst
+    crack = rng.standard_normal(n) * np.exp(-t / 0.05) * np.minimum(1, t / 0.002)
+    crack = lowpass_sweep(crack, np.full(n, 5000.0))
+    # rolling rumble: dark noise with slow, uneven swells
+    rumble = lowpass_sweep(rng.standard_normal(n), np.full(n, 140.0))
+    rumble = lowpass_sweep(rumble, np.full(n, 220.0))
+    rumble /= np.abs(rumble).max()
+    roll = 0.6 + 0.4 * np.sin(2 * np.pi * 2.3 * t + 1) * np.sin(2 * np.pi * 0.9 * t)
+    rumble *= np.minimum(1, t / 0.03) * np.exp(-t / 0.9) * roll
+    boom = np.sin(2 * np.pi * 48 * t) * np.exp(-t / 0.35)
+    left = 0.7 * crack + 1.0 * rumble + 0.6 * boom
+    right = 0.7 * crack + 1.0 * np.roll(rumble, 400) + 0.6 * boom
+    return left, right
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     write("pop.wav", pop())
     write("whoosh.wav", *whoosh())
     write("chime.wav", chime())
+    write("thunder.wav", *thunder())
     print("wrote", ", ".join(sorted(p.name for p in OUT.glob("*.wav"))))
 
 
