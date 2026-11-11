@@ -4,25 +4,11 @@ import { clamp, Header, Headline, Stamp, useCue, useEnter, useFloat } from "../o
 import { C, DEVA, HEAD, MONO } from "../onion/theme";
 import { RED } from "../mitti/art";
 import { Grain, INK, KraftBg, Sfx, SpeechBubble, Tag, WarmDark } from "../mitti/kraft";
-import { Aman, Krishna, Riya, Subhadra } from "../mitti/people";
+import { Aman, Riya } from "../mitti/people";
 import { Yamraj, Yamuna } from "./deities";
-import { Bhojan, Diya, GiftBox, GOLD, Garland, Laddoo, River, SAPTARANGI, Scroll, Thali, ThornDoor } from "./art";
+import { Bhojan, GOLD, River, Scroll, Thali } from "./art";
 
 const LAB = "TYOHAR LAB";
-
-/** Thali circling in front of someone, like an aarti. */
-const AartiThali: React.FC<{ cx: number; cy: number; r: number; size: number; at: number }> = ({ cx, cy, r, size, at }) => {
-  const frame = useCurrentFrame();
-  const e = useEnter(at);
-  const a = Math.max(0, frame - at) / 14;
-  const x = cx + Math.cos(a) * r - size / 2;
-  const y = cy + Math.sin(a) * r * 0.55 - size * 0.31;
-  return (
-    <div style={{ position: "absolute", left: x, top: y, opacity: e, transform: `scale(${0.6 + 0.4 * e})` }}>
-      <Thali size={size} />
-    </div>
-  );
-};
 
 /** Little rising sparkles around a point. */
 const Sparkles: React.FC<{ x: number; y: number; w: number; start: number; color?: string }> = ({ x, y, w, start, color = GOLD }) => {
@@ -163,31 +149,28 @@ export const Kahani: React.FC = () => {
   const frame = useCurrentFrame();
   const walk = interpolate(frame, [cue(0.05), cue(0.3)], [-420, 60], clamp);
   const bob = frame < cue(0.3) ? Math.abs(Math.sin(frame / 4)) * -14 : 0;
-  const tilak = interpolate(frame, [cue(0.45), cue(0.55)], [0, 1], clamp);
+  const tilak = interpolate(frame, [cue(0.45), cue(0.56)], [0, 1], clamp);
   return (
     <AbsoluteFill>
       <KraftBg />
-      <Header left="LEGEND · FIG. 03" right="YAMA + YAMUNA" dark={false} />
+      <Header left="LEGEND · FIG. 02" right="YAMA + YAMUNA" dark={false} />
       <Headline setup="Yamraj pahunche…" punch="Behen Yamuna ke ghar" dark={false} punchColor={RED} punchSize={96} />
       <div style={{ position: "absolute", left: 0, top: 1480 }}>
         <River width={1080} height={200} />
       </div>
       <div style={{ position: "absolute", left: walk - 20, top: 640 + bob }}>
-        <Yamraj size={430} expression={tilak > 0.5 ? (frame > cue(0.8) ? "laugh" : "smile") : "stern"} tilak={tilak} />
+        <Yamraj size={430} expression={tilak > 0.5 ? (frame > cue(0.72) ? "laugh" : "smile") : "stern"} tilak={tilak} />
       </div>
       <div style={{ position: "absolute", left: 600, top: 650, opacity: useEnter(cue(0.15)) }}>
-        <Yamuna size={420} holding={frame < cue(0.45) ? "namaste" : "lotus"} expression={frame > cue(0.8) ? "laugh" : "smile"} aura={useEnter(cue(0.15)) * 0.8} />
+        <Yamuna size={420} holding={frame < cue(0.45) ? "namaste" : "lotus"} expression={frame > cue(0.72) ? "laugh" : "smile"} aura={useEnter(cue(0.15)) * 0.8} />
       </div>
-      <AartiThali cx={270} cy={1180} r={110} size={300} at={cue(0.6)} />
-      <div style={{ position: "absolute", left: 640, top: 1250, opacity: useEnter(cue(0.8)), transform: `scale(${useEnter(cue(0.8), { damping: 10, stiffness: 180 })})` }}>
+      <div style={{ position: "absolute", left: 640, top: 1250, opacity: useEnter(cue(0.7)), transform: `scale(${useEnter(cue(0.7), { damping: 10, stiffness: 180 })})` }}>
         <Bhojan size={380} />
       </div>
       <Tag text="1. TIKA" x={70} y={600} at={cue(0.45)} />
-      <Tag text="2. AARTI" x={400} y={600} at={cue(0.62)} rotate={2} />
-      <Tag text="3. APNE HAATH KA KHANA" x={560} y={1190} at={cue(0.8)} />
+      <Tag text="2. APNE HAATH KA KHANA" x={560} y={1190} at={cue(0.7)} />
       <Sfx at={cue(0.45)} src="sfx/pop.wav" volume={0.45} />
-      <Sfx at={cue(0.62)} src="onion/sparkle.wav" volume={0.35} />
-      <Sfx at={cue(0.8)} src="sfx/pop.wav" volume={0.45} />
+      <Sfx at={cue(0.7)} src="sfx/pop.wav" volume={0.45} />
     </AbsoluteFill>
   );
 };
@@ -201,7 +184,7 @@ export const Vardaan: React.FC = () => {
   return (
     <AbsoluteFill>
       <WarmDark />
-      <Header left="LEGEND · FIG. 04" right="VARDAAN" dark />
+      <Header left="LEGEND · FIG. 03" right="VARDAAN" dark />
       <Headline setup="Khush hokar Yamraj ne diya…" punch="Vardaan!" dark punchColor={GOLD} punchSize={140} />
       <div style={{ position: "absolute", left: 40, top: 600 }}>
         <Yamraj size={440} expression="smile" tilak={1} bless={bless} aura={glow} />
@@ -259,198 +242,6 @@ export const Twist: React.FC = () => {
   );
 };
 
-export const KrishnaScene: React.FC = () => {
-  const cue = useCue();
-  const frame = useCurrentFrame();
-  const tilak = interpolate(frame, [cue(0.6), cue(0.7)], [0, 1], clamp);
-  return (
-    <AbsoluteFill>
-      <KraftBg />
-      <Header left="LEGEND · FIG. 05" right="DWARKA" dark={false} />
-      <Headline setup="Ek aur kahani…" punch="Krishna & Subhadra" dark={false} punchColor={RED} punchSize={104} />
-      <div style={{ position: "absolute", left: 50, top: 680, opacity: useEnter(cue(0.05)), transform: `translateX(${(1 - useEnter(cue(0.05))) * -200}px)` }}>
-        <Krishna size={430} expression="smile" tilak={tilak} />
-      </div>
-      <div style={{ position: "absolute", left: 600, top: 700, opacity: useEnter(cue(0.4)) }}>
-        <Subhadra size={420} expression="grin" />
-      </div>
-      <div style={{ position: "absolute", left: 320, top: 1260, opacity: useEnter(cue(0.55)) }}>
-        <Thali size={420} />
-      </div>
-      {new Array(6).fill(0).map((_, i) => {
-        const at = cue(0.7) + i * 4;
-        const e = useEnter(at, { damping: 9, stiffness: 200 });
-        return (
-          <div key={i} style={{ position: "absolute", left: 70 + i * 160, top: 1540, transform: `scale(${e}) translateY(${(1 - e) * -120}px)` }}>
-            <Laddoo size={110} />
-          </div>
-        );
-      })}
-      <Tag text="NARAKASUR KO HARAKE LAUTE" x={70} y={600} at={cue(0.15)} />
-      <Tag text="TIKA + MITHAI SE SWAGAT" x={520} y={1200} at={cue(0.62)} rotate={2} />
-      <Sfx at={cue(0.15)} src="sfx/pop.wav" volume={0.45} />
-      <Sfx at={cue(0.62)} src="sfx/pop.wav" volume={0.45} />
-      <Sfx at={cue(0.7)} src="onion/sparkle.wav" volume={0.35} />
-    </AbsoluteFill>
-  );
-};
-
-const REGIONS = [
-  { name: "Bhau Beej", where: "MAHARASHTRA · GOA", at: 0.12, art: "diya" },
-  { name: "Bhai Phonta", where: "BENGAL", at: 0.24, art: "phonta" },
-  { name: "Bhai Tika", where: "NEPAL", at: 0.36, art: "sapta" },
-] as const;
-
-export const Naksha: React.FC = () => {
-  const cue = useCue();
-  const frame = useCurrentFrame();
-  const dots = interpolate(frame, [cue(0.5), cue(0.68)], [0, 1], clamp);
-  const garland = interpolate(frame, [cue(0.72), cue(0.92)], [0, 1], clamp);
-  return (
-    <AbsoluteFill>
-      <WarmDark />
-      <Header left="ACROSS INDIA · FIG. 06" right="EK TYOHAR, KAI NAAM" dark />
-      <Headline setup="Naam alag-alag…" punch="Pyaar wahi!" dark punchColor={GOLD} punchSize={130} />
-      {REGIONS.map((r, i) => (
-        <RegionRow key={r.name} y={590 + i * 230} at={cue(r.at)} name={r.name} where={r.where} art={r.art} dots={dots} />
-      ))}
-      {/* Nepal close-up: seven-colour tika + makhamali garland */}
-      <div style={{ position: "absolute", left: 120, top: 1290, opacity: useEnter(cue(0.5)) }}>
-        <div style={{ position: "relative" }}>
-          <Riya size={300} hair="long" expression="smile" bindi={false} />
-          <div style={{ position: "absolute", left: 112, top: 104, display: "flex", flexDirection: "column", gap: 2 }}>
-            {SAPTARANGI.map((c, k) => (
-              <div key={c} style={{ width: 16, height: 9, borderRadius: 4, background: c, opacity: dots * 7 > k ? 1 : 0 }} />
-            ))}
-          </div>
-          <div style={{ position: "absolute", left: 20, top: 270 }}>
-            <Garland width={260} grow={garland} />
-          </div>
-        </div>
-      </div>
-      <Tag text="7 RANG KA TIKA" x={480} y={1360} at={cue(0.55)} />
-      <Tag text="MAKHAMALI MAALA: MURJHAATI NAHI" x={400} y={1450} at={cue(0.78)} rotate={2} />
-      {REGIONS.map((r) => (
-        <Sfx key={r.name} at={cue(r.at)} src="sfx/pop.wav" volume={0.45} />
-      ))}
-      <Sfx at={cue(0.55)} src="onion/sparkle.wav" volume={0.35} />
-      <Sfx at={cue(0.78)} src="sfx/pop.wav" volume={0.45} />
-    </AbsoluteFill>
-  );
-};
-
-const RegionRow: React.FC<{ y: number; at: number; name: string; where: string; art: string; dots: number }> = ({ y, at, name, where, art, dots }) => {
-  const e = useEnter(at);
-  return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: y, height: 200, display: "flex", alignItems: "center", gap: 30, padding: "0 30px", background: "#F1E7D2", boxShadow: "0 10px 22px rgba(0,0,0,0.3)", transform: `translateX(${(1 - e) * 160}px) rotate(${y % 3 ? -1 : 1}deg)`, opacity: e }}>
-      <div style={{ width: 150, height: 150, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        {art === "diya" && <Diya size={150} />}
-        {art === "phonta" && (
-          <svg viewBox="0 0 100 100" width={130} height={130}>
-            <circle cx="50" cy="50" r="44" fill="#F3E3C0" stroke={INK} strokeWidth={5} />
-            <circle cx="50" cy="50" r="16" fill="#FBF7EE" stroke={INK} strokeWidth={4} />
-            <circle cx="50" cy="50" r="7" fill={RED} />
-          </svg>
-        )}
-        {art === "sapta" && (
-          <div style={{ display: "flex", flexWrap: "wrap", width: 130, gap: 8, justifyContent: "center" }}>
-            {SAPTARANGI.map((c, k) => (
-              <div key={c} style={{ width: 34, height: 34, borderRadius: "50%", background: c, border: `4px solid ${INK}`, transform: `scale(${Math.min(1, Math.max(0, dots * 7 - k))})` }} />
-            ))}
-          </div>
-        )}
-      </div>
-      <div>
-        <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 76, color: INK, textTransform: "uppercase", lineHeight: 1 }}>{name}</div>
-        <div style={{ fontFamily: MONO, fontSize: 26, letterSpacing: 3, color: RED, marginTop: 8 }}>{where}</div>
-      </div>
-    </div>
-  );
-};
-
-export const Kaanta: React.FC = () => {
-  const cue = useCue();
-  const frame = useCurrentFrame();
-  const tilak = interpolate(frame, [cue(0.1), cue(0.25)], [0, 1], clamp);
-  const thorns = interpolate(frame, [cue(0.4), cue(0.6)], [0, 1], clamp);
-  const shake = frame > cue(0.4) && frame < cue(0.6) ? Math.sin(frame * 2) * 4 : 0;
-  return (
-    <AbsoluteFill>
-      <KraftBg />
-      <Header left="BENGAL · FIG. 07" right="BHAI PHONTA" dark={false} />
-      <Headline setup="Maathe pe phonta…" punch="Yam ke dwaar pe kaanta!" dark={false} punchColor={RED} punchSize={92} />
-      <div style={{ position: "absolute", left: 30, top: 720 }}>
-        <Riya size={330} expression="grin" />
-      </div>
-      <div style={{ position: "absolute", left: 300, top: 760 }}>
-        <Aman size={330} expression="smile" tilak={tilak} />
-      </div>
-      <div style={{ position: "absolute", left: 680, top: 700, transform: `translateX(${shake}px)` }}>
-        <ThornDoor size={340} thorns={thorns} />
-        <div style={{ textAlign: "center", fontFamily: MONO, fontSize: 24, letterSpacing: 3, color: INK, marginTop: 8 }}>YAM KA DWAAR</div>
-      </div>
-      <div style={{ position: "absolute", left: 70, right: 70, top: 1310, padding: "22px 28px", background: "#FBF7EE", border: `5px solid ${INK}`, boxShadow: "0 10px 20px rgba(0,0,0,0.2)", opacity: useEnter(cue(0.15)) }}>
-        <div style={{ fontFamily: DEVA, fontSize: 48, color: INK, lineHeight: 1.4 }}>
-          “भाई के माथे पर फोंटा,
-          <br />
-          <span style={{ color: RED }}>यम के दरवाज़े पर काँटा!”</span>
-        </div>
-      </div>
-      <Tag text="MATLAB: BHAI KI LAMBI UMAR" x={200} y={1560} at={cue(0.75)} />
-      <Sfx at={cue(0.1)} src="sfx/pop.wav" volume={0.45} />
-      <Sfx at={cue(0.4)} src="onion/slice.wav" volume={0.45} />
-      <Sfx at={cue(0.75)} src="sfx/pop.wav" volume={0.45} />
-    </AbsoluteFill>
-  );
-};
-
-const STEPS = [
-  { title: "Tika + aarti", sub: "YE TOH BAS SHURUAAT HAI", at: 0.08, art: "thali" },
-  { title: "Behen ke ghar jao", sub: "YAMRAJ BHI KHUD GAYE THE", at: 0.3, art: "walk" },
-  { title: "Saath baith ke khao", sub: "BEHEN KE HAATH KA KHANA", at: 0.52, art: "food" },
-  { title: "Gift toh banta hai!", sub: "NO EXCUSES, BHAI", at: 0.78, art: "gift" },
-] as const;
-
-export const Package: React.FC = () => {
-  const cue = useCue();
-  return (
-    <AbsoluteFill>
-      <KraftBg />
-      <Header left="YOUR MOVE · FIG. 08" right="FULL PACKAGE" dark={false} />
-      <Headline setup="Is baar sirf tika nahi…" punch="Poora package" dark={false} punchColor={RED} />
-      {STEPS.map((s, i) => (
-        <StepRow key={s.title} y={590 + i * 215} at={cue(s.at)} title={s.title} sub={s.sub} art={s.art} />
-      ))}
-      {STEPS.map((s) => (
-        <Sfx key={s.title} at={cue(s.at)} src="sfx/pop.wav" volume={0.45} />
-      ))}
-    </AbsoluteFill>
-  );
-};
-
-const StepRow: React.FC<{ y: number; at: number; title: string; sub: string; art: string }> = ({ y, at, title, sub, art }) => {
-  const e = useEnter(at);
-  const frame = useCurrentFrame();
-  return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: y, height: 190, display: "flex", alignItems: "center", gap: 28, padding: "0 28px", background: "#F1E7D2", boxShadow: "0 10px 22px rgba(0,0,0,0.2)", transform: `translateX(${(1 - e) * 140}px) rotate(${y % 2 ? -1 : 1}deg)`, opacity: e }}>
-      <div style={{ width: 170, height: 170, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "visible" }}>
-        {art === "thali" && <Thali size={170} />}
-        {art === "walk" && (
-          <div style={{ transform: `translateY(${Math.abs(Math.sin(frame / 5)) * -6}px)`, marginTop: 40 }}>
-            <Aman size={120} expression="grin" tilak={1} />
-          </div>
-        )}
-        {art === "food" && <Bhojan size={170} steam={false} />}
-        {art === "gift" && <GiftBox size={130} open={Math.max(0, Math.sin(frame / 10)) * 0.4} />}
-      </div>
-      <div>
-        <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 60, color: INK, textTransform: "uppercase", lineHeight: 1.05 }}>{title}</div>
-        <div style={{ fontFamily: MONO, fontSize: 22, letterSpacing: 3, color: RED, marginTop: 6 }}>{sub}</div>
-      </div>
-    </div>
-  );
-};
-
 export const Cta: React.FC = () => {
   const cue = useCue();
   const float = useFloat(6);
@@ -458,8 +249,8 @@ export const Cta: React.FC = () => {
   return (
     <AbsoluteFill>
       <WarmDark />
-      <Header left="YOUR TURN · FIG. 09" right="COMMENT" dark />
-      <Headline setup="Aapke ghar kya banta hai?" punch="Bhai-behen ko bhejo!" dark punchColor={GOLD} punchSize={104} />
+      <Header left="YOUR MOVE · FIG. 05" right="SHARE" dark />
+      <Headline setup="Is baar tike ke baad…" punch="Behen ke ghar khana!" dark punchColor={GOLD} punchSize={104} />
       <div style={{ position: "absolute", left: 50, top: 650 + float, opacity: useEnter(cue(0.05)) }}>
         <Riya size={380} expression="grin" phone />
       </div>
@@ -479,7 +270,7 @@ export const Cta: React.FC = () => {
         </div>
       </div>
       <div style={{ position: "absolute", left: 540, top: 1310, transform: `translateX(-50%) scale(${useEnter(cue(0.62), { damping: 10, stiffness: 180 })})`, background: RED, color: "white", borderRadius: 999, padding: "14px 44px", fontFamily: HEAD, fontWeight: 700, fontSize: 52, letterSpacing: 2, whiteSpace: "nowrap" }}>
-        COMMENT KARO ↓
+        BHAI-BEHEN KO BHEJO
       </div>
       <Sfx at={cue(0.4)} src="sfx/pop.wav" volume={0.45} />
       <Sfx at={cue(0.55)} src="sfx/pop.wav" volume={0.45} />
@@ -493,9 +284,5 @@ export const SCENES: Record<string, React.FC> = {
   kahani: Kahani,
   vardaan: Vardaan,
   twist: Twist,
-  krishna: KrishnaScene,
-  naksha: Naksha,
-  kaanta: Kaanta,
-  package: Package,
   cta: Cta,
 };

@@ -55,30 +55,6 @@ export const Thali: React.FC<{ size: number; seed?: number }> = ({ size, seed = 
   </div>
 );
 
-/** A single motichoor laddoo. */
-export const Laddoo: React.FC<{ size: number }> = ({ size }) => (
-  <svg viewBox="0 0 100 100" width={size} height={size}>
-    <circle cx="50" cy="52" r="40" fill={MARIGOLD} stroke={INK} strokeWidth={5} />
-    {new Array(12).fill(0).map((_, i) => (
-      <circle key={i} cx={50 + Math.cos(i * 2.1) * (10 + (i % 3) * 9)} cy={52 + Math.sin(i * 2.1) * (10 + (i % 3) * 9)} r="3.2" fill="#B5501C" />
-    ))}
-    <ellipse cx="36" cy="36" rx="10" ry="6" fill="#FFD08A" opacity={0.7} />
-  </svg>
-);
-
-/** Wrapped gift with a ribbon bow. */
-export const GiftBox: React.FC<{ size: number; open?: number }> = ({ size, open = 0 }) => (
-  <svg viewBox="0 0 200 220" width={size} height={(size * 220) / 200} style={{ overflow: "visible" }}>
-    <rect x="22" y="90" width="156" height="120" rx="8" fill="#8E4C9E" stroke={INK} strokeWidth={6} />
-    <rect x="88" y="90" width="24" height="120" fill={GOLD} stroke={INK} strokeWidth={4} />
-    <g transform={`translate(0 ${-open * 40}) rotate(${-open * 14} 20 90)`}>
-      <rect x="12" y="62" width="176" height="34" rx="6" fill="#A865B8" stroke={INK} strokeWidth={6} />
-      <rect x="88" y="62" width="24" height="34" fill={GOLD} stroke={INK} strokeWidth={4} />
-      <path d="M100 62 C 70 20, 40 40, 60 60 Z M100 62 C 130 20, 160 40, 140 60 Z" fill={GOLD} stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-    </g>
-  </svg>
-);
-
 /** Banana-leaf meal: rice, dal, sabzi, puri and kheer — "a meal from the sister's hand". */
 export const Bhojan: React.FC<{ size: number; steam?: boolean }> = ({ size, steam = true }) => {
   const frame = useCurrentFrame();
@@ -134,37 +110,6 @@ export const River: React.FC<{ width: number; height: number }> = ({ width, heig
   );
 };
 
-/** A wooden door; `thorns` (0..1) grows a thorny branch across it. */
-export const ThornDoor: React.FC<{ size: number; thorns?: number }> = ({ size, thorns = 0 }) => (
-  <svg viewBox="0 0 300 440" width={size} height={(size * 440) / 300} style={{ overflow: "visible" }}>
-    <path d="M20 430 L 20 90 C 20 30, 280 30, 280 90 L 280 430 Z" fill="#3A2E28" stroke={INK} strokeWidth={6} />
-    <path d="M44 420 L 44 100 C 44 56, 256 56, 256 100 L 256 420 Z" fill="#6B4A32" stroke={INK} strokeWidth={5} />
-    <line x1="150" y1="64" x2="150" y2="420" stroke={INK} strokeWidth={5} />
-    {[150, 260, 360].map((y) => (
-      <line key={y} x1="44" y1={y} x2="256" y2={y} stroke="#4E3524" strokeWidth={4} />
-    ))}
-    <circle cx="130" cy="260" r="9" fill={GOLD} stroke={INK} strokeWidth={3} />
-    <circle cx="170" cy="260" r="9" fill={GOLD} stroke={INK} strokeWidth={3} />
-    {thorns > 0 &&
-      [0, 1].map((k) => {
-        const y0 = 180 + k * 150;
-        const len = 300 * thorns;
-        return (
-          <g key={k}>
-            <path d={`M0 ${y0 + 30} L ${len} ${y0 - 20}`} stroke="#5B4A1E" strokeWidth={10} strokeLinecap="round" />
-            {new Array(8).fill(0).map((_, i) => {
-              const x = 18 + i * 36;
-              if (x > len) return null;
-              const y = y0 + 30 - (x / 300) * 50;
-              const up = i % 2 ? -1 : 1;
-              return <path key={i} d={`M${x - 8} ${y} L ${x} ${y - 26 * up} L ${x + 8} ${y} Z`} fill="#7A6328" stroke={INK} strokeWidth={3} />;
-            })}
-          </g>
-        );
-      })}
-  </svg>
-);
-
 /** Rolled scroll that unrolls (0..1) to show its children. */
 export const Scroll: React.FC<{ width: number; open: number; children: React.ReactNode }> = ({ width, open, children }) => {
   const h = 360 * open;
@@ -179,27 +124,3 @@ export const Scroll: React.FC<{ width: number; open: number; children: React.Rea
     </div>
   );
 };
-
-/** Marigold-style makhamali garland hanging in a U. */
-export const Garland: React.FC<{ width: number; grow?: number; color?: string }> = ({ width, grow = 1, color = "#B23A8C" }) => {
-  const n = 15;
-  return (
-    <svg viewBox="0 0 300 160" width={width} height={(width * 160) / 300} style={{ overflow: "visible" }}>
-      {new Array(n).fill(0).map((_, i) => {
-        if (i / n > grow) return null;
-        const t = i / (n - 1);
-        const x = 20 + t * 260;
-        const y = 20 + Math.sin(Math.PI * t) * 110;
-        return (
-          <g key={i}>
-            <circle cx={x} cy={y} r={14} fill={i % 2 ? color : "#E85FA8"} stroke={INK} strokeWidth={3} />
-            <circle cx={x - 4} cy={y - 4} r={4} fill="#FFFFFF" opacity={0.5} />
-          </g>
-        );
-      })}
-    </svg>
-  );
-};
-
-/** Seven colour dots of Nepal's saptarangi tika. */
-export const SAPTARANGI = ["#C2272D", "#F08A24", "#E9C46A", "#3E9A4A", "#2F7FA8", "#8E4C9E", "#E85FA8"];
