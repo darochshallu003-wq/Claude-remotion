@@ -3,88 +3,118 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:2560px;height:1440px;overflow:hidden;background:#F3E3C3}
-#b{position:relative;width:2560px;height:1440px;overflow:hidden;
- background:radial-gradient(ellipse at 50% 50%,#FBF1DC 0%,#F3E1BC 45%,#E6C893 100%)}
+#b{position:relative;width:2560px;height:1440px;overflow:hidden;background:#F6E6C4}
 svg.full{position:absolute;inset:0}
 .safe{position:absolute;left:507px;top:509px;width:1546px;height:423px}
-.sign{position:absolute;left:353px;top:30px;width:840px;height:240px;
+.sign{position:absolute;left:353px;top:22px;width:840px;height:230px;
  background:linear-gradient(#8E2A1E,#6E1D14);border:10px solid #3A120C;border-radius:22px;
  box-shadow:0 0 0 6px #D9A441 inset,0 14px 0 #3A120C33;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.en{font-family:Poppins;font-weight:800;font-size:112px;color:#FFE7B0;letter-spacing:2px;line-height:1;text-shadow:0 6px 0 #3A120C}
-.hi{font-family:'Yatra One';font-size:62px;color:#F6C453;line-height:1.1;margin-top:8px}
-.tag{position:absolute;left:263px;top:292px;width:1020px;text-align:center;font-family:'Tiro Devanagari Hindi';font-size:47px;color:#3A120C;line-height:1.2;white-space:nowrap}
-.tag b{color:#8E2A1E;font-weight:400}
-.handle{position:absolute;left:263px;top:366px;width:1020px;text-align:center;font-family:Poppins;font-weight:600;font-size:28px;color:#6E1D14;letter-spacing:6px}
-.rope{position:absolute;top:-509px;width:6px;height:545px;background:#3A120C}
+.en{font-family:Poppins;font-weight:800;font-size:110px;color:#FFE7B0;letter-spacing:2px;line-height:1;text-shadow:0 6px 0 #3A120C}
+.hi{font-family:'Yatra One';font-size:60px;color:#F6C453;line-height:1.1;margin-top:6px}
+.tag{position:absolute;left:263px;top:276px;width:1020px;text-align:center;font-family:'Yatra One';font-size:58px;color:#3A120C;line-height:1.15;white-space:nowrap}
+.tag .a{color:#C2410C}.tag .s{color:#1D5F8C}
+.sub{position:absolute;left:263px;top:356px;width:1020px;text-align:center;font-family:'Tiro Devanagari Hindi';font-size:36px;color:#5A2A14;white-space:nowrap}
+.sub b{font-weight:400;color:#8E2A1E}
+.rope{position:absolute;top:-509px;width:6px;height:540px;background:#3A120C}
 .obj{position:absolute}
+.pill{position:absolute;font-family:'Yatra One';font-size:30px;padding:4px 22px;border-radius:999px;border:4px solid #3A120C;white-space:nowrap}
 </style></head><body><div id="b">
 <svg class="full" viewBox="0 0 2560 1440">
  <defs>
+  <linearGradient id="lab" x1="0" x2="1" y1="0" y2="0">
+   <stop offset="0.47" stop-color="#CFE6EE" stop-opacity="0"/>
+   <stop offset="0.66" stop-color="#CFE6EE" stop-opacity=".85"/>
+   <stop offset="1" stop-color="#9FCBDB" stop-opacity="1"/>
+  </linearGradient>
+  <linearGradient id="temple" x1="1" x2="0" y1="0" y2="0">
+   <stop offset="0.47" stop-color="#F8D9A0" stop-opacity="0"/>
+   <stop offset="1" stop-color="#F0B866" stop-opacity=".9"/>
+  </linearGradient>
+  <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#5E9DB8" stroke-width="2" opacity=".35"/></pattern>
+  <linearGradient id="gridfade" x1="0" x2="1"><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="1"/></linearGradient>
+  <mask id="gm"><rect width="2560" height="1440" fill="url(#gridfade)"/></mask>
+  <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF8E8" stop-opacity=".95"/><stop offset="1" stop-color="#FFF8E8" stop-opacity="0"/></radialGradient>
   <pattern id="tile" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M0 80 L80 0 M0 0 L80 80" stroke="#C9A36A" stroke-width="1.5" opacity=".35"/></pattern>
  </defs>
  <g id="rays" transform="translate(1280,720)"></g>
- <g id="mol" fill="none" stroke="#B98A4E" stroke-width="5" opacity=".35"></g>
+ <rect width="2560" height="1440" fill="url(#temple)"/>
+ <rect width="2560" height="1440" fill="url(#lab)"/>
+ <rect width="2560" height="1440" fill="url(#grid)" mask="url(#gm)"/>
+ <ellipse cx="1280" cy="730" rx="900" ry="380" fill="url(#glow)"/>
+
+ <!-- LEFT outer: temple + bells -->
+ <g fill="#C98E4A" opacity=".55">
+  <path d="M40 1120 V720 h50 l90 -240 l90 240 h50 V1120z"/><circle cx="180" cy="462" r="18"/>
+  <path d="M120 1120 v-150 a60 60 0 0 1 120 0 v150z" fill="#B5783A"/>
+ </g>
+ <g id="bells"></g>
+ <!-- RIGHT outer: lab glassware + atoms + DNA -->
+ <g fill="none" stroke="#2F7FA3" stroke-width="6" opacity=".45" stroke-linejoin="round">
+  <path d="M2250 840 v120 l-80 150 h220 l-80 -150 v-120z"/><path d="M2228 840 h64"/>
+  <path d="M2440 900 v200 a35 35 0 0 0 70 0 v-200z"/><path d="M2425 900 h100"/>
+  <path d="M2080 1000 v110 h120 v-110"/>
+ </g>
+ <g id="atoms"></g>
+ <g id="dna" fill="none" stroke-width="6" opacity=".5"></g>
+
+ <!-- floor -->
  <rect x="0" y="1120" width="2560" height="320" fill="#E2C391"/>
  <rect x="0" y="1120" width="2560" height="320" fill="url(#tile)"/>
+ <rect x="1280" y="1120" width="1280" height="320" fill="url(#lab)"/>
  <line x1="0" y1="1120" x2="2560" y2="1120" stroke="#3A120C" stroke-width="6"/>
  <g id="toran"></g>
  <g id="diyas"></g>
 </svg>
 
 <div class="safe">
- <!-- LEFT: copper lota + onion -->
- <svg class="obj" style="left:0;top:40px" width="340" height="380" viewBox="0 0 340 380">
+ <!-- LEFT: copper lota with Om + diya -->
+ <svg class="obj" style="left:0;top:36px" width="330" height="380" viewBox="0 0 330 380">
   <ellipse cx="160" cy="368" rx="150" ry="10" fill="#3A120C" opacity=".18"/>
-  <!-- lota -->
+  <circle cx="135" cy="210" r="150" fill="#FFC86B" opacity=".25"/>
   <path d="M80 70 h110 l-12 30 q85 40 85 140 q0 120 -123 125 q-123 -5 -123 -125 q0 -100 85 -140z" fill="#C8693A" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M68 60 h134 v18 h-134z" fill="#D9824D" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M40 210 q95 30 190 0" fill="none" stroke="#8C3F1C" stroke-width="6"/>
+  <path d="M68 58 h134 v18 h-134z" fill="#D9824D" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
   <path d="M60 150 q-12 60 0 120" fill="none" stroke="#F4B07C" stroke-width="12" stroke-linecap="round" opacity=".8"/>
-  <!-- water sparkle -->
-  <path d="M135 18 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z" fill="#5DB7DE"/>
-  <!-- onion -->
-  <g transform="translate(250,290)">
-   <path d="M0 -105 q-6 -25 6 -45 M0 -105 q10 -22 26 -30" fill="none" stroke="#5E8A2E" stroke-width="7" stroke-linecap="round"/>
-   <path d="M0 -110 C55 -80 72 -20 60 20 C50 60 -50 60 -60 20 C-72 -20 -55 -80 0 -110z" fill="#B0447A" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-   <path d="M0 -105 C25 -60 30 0 18 50 M0 -105 C-25 -60 -30 0 -18 50" fill="none" stroke="#7E2856" stroke-width="4"/>
-   <path d="M-12 55 l-6 14 M0 57 v16 M12 55 l6 14" stroke="#3A120C" stroke-width="4" stroke-linecap="round"/>
-   <path d="M-48 -10 q-4 30 8 50" fill="none" stroke="#E08AB5" stroke-width="8" stroke-linecap="round"/>
+  <text x="135" y="270" text-anchor="middle" font-family="Yatra One" font-size="96" fill="#F6C453" stroke="#3A120C" stroke-width="3">ॐ</text>
+  <!-- marigold garland on lota neck -->
+  <g id="lotaMala"></g>
+  <!-- diya front-right -->
+  <g transform="translate(270,348)">
+   <ellipse cx="0" cy="-58" rx="38" ry="52" fill="#FFD36B" opacity=".5"/>
+   <path d="M0 -76 C16 -54 14 -34 0 -28 C-14 -34 -16 -54 0 -76z" fill="#F28C1E"/>
+   <path d="M0 -62 C7 -51 6 -40 0 -36 C-6 -40 -7 -51 0 -62z" fill="#FFE27A"/>
+   <path d="M-52 -26 h104 q-10 42 -52 42 q-42 0 -52 -42z" fill="#B5541B" stroke="#3A120C" stroke-width="5" stroke-linejoin="round"/>
   </g>
  </svg>
+ <div class="pill" style="left:40px;top:14px;background:#F6C453;color:#6E1D14;transform:rotate(-6deg)">मान्यता</div>
 
- <!-- RIGHT: dahi bowl + matka with rain + haldi -->
- <svg class="obj" style="left:1206px;top:40px" width="340" height="380" viewBox="0 0 340 380">
-  <ellipse cx="180" cy="368" rx="150" ry="10" fill="#3A120C" opacity=".18"/>
-  <!-- cloud + rain over matka -->
-  <g transform="translate(225,64) scale(.9)">
-   <path d="M-60 30 q-30 0 -30 -25 q0 -28 32 -28 q8 -30 42 -30 q34 0 44 28 q36 -4 40 26 q2 29 -30 29z" fill="#FFFFFF" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-   <path d="M-40 50 l-6 18 M0 50 l-6 18 M40 50 l-6 18" stroke="#3E8FC8" stroke-width="7" stroke-linecap="round"/>
+ <!-- RIGHT: bubbling flask + atom + magnifier -->
+ <svg class="obj" style="left:1216px;top:36px" width="330" height="380" viewBox="0 0 330 380">
+  <ellipse cx="170" cy="368" rx="150" ry="10" fill="#3A120C" opacity=".18"/>
+  <circle cx="175" cy="210" r="150" fill="#7FC8E8" opacity=".25"/>
+  <!-- flask -->
+  <path d="M140 70 v90 l-90 180 q-8 22 16 22 h188 q24 0 16 -22 l-90 -180 v-90z" fill="#EAF6FB" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M93 255 l-43 85 q-8 22 16 22 h188 q24 0 16 -22 l-43 -85z" fill="#3FB5A5" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M93 255 q37 -14 67 0 t67 0" fill="none" stroke="#2A8C80" stroke-width="5"/>
+  <path d="M128 62 h64 v14 h-64z" fill="#3A120C"/>
+  <circle cx="135" cy="315" r="11" fill="#BFF0E8"/><circle cx="185" cy="300" r="8" fill="#BFF0E8"/><circle cx="160" cy="215" r="10" fill="none" stroke="#3FB5A5" stroke-width="5"/><circle cx="175" cy="160" r="13" fill="none" stroke="#3FB5A5" stroke-width="5"/><circle cx="150" cy="105" r="8" fill="none" stroke="#3FB5A5" stroke-width="5"/>
+  <!-- atom top-right -->
+  <g transform="translate(275,110)" fill="none" stroke="#1D5F8C" stroke-width="5">
+   <ellipse rx="52" ry="18"/><ellipse rx="52" ry="18" transform="rotate(60)"/><ellipse rx="52" ry="18" transform="rotate(-60)"/>
+   <circle r="9" fill="#C2410C" stroke="none"/>
   </g>
-  <!-- matka -->
-  <g transform="translate(225,250)">
-   <path d="M-35 -110 h70 v20 q75 30 75 105 q0 95 -110 100 q-110 -5 -110 -100 q0 -75 75 -105z" fill="#B8572B" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-   <path d="M-44 -116 h88 v16 h-88z" fill="#A04A22" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-   <path d="M-100 0 q100 26 200 0" fill="none" stroke="#F2C14E" stroke-width="6"/>
-   <path d="M-80 30 q100 22 160 0" fill="none" stroke="#F2EAD6" stroke-width="5" stroke-dasharray="10 12"/>
-  </g>
-  <!-- dahi bowl (kulhad) front-left -->
-  <g transform="translate(85,300)">
-   <ellipse cx="0" cy="-40" rx="80" ry="22" fill="#FFFBF0" stroke="#3A120C" stroke-width="6"/>
-   <path d="M-80 -40 q8 90 80 92 q72 -2 80 -92" fill="#C4703A" stroke="#3A120C" stroke-width="6" stroke-linejoin="round"/>
-   <path d="M-30 -46 q15 -14 34 -2" fill="none" stroke="#E9E0C8" stroke-width="6" stroke-linecap="round"/>
-   <ellipse cx="0" cy="-40" rx="80" ry="22" fill="none" stroke="#3A120C" stroke-width="6"/>
-  </g>
-  <!-- haldi root -->
-  <g transform="translate(300,340)">
-   <path d="M-40 0 q-8 -22 16 -24 q14 -18 34 -6 q26 -6 28 18 q-4 16 -26 14 q-30 10 -52 -2z" fill="#E9A23B" stroke="#3A120C" stroke-width="5" stroke-linejoin="round"/>
-   <path d="M-20 -12 v8 M6 -18 v10" stroke="#9C5E16" stroke-width="4" stroke-linecap="round"/>
+  <!-- magnifier bottom-left -->
+  <g transform="translate(62,250) rotate(-20) scale(.92)">
+   <rect x="-9" y="38" width="18" height="70" rx="8" fill="#6E3B12" stroke="#3A120C" stroke-width="5"/>
+   <circle r="44" fill="#DFF3FA" fill-opacity=".7" stroke="#3A120C" stroke-width="8"/>
+   <path d="M-22 -14 q8 -16 26 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
   </g>
  </svg>
+ <div class="pill" style="left:1366px;top:14px;background:#1D5F8C;color:#FFFFFF;transform:rotate(6deg)">विज्ञान</div>
 
  <div class="rope" style="left:473px"></div><div class="rope" style="left:1067px"></div>
  <div class="sign"><div class="en">Myth Mitao</div><div class="hi">मिथ मिटाओ</div></div>
- <div class="tag">दादी-नानी की बातों के पीछे का <b>असली Science</b></div>
- <div class="handle">TAMRA · ONION · DAHI · MITTI · HALDI</div>
+ <div class="tag"><span class="a">आस्था</span> की बात, <span class="s">Science</span> के साथ!</div>
+ <div class="sub">दादी-नानी के हर <b>“क्यों?”</b> का असली जवाब 🔍</div>
 </div>
 </div>
 <script>
@@ -93,24 +123,35 @@ const r=document.getElementById('rays');
 for(let i=0;i<36;i++){const a=i*10*Math.PI/180,b=(i*10+5)*Math.PI/180,L=2000;
  const p=document.createElementNS(NS,'path');
  p.setAttribute('d',`M0 0 L${L*Math.cos(a)} ${L*Math.sin(a)} L${L*Math.cos(b)} ${L*Math.sin(b)}z`);
- p.setAttribute('fill',i%2?'#E9CD98':'#F7E6C2');p.setAttribute('opacity','.55');r.appendChild(p);}
-// faint molecule hexagons outside the safe zone (science hint, desktop/TV only)
-const m=document.getElementById('mol');
-const hex=(cx,cy,s)=>{let d='';for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;d+=(k?'L':'M')+(cx+s*Math.cos(a))+' '+(cy+s*Math.sin(a));}return d+'z';};
-[[260,330,70],[381,400,70],[260,470,70],[2290,300,60],[2394,360,60],[2290,420,60],[2180,1000,45],[380,1010,45]].forEach(([x,y,s])=>{
- const p=document.createElementNS(NS,'path');p.setAttribute('d',hex(x,y,s));m.appendChild(p);});
-[[260,330,70,330],[2290,300,60,250]].forEach(([x,y,s,t])=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y-s-24);c.setAttribute('r',14);m.appendChild(c);});
+ p.setAttribute('fill',i%2?'#EBCF9A':'#F9EACB');p.setAttribute('opacity','.6');r.appendChild(p);}
+// toran only across left/centre, fading into lab side
 const t=document.getElementById('toran');
-for(let x=0;x<=2560;x+=320){
- const p=document.createElementNS(NS,'path');p.setAttribute('d',`M${x} 0 Q${x+160} 150 ${x+320} 0`);
- p.setAttribute('fill','none');p.setAttribute('stroke','#2E6B2E');p.setAttribute('stroke-width','5');t.appendChild(p);
+for(let x=0;x<1600;x+=320){
+ t.insertAdjacentHTML('beforeend',`<path d="M${x} 0 Q${x+160} 150 ${x+320} 0" fill="none" stroke="#2E6B2E" stroke-width="5"/>`);
  for(let k=1;k<8;k++){const u=k/8,px=x+320*u,py=2*(1-u)*u*150;
   t.insertAdjacentHTML('beforeend',`<circle cx="${px}" cy="${py+12}" r="14" fill="${k%2?'#F28C1E':'#F6C453'}" stroke="#8A4A0E" stroke-width="3"/><ellipse cx="${px}" cy="${py+34}" rx="6" ry="12" fill="#2E6B2E"/>`);}}
+// hanging temple bells left
+const bl=document.getElementById('bells');
+[[330,300],[470,220]].forEach(([x,len])=>bl.insertAdjacentHTML('beforeend',`<g><line x1="${x}" y1="0" x2="${x}" y2="${len}" stroke="#6E3B12" stroke-width="5"/>
+ <path d="M${x-40} ${len+90} q0 -90 40 -90 q40 0 40 90z" fill="#D9A441" stroke="#3A120C" stroke-width="5"/><rect x="${x-50}" y="${len+86}" width="100" height="12" rx="6" fill="#B5862E" stroke="#3A120C" stroke-width="4"/><circle cx="${x}" cy="${len+108}" r="10" fill="#8A5A1E" stroke="#3A120C" stroke-width="3"/></g>`));
+// atoms + molecules right
+const at=document.getElementById('atoms');
+const atom=(x,y,s,o)=>at.insertAdjacentHTML('beforeend',`<g transform="translate(${x},${y})" fill="none" stroke="#1D5F8C" stroke-width="5" opacity="${o}"><ellipse rx="${s}" ry="${s*.35}"/><ellipse rx="${s}" ry="${s*.35}" transform="rotate(60)"/><ellipse rx="${s}" ry="${s*.35}" transform="rotate(-60)"/><circle r="${s*.15}" fill="#C2410C" stroke="none"/></g>`);
+atom(2320,330,110,.45);atom(2120,180,55,.35);atom(1950,1010,45,.3);
+const hex=(cx,cy,s)=>{let d='';for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;d+=(k?'L':'M')+(cx+s*Math.cos(a))+' '+(cy+s*Math.sin(a));}return d+'z';};
+[[2420,560,50],[2507,610,50],[2420,660,50]].forEach(([x,y,s])=>at.insertAdjacentHTML('beforeend',`<path d="${hex(x,y,s)}" fill="none" stroke="#2F7FA3" stroke-width="5" opacity=".4"/>`));
+// DNA helix top-right
+const dn=document.getElementById('dna');let p1='',p2='';
+for(let y=0;y<=420;y+=6){const x1=1820+40*Math.sin(y/40),x2=1820-40*Math.sin(y/40);p1+=(y?'L':'M')+x1+' '+(y+20);p2+=(y?'L':'M')+x2+' '+(y+20);
+ if(y%30==0)dn.insertAdjacentHTML('beforeend',`<line x1="${x1}" y1="${y+20}" x2="${x2}" y2="${y+20}" stroke="#5E9DB8" stroke-width="4"/>`);}
+dn.insertAdjacentHTML('beforeend',`<path d="${p1}" stroke="#1D5F8C"/><path d="${p2}" stroke="#C2410C"/>`);
+// diyas left floor, beakers glow right floor
 const d=document.getElementById('diyas');
-[200,420,640,1920,2140,2360].forEach(x=>{
+[200,420,640].forEach(x=>{
  d.insertAdjacentHTML('beforeend',`<g transform="translate(${x},1185)">
- <ellipse cx="0" cy="-58" rx="40" ry="55" fill="#FFD36B" opacity=".35"/>
+ <ellipse cx="0" cy="-58" rx="40" ry="55" fill="#FFD36B" opacity=".4"/>
  <path d="M0 -70 C14 -50 12 -32 0 -26 C-12 -32 -14 -50 0 -70z" fill="#F28C1E"/>
  <path d="M0 -58 C6 -48 5 -38 0 -34 C-5 -38 -6 -48 0 -58z" fill="#FFE27A"/>
  <path d="M-50 -24 h100 q-10 40 -50 40 q-40 0 -50 -40z" fill="#B5541B" stroke="#3A120C" stroke-width="5" stroke-linejoin="round"/></g>`);});
+[1920,2360].forEach((x,i)=>d.insertAdjacentHTML('beforeend',`<g transform="translate(${x},1190)"><path d="M-40 -90 v80 q0 20 20 20 h40 q20 0 20 -20 v-80" fill="#EAF6FB" stroke="#3A120C" stroke-width="5"/><path d="M-40 -45 v35 q0 20 20 20 h40 q20 0 20 -20 v-35z" fill="${i?'#F2C14E':'#3FB5A5'}" stroke="#3A120C" stroke-width="5"/><path d="M-52 -90 h104" stroke="#3A120C" stroke-width="5"/></g>`));
 </script></body></html>
