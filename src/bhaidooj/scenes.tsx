@@ -123,8 +123,8 @@ export const Hook: React.FC = () => {
       <Sfx at={4} src="sfx/whoosh.wav" volume={0.4} />
       <Sfx at={at(1.6)} src="sfx/pop.wav" volume={0.45} />
       <Sfx at={at(story - 0.2)} src="sfx/whoosh.wav" volume={0.3} />
-      <Sfx at={slamAt - 2} src="sfx/thunder.wav" volume={0.9} />
-      <Sfx at={slamAt} src="onion/thud.wav" volume={0.7} />
+      <Sfx at={slamAt - 2} src="sfx/thunder.wav" volume={0.5} />
+      <Sfx at={slamAt} src="onion/thud.wav" volume={0.45} />
     </AbsoluteFill>
   );
 };
