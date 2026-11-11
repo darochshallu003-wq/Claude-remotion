@@ -14,7 +14,12 @@ in HOOK_CUES, so the darkness and thunder land on those words.
 
 Usage:
   python3 scripts/vo_import.py <project> <one-take audio>
+  python3 scripts/vo_import.py <project> <one-take audio> --starts 3.2,14.2,...
   python3 scripts/vo_import.py <project> <clip 1> <clip 2> ...   (script order)
+
+--starts gives the second, in the take, where each scene's line begins (one
+per scene, in script order; any point in the pause before the line works).
+Use it when the pauses between lines are too short to split on.
 """
 
 import pathlib
@@ -68,7 +73,13 @@ def main() -> None:
     if len(sys.argv) < 3:
         raise SystemExit(__doc__)
     project = sys.argv[1]
-    inputs = [pathlib.Path(a) for a in sys.argv[2:]]
+    args = sys.argv[2:]
+    starts: list[float] | None = None
+    if "--starts" in args:
+        k = args.index("--starts")
+        starts = [float(x) for x in args[k + 1].split(",")]
+        args = args[:k] + args[k + 2 :]
+    inputs = [pathlib.Path(a) for a in args]
     script = ROOT / "src" / project / "script.ts"
     out = ROOT / "public" / project / "vo"
     out.mkdir(parents=True, exist_ok=True)
@@ -84,18 +95,25 @@ def main() -> None:
             norm = pathlib.Path(tmp) / "take.wav"
             run("ffmpeg", "-v", "error", "-y", "-i", str(take), "-ac", "1", "-ar", "44100",
                 "-af", "highpass=f=80,afftdn=nf=-25,loudnorm=I=-16:TP=-1.5", str(norm))
-            gaps = silences(norm, 0.7)
             total = duration(norm)
+            if starts is not None:
+                if len(starts) != len(ids):
+                    raise SystemExit(f"--starts needs {len(ids)} times ({', '.join(ids)}), got {len(starts)}")
+                for k, i in enumerate(ids):
+                    end = starts[k + 1] if k + 1 < len(ids) else total
+                    clean(norm, out / f"{i}.mp3", starts[k], end)
+                    print(f"{i:10s} {starts[k]:6.2f} → {end:6.2f} s of the take")
+            gaps = [] if starts is not None else silences(norm, 0.7)
             # the (scenes - 1) longest pauses are the breaks between lines
             gaps = [g for g in gaps if g[0] > 0.05 and g[1] < total - 0.05]
-            if len(gaps) < len(ids) - 1:
+            if starts is None and len(gaps) < len(ids) - 1:
                 raise SystemExit(
                     f"found {len(gaps)} long pauses but need {len(ids) - 1}: leave about 2 seconds "
                     "of silence between lines, or send one file per line"
                 )
             breaks = sorted(sorted(gaps, key=lambda g: g[1] - g[0], reverse=True)[: len(ids) - 1])
             bounds = [0.0] + [b for g in breaks for b in g] + [total]
-            for k, i in enumerate(ids):
+            for k, i in enumerate(ids if starts is None else []):
                 s, e = bounds[2 * k], bounds[2 * k + 1]
                 clean(norm, out / f"{i}.mp3", max(0.0, s - 0.05), e + 0.05)
                 print(f"{i:10s} {s:6.2f} → {e:6.2f} s of the take")
