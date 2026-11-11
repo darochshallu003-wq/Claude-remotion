@@ -1,59 +1,59 @@
 <!doctype html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
-<style>*{margin:0}html,body{width:800px;height:800px;background:#6E1D14;overflow:hidden}</style></head><body>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
+<style>*{margin:0}html,body{width:800px;height:800px;background:#F6E6C4;overflow:hidden}</style></head><body>
 <svg width="800" height="800" viewBox="0 0 800 800">
  <defs>
-  <radialGradient id="bg" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#A8342A"/><stop offset="1" stop-color="#5E170F"/></radialGradient>
-  <clipPath id="L"><rect x="0" y="0" width="400" height="800"/></clipPath>
-  <clipPath id="R"><rect x="400" y="0" width="400" height="800"/></clipPath>
-  <clipPath id="vessel"><path id="vp" d="M330 210 h140 l-14 40 q130 55 130 210 q0 175 -186 180 q-186 -5 -186 -180 q0 -155 130 -210z"/></clipPath>
+  <linearGradient id="split" x1="0" x2="1"><stop offset=".5" stop-color="#F7B85A"/><stop offset=".5" stop-color="#8CCBE3"/></linearGradient>
+  <linearGradient id="warm" x1="0" x2="1"><stop offset="0" stop-color="#F29A3A"/><stop offset="1" stop-color="#FBD38A"/></linearGradient>
+  <linearGradient id="cool" x1="0" x2="1"><stop offset="0" stop-color="#BFE4F1"/><stop offset="1" stop-color="#5FAFD3"/></linearGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#2F7FA3" stroke-width="2" opacity=".3"/></pattern>
+  <linearGradient id="sign" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9A2E20"/><stop offset="1" stop-color="#6A1B12"/></linearGradient>
  </defs>
- <rect width="800" height="800" fill="url(#bg)"/>
- <g id="rays" transform="translate(400,430)" opacity=".07"></g>
- <circle cx="400" cy="400" r="372" fill="none" stroke="#D9A441" stroke-width="16"/>
- 
- <g transform="translate(400,430) scale(1.17) translate(-400,-415)">
- <!-- glow -->
- <circle cx="400" cy="450" r="230" fill="#FFD98A" opacity=".18"/>
- <!-- LEFT: copper lota half -->
- <g clip-path="url(#L)">
-  <use href="#vp" fill="#C8693A"/>
-  <path d="M250 330 q-22 90 0 190" fill="none" stroke="#F4B07C" stroke-width="20" stroke-linecap="round" opacity=".85"/>
-  <path d="M214 470 q186 50 372 0" fill="none" stroke="#8C3F1C" stroke-width="10"/>
+ <rect width="400" height="800" fill="url(#warm)"/>
+ <rect x="400" width="400" height="800" fill="url(#cool)"/>
+ <rect x="400" width="400" height="800" fill="url(#grid)"/>
+ <g id="rays" transform="translate(400,400)"></g>
+
+ <!-- TOP: lota (left) vs flask (right) with ? between -->
+ <g transform="translate(250,215)">
+  <ellipse cx="0" cy="0" rx="95" ry="95" fill="#FFE7B0" opacity=".35"/>
+  <path d="M-40 -80 h80 l-9 22 q62 30 62 100 q0 70 -93 74 q-93 -4 -93 -74 q0 -70 62 -100z" fill="#C8693A" stroke="#2A0D08" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M-50 -92 h100 v16 h-100z" fill="#D9824D" stroke="#2A0D08" stroke-width="8"/>
+  <text x="0" y="62" text-anchor="middle" font-family="Yatra One" font-size="74" fill="#F6C453" stroke="#2A0D08" stroke-width="3">ॐ</text>
+  <path d="M-58 0 q-10 40 0 70" fill="none" stroke="#F4B07C" stroke-width="10" stroke-linecap="round"/>
  </g>
- <!-- RIGHT: glass flask half with teal liquid -->
- <g clip-path="url(#R)">
-  <use href="#vp" fill="#EAF6FB"/>
-  <g clip-path="url(#vessel)">
-   <path d="M380 470 q60 -26 110 0 t110 0 V760 H380z" fill="#3FB5A5"/>
-   <circle cx="470" cy="560" r="20" fill="#BFF0E8"/><circle cx="530" cy="620" r="13" fill="#BFF0E8"/>
-   <circle cx="455" cy="400" r="15" fill="none" stroke="#3FB5A5" stroke-width="8"/><circle cx="510" cy="340" r="11" fill="none" stroke="#3FB5A5" stroke-width="7"/>
-   <path d="M510 390 q30 30 30 80" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
-  </g>
+ <g transform="translate(550,215)">
+  <ellipse cx="0" cy="0" rx="95" ry="95" fill="#FFFFFF" opacity=".35"/>
+  <path d="M-22 -90 v60 l-66 120 q-6 18 14 18 h148 q20 0 14 -18 l-66 -120 v-60z" fill="#EAF6FB" stroke="#2A0D08" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M-56 30 l-32 60 q-6 18 14 18 h148 q20 0 14 -18 l-32 -60z" fill="#3FB5A5" stroke="#2A0D08" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M-34 -96 h68 v14 h-68z" fill="#2A0D08"/>
+  <circle cx="-10" cy="70" r="11" fill="#BFF0E8"/><circle cx="22" cy="58" r="7" fill="#BFF0E8"/>
+  <circle cx="4" cy="0" r="9" fill="none" stroke="#3FB5A5" stroke-width="5"/><circle cx="-6" cy="-40" r="6" fill="none" stroke="#3FB5A5" stroke-width="4"/>
  </g>
- <!-- outline + rim -->
- <use href="#vp" fill="none" stroke="#2A0D08" stroke-width="14" stroke-linejoin="round"/>
- <path d="M312 190 h176 v30 h-176z" fill="#D9824D" stroke="#2A0D08" stroke-width="12" stroke-linejoin="round"/>
- <path d="M400 190 h88 v30 h-88z" fill="#EAF6FB" stroke="#2A0D08" stroke-width="12" stroke-linejoin="round"/>
- <!-- gold seam -->
- <line x1="400" y1="196" x2="400" y2="636" stroke="#F6C453" stroke-width="10"/>
- <!-- Om on copper side, atom on glass side -->
- <text x="310" y="470" text-anchor="middle" font-family="Yatra One" font-size="120" fill="#F6C453" stroke="#2A0D08" stroke-width="4">ॐ</text>
- <g transform="translate(565,175)">
-  <g fill="none" stroke="#7FD3F2" stroke-width="9"><ellipse rx="58" ry="24" transform="rotate(35)"/><ellipse rx="58" ry="24" transform="rotate(-35)"/></g>
-  <circle r="15" fill="#F6C453" stroke="#2A0D08" stroke-width="4"/>
-  <circle cx="47" cy="33" r="9" fill="#FFFFFF"/><circle cx="-47" cy="33" r="9" fill="#FFFFFF"/>
+ <text x="400" y="230" text-anchor="middle" font-family="Poppins" font-weight="900" font-size="120" fill="#FFF6E2" stroke="#2A0D08" stroke-width="8" paint-order="stroke">?</text>
+
+ <!-- MIDDLE: the name sign -->
+ <g transform="rotate(-5 400 420)">
+  <rect x="90" y="318" width="620" height="210" rx="26" fill="#2A0D08" transform="translate(0,12)" opacity=".35"/>
+  <rect x="90" y="318" width="620" height="210" rx="26" fill="url(#sign)" stroke="#2A0D08" stroke-width="12"/>
+  <rect x="108" y="336" width="584" height="174" rx="16" fill="none" stroke="#F6C453" stroke-width="6"/>
+  <text x="400" y="422" text-anchor="middle" font-family="Poppins" font-weight="900" font-size="106" letter-spacing="4" fill="#FFE7B0" stroke="#2A0D08" stroke-width="10" paint-order="stroke">MYTH</text>
+  <text x="400" y="500" text-anchor="middle" font-family="Poppins" font-weight="900" font-size="78" letter-spacing="10" fill="#F6C453" stroke="#2A0D08" stroke-width="8" paint-order="stroke">MITAO</text>
+  <!-- sparkle accents -->
+  <path d="M686 312 l8 20 20 8 -20 8 -8 20 -8 -20 -20 -8 20 -8z" fill="#FFF6E2" stroke="#2A0D08" stroke-width="4"/>
+  <path d="M112 520 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6z" fill="#FFF6E2" stroke="#2A0D08" stroke-width="4"/>
  </g>
- <!-- diya flame top-left mirror -->
- <g transform="translate(240,175)">
-  <ellipse cx="0" cy="0" rx="36" ry="48" fill="#FFD36B" opacity=".35"/>
-  <path d="M0 -44 C20 -14 18 14 0 22 C-18 14 -20 -14 0 -44z" fill="#F28C1E"/>
-  <path d="M0 -20 C9 -6 8 8 0 12 C-8 8 -9 -6 0 -20z" fill="#FFE27A"/>
- </g>
- </g>
+
+ <!-- BOTTOM: Hindi name pill -->
+ <rect x="230" y="578" width="340" height="96" rx="48" fill="#FFF6E2" stroke="#2A0D08" stroke-width="9"/>
+ <text x="400" y="645" text-anchor="middle" font-family="Yatra One" font-size="58" fill="#8E2A1E">मिथ मिटाओ</text>
+
+ <!-- ring -->
+ <circle cx="400" cy="400" r="392" fill="none" stroke="#2A0D08" stroke-width="20"/>
+ <circle cx="400" cy="400" r="375" fill="none" stroke="#F6C453" stroke-width="10"/>
 </svg>
 <script>
 const r=document.getElementById('rays');
 for(let i=0;i<24;i++){const a=i*15*Math.PI/180,b=(i*15+7.5)*Math.PI/180,L=700;
- r.insertAdjacentHTML('beforeend',`<path d="M0 0 L${L*Math.cos(a)} ${L*Math.sin(a)} L${L*Math.cos(b)} ${L*Math.sin(b)}z" fill="#FFE7B0"/>`);}
+ r.insertAdjacentHTML('beforeend',`<path d="M0 0 L${L*Math.cos(a)} ${L*Math.sin(a)} L${L*Math.cos(b)} ${L*Math.sin(b)}z" fill="#FFFFFF" opacity=".12"/>`);}
 </script></body></html>
