@@ -1,0 +1,360 @@
+<!doctype html>
+<html><head><meta charset="utf-8" />
+<style>
+@font-face { font-family: "FrauncesThumb"; src: url("fonts/Fraunces-700.woff2") format("woff2"); font-weight: 700; }
+@font-face { font-family: "FrauncesThumb"; src: url("fonts/Fraunces-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0b0e30; }
+#stage { position: relative; width: 1920px; height: 1080px;
+  background: radial-gradient(ellipse at 70% 30%, #2c3280 0%, #1a1f5c 45%, #0b0e30 100%); font-family: "FrauncesThumb", Georgia, serif; }
+svg { position: absolute; inset: 0; }
+.title { position: absolute; left: 90px; top: 70px; color: #fff4d6; }
+.pill { display: inline-block; padding: 12px 34px; border-radius: 999px; background: #ffd36b; color: #241a4a;
+  font-size: 46px; font-style: italic; font-weight: 400; letter-spacing: 0.02em; }
+.big { font-size: 230px; font-weight: 700; line-height: 0.95; margin-top: 18px; letter-spacing: -0.02em;
+  text-shadow: 0 6px 0 #241a4a, 0 0 60px rgba(255, 211, 107, 0.45); }
+.sub { font-size: 92px; font-style: italic; font-weight: 400; color: #ffd36b; margin-top: 6px;
+  text-shadow: 0 4px 0 #241a4a; }
+</style></head>
+<body><div id="stage">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080"><defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff2b0" stop-opacity="0.85" />
+            <stop offset="35%" stop-color="#ffd36b" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#ffd36b" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="ffglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f4ffb0" stop-opacity="0.95" />
+            <stop offset="40%" stop-color="#d8f56b" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#d8f56b" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="moonglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff6d8" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="#fff6d8" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="doorglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffd58a" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#ffb35a" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="tailgrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#fff3c0" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="#ffd36b" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffe9a0" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#ffe9a0" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2a2a6e" stop-opacity="0" />
+            <stop offset="55%" stop-color="#b56a8a" stop-opacity="0.55" />
+            <stop offset="100%" stop-color="#f6a77b" stop-opacity="0.9" />
+          </linearGradient>
+          <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2d4f86" />
+            <stop offset="100%" stop-color="#1d3566" />
+          </linearGradient>
+        </defs><g id="art"></g></svg>
+<div class="title"><div class="pill">a bedtime story</div><div class="big">Bramble</div><div class="sub">and the Little<br/>Lost Star</div></div>
+</div>
+<script>
+const P = (n) => (+n).toFixed(1);
+let seed = 1;
+const rnd = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+      function starPath(R, r, n) {
+        n = n || 5;
+        let d = "";
+        for (let i = 0; i < 2 * n; i++) {
+          const a = -Math.PI / 2 + (i * Math.PI) / n;
+          const rad = i % 2 ? r : R;
+          d += (i ? "L" : "M") + P(Math.cos(a) * rad) + " " + P(Math.sin(a) * rad);
+        }
+        return d + "Z";
+      }
+
+      function starM(id, sad) {
+        return `
+        <circle id="${id}-glow" r="120" fill="url(#glow)" />
+        <g id="${id}-body">
+          <path d="${starPath(56, 25)}" fill="#ffd36b" stroke="#fff0b8" stroke-width="6" stroke-linejoin="round" />
+          <path id="${id}-dim" d="${starPath(56, 25)}" fill="#4a4470" opacity="0" />
+          <ellipse cx="-13" cy="-2" rx="4.5" ry="6" fill="#5a3b12" />
+          <ellipse cx="13" cy="-2" rx="4.5" ry="6" fill="#5a3b12" />
+          <ellipse cx="-21" cy="10" rx="6" ry="4" fill="#f59a7a" opacity="0.7" />
+          <ellipse cx="21" cy="10" rx="6" ry="4" fill="#f59a7a" opacity="0.7" />
+          <path id="${id}-happy" d="M-9 11 Q0 19 9 11" stroke="#5a3b12" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="${sad ? 0 : 1}" />
+          <path id="${id}-sad" d="M-8 17 Q0 10 8 17" stroke="#5a3b12" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="${sad ? 1 : 0}" />
+          <path id="${id}-tl" d="M-15 6 q-4 7 0 10 q4 -3 0 -10Z" fill="#bfe6ff" opacity="0" />
+          <path id="${id}-tr" d="M15 6 q-4 7 0 10 q4 -3 0 -10Z" fill="#bfe6ff" opacity="0" />
+        </g>`;
+      }
+
+      function hogM(id, s, rider) {
+        let spikes = "";
+        const n = 28;
+        for (let i = 0; i <= n; i++) {
+          const a = ((-212 + (i * 192) / n) * Math.PI) / 180;
+          const out = i % 2 === 0;
+          spikes += (i ? "L" : "M") + P(-12 + Math.cos(a) * (out ? 130 : 100)) + " " + P(-4 + Math.sin(a) * (out ? 94 : 70));
+        }
+        spikes += "L60 40 L-60 50 Z";
+        return `<g id="${id}"><g transform="scale(${s})"><g id="${id}-bob">
+          <ellipse cx="-8" cy="76" rx="110" ry="12" fill="#0b1d18" opacity="0.35" />
+          <ellipse id="${id}-f2" cx="-52" cy="62" rx="20" ry="12" fill="#c99a72" />
+          <ellipse id="${id}-f1" cx="38" cy="64" rx="20" ry="12" fill="#c99a72" />
+          <path d="${spikes}" fill="#5e3c2b" stroke="#4a2e20" stroke-width="3" stroke-linejoin="round" />
+          <ellipse cx="-12" cy="6" rx="104" ry="64" fill="#6f4835" />
+          <path d="M-70 -30 L-56 -50 M-30 -48 L-18 -66 M10 -50 L20 -66 M-90 0 L-108 -10" stroke="#8a5f45" stroke-width="5" stroke-linecap="round" />
+          <ellipse cx="18" cy="40" rx="66" ry="30" fill="#e8c79c" />
+          <g id="${id}-arm" opacity="0"><ellipse cx="92" cy="-34" rx="12" ry="22" fill="#c99a72" /></g>
+          <ellipse cx="64" cy="14" rx="56" ry="46" fill="#f0d3a8" />
+          <ellipse cx="106" cy="24" rx="30" ry="19" fill="#f0d3a8" />
+          <circle cx="40" cy="-26" r="13" fill="#e2bf92" />
+          <circle cx="40" cy="-26" r="6" fill="#d39e86" />
+          <circle cx="133" cy="20" r="10" fill="#2b1a12" />
+          <g id="${id}-eye"><circle cx="76" cy="4" r="8" fill="#2a1a10" /><circle cx="79" cy="1" r="2.6" fill="#fff" /></g>
+          <path id="${id}-eyec" d="M67 6 Q76 13 85 6" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round" opacity="0" />
+          <ellipse cx="92" cy="34" rx="11" ry="7" fill="#f4a3a3" opacity="0.75" />
+          <path d="M110 38 Q118 45 127 38" stroke="#2b1a12" stroke-width="3.5" fill="none" stroke-linecap="round" />
+          ${rider ? `<g transform="translate(-34 -128) scale(0.4)"><g id="${id}-pip">${starM(id + "-pip")}</g></g>` : ""}
+        </g></g></g>`;
+      }
+
+      function ballM(id, s) {
+        let spikes = "";
+        for (let i = 0; i < 40; i++) {
+          const a = (i * 2 * Math.PI) / 40;
+          const rr = i % 2 === 0 ? 112 : 88;
+          spikes += (i ? "L" : "M") + P(Math.cos(a) * rr) + " " + P(Math.sin(a) * rr * 0.82);
+        }
+        return `<g id="${id}"><g transform="scale(${s})"><g id="${id}-breath">
+          <ellipse cx="0" cy="78" rx="120" ry="16" fill="#0f2a20" opacity="0.6" />
+          <path d="${spikes}Z" fill="#5e3c2b" stroke="#4a2e20" stroke-width="3" stroke-linejoin="round" />
+          <ellipse cx="0" cy="4" rx="92" ry="72" fill="#6f4835" />
+          <path d="M-50 -40 L-40 -58 M-10 -60 L0 -76 M30 -50 L42 -66 M-74 -6 L-92 -14" stroke="#8a5f45" stroke-width="5" stroke-linecap="round" />
+          <ellipse cx="40" cy="30" rx="50" ry="36" fill="#f0d3a8" />
+          <circle cx="82" cy="34" r="9" fill="#2b1a12" />
+          <path d="M28 22 Q38 30 48 22" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round" />
+          <ellipse cx="54" cy="44" rx="10" ry="6" fill="#f4a3a3" opacity="0.75" />
+          <ellipse cx="-20" cy="66" rx="20" ry="10" fill="#c99a72" />
+        </g></g></g>`;
+      }
+
+      function owlM(id, s, asleep) {
+        return `<g id="${id}"><g transform="scale(${s})"><g id="${id}-bob">
+          <ellipse id="${id}-wl" cx="-64" cy="6" rx="34" ry="74" fill="#6b4f3f" />
+          <ellipse id="${id}-wr" cx="64" cy="6" rx="34" ry="74" fill="#6b4f3f" />
+          <g id="${id}-head">
+          <path d="M-52 -66 L-40 -104 L-22 -76 Z M52 -66 L40 -104 L22 -76 Z" fill="#7d604d" />
+          </g>
+          <ellipse cx="0" cy="0" rx="70" ry="88" fill="#8d6e5a" />
+          <ellipse cx="0" cy="28" rx="46" ry="56" fill="#e3cfb2" />
+          <path d="M-20 18 q6 6 12 0 M8 18 q6 6 12 0 M-14 40 q6 6 12 0 M2 40 q6 6 12 0 M-6 62 q6 6 12 0" stroke="#c4ab8b" stroke-width="3" fill="none" />
+          <g id="${id}-eyes" opacity="${asleep ? 0 : 1}">
+            <circle cx="-26" cy="-32" r="23" fill="#fff8e6" />
+            <circle cx="26" cy="-32" r="23" fill="#fff8e6" />
+            <circle cx="-24" cy="-30" r="10" fill="#2a1a10" />
+            <circle cx="28" cy="-30" r="10" fill="#2a1a10" />
+            <circle cx="-21" cy="-33" r="3" fill="#fff" />
+            <circle cx="31" cy="-33" r="3" fill="#fff" />
+            <path d="M-50 -46 Q-26 -60 -2 -46 L-2 -40 Q-26 -50 -50 -40 Z M2 -46 Q26 -60 50 -46 L50 -40 Q26 -50 2 -40 Z" fill="#8d6e5a" />
+          </g>
+          <g id="${id}-shut" opacity="${asleep ? 1 : 0}">
+            <circle cx="-26" cy="-32" r="23" fill="#9a7a64" />
+            <circle cx="26" cy="-32" r="23" fill="#9a7a64" />
+            <path d="M-40 -30 Q-26 -20 -12 -30 M12 -30 Q26 -20 40 -30" stroke="#3a2618" stroke-width="4" fill="none" stroke-linecap="round" />
+          </g>
+          <path d="M-9 -14 L9 -14 L0 4 Z" fill="#f0a24a" />
+          <path d="M-22 86 l-6 12 M-16 86 v13 M-10 86 l6 12 M10 86 l-6 12 M16 86 v13 M22 86 l6 12" stroke="#f0a24a" stroke-width="4" stroke-linecap="round" />
+        </g></g></g>`;
+      }
+
+      function frogM(x, y, s, rot) {
+        return `<g transform="translate(${P(x)} ${P(y)}) rotate(${P(rot || 0)}) scale(${s})">
+          <ellipse cx="0" cy="0" rx="44" ry="26" fill="#4f8a5b" />
+          <circle cx="-20" cy="-22" r="12" fill="#4f8a5b" />
+          <circle cx="20" cy="-22" r="12" fill="#4f8a5b" />
+          <path d="M-27 -22 q7 5 14 0 M13 -22 q7 5 14 0" stroke="#1d3a24" stroke-width="3" fill="none" stroke-linecap="round" />
+          <path d="M-14 4 q14 8 28 0" stroke="#1d3a24" stroke-width="3" fill="none" stroke-linecap="round" />
+          <ellipse cx="0" cy="10" rx="26" ry="10" fill="#9cc98e" opacity="0.6" />
+        </g>`;
+      }
+
+      function bunnyM(x, y, s, flip) {
+        return `<g transform="translate(${P(x)} ${P(y)}) scale(${flip ? -s : s} ${s})">
+          <ellipse cx="0" cy="0" rx="58" ry="36" fill="#d9d4e6" />
+          <circle cx="-56" cy="-4" r="14" fill="#f4f1fa" />
+          <ellipse cx="34" cy="-18" rx="34" ry="30" fill="#e4dff0" />
+          <ellipse cx="10" cy="-42" rx="11" ry="36" fill="#d9d4e6" transform="rotate(-70 10 -42)" />
+          <ellipse cx="22" cy="-46" rx="11" ry="34" fill="#e4dff0" transform="rotate(-58 22 -46)" />
+          <ellipse cx="22" cy="-46" rx="5" ry="24" fill="#f2b8c8" transform="rotate(-58 22 -46)" />
+          <path d="M36 -20 q7 5 14 0" stroke="#4a4058" stroke-width="3" fill="none" stroke-linecap="round" />
+          <circle cx="64" cy="-12" r="5" fill="#f2a0b4" />
+          <ellipse cx="48" cy="-4" rx="8" ry="5" fill="#f4a3a3" opacity="0.6" />
+        </g>`;
+      }
+
+      function cloudM(x, y, s, op) {
+        return `<g transform="translate(${P(x)} ${P(y)}) scale(${s})" opacity="${op || 0.85}">
+          <ellipse cx="0" cy="20" rx="170" ry="46" fill="#4a4f93" />
+          <circle cx="-70" cy="0" r="58" fill="#5a5fa3" />
+          <circle cx="10" cy="-26" r="76" fill="#5f64a8" />
+          <circle cx="90" cy="4" r="52" fill="#5a5fa3" />
+        </g>`;
+      }
+
+      function flowersM(k, x0, x1, base, open) {
+        const cols = ["#c9a7e8", "#f6b6c9", "#9fd3e6", "#ffd9a0"];
+        seed = 7 + k * 31;
+        let s = "";
+        const n = Math.round((x1 - x0) / 118);
+        for (let i = 0; i < n; i++) {
+          const x = x0 + i * 118 + rnd() * 50;
+          const b = base + rnd() * 40;
+          const h = 80 + rnd() * 90;
+          const c = cols[Math.floor(rnd() * cols.length)];
+          const lean = (rnd() - 0.5) * 30;
+          const hx = x + lean * 1.6, hy = b - h + 4;
+          let head;
+          if (open) {
+            head = `<g class="fh" transform="translate(${P(hx)} ${P(hy)})"><g class="pet">`;
+            for (let p = 0; p < 5; p++) {
+              const a = (p / 5) * Math.PI * 2;
+              head += `<circle cx="${P(Math.cos(a) * 12)}" cy="${P(Math.sin(a) * 12)}" r="10" fill="${c}" />`;
+            }
+            head += `</g><circle r="6" fill="#ffe9a0" /></g>`;
+          } else {
+            head = `<ellipse cx="${P(hx)}" cy="${P(hy + 6)}" rx="15" ry="20" fill="${c}" transform="rotate(${P(lean * 2.4)} ${P(hx)} ${P(hy + 6)})" />`;
+          }
+          s += `<g class="fl"><path d="M${P(x)} ${P(b)} Q${P(x + lean)} ${P(b - h * 0.6)} ${P(hx)} ${P(hy)}" stroke="#3f7a5a" stroke-width="5" fill="none" /><path d="M${P(x - 14)} ${P(b - h * 0.4)} q12 -4 14 4" stroke="#3f7a5a" stroke-width="4" fill="none" />${head}</g>`;
+        }
+        return s;
+      }
+
+      function cloverM(k, y0, y1) {
+        seed = 99 + k * 13;
+        let s = "";
+        for (let i = 0; i < 26; i++) {
+          const x = 30 + rnd() * 1860, y = y0 + rnd() * (y1 - y0), r = 7 + rnd() * 5;
+          s += `<g opacity="0.85" fill="#2f6b4c"><circle cx="${P(x - r * 0.8)}" cy="${P(y)}" r="${P(r)}"/><circle cx="${P(x + r * 0.8)}" cy="${P(y)}" r="${P(r)}"/><circle cx="${P(x)}" cy="${P(y - r * 1.1)}" r="${P(r)}"/></g>`;
+        }
+        return s;
+      }
+
+      function meadowM(k, open) {
+        return `
+          <path d="M0 740 Q360 660 760 710 T1500 680 T1920 700 L1920 1080 L0 1080 Z" fill="#1c3a4c" />
+          <path d="M0 810 Q480 740 980 790 T1920 770 L1920 1080 L0 1080 Z" fill="#214a3a" />
+          ${flowersM(k, 40, 1900, 840, open)}
+          <path d="M0 880 Q600 840 1100 870 T1920 860 L1920 1080 L0 1080 Z" fill="#1a3d30" />
+          ${cloverM(k, 890, 1040)}`;
+      }
+
+      function oakM(id) {
+        return `
+          <path d="M0 800 Q500 760 960 790 T1920 780 L1920 1080 L0 1080 Z" fill="#1d4434" />
+          <path d="M470 880 Q520 640 540 420 L700 420 Q720 640 790 880 Z" fill="#4a3226" />
+          <path d="M520 880 Q470 900 400 905 M760 880 Q820 900 880 902 M600 880 Q560 920 520 940" stroke="#4a3226" stroke-width="22" fill="none" stroke-linecap="round" />
+          <path d="M560 470 Q500 360 420 330 M660 460 Q720 350 820 320" stroke="#4a3226" stroke-width="34" fill="none" stroke-linecap="round" />
+          <circle cx="420" cy="300" r="150" fill="#1f4a3a" />
+          <circle cx="620" cy="220" r="190" fill="#24553f" />
+          <circle cx="830" cy="300" r="150" fill="#1f4a3a" />
+          <circle cx="540" cy="360" r="120" fill="#2b5f48" />
+          <circle cx="720" cy="360" r="120" fill="#2b5f48" />
+          <circle id="${id}-doorglow" cx="620" cy="800" r="200" fill="url(#doorglow)" />
+          <path d="M560 880 L560 790 A60 60 0 0 1 680 790 L680 880 Z" fill="#3a2418" />
+          <path id="${id}-door" d="M572 880 L572 792 A48 48 0 0 1 668 792 L668 880 Z" fill="#ffcf7a" />
+          <circle cx="652" cy="840" r="5" fill="#a26b2a" />
+          <circle cx="600" cy="560" r="26" fill="#3a2418" />
+          <circle id="${id}-win" cx="600" cy="560" r="18" fill="#ffd88f" />
+          ${flowersM(40, 900, 1900, 860, false)}
+          ${cloverM(40, 900, 1040)}`;
+      }
+
+      function hillM() {
+        return `
+          <path d="M0 1080 L0 990 Q700 930 1600 440 Q1720 390 1920 470 L1920 1080 Z" fill="#1f4636" />
+          <path d="M0 1080 L0 1030 Q760 980 1660 520 Q1760 480 1920 540 L1920 1080 Z" fill="#183a2d" opacity="0.6" />`;
+      }
+      const H = { x0: 0, y0: 990, cx: 700, cy: 930, x1: 1600, y1: 440 };
+      function hill(t) {
+        const u = 1 - t;
+        return {
+          x: u * u * H.x0 + 2 * u * t * H.cx + t * t * H.x1,
+          y: u * u * H.y0 + 2 * u * t * H.cy + t * t * H.y1,
+          a: (Math.atan2(2 * u * (H.cy - H.y0) + 2 * t * (H.y1 - H.cy), 2 * u * (H.cx - H.x0) + 2 * t * (H.x1 - H.cx)) * 180) / Math.PI,
+        };
+      }
+
+      function crookedTreeM(k) {
+        return `<g transform="scale(${k})">
+          <path d="M0 0 Q-30 -90 10 -170 Q40 -230 -20 -290 L-6 -298 Q60 -230 30 -168 Q0 -90 26 0 Z" fill="#3b2a22" />
+          <path d="M-10 -260 Q-90 -270 -170 -250" stroke="#3b2a22" stroke-width="16" fill="none" stroke-linecap="round" />
+          <path d="M20 -200 Q80 -230 120 -300" stroke="#3b2a22" stroke-width="12" fill="none" stroke-linecap="round" />
+          <circle cx="130" cy="-320" r="46" fill="#244d3b" />
+          <circle cx="-20" cy="-320" r="56" fill="#24553f" />
+          <circle cx="-190" cy="-262" r="34" fill="#244d3b" />
+        </g>`;
+      }
+
+      // Sleepy Bear constellation; star 0 is the nose (Pip's place).
+      const BEAR = [[400, 300], [470, 250], [520, 185], [570, 250], [610, 300], [760, 240], [960, 245], [1110, 285], [1180, 370], [1120, 470], [980, 455], [770, 460], [650, 470], [600, 385], [470, 345]];
+      const BEAR_E = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 4], [13, 14], [14, 0]];
+      function bearM(id, withSlot) {
+        let s = `<g id="${id}-lines" opacity="0.5">`;
+        BEAR_E.forEach(([a, b], i) => {
+          s += `<line id="${id}-l${i}" x1="${BEAR[a][0]}" y1="${BEAR[a][1]}" x2="${BEAR[b][0]}" y2="${BEAR[b][1]}" stroke="#cfd3ff" stroke-width="2.5" stroke-dasharray="6 10" />`;
+        });
+        s += "</g>";
+        BEAR.forEach(([x, y], i) => {
+          if (i === 0) {
+            if (withSlot) s += `<circle id="${id}-slot" cx="${x}" cy="${y}" r="24" fill="none" stroke="#cfd3ff" stroke-width="2.5" stroke-dasharray="4 7" opacity="0.7" />`;
+          } else {
+            s += `<g id="${id}-s${i}"><circle cx="${x}" cy="${y}" r="20" fill="url(#glow)" /><circle cx="${x}" cy="${y}" r="5.5" fill="#fff6d0" /></g>`;
+          }
+        });
+        return s;
+      }
+
+      function fallingM(id) {
+        return `<g id="${id}"><g transform="rotate(-62)"><rect id="${id}-tail" x="10" y="-16" width="300" height="32" rx="16" fill="url(#tailgrad)" /></g>
+          <g id="${id}-spin">${starM(id + "-st")}</g></g>`;
+      }
+
+      function sparklesM(id, n, cx, cy) {
+        let s = `<g id="${id}">`;
+        for (let i = 0; i < n; i++) s += `<path id="${id}-${i}" d="${starPath(12, 4, 4)}" fill="#fff0b8" transform="translate(${cx} ${cy})" opacity="0" />`;
+        return s + "</g>";
+      }
+
+      function zzM(id, n, x, y, size) {
+        let s = `<g id="${id}" data-layout-ignore>`;
+        for (let k = 0; k < n; k++)
+          s += `<text id="${id}-${k}" x="${x}" y="${y}" fill="#d9dbff" font-family="Fraunces, serif" font-style="italic" font-size="${size + k * 6}" opacity="0">z</text>`;
+        return s + "</g>";
+      }
+
+      function notesM(id, n, x, y) {
+        let s = `<g id="${id}" data-layout-ignore>`;
+        const glyphs = ["♪", "♫", "♪", "♬"];
+        for (let k = 0; k < n; k++)
+          s += `<text id="${id}-${k}" x="${x}" y="${y}" fill="#ffe7a6" font-size="${40 + (k % 2) * 10}" opacity="0">${glyphs[k % 4]}</text>`;
+        return s + "</g>";
+      }
+
+
+seed = 99;
+let stars = "";
+for (let i = 0; i < 160; i++) {
+  const x = rnd() * 1920, y = rnd() * 760, r = 1 + rnd() * 2.4;
+  stars += `<circle cx="${P(x)}" cy="${P(y)}" r="${P(r)}" fill="#fff" opacity="${P(0.35 + rnd() * 0.6)}" />`;
+}
+const moon = `<g transform="translate(1700 170)"><circle r="260" fill="url(#moonglow)" /><circle r="110" fill="#fff3cf" />
+  <circle cx="-36" cy="-34" r="16" fill="#f1e2b4" /><circle cx="40" cy="36" r="12" fill="#f1e2b4" />
+  <path d="M-48 4 Q-34 16 -20 4 M18 4 Q32 16 46 4" stroke="#8e7a52" stroke-width="6" fill="none" stroke-linecap="round" />
+  <path d="M-14 40 Q0 50 14 40" stroke="#8e7a52" stroke-width="5" fill="none" stroke-linecap="round" />
+  <ellipse cx="-56" cy="30" rx="13" ry="8" fill="#f6b8a8" opacity="0.6" /><ellipse cx="56" cy="30" rx="13" ry="8" fill="#f6b8a8" opacity="0.6" /></g>`;
+document.getElementById("art").innerHTML = stars + moon +
+  `<g transform="translate(0 40)">${meadowM(3, false)}</g>` +
+  `<circle cx="1420" cy="560" r="330" fill="url(#glow)" opacity="0.9" />` +
+  `<g transform="translate(1090 850)">${hogM("h", 2.05, false)}</g>` +
+  `<g transform="translate(1440 540) rotate(10) scale(2.3)">${starM("pip", false)}</g>`;
+</script></body></html>
