@@ -1,10 +1,11 @@
 """Synthesize an original music-box lullaby (F major, 3/4, 66 bpm) for the
 bedtime story, plus a few sparkle chimes timed to story beats.
 
-Usage: python3 tools/lullaby.py <out.wav> [seconds]
+Usage: python3 tools/lullaby.py <out.wav> [seconds] [sparkle times as JSON list]
 Pure numpy + stdlib wave; deterministic.
 """
 
+import json
 import sys
 import wave
 
@@ -68,17 +69,29 @@ def main():
     total = float(sys.argv[2]) if len(sys.argv) > 2 else 92.0
     buf = np.zeros(int(SR * (total + 3)))
 
-    # Form: A B A' B' (second pass an octave up, softer), then a held tonic.
-    form = [(A, CH_A, 0, 0.16), (B, CH_B, 0, 0.16), (A, CH_A, 12, 0.11), (B, CH_B, 0, 0.14)]
+    # Loop the form A B A' B' (second A an octave up), with a sparse
+    # "breathing" pass of each phrase every third cycle, until the film ends.
+    cycle = [(A, CH_A, 0, 0.16, False), (B, CH_B, 0, 0.16, False),
+             (A, CH_A, 12, 0.11, False), (B, CH_B, 0, 0.14, False)]
+    breath = [(A, CH_A, 0, 0.12, True), (B, CH_B, 12, 0.09, True)]
+    plan, c = [], 0
+    while len(plan) < 400:
+        plan += breath if c % 3 == 2 else cycle
+        c += 1
     t0 = 1.0
-    for mel, chords, octv, amp in form:
+    for mel, chords, octv, amp, sparse in plan:
+        if t0 + 8 * BAR > total - 7.5:
+            break
         t = t0
+        bar_pos = 0.0
         for m, beats in mel:
-            add(buf, music_box(m + octv, beats * BEAT, amp), t)
+            if not sparse or bar_pos % 3 == 0:
+                add(buf, music_box(m + octv, beats * BEAT, amp), t)
             t += beats * BEAT
+            bar_pos += beats
         for k, (root, q) in enumerate(chords):
             add(buf, pad(root, q, BAR, 0.05), t0 + k * BAR)
-            add(buf, music_box(root - 12 + 12, BEAT, 0.05), t0 + k * BAR)  # soft bass pluck
+            add(buf, music_box(root, BEAT, 0.05), t0 + k * BAR)  # soft bass pluck
         t0 += 8 * BAR
     # Final tonic chord, rolled.
     for k, m in enumerate((65, 69, 72, 77)):
@@ -86,7 +99,8 @@ def main():
     add(buf, pad(53, "M", 3 * BAR, 0.05), t0)
 
     # Sparkles: quick rising arpeggio of high, quiet notes.
-    for s in SPARKLES:
+    sparkles = json.loads(sys.argv[3]) if len(sys.argv) > 3 else SPARKLES
+    for s in sparkles:
         for k, m in enumerate((84, 88, 91, 96)):
             add(buf, music_box(m, 0.3, 0.05), s + k * 0.07)
 
