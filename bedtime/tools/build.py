@@ -86,7 +86,8 @@ def main():
     for i, s in enumerate(scenes):
         last = i == len(scenes) - 1
         clip_dur = s["dur"] if last else s["dur"] + XFADE
-        inner = f'<svg viewBox="0 0 1920 1080"><g id="art-{s["id"]}"></g></svg>'
+        inner = (f'<svg viewBox="0 0 1920 1080"><g id="art-{s["id"]}"></g>'
+                 '<rect width="1920" height="1080" fill="url(#vignetteG)" /></svg>')
         if s["id"] == "title":
             inner += (f'<div class="title-wrap"><div class="t-small">{TEXT["t_small"]}</div>'
                       f'<div class="t-big">{TEXT["t_big"]}</div><div class="t-sub">{TEXT["t_sub"]}</div></div>')

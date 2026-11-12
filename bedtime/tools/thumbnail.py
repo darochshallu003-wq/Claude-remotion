@@ -60,8 +60,8 @@ for (let i = 0; i < 160; i++) {{
   const x = rnd() * 1920, y = rnd() * 760, r = 1 + rnd() * 2.4;
   stars += `<circle cx="${{P(x)}}" cy="${{P(y)}}" r="${{P(r)}}" fill="#fff" opacity="${{P(0.35 + rnd() * 0.6)}}" />`;
 }}
-const moon = `<g transform="translate(1700 170)"><circle r="260" fill="url(#moonglow)" /><circle r="110" fill="#fff3cf" />
-  <circle cx="-36" cy="-34" r="16" fill="#f1e2b4" /><circle cx="40" cy="36" r="12" fill="#f1e2b4" />
+const moon = `<g transform="translate(1700 170)"><circle r="260" fill="url(#moonglow)" /><circle r="110" fill="url(#moonBody)" />
+  <circle cx="-36" cy="-34" r="16" fill="url(#craterG)" /><circle cx="40" cy="36" r="12" fill="url(#craterG)" />
   <path d="M-48 4 Q-34 16 -20 4 M18 4 Q32 16 46 4" stroke="#8e7a52" stroke-width="6" fill="none" stroke-linecap="round" />
   <path d="M-14 40 Q0 50 14 40" stroke="#8e7a52" stroke-width="5" fill="none" stroke-linecap="round" />
   <ellipse cx="-56" cy="30" rx="13" ry="8" fill="#f6b8a8" opacity="0.6" /><ellipse cx="56" cy="30" rx="13" ry="8" fill="#f6b8a8" opacity="0.6" /></g>`;
