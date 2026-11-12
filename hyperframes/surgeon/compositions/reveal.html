@@ -1,0 +1,42 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #reveal-wrap { position: absolute; inset: 0; }
+    #reveal-spot { position: absolute; inset: 0; background: radial-gradient(ellipse 45% 38% at 50% 58%, rgba(255,236,190,0.28) 0%, rgba(0,0,0,0) 100%); }
+    #reveal-maa { position: absolute; left: 290px; top: 640px; width: 500px; height: 700px; }
+    #reveal-maa img { position: absolute; left: 0; top: 0; width: 500px; }
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1080" data-height="1920">
+    <div id="reveal-wrap">
+      <div class="bg-dark"><img class="grain" src="assets/art/grain-kraft.svg" alt="" /></div>
+      <div id="reveal-spot"></div>
+      <div id="reveal-hdr" class="hdr dark"><div class="row"><span>JAWAB · FIG. 05</span><span>REVEAL</span></div><div class="rule"></div></div>
+      <div id="reveal-head" class="headline dark">
+        <div class="setup">Jawab simple hai…</div>
+        <div class="punch" style="font-size: 124px">Surgeon = Maa!</div>
+      </div>
+      <div id="reveal-maa">
+        <img id="reveal-shadow" src="assets/art/dr-maa-neutral.svg" style="filter: brightness(0.08)" alt="" />
+        <img id="reveal-face" src="assets/art/dr-maa.svg" style="opacity: 0" alt="Dr. Maa, the surgeon" />
+      </div>
+      <div id="reveal-stamp" class="stamp on-dark" style="left: 830px; top: 1230px; font-size: 130px">MAA!</div>
+      <div id="reveal-tag" class="tag" style="left: 300px; top: 1400px">DR. MAA · CHIEF SURGEON</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const K = window.kraft;
+    K.enter(tl, "#reveal-wrap", "iris");
+    K.header(tl, "#reveal-hdr");
+    K.headline(tl, "#reveal-head", true);
+    tl.fromTo("#reveal-spot", { opacity: 0 }, { opacity: 1, duration: 1.18, ease: "none" }, 0);
+    // silhouette lights up into Maa
+    tl.fromTo("#reveal-face", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power3.out" }, 1.18);
+    tl.fromTo("#reveal-shadow", { opacity: 1 }, { opacity: 0, duration: 0.8, ease: "power3.out" }, 1.18);
+    K.float(tl, "#reveal-maa", 5, 3.93);
+    K.stamp(tl, "#reveal-stamp", 2.16, 10);
+    K.tag(tl, "#reveal-tag", 2.56);
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>

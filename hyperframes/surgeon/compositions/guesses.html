@@ -1,0 +1,40 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #guesses-wrap { position: absolute; inset: 0; }
+    .guess { position: absolute; left: 120px; width: 840px; height: 190px; background: #F4EDE0; border: 6px solid #231F1C; box-shadow: 0 10px 20px rgba(0,0,0,0.25); }
+    .guess .t { position: absolute; left: 40px; top: 0; bottom: 0; display: flex; align-items: center; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 84px; color: #231F1C; }
+    .guess .strike { position: absolute; left: 30px; top: 88px; width: 600px; height: 14px; border-radius: 7px; background: #D0312D; transform-origin: left center; }
+    .guess .x { position: absolute; right: 36px; top: 30px; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 110px; line-height: 1; color: #D0312D; }
+  </style>
+  <div id="root" data-composition-id="guesses" data-width="1080" data-height="1920">
+    <div id="guesses-wrap">
+      <div class="bg-kraft"><img class="grain" src="assets/art/grain-kraft.svg" alt="" /><div class="grid"></div><div class="fold"></div></div>
+      <div id="guesses-hdr" class="hdr light"><div class="row"><span>GUESS · FIG. 04</span><span>PAHELI LAB</span></div><div class="rule"></div></div>
+      <div id="guesses-head" class="headline light">
+        <div class="setup">Aapka guess?</div>
+        <div class="punch">Sab galat!</div>
+      </div>
+      <div id="guesses-g1" class="guess" style="top: 620px"><div class="t">SAUTELE PAPA?</div><div class="strike"></div><div class="x">✗</div></div>
+      <div id="guesses-g2" class="guess" style="top: 860px"><div class="t">BHOOT?</div><div class="strike"></div><div class="x">✗</div></div>
+      <div id="guesses-g3" class="guess" style="top: 1100px"><div class="t">GOD LENE WALE?</div><div class="strike"></div><div class="x">✗</div></div>
+      <div id="guesses-stamp" class="stamp" style="left: 540px; top: 1440px; font-size: 96px">ATAK GAYE?</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const K = window.kraft;
+    K.header(tl, "#guesses-hdr");
+    K.headline(tl, "#guesses-head", false);
+    [[0.12, 1.5, -1], [1.32, 2.52, 1], [2.4, 3.6, -1]].forEach(([at, strike, rot], i) => {
+      const g = "#guesses-g" + (i + 1);
+      tl.fromTo(g, { opacity: 0, x: -120, rotation: rot }, { opacity: 1, x: 0, rotation: rot, duration: 0.5, ease: "back.out(1.4)" }, at);
+      tl.fromTo(g + " .strike", { scaleX: 0 }, { scaleX: 1, duration: 0.27, ease: "power2.out" }, strike);
+      tl.fromTo(g + " .t", { opacity: 1 }, { opacity: 0.55, duration: 0.27 }, strike);
+      tl.fromTo(g + " .x", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, strike);
+    });
+    K.stamp(tl, "#guesses-stamp", 4.32, -6);
+    window.__timelines["guesses"] = tl;
+  </script>
+</template>

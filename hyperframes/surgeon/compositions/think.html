@@ -1,0 +1,58 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #think-wrap { position: absolute; inset: 0; }
+    .think-q { position: absolute; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 110px; color: #231F1C; }
+    #think-timer { position: absolute; left: 560px; top: 820px; width: 420px; height: 420px; }
+    .think-n { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 220px; color: #231F1C; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="think" data-width="1080" data-height="1920">
+    <div id="think-wrap">
+      <div class="bg-kraft"><img class="grain" src="assets/art/grain-kraft.svg" alt="" /><div class="grid"></div><div class="fold"></div></div>
+      <div id="think-hdr" class="hdr light"><div class="row"><span>SOCHO · FIG. 03</span><span>PAHELI LAB</span></div><div class="rule"></div></div>
+      <div id="think-head" class="headline light">
+        <div class="setup">Papa toh nahi rahe…</div>
+        <div class="punch">Toh surgeon kaun?</div>
+      </div>
+      <img id="think-riya" class="abs" src="assets/art/riya.svg" style="left: 60px; top: 820px; width: 420px" alt="Riya thinking" />
+      <div id="think-q1" class="think-q" style="left: 120px; top: 640px">?</div>
+      <div id="think-q2" class="think-q" style="left: 250px; top: 610px; color: #D0312D">?</div>
+      <div id="think-q3" class="think-q" style="left: 380px; top: 580px">?</div>
+      <!-- 3-2-1 countdown -->
+      <div id="think-timer">
+        <svg viewBox="0 0 200 200" width="420" height="420">
+          <circle cx="100" cy="100" r="88" fill="#F4EDE0" stroke="#231F1C" stroke-width="8" />
+          <circle id="think-ring" cx="100" cy="100" r="88" fill="none" stroke="#D0312D" stroke-width="12" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(-90 100 100)" stroke-linecap="round" />
+        </svg>
+        <div id="think-n3" class="think-n">3</div>
+        <div id="think-n2" class="think-n">2</div>
+        <div id="think-n1" class="think-n">1</div>
+      </div>
+      <div id="think-tag" class="tag" style="left: 600px; top: 1290px">3 SECOND · SOCHO!</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const K = window.kraft;
+    const start = 1.87;
+    K.enter(tl, "#think-wrap", "iris");
+    K.header(tl, "#think-hdr");
+    K.headline(tl, "#think-head", false);
+    K.fadeIn(tl, "#think-riya", 0.27);
+    K.float(tl, "#think-riya", 6, 5.33);
+    ["#think-q1", "#think-q2", "#think-q3"].forEach((q, i) => {
+      K.pop(tl, q, 0.53 + i * 0.43);
+      tl.fromTo(q, { y: -12 }, { y: 12, duration: 0.85, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0.53 + i * 0.43);
+    });
+    K.fadeIn(tl, "#think-timer", start - 0.1);
+    [3, 2, 1].forEach((n, i) => {
+      const t = start + i;
+      tl.fromTo("#think-n" + n, { opacity: 1, scale: 1.15 }, { scale: 1, duration: 0.25, ease: "power2.out" }, t);
+      if (n !== 1) tl.set("#think-n" + n, { opacity: 0 }, t + 1);
+      tl.fromTo("#think-ring", { attr: { "stroke-dashoffset": 0 } }, { attr: { "stroke-dashoffset": 1 }, duration: 1, ease: "none", immediateRender: false }, t);
+    });
+    K.tag(tl, "#think-tag", start);
+    window.__timelines["think"] = tl;
+  </script>
+</template>

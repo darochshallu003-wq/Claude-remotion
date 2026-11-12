@@ -1,0 +1,65 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #bias-wrap { position: absolute; inset: 0; }
+    #bias-word { position: absolute; left: 70px; top: 600px; padding: 14px 34px; background: #231F1C; color: #F3EBDD; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 80px; letter-spacing: 4px; }
+    #bias-thought { position: absolute; left: 480px; top: 600px; width: 420px; height: 380px; transform-origin: left bottom; }
+    #bias-thought .bub { position: absolute; inset: 0; border-radius: 50%; background: #F4EDE0; border: 6px solid #231F1C; overflow: hidden; }
+    #bias-thought .dot { position: absolute; border-radius: 50%; background: #F4EDE0; border: 5px solid #231F1C; }
+    #bias-stat { position: absolute; left: 70px; right: 70px; top: 1220px; height: 330px; background: #F4EDE0; border: 6px solid #231F1C; box-shadow: 0 14px 26px rgba(0,0,0,0.3); }
+    #bias-pct { position: absolute; left: 40px; top: 20px; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 200px; line-height: 1; color: #D0312D; }
+    #bias-said { position: absolute; left: 460px; right: 30px; top: 40px; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 56px; line-height: 1.08; color: #231F1C; text-transform: uppercase; }
+    #bias-src { position: absolute; left: 40px; right: 30px; bottom: 28px; font-family: "Plex Mono Local", monospace; font-size: 22px; letter-spacing: 2px; color: rgba(42,36,32,0.65); }
+    #bias-dots { position: absolute; left: 460px; top: 190px; display: flex; gap: 8px; }
+    #bias-dots div { width: 34px; height: 34px; border-radius: 50%; background: #B9AD95; border: 3px solid #231F1C; }
+  </style>
+  <div id="root" data-composition-id="bias" data-width="1080" data-height="1920">
+    <div id="bias-wrap">
+      <div class="bg-kraft"><img class="grain" src="assets/art/grain-kraft.svg" alt="" /><div class="grid"></div><div class="fold"></div></div>
+      <div id="bias-hdr" class="hdr light"><div class="row"><span>DIMAAG · FIG. 06</span><span>BIAS</span></div><div class="rule"></div></div>
+      <div id="bias-head" class="headline light">
+        <div class="setup">Itna mushkil kyun?</div>
+        <div class="punch" style="font-size: 104px">Unconscious bias!</div>
+      </div>
+      <!-- the word, and the picture the brain jumps to -->
+      <div id="bias-word">“SURGEON”</div>
+      <img id="bias-riya" class="abs" src="assets/art/riya.svg" style="left: 90px; top: 820px; width: 300px" alt="Riya" />
+      <div id="bias-thought">
+        <div class="bub"><img src="assets/art/surgeon-man.svg" style="position: absolute; left: 70px; top: 20px; width: 280px" alt="a male surgeon" /></div>
+        <div class="dot" style="left: -10px; bottom: -40px; width: 44px; height: 44px"></div>
+        <div class="dot" style="left: -50px; bottom: -80px; width: 26px; height: 26px"></div>
+      </div>
+      <div id="bias-tag" class="tag" style="left: 520px; top: 1020px">AUTO-ASSUME: AADMI</div>
+      <!-- the stat: about 15 in 100 answered "mother" -->
+      <div id="bias-stat">
+        <div id="bias-pct">15%</div>
+        <div id="bias-said">ne hi socha<br />“maa”</div>
+        <div id="bias-dots"><div id="bias-d1"></div><div id="bias-d2"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div id="bias-src">BOSTON UNIVERSITY STUDY (APPROX.)</div>
+      </div>
+    </div>
+    <div id="bias-wrap-line" class="wipe-line"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const K = window.kraft;
+    const statAt = 8.02;
+    K.enter(tl, "#bias-wrap", "wipe");
+    K.header(tl, "#bias-hdr");
+    K.headline(tl, "#bias-head", false);
+    K.pop(tl, "#bias-word", 1.03, { rotation: -3 });
+    K.fadeIn(tl, "#bias-riya", 1.55);
+    tl.fromTo("#bias-thought", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 2.59);
+    K.tag(tl, "#bias-tag", 4.14, 2);
+    // idle life through the long narration
+    K.float(tl, "#bias-riya", 6, 12.93);
+    tl.fromTo("#bias-thought .bub", { rotation: -2 }, { rotation: 2, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+    tl.fromTo("#bias-tag", { y: 0 }, { y: -8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 9 }, 0);
+    tl.fromTo("#bias-stat", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.3)" }, statAt);
+    const counter = { v: 0 };
+    tl.fromTo(counter, { v: 0 }, { v: 15, duration: 0.8, ease: "power3.out", onUpdate: () => { document.querySelector("#bias-pct").textContent = Math.round(counter.v) + "%"; } }, statAt);
+    tl.set(["#bias-d1", "#bias-d2"], { backgroundColor: "#D0312D" }, statAt + 0.67);
+    window.__timelines["bias"] = tl;
+  </script>
+</template>

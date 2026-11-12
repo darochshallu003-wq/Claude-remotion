@@ -1,0 +1,19 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    #brand-mark { position: absolute; top: 84px; right: 70px; display: flex; align-items: center; gap: 12px; padding: 8px 18px 8px 12px; border-radius: 999px; background: rgba(0,0,0,0.38); color: #fff; font-family: "Plex Mono Local", monospace; font-size: 28px; letter-spacing: 1px; opacity: 0.9; }
+  </style>
+  <div id="root" data-composition-id="brand" data-width="1080" data-height="1920">
+    <!-- channel handle watermark, readable on light and dark scenes -->
+    <div id="brand-mark">
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5"><rect x="4" y="4" width="40" height="40" rx="12" /><circle cx="24" cy="24" r="9.5" /><circle cx="35.5" cy="12.5" r="2.5" fill="#fff" stroke="none" /></svg>
+      <span data-var-text="handle">@mythmitao</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#brand-mark", { opacity: 0.9 }, { opacity: 0.9, duration: 54.4, ease: "none" }, 0);
+    window.__timelines["brand"] = tl;
+  </script>
+</template>

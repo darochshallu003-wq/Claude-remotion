@@ -1,0 +1,51 @@
+<template>
+  <link rel="stylesheet" href="assets/kraft.css" />
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #hospital-wrap { position: absolute; inset: 0; }
+    #hospital-ecg { position: absolute; left: 640px; top: 580px; width: 360px; height: 90px; border-radius: 12px; background: #101412; border: 6px solid #231F1C; overflow: hidden; }
+    #hospital-line { position: absolute; left: 0; right: 0; top: 1490px; padding: 0 120px; font-family: "Tiro Devanagari Hindi", serif; font-size: 52px; color: #F3EBDD; text-align: center; line-height: 1.35; }
+    #hospital-q { position: absolute; left: 160px; top: 190px; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 170px; color: #F3EBDD; }
+  </style>
+  <div id="root" data-composition-id="hospital" data-width="1080" data-height="1920">
+    <div id="hospital-wrap">
+      <div class="bg-dark"><img class="grain" src="assets/art/grain-kraft.svg" alt="" /></div>
+      <div id="hospital-hdr" class="hdr dark"><div class="row"><span>EMERGENCY · FIG. 02</span><span>OPERATION THEATRE</span></div><div class="rule"></div></div>
+      <div id="hospital-head" class="headline dark">
+        <div class="setup">Surgeon aata hai…</div>
+        <div class="punch" style="font-size: 100px">“Ye mera beta hai!”</div>
+      </div>
+      <img class="abs" src="assets/art/cross.svg" style="left: 80px; top: 560px; width: 110px" alt="hospital" />
+      <div id="hospital-ecg">
+        <svg viewBox="0 0 400 100" width="348" height="78" style="position: absolute; left: 0; top: 0">
+          <path id="hospital-beat" d="M10 55 L 90 55 L 105 30 L 120 80 L 135 15 L 150 55 L 230 55 L 245 30 L 260 80 L 275 15 L 290 55 L 390 55" fill="none" stroke="#6BE38A" stroke-width="5" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />
+        </svg>
+      </div>
+      <img id="hospital-bed" class="abs" src="assets/art/bed.svg" style="left: 40px; top: 1180px; width: 620px" alt="boy in hospital bed" />
+      <!-- the surgeon stays a mystery: a silhouette with a question mark -->
+      <div id="hospital-surgeon" class="abs" style="left: 560px; top: 760px; width: 440px; height: 616px">
+        <img src="assets/art/surgeon-mystery.svg" style="width: 440px; filter: brightness(0.08)" alt="mystery surgeon" />
+        <div id="hospital-q">?</div>
+      </div>
+      <div id="hospital-line">“मैं इसका operation नहीं कर सकता…”</div>
+      <div id="hospital-bubble" class="bubble" style="left: 300px; top: 640px"><div class="b">ये मेरा बेटा है!</div><div class="tail"></div></div>
+    </div>
+    <div id="hospital-wrap-line" class="wipe-line"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const K = window.kraft;
+    K.enter(tl, "#hospital-wrap", "wipe");
+    K.header(tl, "#hospital-hdr");
+    K.headline(tl, "#hospital-head", true);
+    K.fadeIn(tl, "#hospital-ecg", 0.49);
+    K.fadeIn(tl, "#hospital-bed", 0.49);
+    // heartbeat redraws every 1.5 s
+    tl.fromTo("#hospital-beat", { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 1.5, ease: "none", repeat: 6 }, 0);
+    tl.fromTo("#hospital-surgeon", { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.6, ease: "back.out(1.2)" }, 2.91);
+    K.pop(tl, "#hospital-q", 3.88);
+    K.fadeIn(tl, "#hospital-line", 5.82);
+    tl.fromTo("#hospital-bubble", { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(2.4)" }, 7.76);
+    window.__timelines["hospital"] = tl;
+  </script>
+</template>

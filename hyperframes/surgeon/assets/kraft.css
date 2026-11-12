@@ -1,0 +1,38 @@
+@font-face { font-family: "Oswald Local"; src: url("fonts/oswald-700-latin.woff2") format("woff2"); font-weight: 200 700; }
+@font-face { font-family: "Oswald Local"; src: url("fonts/oswald-500-latin.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Plex Mono Local"; src: url("fonts/plexmono-500-latin.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Tiro Devanagari Hindi"; src: url("fonts/tiro-400-devanagari.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Tiro Devanagari Hindi"; src: url("fonts/tiro-400-latin.woff2") format("woff2"); font-weight: 400; unicode-range: U+0000-00FF; }
+
+/* Shared look of the kraft-paper explainer series. */
+.bg-kraft { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, #D3B386 0%, #C4A271 60%, #A9875A 100%); }
+.bg-kraft .grain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; mix-blend-mode: multiply; }
+.bg-kraft .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(60,40,20,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(60,40,20,0.07) 2px, transparent 2px); background-size: 120px 120px; }
+.bg-kraft .fold { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 48%, rgba(255,255,255,0.12) 50%, transparent 52%); }
+.bg-dark { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, #2E2824 0%, #171412 75%); }
+.bg-dark .grain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; mix-blend-mode: multiply; }
+
+.hdr { position: absolute; top: 150px; left: 70px; right: 70px; font-family: "Plex Mono Local", monospace; font-size: 24px; letter-spacing: 4px; }
+.hdr .row { display: flex; justify-content: space-between; }
+.hdr .rule { margin-top: 14px; height: 2px; background: currentColor; transform-origin: left center; }
+.hdr.light { color: rgba(42,36,32,0.6); }
+.hdr.dark { color: rgba(243,235,221,0.6); }
+
+.headline { position: absolute; top: 222px; left: 70px; right: 70px; text-transform: uppercase; font-family: "Oswald Local", sans-serif; }
+.headline .setup { font-weight: 500; font-size: 58px; letter-spacing: 1px; }
+.headline .punch { font-weight: 700; font-size: 118px; line-height: 1.02; margin-top: 4px; color: #D0312D; }
+.headline.light .setup { color: #2A2420; }
+.headline.dark .setup { color: #F3EBDD; }
+
+.abs { position: absolute; }
+.tag { position: absolute; padding: 8px 18px; background: #D0312D; color: #fff; font-family: "Plex Mono Local", monospace; font-size: 24px; letter-spacing: 3px; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.25); transform-origin: left center; }
+.stamp { position: absolute; border: 7px solid #D9412B; border-radius: 10px; padding: 6px 26px; font-family: "Oswald Local", sans-serif; font-weight: 700; letter-spacing: 3px; color: #D9412B; white-space: nowrap; text-transform: uppercase; mix-blend-mode: multiply; }
+.stamp.on-dark { mix-blend-mode: normal; }
+.bubble { position: absolute; transform-origin: left bottom; }
+.bubble .b { padding: 10px 30px; border-radius: 40px; background: #fff; border: 5px solid #231F1C; font-family: "Tiro Devanagari Hindi", serif; font-size: 64px; color: #D0312D; white-space: nowrap; }
+.bubble .tail { position: absolute; left: 30px; bottom: -22px; width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 24px solid #231F1C; }
+.card { position: absolute; width: 420px; height: 560px; background: #F4EDE0; border: 6px solid #231F1C; box-shadow: 0 14px 26px rgba(0,0,0,0.3); overflow: hidden; }
+.card .portrait { position: absolute; left: 50px; top: 30px; width: 320px; }
+.card .label { position: absolute; left: 0; right: 0; bottom: 64px; text-align: center; font-family: "Oswald Local", sans-serif; font-weight: 700; font-size: 56px; color: #231F1C; background: #F4EDE0; padding-top: 6px; }
+.card .sub { position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; font-family: "Plex Mono Local", monospace; font-size: 24px; letter-spacing: 3px; color: #D0312D; }
+.wipe-line { position: absolute; left: 0; right: 0; top: 0; height: 6px; margin-top: -3px; background: #F08A24; box-shadow: 0 0 40px 12px rgba(240,138,36,0.65); }
