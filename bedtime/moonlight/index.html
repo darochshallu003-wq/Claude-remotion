@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&display=block"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0d1033;
+        --ink: #fff4d6;
+        --gold: #ffd36b;
+        --font-display: "Fraunces", "Liberation Serif", Georgia, serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: var(--font-display);
+        background: linear-gradient(180deg, #0b0e30 0%, #1c2160 45%, #3b3f86 78%, #4d4f93 100%);
+      }
+      .layer,
+      .clip {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      .layer svg,
+      .clip svg {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: visible;
+      }
+      .scene {
+        opacity: 0;
+      }
+      .shade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 360px;
+        background: linear-gradient(180deg, rgba(8, 10, 34, 0) 0%, rgba(8, 10, 34, 0.72) 55%, rgba(8, 10, 34, 0.88) 100%);
+      }
+      .cap {
+        position: absolute;
+        left: 50%;
+        bottom: 72px;
+        width: 1500px;
+        transform: translateX(-50%);
+        text-align: center;
+        color: var(--ink);
+        font-size: 52px;
+        line-height: 1.32;
+        font-weight: 500;
+        text-shadow: 0 2px 18px rgba(5, 6, 25, 0.9);
+      }
+      .cap em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .w {
+        display: inline-block;
+        opacity: 0;
+      }
+      #title-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 300px;
+        text-align: center;
+        color: var(--ink);
+      }
+      #t-small {
+        font-size: 40px;
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: #c9c6f2;
+        opacity: 0;
+      }
+      #t-big {
+        font-size: 168px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        color: var(--ink);
+        text-shadow: 0 0 40px rgba(255, 211, 107, 0.35);
+        opacity: 0;
+      }
+      #t-sub {
+        font-size: 66px;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--gold);
+        opacity: 0;
+      }
+      #end-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(6, 7, 26, 0.0);
+        color: var(--ink);
+        text-align: center;
+      }
+      #end-title {
+        font-size: 150px;
+        font-weight: 700;
+        font-style: italic;
+        opacity: 0;
+        text-shadow: 0 0 40px rgba(255, 211, 107, 0.35);
+      }
+      #end-sub {
+        margin-top: 10px;
+        font-size: 50px;
+        font-style: italic;
+        font-weight: 400;
+        color: #c9c6f2;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="94"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Shared art definitions -->
+      <svg width="0" height="0" style="position: absolute">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff2b0" stop-opacity="0.85" />
+            <stop offset="35%" stop-color="#ffd36b" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#ffd36b" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="moonglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff6d8" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="#fff6d8" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="tailgrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#fff3c0" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="#ffd36b" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffe9a0" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#ffe9a0" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Persistent sky: stars + sleepy moon -->
+      <div id="sky" class="layer">
+        <svg viewBox="0 0 1920 1080"><g id="starfield"></g></svg>
+      </div>
+      <div id="moon-layer" class="layer">
+        <svg viewBox="0 0 1920 1080">
+          <g transform="translate(1610 190)"><g id="moon">
+            <circle r="230" fill="url(#moonglow)" />
+            <circle r="92" fill="#fff3cf" />
+            <circle cx="-30" cy="-28" r="14" fill="#f1e2b4" />
+            <circle cx="34" cy="30" r="10" fill="#f1e2b4" />
+            <circle cx="40" cy="-34" r="7" fill="#f1e2b4" />
+            <path d="M-40 4 Q-28 14 -16 4" stroke="#8e7a52" stroke-width="5" fill="none" stroke-linecap="round" />
+            <path d="M14 4 Q26 14 38 4" stroke="#8e7a52" stroke-width="5" fill="none" stroke-linecap="round" />
+            <path d="M-12 34 Q0 42 12 34" stroke="#8e7a52" stroke-width="4" fill="none" stroke-linecap="round" />
+            <ellipse cx="-46" cy="26" rx="11" ry="7" fill="#f6b8a8" opacity="0.6" />
+            <ellipse cx="46" cy="26" rx="11" ry="7" fill="#f6b8a8" opacity="0.6" />
+          </g></g>
+        </svg>
+      </div>
+
+      <!-- S1 · Title -->
+      <div id="s1" class="clip scene" data-start="0" data-duration="8" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <path d="M0 900 Q480 820 960 880 T1920 860 L1920 1080 L0 1080 Z" fill="#1a3346" />
+          <path d="M0 960 Q600 900 1200 950 T1920 940 L1920 1080 L0 1080 Z" fill="#1b3a30" />
+        </svg>
+        <div id="title-wrap">
+          <div id="t-small">a bedtime story</div>
+          <div id="t-big">Bramble</div>
+          <div id="t-sub">and the Little Lost Star</div>
+        </div>
+      </div>
+
+      <!-- S2 · Meet Bramble -->
+      <div id="s2" class="clip scene" data-start="8" data-duration="11" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <g class="meadow"></g>
+          <g id="hog2" class="put-hog"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">In a meadow of sleepy flowers, there lived a small hedgehog named <em>Bramble.</em></div>
+      </div>
+
+      <!-- S3 · The star falls -->
+      <div id="s3" class="clip scene" data-start="19" data-duration="12" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <g class="meadow"></g>
+          <g id="hog3" class="put-hog"></g>
+          <circle id="landglow" cx="1250" cy="800" r="260" fill="url(#glow)" opacity="0" />
+          <g id="burst"></g>
+          <g id="fstar">
+            <g transform="rotate(-62)">
+              <rect id="ftail" x="10" y="-16" width="300" height="32" rx="16" fill="url(#tailgrad)" />
+            </g>
+            <g id="fspin" class="put-star"></g>
+          </g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">One night, a tiny star tumbled out of the sky&hellip; and landed &mdash; <em>plink!</em> &mdash; in the clover.</div>
+      </div>
+
+      <!-- S4 · Lost -->
+      <div id="s4" class="clip scene" data-start="31" data-duration="11" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <g class="meadow"></g>
+          <g id="star4" class="put-star sad"></g>
+          <g id="hog4" class="put-hog"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">&ldquo;I&rsquo;m lost,&rdquo; whispered the little star. &ldquo;And I can&rsquo;t find my way home.&rdquo;</div>
+      </div>
+
+      <!-- S5 · Up the tallest hill -->
+      <div id="s5" class="clip scene" data-start="42" data-duration="12" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <path d="M0 1080 L0 990 Q700 930 1600 440 Q1720 390 1920 470 L1920 1080 Z" fill="#1f4636" />
+          <path d="M0 1080 L0 1030 Q760 980 1660 520 Q1760 480 1920 540 L1920 1080 Z" fill="#183a2d" opacity="0.6" />
+          <g id="frogs"></g>
+          <g id="zz5" data-layout-ignore></g>
+          <g id="star5" class="put-star"></g>
+          <g id="hog5" class="put-hog"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">So Bramble carried her up the tallest hill, step by step, past the snoring frogs.</div>
+      </div>
+
+      <!-- S6 · Old Owl -->
+      <div id="s6" class="clip scene" data-start="54" data-duration="13" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <g class="constellation" id="con6"></g>
+          <path d="M900 1080 Q1200 640 1460 600 Q1720 620 1920 760 L1920 1080 Z" fill="#1f4636" />
+          <g id="hog6" class="put-hog"></g>
+          <g id="star6" class="put-star"></g>
+          <g id="owl6" class="put-owl"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">At the very top, Old Owl spread her soft wings and flew the star back to her place in the sky.</div>
+      </div>
+
+      <!-- S7 · Thank you -->
+      <div id="s7" class="clip scene" data-start="67" data-duration="10" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <g class="constellation" id="con7"></g>
+          <circle id="halo7" cx="1180" cy="230" r="220" fill="url(#glow)" />
+          <g id="star7" class="put-star"></g>
+          <path d="M1100 1080 Q1360 740 1560 720 Q1760 730 1920 840 L1920 1080 Z" fill="#163628" />
+          <g id="hog7" class="put-hog"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap">&ldquo;Thank you, Bramble,&rdquo; she twinkled. &ldquo;I&rsquo;ll shine for you every night.&rdquo;</div>
+      </div>
+
+      <!-- S8 · Goodnight -->
+      <div id="s8" class="clip scene" data-start="77" data-duration="17" data-track-index="1">
+        <svg viewBox="0 0 1920 1080">
+          <path id="beam8" d="M1130 260 L1230 260 L1100 830 L780 830 Z" fill="url(#beam)" opacity="0" />
+          <g class="meadow"></g>
+          <g id="sleep8"></g>
+          <g id="zz8" data-layout-ignore></g>
+          <circle cx="1180" cy="230" r="150" fill="url(#glow)" id="glow8" />
+          <g id="star8" class="put-star"></g>
+        </svg>
+        <div class="shade"></div>
+        <div class="cap" id="cap8">And Bramble curled up in the clover, and fell fast asleep. <em>Goodnight, Bramble. Goodnight, little star.</em></div>
+      </div>
+
+      <!-- The End -->
+      <div id="end" class="clip" data-start="88" data-duration="6" data-track-index="2">
+        <div id="end-wrap">
+          <div id="end-title">The End</div>
+          <div id="end-sub">sweet dreams</div>
+        </div>
+      </div>
+
+      <audio
+        id="music"
+        src="assets/lullaby.wav"
+        data-start="0"
+        data-duration="94"
+        data-volume="0.9"
+        data-track-index="3"
+      ></audio>
+    </div>
+
+    <script>
+      // ---------- deterministic helpers ----------
+      let seed = 20261112;
+      const rnd = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+      const NS = "http://www.w3.org/2000/svg";
+      const P = (n) => n.toFixed(1);
+
+      function starPath(R, r) {
+        let d = "";
+        for (let i = 0; i < 10; i++) {
+          const a = -Math.PI / 2 + (i * Math.PI) / 5;
+          const rad = i % 2 ? r : R;
+          d += (i ? "L" : "M") + P(Math.cos(a) * rad) + " " + P(Math.sin(a) * rad);
+        }
+        return d + "Z";
+      }
+
+      // ---------- characters ----------
+      function hogMarkup(id) {
+        let spikes = "";
+        const n = 28;
+        for (let i = 0; i <= n; i++) {
+          const a = ((-212 + (i * 192) / n) * Math.PI) / 180;
+          const out = i % 2 === 0;
+          const rx = out ? 130 : 100;
+          const ry = out ? 94 : 70;
+          spikes += (i ? "L" : "M") + P(-12 + Math.cos(a) * rx) + " " + P(-4 + Math.sin(a) * ry);
+        }
+        spikes += "L60 40 L-60 50 Z";
+        return `
+        <g class="bob">
+          <ellipse id="${id}-f2" cx="-52" cy="62" rx="20" ry="12" fill="#c99a72" />
+          <ellipse id="${id}-f1" cx="38" cy="64" rx="20" ry="12" fill="#c99a72" />
+          <path d="${spikes}" fill="#5e3c2b" stroke="#4a2e20" stroke-width="3" stroke-linejoin="round" />
+          <ellipse cx="-12" cy="6" rx="104" ry="64" fill="#6f4835" />
+          <path d="M-70 -30 L-56 -50 M-30 -48 L-18 -66 M10 -50 L20 -66 M-90 0 L-108 -10" stroke="#8a5f45" stroke-width="5" stroke-linecap="round" />
+          <ellipse cx="18" cy="40" rx="66" ry="30" fill="#e8c79c" />
+          <ellipse cx="64" cy="14" rx="56" ry="46" fill="#f0d3a8" />
+          <ellipse cx="106" cy="24" rx="30" ry="19" fill="#f0d3a8" />
+          <circle cx="40" cy="-26" r="13" fill="#e2bf92" />
+          <circle cx="40" cy="-26" r="6" fill="#d39e86" />
+          <circle cx="133" cy="20" r="10" fill="#2b1a12" />
+          <g id="${id}-eye"><circle cx="76" cy="4" r="8" fill="#2a1a10" /><circle cx="79" cy="1" r="2.6" fill="#fff" /></g>
+          <path id="${id}-eyec" d="M67 6 Q76 13 85 6" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round" opacity="0" />
+          <ellipse cx="92" cy="34" rx="11" ry="7" fill="#f4a3a3" opacity="0.75" />
+          <path d="M110 38 Q118 45 127 38" stroke="#2b1a12" stroke-width="3.5" fill="none" stroke-linecap="round" />
+        </g>`;
+      }
+
+      function hogSleepMarkup() {
+        let spikes = "";
+        const n = 40;
+        for (let i = 0; i < n; i++) {
+          const a = (i * 2 * Math.PI) / n;
+          const rr = i % 2 === 0 ? 112 : 88;
+          spikes += (i ? "L" : "M") + P(Math.cos(a) * rr) + " " + P(Math.sin(a) * rr * 0.82);
+        }
+        return `
+        <g id="ball">
+          <ellipse cx="0" cy="78" rx="120" ry="16" fill="#0f2a20" opacity="0.6" />
+          <path d="${spikes}Z" fill="#5e3c2b" stroke="#4a2e20" stroke-width="3" stroke-linejoin="round" />
+          <ellipse cx="0" cy="4" rx="92" ry="72" fill="#6f4835" />
+          <path d="M-50 -40 L-40 -58 M-10 -60 L0 -76 M30 -50 L42 -66 M-74 -6 L-92 -14" stroke="#8a5f45" stroke-width="5" stroke-linecap="round" />
+          <ellipse cx="40" cy="30" rx="50" ry="36" fill="#f0d3a8" />
+          <circle cx="82" cy="34" r="9" fill="#2b1a12" />
+          <path d="M28 22 Q38 30 48 22" stroke="#2a1a10" stroke-width="4" fill="none" stroke-linecap="round" />
+          <ellipse cx="54" cy="44" rx="10" ry="6" fill="#f4a3a3" opacity="0.75" />
+          <ellipse cx="-20" cy="66" rx="20" ry="10" fill="#c99a72" />
+        </g>`;
+      }
+
+      function starMarkup(id, sad) {
+        return `
+        <circle id="${id}-glow" r="120" fill="url(#glow)" />
+        <g id="${id}-body">
+          <path d="${starPath(56, 25)}" fill="#ffd36b" stroke="#fff0b8" stroke-width="6" stroke-linejoin="round" />
+          <ellipse cx="-13" cy="-2" rx="4.5" ry="6" fill="#5a3b12" />
+          <ellipse cx="13" cy="-2" rx="4.5" ry="6" fill="#5a3b12" />
+          <ellipse cx="-21" cy="10" rx="6" ry="4" fill="#f59a7a" opacity="0.7" />
+          <ellipse cx="21" cy="10" rx="6" ry="4" fill="#f59a7a" opacity="0.7" />
+          <path id="${id}-happy" d="M-9 11 Q0 19 9 11" stroke="#5a3b12" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="${sad ? 0 : 1}" />
+          <path id="${id}-sad" d="M-8 17 Q0 10 8 17" stroke="#5a3b12" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="${sad ? 1 : 0}" />
+        </g>`;
+      }
+
+      function owlMarkup(id) {
+        return `
+        <g class="bob">
+          <ellipse id="${id}-wl" cx="-64" cy="6" rx="34" ry="74" fill="#6b4f3f" />
+          <ellipse id="${id}-wr" cx="64" cy="6" rx="34" ry="74" fill="#6b4f3f" />
+          <path d="M-52 -66 L-40 -104 L-22 -76 Z M52 -66 L40 -104 L22 -76 Z" fill="#7d604d" />
+          <ellipse cx="0" cy="0" rx="70" ry="88" fill="#8d6e5a" />
+          <ellipse cx="0" cy="28" rx="46" ry="56" fill="#e3cfb2" />
+          <path d="M-20 18 q6 6 12 0 M8 18 q6 6 12 0 M-14 40 q6 6 12 0 M2 40 q6 6 12 0 M-6 62 q6 6 12 0" stroke="#c4ab8b" stroke-width="3" fill="none" />
+          <circle cx="-26" cy="-32" r="23" fill="#fff8e6" />
+          <circle cx="26" cy="-32" r="23" fill="#fff8e6" />
+          <circle cx="-24" cy="-30" r="10" fill="#2a1a10" />
+          <circle cx="28" cy="-30" r="10" fill="#2a1a10" />
+          <circle cx="-21" cy="-33" r="3" fill="#fff" />
+          <circle cx="31" cy="-33" r="3" fill="#fff" />
+          <path d="M-50 -46 Q-26 -60 -2 -46 L-2 -40 Q-26 -50 -50 -40 Z M2 -46 Q26 -60 50 -46 L50 -40 Q26 -50 2 -40 Z" fill="#8d6e5a" />
+          <path d="M-9 -14 L9 -14 L0 4 Z" fill="#f0a24a" />
+          <path d="M-22 86 l-6 12 M-16 86 v13 M-10 86 l6 12 M10 86 l-6 12 M16 86 v13 M22 86 l6 12" stroke="#f0a24a" stroke-width="4" stroke-linecap="round" />
+        </g>`;
+      }
+
+      function meadowMarkup(k) {
+        let s = `
+          <path d="M0 760 Q360 680 760 730 T1500 700 T1920 720 L1920 1080 L0 1080 Z" fill="#1c3a4c" />
+          <path d="M0 830 Q480 760 980 810 T1920 790 L1920 1080 L0 1080 Z" fill="#214a3a" />
+          <path d="M0 900 Q600 860 1100 890 T1920 880 L1920 1080 L0 1080 Z" fill="#1a3d30" />`;
+        const cols = ["#c9a7e8", "#f6b6c9", "#9fd3e6", "#ffd9a0"];
+        seed = 7 + k * 31;
+        for (let i = 0; i < 16; i++) {
+          const x = 60 + i * 118 + rnd() * 50;
+          const base = 860 + rnd() * 40;
+          const h = 80 + rnd() * 90;
+          const c = cols[Math.floor(rnd() * cols.length)];
+          const lean = (rnd() - 0.5) * 30;
+          s += `<g class="flower" data-i="${i}">
+            <path d="M${P(x)} ${P(base)} Q${P(x + lean)} ${P(base - h * 0.6)} ${P(x + lean * 1.6)} ${P(base - h)}" stroke="#3f7a5a" stroke-width="5" fill="none" />
+            <ellipse cx="${P(x + lean * 1.6)}" cy="${P(base - h + 10)}" rx="15" ry="20" fill="${c}" transform="rotate(${P(lean * 2.4)} ${P(x + lean * 1.6)} ${P(base - h + 10)})" />
+            <path d="M${P(x - 14)} ${P(base - h * 0.4)} q12 -4 14 4" stroke="#3f7a5a" stroke-width="4" fill="none" />
+          </g>`;
+        }
+        for (let i = 0; i < 26; i++) {
+          const x = 30 + rnd() * 1860;
+          const y = 900 + rnd() * 150;
+          const r = 7 + rnd() * 5;
+          s += `<g opacity="0.85" fill="#2f6b4c"><circle cx="${P(x - r * 0.8)}" cy="${P(y)}" r="${P(r)}"/><circle cx="${P(x + r * 0.8)}" cy="${P(y)}" r="${P(r)}"/><circle cx="${P(x)}" cy="${P(y - r * 1.1)}" r="${P(r)}"/></g>`;
+        }
+        return s;
+      }
+
+      function frogMarkup() {
+        return `
+          <ellipse cx="0" cy="0" rx="44" ry="26" fill="#4f8a5b" />
+          <circle cx="-20" cy="-22" r="12" fill="#4f8a5b" />
+          <circle cx="20" cy="-22" r="12" fill="#4f8a5b" />
+          <path d="M-27 -22 q7 5 14 0 M13 -22 q7 5 14 0" stroke="#1d3a24" stroke-width="3" fill="none" stroke-linecap="round" />
+          <path d="M-14 4 q14 8 28 0" stroke="#1d3a24" stroke-width="3" fill="none" stroke-linecap="round" />
+          <ellipse cx="0" cy="10" rx="26" ry="10" fill="#9cc98e" opacity="0.6" />`;
+      }
+
+      function constellationMarkup(withSlot) {
+        const pts = [[960, 330], [1060, 270], [1180, 230], [1290, 280], [1370, 200], [1110, 150]];
+        let s = `<path d="M960 330 L1060 270 L1180 230 L1290 280 L1370 200 M1060 270 L1110 150 L1180 230" stroke="#cfd3ff" stroke-width="2.5" stroke-dasharray="6 10" fill="none" class="con-lines" opacity="0.5" />`;
+        pts.forEach(([x, y], i) => {
+          if (i === 2) {
+            if (withSlot) s += `<circle cx="${x}" cy="${y}" r="26" fill="none" stroke="#cfd3ff" stroke-width="2.5" stroke-dasharray="4 7" opacity="0.6" class="slot" />`;
+          } else {
+            s += `<circle cx="${x}" cy="${y}" r="16" fill="url(#glow)" /><circle cx="${x}" cy="${y}" r="5" fill="#fff6d0" />`;
+          }
+        });
+        return s;
+      }
+
+      // ---------- build the art ----------
+      const sf = document.getElementById("starfield");
+      seed = 424242;
+      const twinklers = [];
+      for (let i = 0; i < 170; i++) {
+        const x = rnd() * 1920;
+        const y = rnd() * 720;
+        if (Math.hypot(x - 1610, y - 190) < 170) continue;
+        const c = document.createElementNS(NS, "circle");
+        c.setAttribute("cx", P(x));
+        c.setAttribute("cy", P(y));
+        c.setAttribute("r", P(0.9 + rnd() * 2));
+        c.setAttribute("fill", rnd() > 0.85 ? "#ffe9b0" : "#ffffff");
+        c.setAttribute("opacity", P(0.35 + rnd() * 0.6));
+        c.id = "sf" + i;
+        sf.appendChild(c);
+        if (i % 4 === 0) twinklers.push(c);
+      }
+
+      document.querySelectorAll(".meadow").forEach((g, k) => (g.innerHTML = meadowMarkup(k)));
+      ["hog2", "hog3", "hog4", "hog5", "hog6", "hog7"].forEach((id) => {
+        document.getElementById(id).innerHTML = `<g transform="scale(${id === "hog6" ? 0.55 : id === "hog7" ? 0.4 : 0.85})">${hogMarkup(id)}</g>`;
+      });
+      ["star4", "star5", "star6", "star7", "star8"].forEach((id) => {
+        document.getElementById(id).innerHTML = starMarkup(id, id === "star4");
+      });
+      document.getElementById("fspin").innerHTML = starMarkup("fs", false);
+      document.getElementById("owl6").innerHTML = `<g transform="scale(0.9)">${owlMarkup("owl6")}</g>`;
+      document.getElementById("sleep8").innerHTML = hogSleepMarkup();
+      document.getElementById("con6").innerHTML = constellationMarkup(true);
+      document.getElementById("con7").innerHTML = constellationMarkup(false);
+
+      // Burst sparkles for the landing
+      const burst = document.getElementById("burst");
+      for (let i = 0; i < 10; i++) {
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", starPath(12, 5));
+        p.setAttribute("fill", "#fff0b8");
+        p.setAttribute("class", "spark");
+        p.setAttribute("transform", "translate(1250 790)");
+        burst.appendChild(p);
+      }
+
+      // Hill path (S5) — the quadratic segment Bramble walks along
+      const H = { x0: 0, y0: 990, cx: 700, cy: 930, x1: 1600, y1: 440 };
+      function hill(t) {
+        const u = 1 - t;
+        const x = u * u * H.x0 + 2 * u * t * H.cx + t * t * H.x1;
+        const y = u * u * H.y0 + 2 * u * t * H.cy + t * t * H.y1;
+        const dx = 2 * u * (H.cx - H.x0) + 2 * t * (H.x1 - H.cx);
+        const dy = 2 * u * (H.cy - H.y0) + 2 * t * (H.y1 - H.cy);
+        return { x, y, a: (Math.atan2(dy, dx) * 180) / Math.PI };
+      }
+      const frogs = document.getElementById("frogs");
+      const zz5 = document.getElementById("zz5");
+      [0.42, 0.72].forEach((t, i) => {
+        const p = hill(t);
+        const g = document.createElementNS(NS, "g");
+        g.setAttribute("transform", `translate(${P(p.x + 40)} ${P(p.y - 4)}) rotate(${P(p.a)})`);
+        g.innerHTML = frogMarkup();
+        frogs.appendChild(g);
+        for (let k = 0; k < 3; k++) {
+          const z = document.createElementNS(NS, "text");
+          z.setAttribute("x", P(p.x + 70));
+          z.setAttribute("y", P(p.y - 50));
+          z.setAttribute("fill", "#cfd3ff");
+          z.setAttribute("font-family", "Fraunces, serif");
+          z.setAttribute("font-style", "italic");
+          z.setAttribute("font-size", "34");
+          z.setAttribute("class", `z5 z5-${i}`);
+          z.textContent = "z";
+          zz5.appendChild(z);
+        }
+      });
+      const zz8 = document.getElementById("zz8");
+      for (let k = 0; k < 4; k++) {
+        const z = document.createElementNS(NS, "text");
+        z.setAttribute("x", "1010");
+        z.setAttribute("y", "690");
+        z.setAttribute("fill", "#e6e4ff");
+        z.setAttribute("font-family", "Fraunces, serif");
+        z.setAttribute("font-style", "italic");
+        z.setAttribute("font-size", String(40 + k * 8));
+        z.setAttribute("class", "z8");
+        z.textContent = "z";
+        zz8.appendChild(z);
+      }
+
+      // Split captions into words
+      document.querySelectorAll(".cap").forEach((cap) => {
+        const walk = (node) => {
+          [...node.childNodes].forEach((ch) => {
+            if (ch.nodeType === 3) {
+              const frag = document.createDocumentFragment();
+              ch.textContent.split(/(\s+)/).forEach((part) => {
+                if (!part) return;
+                if (/^\s+$/.test(part)) frag.appendChild(document.createTextNode(" "));
+                else {
+                  const s = document.createElement("span");
+                  s.className = "w";
+                  s.textContent = part;
+                  frag.appendChild(s);
+                }
+              });
+              node.replaceChild(frag, ch);
+            } else if (ch.nodeType === 1) walk(ch);
+          });
+        };
+        walk(cap);
+      });
+
+      // ---------- timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      const END = 94;
+
+      // persistent twinkle + moon drift
+      twinklers.forEach((c, i) => {
+        const d = 1.4 + ((i * 37) % 17) / 10;
+        tl.to(c, { opacity: 0.15, duration: d, ease: "sine.inOut", yoyo: true, repeat: 2 * Math.floor(END / (2 * d)) - 1 }, (i * 0.23) % 2);
+      });
+      tl.fromTo("#moon", { y: 60 }, { y: -10, duration: 10, ease: "sine.out" }, 0);
+      tl.to("#moon", { rotation: 4, duration: 6, yoyo: true, repeat: 13, ease: "sine.inOut", transformOrigin: "50% 50%" }, 0);
+
+      function scene(id, start, end) {
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 1.1, ease: "sine.inOut" }, start);
+        tl.to(id, { opacity: 0, duration: 1.0, ease: "sine.inOut" }, end - 1.0);
+      }
+      function reveal(capSel, t, span) {
+        const words = document.querySelectorAll(capSel + " .w");
+        tl.fromTo(words, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "sine.out", stagger: span / words.length }, t);
+      }
+      function blink(id, t) {
+        tl.set("#" + id + "-eye", { opacity: 0 }, t).set("#" + id + "-eyec", { opacity: 1 }, t);
+        tl.set("#" + id + "-eye", { opacity: 1 }, t + 0.16).set("#" + id + "-eyec", { opacity: 0 }, t + 0.16);
+      }
+      function walkBob(id, t, dur) {
+        const k = Math.max(1, Math.round(dur / 0.5));
+        tl.fromTo("#" + id + " .bob", { y: 0 }, { y: -8, duration: dur / (2 * k), ease: "sine.inOut", yoyo: true, repeat: 2 * k - 1 }, t);
+        tl.fromTo("#" + id + "-f1", { x: -6 }, { x: 8, duration: dur / (2 * k), yoyo: true, repeat: 2 * k - 1, ease: "sine.inOut" }, t);
+        tl.fromTo("#" + id + "-f2", { x: 8 }, { x: -6, duration: dur / (2 * k), yoyo: true, repeat: 2 * k - 1, ease: "sine.inOut" }, t);
+      }
+      function sway(sceneSel, start, len) {
+        document.querySelectorAll(sceneSel + " .flower").forEach((f, i) => {
+          const d = 2.2 + (i % 4) * 0.35;
+          const reps = Math.max(1, Math.floor(len / d));
+          tl.fromTo(f, { rotation: -2.5 }, { rotation: 2.5, duration: d, ease: "sine.inOut", yoyo: true, repeat: reps, transformOrigin: "50% 100%" }, start);
+        });
+      }
+
+      // S1 · Title (0–8)
+      scene("#s1", 0, 8);
+      tl.to("#t-small", { opacity: 1, duration: 1.2, ease: "sine.out" }, 0.8);
+      tl.fromTo("#t-big", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1.8, ease: "power2.out" }, 1.4);
+      tl.fromTo("#t-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.6, ease: "power2.out" }, 2.6);
+
+      // S2 · Meet Bramble (8–19)
+      scene("#s2", 8, 19);
+      sway("#s2", 8, 11);
+      tl.set("#hog2", { x: -260, y: 800 }, 8);
+      tl.to("#hog2", { x: 820, duration: 4.5, ease: "power1.inOut" }, 8.6);
+      walkBob("hog2", 8.6, 4.5);
+      blink("hog2", 14.2);
+      blink("hog2", 16.8);
+      reveal("#s2 .cap", 9.4, 4.6);
+
+      // S3 · The star falls (19–31)
+      scene("#s3", 19, 31);
+      sway("#s3", 19, 12);
+      tl.set("#hog3", { x: 700, y: 800 }, 19);
+      tl.set("#fstar", { x: 1760, y: -160, scale: 0.55 }, 19);
+      tl.to("#fstar", { x: 1250, duration: 3.6, ease: "sine.in" }, 20.4);
+      tl.to("#fstar", { y: 790, duration: 3.6, ease: "power2.in" }, 20.4);
+      tl.fromTo("#fspin", { rotation: 0 }, { rotation: 540, duration: 3.6, ease: "none", transformOrigin: "50% 50%" }, 20.4);
+      tl.to("#ftail", { opacity: 0, duration: 0.3 }, 23.9);
+      tl.fromTo("#fstar", { scale: 0.55 }, { scale: 0.62, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.out" }, 24.0);
+      tl.fromTo("#landglow", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out", transformOrigin: "50% 50%" }, 24.0);
+      tl.to("#landglow", { opacity: 0.55, duration: 2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 25.4);
+      document.querySelectorAll("#burst .spark").forEach((s, i) => {
+        const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+        tl.fromTo(s, { x: 0, y: 0, opacity: 0, scale: 0.4 }, { x: Math.cos(a) * 150, y: Math.sin(a) * 110, opacity: 1, scale: 1, duration: 0.7, ease: "power2.out", svgOrigin: "1250 790" }, 24.0);
+        tl.to(s, { opacity: 0, duration: 0.6 }, 24.8);
+      });
+      // Bramble looks up, then turns toward the light
+      tl.fromTo("#hog3 .bob", { rotation: 0 }, { rotation: -10, duration: 1.2, ease: "sine.inOut", transformOrigin: "50% 80%" }, 21.0);
+      tl.to("#hog3 .bob", { rotation: 0, duration: 0.8, ease: "sine.inOut" }, 24.4);
+      blink("hog3", 25.2);
+      tl.to("#hog3", { x: 900, duration: 2.5, ease: "power1.inOut" }, 26.4);
+      walkBob("hog3", 26.4, 2.5);
+      reveal("#s3 .cap", 19.8, 5.0);
+
+      // S4 · Lost (31–42)
+      scene("#s4", 31, 42);
+      sway("#s4", 31, 11);
+      tl.set("#star4", { x: 1180, y: 770, scale: 0.95 }, 31);
+      tl.fromTo("#star4-glow", { opacity: 0.4 }, { opacity: 0.75, duration: 1.6, yoyo: true, repeat: 5, ease: "sine.inOut" }, 31);
+      tl.fromTo("#star4-body", { rotation: -4 }, { rotation: 4, duration: 1.8, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 80%" }, 31);
+      tl.set("#hog4", { x: 300, y: 800 }, 31);
+      tl.to("#hog4", { x: 820, duration: 3.6, ease: "power1.inOut" }, 31.4);
+      walkBob("hog4", 31.4, 3.6);
+      tl.to("#hog4 .bob", { rotation: 8, duration: 0.8, ease: "sine.inOut", transformOrigin: "50% 80%" }, 36.2);
+      blink("hog4", 37.0);
+      tl.to("#hog4 .bob", { rotation: 0, duration: 0.8, ease: "sine.inOut" }, 39.0);
+      reveal("#s4 .cap", 32.0, 5.0);
+
+      // S5 · Up the hill (42–54)
+      scene("#s5", 42, 54);
+      const walker = { t: 0.04 };
+      function placeWalker() {
+        const p = hill(walker.t);
+        gsap.set("#hog5", { x: p.x, y: p.y - 50, rotation: p.a });
+        const q = hill(Math.min(1, walker.t + 0.07));
+        gsap.set("#star5", { x: q.x - 40, y: q.y - 190 });
+      }
+      tl.set("#star5", { scale: 0.6 }, 42);
+      tl.fromTo(walker, { t: 0.04 }, { t: 0.9, duration: 10.2, ease: "none", onUpdate: placeWalker, onStart: placeWalker }, 42.4);
+      walkBob("hog5", 42.4, 10.2);
+      tl.fromTo("#star5-body", { y: -6 }, { y: 6, duration: 1.2, yoyo: true, repeat: 9, ease: "sine.inOut" }, 42);
+      [0, 1].forEach((i) => {
+        document.querySelectorAll(".z5-" + i).forEach((z, k) => {
+          const t0 = 42.4 + k * 1.1 + i * 0.5;
+          tl.fromTo(z, { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: 22, y: -36, duration: 1.4, ease: "sine.out" }, t0);
+          tl.to(z, { opacity: 0, x: 44, y: -72, duration: 1.4, ease: "sine.in" }, t0 + 1.4);
+          tl.fromTo(z, { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: 22, y: -36, duration: 1.4, ease: "sine.out", immediateRender: false }, t0 + 4.2);
+          tl.to(z, { opacity: 0, x: 44, y: -72, duration: 1.4, ease: "sine.in" }, t0 + 5.6);
+        });
+      });
+      reveal("#s5 .cap", 43.0, 5.0);
+
+      // S6 · Old Owl (54–67)
+      scene("#s6", 54, 67);
+      tl.set("#hog6", { x: 1300, y: 595 }, 54);
+      tl.set("#star6", { x: 1470, y: 545, scale: 0.6 }, 54);
+      tl.set("#owl6", { x: -260, y: 380 }, 54);
+      tl.to("#owl6", { x: 1470, y: 420, duration: 3.6, ease: "power2.out" }, 54.4);
+      // flapping
+      tl.fromTo(["#owl6-wl", "#owl6-wr"], { scaleY: 1 }, { scaleY: 0.45, duration: 0.22, yoyo: true, repeat: 15, ease: "sine.inOut", transformOrigin: "50% 15%" }, 54.4);
+      tl.fromTo(["#owl6-wl", "#owl6-wr"], { scaleY: 1 }, { scaleY: 0.45, duration: 0.22, yoyo: true, repeat: 27, ease: "sine.inOut", transformOrigin: "50% 15%", immediateRender: false }, 59.2);
+      blink("hog6", 58.0);
+      // lift together
+      tl.to("#owl6", { x: 1180, y: 110, duration: 3.8, ease: "sine.inOut" }, 59.2);
+      tl.to("#star6", { x: 1180, y: 230, scale: 0.5, duration: 3.8, ease: "sine.inOut" }, 59.2);
+      tl.to("#hog6 .bob", { rotation: -14, duration: 1.5, ease: "sine.inOut", transformOrigin: "50% 80%" }, 59.6);
+      // release and fly off
+      tl.to("#owl6", { x: 2200, y: -200, duration: 2.6, ease: "power1.in" }, 63.1);
+      tl.to("#con6 .slot", { opacity: 0, duration: 0.6 }, 62.8);
+      tl.fromTo("#con6 .con-lines", { opacity: 0.5 }, { opacity: 0.95, duration: 1.2 }, 63.0);
+      tl.fromTo("#star6-glow", { scale: 1 }, { scale: 1.8, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.out", transformOrigin: "50% 50%" }, 63.0);
+      reveal("#s6 .cap", 55.0, 5.4);
+
+      // S7 · Thank you (67–77)
+      scene("#s7", 67, 77);
+      tl.set("#star7", { x: 1180, y: 230, scale: 0.85 }, 67);
+      tl.fromTo("#star7", { scale: 0.85 }, { scale: 1.0, duration: 1.0, yoyo: true, repeat: 7, ease: "sine.inOut" }, 67.6);
+      tl.fromTo("#halo7", { opacity: 0.5, scale: 0.9 }, { opacity: 1, scale: 1.15, duration: 1.0, yoyo: true, repeat: 7, ease: "sine.inOut", transformOrigin: "50% 50%" }, 67.6);
+      tl.fromTo("#star7-body", { rotation: -6 }, { rotation: 6, duration: 1.6, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%" }, 67);
+      tl.set("#hog7", { x: 1520, y: 700 }, 67);
+      tl.fromTo("#hog7 .bob", { rotation: -6 }, { rotation: 6, duration: 0.6, yoyo: true, repeat: 9, ease: "sine.inOut", transformOrigin: "50% 90%" }, 68.0);
+      reveal("#s7 .cap", 67.8, 4.8);
+
+      // S8 · Goodnight (77–94)
+      scene("#s8", 77, 95);
+      sway("#s8", 77, 17);
+      tl.set("#sleep8", { x: 940, y: 830, scale: 0.85 }, 77);
+      tl.set("#star8", { x: 1180, y: 230, scale: 0.6 }, 77);
+      tl.fromTo("#ball", { scaleY: 1 }, { scaleY: 1.04, duration: 1.8, yoyo: true, repeat: 8, ease: "sine.inOut", transformOrigin: "50% 100%" }, 77);
+      tl.to("#beam8", { opacity: 1, duration: 3, ease: "sine.inOut" }, 79);
+      tl.fromTo("#glow8", { scale: 0.9, opacity: 0.6 }, { scale: 1.15, opacity: 1, duration: 1.6, yoyo: true, repeat: 9, ease: "sine.inOut", transformOrigin: "50% 50%" }, 77);
+      document.querySelectorAll(".z8").forEach((z, k) => {
+        for (let r = 0; r < 2; r++) {
+          const t0 = 79 + k * 0.9 + r * 3.4;
+          tl.fromTo(z, { opacity: 0, x: 0, y: 0 }, { opacity: 0.95, x: 30, y: -60, duration: 1.5, ease: "sine.out", immediateRender: r === 0 }, t0);
+          tl.to(z, { opacity: 0, x: 60, y: -130, duration: 1.5, ease: "sine.in" }, t0 + 1.5);
+        }
+      });
+      reveal("#s8 .cap", 78.0, 6.5);
+      // dim to the end card
+      tl.to("#cap8", { opacity: 0, duration: 1.2, ease: "sine.inOut" }, 87.6);
+      tl.to("#end-wrap", { backgroundColor: "rgba(6,7,26,0.55)", duration: 1.6, ease: "sine.inOut" }, 88);
+      tl.fromTo("#end-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.8, ease: "power2.out" }, 88.4);
+      tl.fromTo("#end-sub", { opacity: 0 }, { opacity: 1, duration: 1.6, ease: "sine.out" }, 89.6);
+      tl.to(["#end-title", "#end-sub"], { opacity: 0, duration: 1.8, ease: "sine.inOut" }, 92.2);
+      tl.to(["#sky", "#moon-layer"], { opacity: 0.25, duration: 2, ease: "sine.inOut" }, 92);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
