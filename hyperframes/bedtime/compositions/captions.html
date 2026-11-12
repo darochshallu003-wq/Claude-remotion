@@ -1,0 +1,85 @@
+<template>
+  <style>
+    @font-face { font-family: 'Tiro Devanagari Hindi'; src: url('assets/fonts/tiro-400-devanagari.woff2') format('woff2'); unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF; }
+    @font-face { font-family: 'Tiro Devanagari Hindi'; src: url('assets/fonts/tiro-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+    #root { position: absolute; inset: 0; }
+    .cap { position: absolute; left: 60px; right: 60px; bottom: 170px; }
+    .cap-in { display: flex; flex-direction: column; align-items: center; }
+    .cap-tag { margin-bottom: -18px; z-index: 1; padding: 6px 26px 10px; border-radius: 999px; color: #0B1233; font-family: 'Tiro Devanagari Hindi', serif; font-size: 38px; }
+    .cap-box { padding: 30px 40px 26px; border-radius: 36px; background: rgba(11,18,51,0.62); border: 2px solid; font-family: 'Tiro Devanagari Hindi', serif; font-size: 54px; line-height: 1.45; text-align: center; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div id="cap-title-0" class="clip cap" data-start="0.150" data-duration="6.060" data-track-index="1"><div id="cap-title-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">आज की कहानी है… परी और जुगनू की, नींद वाली सैर।</div></div></div>
+    <div id="cap-awake-0" class="clip cap" data-start="6.750" data-duration="5.710" data-track-index="1"><div id="cap-awake-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">एक छोटे से गाँव में, एक छोटी सी बच्ची रहती थी, परी।</div></div></div>
+    <div id="cap-awake-1" class="clip cap" data-start="12.460" data-duration="6.250" data-track-index="1"><div id="cap-awake-1-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">रात हो गई थी, सब सो गए थे… पर परी की आँखें खुली थीं।</div></div></div>
+    <div id="cap-awake-2" class="clip cap" data-start="18.710" data-duration="2.930" data-track-index="1"><div id="cap-awake-2-in" class="cap-in"><div class="cap-tag" style="background:#FFC6D6">परी</div><div class="cap-box" style="color:#FFC6D6;border-color:#FFC6D6">“मुझे तो नींद ही नहीं आ रही।”</div></div></div>
+    <div id="cap-jugnu-0" class="clip cap" data-start="22.183" data-duration="4.600" data-track-index="1"><div id="cap-jugnu-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">तभी खिड़की पर, एक नन्ही सी रोशनी टिमटिमाई।</div></div></div>
+    <div id="cap-jugnu-1" class="clip cap" data-start="26.783" data-duration="6.270" data-track-index="1"><div id="cap-jugnu-1-in" class="cap-in"><div class="cap-tag" style="background:#FFE27A">जुगनू</div><div class="cap-box" style="color:#FFE27A;border-color:#FFE27A">“नमस्ते परी! मैं हूँ जुगनू। चलो, सबको शुभ रात्रि कहने चलें!”</div></div></div>
+    <div id="cap-birds-0" class="clip cap" data-start="33.617" data-duration="4.030" data-track-index="1"><div id="cap-birds-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">सबसे पहले वो पहुँचे, नीम के पेड़ पर।</div></div></div>
+    <div id="cap-birds-1" class="clip cap" data-start="37.647" data-duration="5.660" data-track-index="1"><div id="cap-birds-1-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">घोंसले में चिड़िया के बच्चे, माँ के पंखों में दुबक कर सो रहे थे।</div></div></div>
+    <div id="cap-birds-2" class="clip cap" data-start="43.307" data-duration="3.060" data-track-index="1"><div id="cap-birds-2-in" class="cap-in"><div class="cap-tag" style="background:#FFC6D6">परी</div><div class="cap-box" style="color:#FFC6D6;border-color:#FFC6D6">“शुभ रात्रि, नन्ही चिड़िया।”</div></div></div>
+    <div id="cap-pond-0" class="clip cap" data-start="46.917" data-duration="2.720" data-track-index="1"><div id="cap-pond-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">फिर वो पहुँचे तालाब के पास।</div></div></div>
+    <div id="cap-pond-1" class="clip cap" data-start="49.637" data-duration="5.400" data-track-index="1"><div id="cap-pond-1-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">कमल के पत्ते पर बैठा मेंढक, बड़ी सी जम्हाई ले रहा था।</div></div></div>
+    <div id="cap-pond-2" class="clip cap" data-start="55.037" data-duration="3.130" data-track-index="1"><div id="cap-pond-2-in" class="cap-in"><div class="cap-tag" style="background:#FFC6D6">परी</div><div class="cap-box" style="color:#FFC6D6;border-color:#FFC6D6">“शुभ रात्रि, मेंढक भैया।”</div></div></div>
+    <div id="cap-clouds-0" class="clip cap" data-start="58.717" data-duration="3.780" data-track-index="1"><div id="cap-clouds-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">जुगनू परी को ऊपर ले गया, बादलों तक।</div></div></div>
+    <div id="cap-clouds-1" class="clip cap" data-start="62.497" data-duration="5.850" data-track-index="1"><div id="cap-clouds-1-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">बादल रुई के तकियों जैसे नरम थे, और धीरे-धीरे तैर रहे थे।</div></div></div>
+    <div id="cap-clouds-2" class="clip cap" data-start="68.347" data-duration="2.780" data-track-index="1"><div id="cap-clouds-2-in" class="cap-in"><div class="cap-tag" style="background:#FFC6D6">परी</div><div class="cap-box" style="color:#FFC6D6;border-color:#FFC6D6">“शुभ रात्रि, बादल।”</div></div></div>
+    <div id="cap-moon-0" class="clip cap" data-start="71.683" data-duration="4.230" data-track-index="1"><div id="cap-moon-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">और सबसे ऊपर, चाँद मामा मुस्कुरा रहे थे।</div></div></div>
+    <div id="cap-moon-1" class="clip cap" data-start="75.913" data-duration="8.350" data-track-index="1"><div id="cap-moon-1-in" class="cap-in"><div class="cap-tag" style="background:#FFF2C2">चाँद मामा</div><div class="cap-box" style="color:#FFF2C2;border-color:#FFF2C2">“परी बिटिया, अब सोने का समय है। मैं रात भर, तुम्हारी खिड़की पर रोशनी रखूँगा।”</div></div></div>
+    <div id="cap-home-0" class="clip cap" data-start="84.817" data-duration="7.090" data-track-index="1"><div id="cap-home-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">जुगनू परी को वापस घर ले आया। परी ने रज़ाई ओढ़ी, और आँखें मूँद लीं।</div></div></div>
+    <div id="cap-home-1" class="clip cap" data-start="91.907" data-duration="2.300" data-track-index="1"><div id="cap-home-1-in" class="cap-in"><div class="cap-tag" style="background:#FFC6D6">परी</div><div class="cap-box" style="color:#FFC6D6;border-color:#FFC6D6">“शुभ रात्रि, जुगनू।”</div></div></div>
+    <div id="cap-home-2" class="clip cap" data-start="94.207" data-duration="2.210" data-track-index="1"><div id="cap-home-2-in" class="cap-in"><div class="cap-tag" style="background:#FFE27A">जुगनू</div><div class="cap-box" style="color:#FFE27A;border-color:#FFE27A">“शुभ रात्रि, परी।”</div></div></div>
+    <div id="cap-sleep-0" class="clip cap" data-start="96.950" data-duration="8.160" data-track-index="1"><div id="cap-sleep-0-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">बाहर चाँद चमकता रहा, तारे टिमटिमाते रहे… और परी, मीठे सपनों में खो गई।</div></div></div>
+    <div id="cap-sleep-1" class="clip cap" data-start="105.110" data-duration="2.950" data-track-index="1"><div id="cap-sleep-1-in" class="cap-in"><div class="cap-box" style="color:#FFF7E6;border-color:rgba(255,247,230,0.25)">शुभ रात्रि, बच्चो।</div></div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#cap-title-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.150);
+      tl.to("#cap-title-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 5.880);
+      tl.fromTo("#cap-awake-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.750);
+      tl.to("#cap-awake-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 12.130);
+      tl.fromTo("#cap-awake-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 12.460);
+      tl.to("#cap-awake-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 18.380);
+      tl.fromTo("#cap-awake-2-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 18.710);
+      tl.to("#cap-awake-2-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 21.310);
+      tl.fromTo("#cap-jugnu-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 22.183);
+      tl.to("#cap-jugnu-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 26.453);
+      tl.fromTo("#cap-jugnu-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 26.783);
+      tl.to("#cap-jugnu-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 32.723);
+      tl.fromTo("#cap-birds-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 33.617);
+      tl.to("#cap-birds-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 37.317);
+      tl.fromTo("#cap-birds-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 37.647);
+      tl.to("#cap-birds-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 42.977);
+      tl.fromTo("#cap-birds-2-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 43.307);
+      tl.to("#cap-birds-2-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 46.037);
+      tl.fromTo("#cap-pond-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 46.917);
+      tl.to("#cap-pond-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 49.307);
+      tl.fromTo("#cap-pond-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 49.637);
+      tl.to("#cap-pond-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 54.707);
+      tl.fromTo("#cap-pond-2-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 55.037);
+      tl.to("#cap-pond-2-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 57.837);
+      tl.fromTo("#cap-clouds-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 58.717);
+      tl.to("#cap-clouds-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 62.167);
+      tl.fromTo("#cap-clouds-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 62.497);
+      tl.to("#cap-clouds-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 68.017);
+      tl.fromTo("#cap-clouds-2-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 68.347);
+      tl.to("#cap-clouds-2-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 70.797);
+      tl.fromTo("#cap-moon-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 71.683);
+      tl.to("#cap-moon-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 75.583);
+      tl.fromTo("#cap-moon-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 75.913);
+      tl.to("#cap-moon-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 83.933);
+      tl.fromTo("#cap-home-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 84.817);
+      tl.to("#cap-home-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 91.577);
+      tl.fromTo("#cap-home-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 91.907);
+      tl.to("#cap-home-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 93.877);
+      tl.fromTo("#cap-home-2-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 94.207);
+      tl.to("#cap-home-2-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 96.087);
+      tl.fromTo("#cap-sleep-0-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 96.950);
+      tl.to("#cap-sleep-0-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 104.780);
+      tl.fromTo("#cap-sleep-1-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 105.110);
+      tl.to("#cap-sleep-1-in", { opacity: 0, duration: 0.3, ease: "power2.in" }, 107.730);
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>
