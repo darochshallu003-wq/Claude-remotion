@@ -9,6 +9,7 @@ import { ctex, cloudHD } from "./paint";
 import { LIGHTS, LOOK, LightPreset } from "./lights";
 import { TONE, CHAR, untone } from "./shade";
 import { NOINK } from "./ink";
+import { isEN, isVillage } from "./theme";
 import { Pool, Actor, Fx, stage } from "./cast";
 import { FPS, SHOTS, BAGS, camAt, taxiAt, V3, ShotDef } from "./story";
 
@@ -41,20 +42,30 @@ const haloTex = () => ctex("sunHalo", 256, 256, (g) => {
 });
 /** dusty ground and the asphalt lane, painted at 1024 px per tile */
 const dustTex = () => {
-  const t = ctex("dustHD", 1024, 1024, (g, r) => {
-    g.fillStyle = "#d4b98c"; g.fillRect(0, 0, 1024, 1024);
+  const t = ctex(isEN() ? "grassEN" : isVillage() ? "dustV" : "dustHD", 1024, 1024, (g, r) => {
+    g.fillStyle = isEN() ? "#7fb35a" : isVillage() ? "#c9ad7a" : "#d4b98c"; g.fillRect(0, 0, 1024, 1024); // English verges are grass
     for (let i = 0; i < 260; i++) { g.fillStyle = `rgba(${r() > 0.5 ? "255,240,210" : "120,90,60"},${(0.04 + 0.05 * r()).toFixed(3)})`; g.beginPath(); g.ellipse(r() * 1024, r() * 1024, 20 + r() * 70, 8 + r() * 30, r() * 3, 0, 7); g.fill(); }
     for (let i = 0; i < 120; i++) { g.fillStyle = "rgba(90,70,50,0.35)"; g.beginPath(); g.arc(r() * 1024, r() * 1024, 2 + r() * 3, 0, 7); g.fill(); }
   });
   t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
 };
 const roadTex = () => {
-  const t = ctex("roadHD", 512, 1024, (g, r) => {
-    g.fillStyle = "#8b8681"; g.fillRect(0, 0, 512, 1024);
+  if (isVillage()) { // a dirt track: dust with two darker wheel ruts
+    const t = ctex("trackHD", 512, 1024, (g, r) => {
+      g.fillStyle = "#c4a676"; g.fillRect(0, 0, 512, 1024);
+      for (let i = 0; i < 180; i++) { g.fillStyle = `rgba(${r() > 0.5 ? "255,240,210" : "110,80,50"},${(0.05 + 0.06 * r()).toFixed(3)})`; g.beginPath(); g.ellipse(r() * 512, r() * 1024, 12 + r() * 50, 6 + r() * 22, r() * 3, 0, 7); g.fill(); }
+      g.fillStyle = "rgba(110,80,50,0.22)"; g.fillRect(110, 0, 50, 1024); g.fillRect(352, 0, 50, 1024);
+      g.fillStyle = "rgba(90,140,60,0.35)"; for (let i = 0; i < 90; i++) g.fillRect(230 + (r() - 0.5) * 40, r() * 1024, 4, 10 + r() * 14);
+    });
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+  }
+  const t = ctex(isEN() ? "roadEN" : "roadHD", 512, 1024, (g, r) => {
+    g.fillStyle = isEN() ? "#6f6c6a" : "#8b8681"; g.fillRect(0, 0, 512, 1024);
     for (let i = 0; i < 160; i++) { g.fillStyle = `rgba(${r() > 0.5 ? "255,250,240" : "40,35,40"},${(0.04 + 0.06 * r()).toFixed(3)})`; g.beginPath(); g.ellipse(r() * 512, r() * 1024, 10 + r() * 50, 6 + r() * 20, r() * 3, 0, 7); g.fill(); }
     g.strokeStyle = "rgba(40,35,40,0.45)"; g.lineWidth = 3;
     for (let i = 0; i < 6; i++) { g.beginPath(); let x = r() * 512, y = r() * 1024; g.moveTo(x, y); for (let k = 0; k < 5; k++) { x += (r() - 0.5) * 60; y += 20 + r() * 30; g.lineTo(x, y); } g.stroke(); }
-    g.fillStyle = "#c9b48e"; g.fillRect(0, 0, 18, 1024); g.fillRect(494, 0, 18, 1024); // dusty edges
+    if (isEN()) { g.fillStyle = "#e8e2cf"; g.fillRect(250, 80, 12, 300); g.fillRect(250, 600, 12, 300); g.fillStyle = "#e3c43a"; g.fillRect(6, 0, 10, 1024); g.fillRect(22, 0, 10, 1024); } // centre dashes, double yellow
+    else { g.fillStyle = "#c9b48e"; g.fillRect(0, 0, 18, 1024); g.fillRect(494, 0, 18, 1024); } // dusty edges
   });
   t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
 };
@@ -140,8 +151,8 @@ export class World {
     const luv = lane.attributes.uv as THREE.BufferAttribute; for (let i = 0; i < luv.count; i++) luv.setXY(i, luv.getX(i), luv.getY(i) * 60);
     b.add(lane, road);
     // raised kerb-side footpaths in front of the houses
-    const path = lam("footpath", () => ({ color: "#c7b08c" }));
-    for (const s of [-1, 1]) b.add(boxGeo(V(s < 0 ? -6.5 : 4.2, 0, -380), V(s < 0 ? -4.2 : 6.5, 0.1, 40)), path);
+    const path = lam("footpath", () => ({ color: isEN() ? "#b9b6ae" : "#c7b08c" }));
+    if (!isVillage()) for (const s of [-1, 1]) b.add(boxGeo(V(s < 0 ? -6.5 : 4.2, 0, -380), V(s < 0 ? -4.2 : 6.5, 0.1, 40)), path);
     b.build(this.root);
     buildLane(R, kit, sightLines());
 

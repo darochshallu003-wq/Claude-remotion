@@ -5,11 +5,12 @@
 import * as THREE from "three";
 import {
   Pen, bodyFront, fxBurst, fxShadow, fxContact, Outfit, Expr, FrontOpts, SideOpts, bodySide, Item,
-  GRANDMA, GRANDMA2, GRANDKID, DRIVER, MUM, insertHandshake, insertBagTop, insertHandBack, insertTiffin, insertWad,
+  castOf, fxPurse, fxCow, insertHandshake, insertBagTop, insertHandBack, insertTiffin, insertWad,
   fxCoin, fxThought, fxRangoli, fxKite, fxExhaust,
 } from "./toon";
 import { FPS, V3, smooth, clamp01, GRAN, KIDP, TAXI0, TREE, BAGS, GRAN8, COIN_Z0, taxiAt, camAt } from "./story";
 import { NOINK } from "./ink";
+import { isEN, isVillage } from "./theme";
 import { cardShade, blobMaterial, CARD_K } from "./cardshade";
 
 // ---------------- canvas pool ----------------
@@ -253,9 +254,9 @@ const rangoli = (out: Stage) => out.fx.push({ key: "rangoli", cw: 600, ch: 600, 
 /** passengers in the taxi: driver front right, the kid back left, Mum back right */
 const inTaxi = (id: number, t: number, cam: CamInfo, out: Stage, kid: Pose | null, driver: Pose = { expr: "neutral" }, mum: Pose = { expr: "smile_closed" }) => {
   const [tx, , tz] = taxiAt(id, t);
-  who(cam, out, 20, DRIVER, "drv", [tx + 0.38, SEAT_Y, tz - 0.38], { mode: "sit", ...driver }, t, undefined, SEAT_S, false);
-  who(cam, out, 21, MUM, "mum", [tx + 0.38, SEAT_Y, tz + 0.62], { mode: "sit", ...mum }, t, undefined, SEAT_S, false);
-  if (kid) who(cam, out, 10, GRANDKID, "kid", [tx - 0.36, SEAT_Y, tz + 0.62], { mode: "sit", ...kid }, t, [tx - 3, 1, tz], SEAT_S, false);
+  who(cam, out, 20, castOf().driver, "drv", [tx + 0.38, SEAT_Y, tz - 0.38], { mode: "sit", ...driver }, t, undefined, SEAT_S, false);
+  who(cam, out, 21, castOf().mum, "mum", [tx + 0.38, SEAT_Y, tz + 0.62], { mode: "sit", ...mum }, t, undefined, SEAT_S, false);
+  if (kid) who(cam, out, 10, castOf().kid, "kid", [tx - 0.36, SEAT_Y, tz + 0.62], { mode: "sit", ...kid }, t, [tx - 3, 1, tz], SEAT_S, false);
 };
 const exhaust = (id: number, t: number, out: Stage) => {
   const [tx, , tz] = taxiAt(id, t);
@@ -271,25 +272,26 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
   LNAME = light;
   findSun(cam, SUN);
   const doorstep = id <= 9 || id === 12 || id === 15;
-  if (doorstep) rangoli(out);
-  if (light === "golden" && id <= 9) kitesAt(t, out);
+  if (doorstep && !isEN()) rangoli(out);
+  if (light === "golden" && id <= 9 && !isEN()) kitesAt(t, out);
+  if (isVillage() && (id === 2 || id === 3 || id === 9 || id === 12 || id === 15)) cows(t, out);
   switch (id) {
     case 1: { // Grandma with the plate, then the folded note (sly)
       const note = at(t, 75);
-      who(cam, out, 1, GRANDMA, "gran", GRAN, note ? { expr: at(t, 113) ? "grin" : "smile", reach: 0.25, item: "note", look: 1 } : { expr: "smile_closed", item: "plate" }, t);
+      who(cam, out, 1, castOf().gran, "gran", GRAN, note ? { expr: at(t, 113) ? "grin" : "smile", reach: 0.25, item: "note", look: 1 } : { expr: "smile_closed", item: "plate" }, t);
       break;
     }
     case 2: {
-      who(cam, out, 1, GRANDMA, "gran", GRAN, { expr: "smile" }, t, KIDP);
-      who(cam, out, 10, GRANDKID, "kid", [2.7, 0, 5.6], { expr: "neutral" }, t, BAGS);
+      who(cam, out, 1, castOf().gran, "gran", GRAN, { expr: "smile" }, t, KIDP);
+      who(cam, out, 10, castOf().kid, "kid", [2.7, 0, 5.6], { expr: "neutral" }, t, BAGS);
       inTaxi(id, t, cam, out, null, { expr: "neutral" });
       exhaust(id, t, out);
       break;
     }
     case 3: { // the lane's grandmas, each at her door with a note ready; one peeks from behind the neem tree
       [-8.5, -17, -25.5, -34].forEach((z, i) =>
-        who(cam, out, 30 + i, GRANDMA2[i % 4], `g2_${i}`, [-5.6, 0, z], { expr: i % 2 ? "smile_closed" : "smile", reach: 0.55 + 0.1 * Math.sin(t * 2 + i), item: "note" }, t, [0, 1, z]));
-      who(cam, out, 34, GRANDMA2[1], "g2_peek", [TREE[0] + 0.35, 0, TREE[2] - 0.15], { expr: at(t, 430) ? "stern" : "neutral", tilt: -9, item: "note", reach: 0.2 }, t, [0, 1, TREE[2] + 3]);
+        who(cam, out, 30 + i, castOf().grans[i % 4], `g2_${i}`, [-5.6, 0, z], { expr: i % 2 ? "smile_closed" : "smile", reach: 0.55 + 0.1 * Math.sin(t * 2 + i), item: "note" }, t, [0, 1, z]));
+      who(cam, out, 34, castOf().grans[1], "g2_peek", [TREE[0] + 0.35, 0, TREE[2] - 0.15], { expr: at(t, 430) ? "stern" : "neutral", tilt: -9, item: "note", reach: 0.2 }, t, [0, 1, TREE[2] + 3]);
       break;
     }
     case 4: case 5: case 6: case 15: { // the doorstep exchange (15 = next month, day)
@@ -305,8 +307,8 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
         k = at(t, 2036) ? { expr: "neutral", item: "wad", reach: 0.3 } : at(t, 1948) ? { expr: "smile", reach: 0.9, item: "coin" } : { expr: "smile_closed" };
         g = at(t, 2016) ? { expr: "laugh", reach: 0.4 } : at(t, 1995) ? { expr: "smile_closed", reach: 0.5, item: "coin" } : { expr: "smile" };
       }
-      who(cam, out, 1, GRANDMA, "gran", GRAN, g, t, KIDP);
-      who(cam, out, 10, GRANDKID, "kid", KIDP, k, t, GRAN);
+      who(cam, out, 1, castOf().gran, "gran", GRAN, g, t, KIDP);
+      who(cam, out, 10, castOf().kid, "kid", KIDP, k, t, GRAN);
       if (id === 4 && f >= 516) insert(4, f, out, "ins_hand" + q(clamp01((f - 516) / 20), 20), 900, 640, (p) => insertHandshake(p, q(clamp01((f - 516) / 20), 20)), 0.62);
       if (id === 15 && f >= 2021 && f < 2048) insert(15, f, out, "ins_wad" + q(clamp01((f - 2021) / 14), 20), 900, 640, (p) => insertWad(p, q(clamp01((f - 2021) / 14), 20)), 0.62);
       if (id === 15) burst(out, t, 2060, [KIDP[0] + 0.1, 1.25, KIDP[2] + 0.25], 0.55);
@@ -314,8 +316,8 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
       break;
     }
     case 7: {
-      who(cam, out, 10, GRANDKID, "kid", [0.35, 0, 5.3], { expr: at(t, 814) ? "nervous" : "neutral", look: -1 }, t, GRAN);
-      who(cam, out, 1, GRANDMA, "gran", GRAN, { expr: "whistle" }, t, KIDP);
+      who(cam, out, 10, castOf().kid, "kid", [0.35, 0, 5.3], { expr: at(t, 814) ? "nervous" : "neutral", look: -1 }, t, GRAN);
+      who(cam, out, 1, castOf().gran, "gran", GRAN, { expr: "whistle" }, t, KIDP);
       inTaxi(id, t, cam, out, null); exhaust(id, t, out);
       // the open bag seen from above: socks with the note between them, lying in the bag's open top
       { const k = q(clamp01((f - 830) / 12), 20);
@@ -324,15 +326,15 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
     }
     case 8: { // Grandma at the driver's window with the note
       const [tx, , tz] = TAXI0;
-      who(cam, out, 1, GRANDMA, "gran", GRAN8, { expr: at(t, 957) ? "grin" : "smile", reach: at(t, 922) ? 0.8 : 0.35, item: at(t, 935) ? undefined : "note", tilt: 6 }, t, [tx + 0.4, 1, tz - 0.4]);
+      who(cam, out, 1, castOf().gran, "gran", GRAN8, { expr: at(t, 957) ? "grin" : "smile", reach: at(t, 922) ? 0.8 : 0.35, item: at(t, 935) ? undefined : "note", tilt: 6 }, t, [tx + 0.4, 1, tz - 0.4]);
       const nod = f >= 962 && f < 985 ? 8 * Math.sin((f - 962) * 0.55) : 0;
       inTaxi(id, t, cam, out, { expr: "nervous" }, { expr: at(t, 957) ? "stern" : "neutral", item: at(t, 935) ? "note" : undefined, reach: at(t, 935) ? 0.25 : undefined, headTilt: nod });
       exhaust(id, t, out);
-      who(cam, out, 10, GRANDKID, "kid_out", [0.3, 0, -3.2], { expr: "nervous" }, t, GRAN8);
+      who(cam, out, 10, castOf().kid, "kid_out", [0.3, 0, -3.2], { expr: "nervous" }, t, GRAN8);
       break;
     }
     case 9: {
-      who(cam, out, 1, GRANDMA, "gran", GRAN, { expr: "smile", wave: Math.sin(t * 8) }, t, [1, 1, -6]);
+      who(cam, out, 1, castOf().gran, "gran", GRAN, { expr: "smile", wave: Math.sin(t * 8) }, t, [1, 1, -6]);
       inTaxi(id, t, cam, out, { expr: at(t, 1061) ? "grin" : "smile", wave: at(t, 1039) ? Math.sin(t * 9) : undefined }, { expr: "neutral" });
       exhaust(id, t, out);
       break;
@@ -355,11 +357,23 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
     }
     case 12: {
       if (f < 1405) {
-        who(cam, out, 1, GRANDMA, "gran", GRAN, { expr: "smile_closed", reach: 0.45, item: "coin" }, t, [1, 1, 3]);
+        who(cam, out, 1, castOf().gran, "gran", GRAN, { expr: "smile_closed", reach: 0.45, item: "coin" }, t, [1, 1, 3]);
         for (const w of [1363, 1443]) burst(out, t, w, [GRAN[0] + 0.5, 0.98, GRAN[2] + 0.45], 0.3);
       } else {
         // the zero rolls in from the left and topples flat ("ending"); the one stands and rolls away ("beginning")
         const z0 = COIN_Z0, R = 0.28;
+        if (isEN()) { // an empty purse drops onto the lane (lands on "purse"), then the penny rolls back toward the lens
+          if (f < 1541) {
+            const u = clamp01((f - 1470) / 12), y = 0.2 + 2.2 * (1 - u * u);
+            card(out, "purse", 400, 360, fxPurse, [0.1, f < 1470 ? 2.4 : y, z0], 0.55, f >= 1482 ? 0.05 * Math.sin((f - 1482) * 0.8) * Math.exp(-(f - 1482) / 10) : 0);
+          } else {
+            card(out, "purse", 400, 360, fxPurse, [0.1, 0.2, z0], 0.55);
+            const u = clamp01((f - 1546) / 40), dz = 2.6 * (1 - u);
+            card(out, "coin1", 400, 400, (p) => fxCoin(p, 1), [-0.15, 0.13, z0 + 1.1 - dz], 0.26, (dz / 0.13) % 6.283);
+            burst(out, t, 1544, [-0.15, 0.4, z0 - 1.5], 0.4);
+          }
+          break;
+        }
         if (f < 1541) {
           const u = clamp01((f - 1405) / 95), x = -1.7 + 1.9 * (1 - (1 - u) ** 2);
           const fall = clamp01((f - 1500) / 21), wob = Math.sin((f - 1480) * 0.7) * (1 - fall) * 0.3 * (f > 1480 ? 1 : 0);
@@ -395,3 +409,11 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
   return out;
 };
 export { FPS };
+
+/** village: two cows grazing by the neem tree and across the lane */
+const cows = (t: number, out: Stage) => {
+  ([[7.6, -11, 0], [-3.8, -46, 1], [6.2, 12, 2]] as const).forEach(([x, z, i]) => {
+    const chew = q(0.5 + 0.5 * Math.sin(t * 5 + i), 4);
+    out.fx.push({ key: `cow${chew}`, cw: 700, ch: 520, draw: (p) => fxCow(p, chew), x, y: 0.82, z, w: 2.3, h: 1.71 });
+  });
+};

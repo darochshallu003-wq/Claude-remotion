@@ -11,7 +11,7 @@ const browserExecutable = "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome"
 const chromiumOptions = { gl: "swangle" };
 const inputProps = { post: { dpr: Number(dpr) } };
 const serveUrl = await bundle({ entryPoint: path.resolve(process.env.ENTRY || "src/sandboxes/grandma/index.tsx"), publicDir: path.resolve("public") });
-const composition = await selectComposition({ serveUrl, id: "GrandmaShort", browserExecutable, chromiumOptions, inputProps, timeoutInMilliseconds: 300000 });
+const composition = await selectComposition({ serveUrl, id: process.env.COMP || "GrandmaShort", browserExecutable, chromiumOptions, inputProps, timeoutInMilliseconds: 300000 });
 const [a, b] = range ? range.split("-").map(Number) : [0, composition.durationInFrames - 1];
 const t0 = Date.now();
 await renderFrames({

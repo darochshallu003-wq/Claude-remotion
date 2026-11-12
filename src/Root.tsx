@@ -6,7 +6,7 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
-import { GRANDMA_FRAMES, GrandmaShort } from "./videos/grandma/Grandma";
+import { GRANDMA_FRAMES, GrandmaShort, DadiShort, GrandmaEnShort, framesOf } from "./videos/grandma/Grandma";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -70,6 +70,8 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition id="DadiShort" component={DadiShort} durationInFrames={framesOf("dadi")} fps={30} width={1080} height={1920} />
+      <Composition id="GrandmaEnShort" component={GrandmaEnShort} durationInFrames={framesOf("grandma_en")} fps={30} width={1080} height={1920} />
     </>
   );
 };

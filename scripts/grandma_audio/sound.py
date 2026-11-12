@@ -15,12 +15,25 @@ from dsp import (SR, TAU, ns, tt, rng, lp, hp, bp, colored, smooth_noise, fades,
 import instruments as I
 import sfx_gen as G
 
+import re
+import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-OUT = os.path.join(ROOT, "out", "grandma", "audio")
-FPS, TOTAL = 30, 2100
+# version: grandma (original timeline) | dadi | grandma_en; the picture's warp table re-times every cue to its voice
+VERSION = sys.argv[1] if len(sys.argv) > 1 else "grandma"
+OUT = os.path.join(ROOT, "out", "grandma", "audio" if VERSION == "grandma" else f"audio_{VERSION}")
+FPS = 30
+_w = json.loads(re.search(r"= (\{.*\});", open(os.path.join(ROOT, "src", "videos", "grandma", "warps.ts")).read()).group(1))
+WARP = _w.get(VERSION)
+TOTAL = WARP["total"] if WARP else 2100
 DUR = TOTAL / FPS
 N = ns(DUR)
-fr = lambda f: f / FPS
+
+
+def fr(f):
+    """original-timeline frame -> seconds in this version"""
+    if not WARP:
+        return f / FPS
+    return float(np.interp(f, WARP["of"], WARP["nf"], right=WARP["nf"][-1] + (f - WARP["of"][-1]))) / FPS
 CUES = []
 
 
@@ -99,7 +112,7 @@ def sting(buf, t, r, chord=(62, 66, 69, 74), big=1.0):
 def score():
     r = rng(1001)
     mus = np.zeros((2, N))
-    W = lambda f: fr(f)
+    W = fr
     # hook (day): cheeky intro, stops on the flash
     band(mus, 0.25, W(150), r, {"bass", "chords", "glock"}, vel=0.9)
     place(mus, pan(I.triangle(0.6, r, 1.8), 0.3), W(152)); cue("music", W(152), "flash: triangle")
@@ -123,9 +136,9 @@ def score():
     place(mus, pan(I.glock(m(86), 0.5, r, 1.6), 0.3), W(1255))
     # explanation: music box + warm pad, gentle
     band(mus, W(1336), W(1772), r, {"box", "bass"}, vel=0.6)
-    place(mus, st(I.pad([m(50), m(57), m(62), m(66)], fr(1772 - 1336), 0.45, r, att=1.2, rel=1.5)), W(1336))
+    place(mus, st(I.pad([m(50), m(57), m(62), m(66)], W(1772) - W(1336), 0.45, r, att=1.2, rel=1.5)), W(1336))
     # the ticket home: pad swell
-    place(mus, st(I.pad([m(55), m(59), m(62), m(67)], fr(1895 - 1777), 0.6, r, att=1.5, rel=1.2)), W(1777))
+    place(mus, st(I.pad([m(55), m(59), m(62), m(67)], W(1895) - W(1777), 0.6, r, att=1.5, rel=1.2)), W(1777))
     # next month (day): the full tune, finale sting on "one thousand and one"
     band(mus, W(1902), W(2058), r, {"bass", "chords", "brush", "glock"}, vel=1.0)
     sting(mus, W(2060), r, chord=(62, 66, 69, 74, 78), big=1.2); cue("music", W(2060), "finale sting")
@@ -210,7 +223,7 @@ def thump(r, f=70, dur=0.25):
 def sfx():
     r = rng(501)
     s = np.zeros((2, N))
-    W = lambda f: fr(f)
+    W = fr
     golden0, golden1 = W(152), W(1895)
     # ambience: birds by day, crickets in the evening, a soft breeze throughout
     place(s, widen(G.bird_chirps(W(152), r, 0.7), r) * 0.10, 0)
@@ -253,7 +266,7 @@ def sfx():
 
 # ----------------------------------------------------------------------------------------------------------- mix
 def load_voice():
-    v, sr = read_wav(os.path.join(ROOT, "public", "grandma", "voice.wav"))
+    v, sr = read_wav(os.path.join(ROOT, "public", VERSION, "voice.wav"))
     assert sr == SR, sr
     v = st(v if v.ndim == 1 else v[0])
     out = np.zeros((2, N))
@@ -296,7 +309,7 @@ def limiter(x, ceil_db=-1.2, look=0.003, rel=0.08):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    words = json.load(open(os.path.join(ROOT, "public", "grandma", "words.json")))
+    words = json.load(open(os.path.join(ROOT, "public", VERSION, "words.json")))
     v = load_voice()
     mus = score()
     fx = sfx()

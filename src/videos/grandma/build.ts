@@ -6,6 +6,7 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import { D0 } from "./story";
 import { brick, rng, ctex, rep, facadeHD, roofHD, stoneHD } from "./paint";
 import { twoTone } from "./shade";
+import { isEN, isVillage } from "./theme";
 
 export type Kit = Record<string, THREE.Object3D>;
 export const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
@@ -489,9 +490,9 @@ const STYLES: Style[] = [
 const roofMat = (col: string) => lam("roof" + col, () => ({ map: roofHD(col, col === "#8f97a8"), side: THREE.DoubleSide }));
 
 /** gabled house: front facade (local +z) at width w, depth d, wall height h, ridge along local x (left out if it blocks a shot) */
-export const house = (b: Batch, x: number, z: number, yaw: number, w: number, d: number, h: number, si: number, y = D0) => {
+export const house = (b: Batch, x: number, z: number, yaw: number, w: number, d: number, h: number, si: number, y = D0, keep = false) => {
   const across = Math.abs(Math.sin(yaw)) > 0.5, hx = (across ? d : w) / 2 + 0.6, hz = (across ? w : d) / 2 + 0.6;
-  if (inTheWay(x - hx, x + hx, y, y + h + d * 0.42 + 1.2, z - hz, z + hz)) return;
+  if (!keep && inTheWay(x - hx, x + hx, y, y + h + d * 0.42 + 1.2, z - hz, z + hz)) return;
   const st = STYLES[si % STYLES.length];
   const m = new THREE.Matrix4().makeRotationY(yaw).setPosition(x, y, z);
   const front = lam(`hf${si}_${w}_${h}`, () => ({ map: facadeHD(`hf${si}_${w}_${h}`, w, h, { ...st, door: true }) }));
@@ -758,6 +759,8 @@ export const laneHouse = (b: Batch, x: number, z: number, yaw: number, w: number
 
 /** the lane: Grandma's house (left, door at z = 0) and its neighbours, the kerb houses opposite, poles, trees, hills */
 export const buildLane = (root: THREE.Object3D, kit: Kit, rays: Ray[] = []) => {
+  if (isEN()) return englishLane(root, kit, rays);
+  if (isVillage()) return villageLane(root, kit, rays);
   const b = new Batch(), r = rng(23);
   sight = rays;
   const H = [6.0, 6.0, 6.0, 8.6];
@@ -809,7 +812,9 @@ export const buildLane = (root: THREE.Object3D, kit: Kit, rays: Ray[] = []) => {
 /** the yellow-and-green taxi (right-hand drive), centre at the origin, nose toward -z, wheels on y = 0 */
 export const buildTaxi = () => {
   const g = new THREE.Group(), b = new Batch(), I = new THREE.Matrix4();
-  const green = lam("taxiGreen", () => ({ color: "#2f8a4f" })), yellow = lam("taxiYellow", () => ({ color: "#f3c64a" }));
+  // English version: a black cab (black body and roof, yellow roof sign)
+  const green = lam("taxiGreen", () => ({ color: isEN() ? "#24262c" : "#2f8a4f" })), yellow = lam("taxiYellow", () => ({ color: isEN() ? "#2e3038" : "#f3c64a" }));
+  const sign = lam("taxiSign", () => ({ color: "#f3c64a" }));
   const dark = lam("taxiDark", () => ({ color: "#2b2d33" })), chrome = lam("taxiChrome", () => ({ color: "#cfd5da" }));
   const seat = lam("taxiSeat", () => ({ color: "#6b3a2e" })), lamp = lam("taxiLamp", () => ({ color: "#fff6d8" })), tail = lam("taxiTail", () => ({ color: "#d9483b" }));
   const B = (mat: THREE.Material, x0: number, x1: number, y0: number, y1: number, z0: number, z1: number) => laneBox(b, mat, I, x0, x1, y0, y1, z0, z1);
@@ -820,7 +825,7 @@ export const buildTaxi = () => {
   for (const x of [-0.78, -0.03, 0.72]) for (const [z0, z1] of [[-0.8, -0.72], [1.12, 1.2]]) B(yellow, x, x + 0.08, 0.98, 1.55, z0, z1); // pillars
   B(yellow, -0.82, 0.82, 1.55, 1.63, -0.86, 1.25);      // roof
   B(dark, -0.7, 0.7, 0.98, 1.02, -0.8, -0.74);          // dashboard edge
-  B(yellow, -0.22, 0.22, 1.63, 1.8, 0.1, 0.42);         // taxi sign
+  B(sign, -0.22, 0.22, 1.63, 1.8, 0.1, 0.42);           // taxi sign
   B(seat, -0.75, 0.75, 0.5, 1.2, 0.02, 0.18);           // front seat back
   B(seat, -0.75, 0.75, 0.5, 1.22, 1.0, 1.12);           // rear seat back
   for (const x of [-0.62, 0.62]) {
@@ -831,4 +836,116 @@ export const buildTaxi = () => {
   for (const x of [-0.8, 0.8]) for (const z of [-1.3, 1.3]) { b.add(wheel.clone().translate(x, 0.32, z), dark); b.add(hub.clone().translate(x, 0.32, z), chrome); }
   b.build(g);
   return g;
+};
+
+// ---------------- English version: a terraced street of gabled brick and render houses ----------------
+const englishLane = (root: THREE.Object3D, kit: Kit, rays: Ray[]) => {
+  const b = new Batch(), r = rng(31);
+  sight = rays;
+  const H = [7, 7, 8.4, 7];
+  for (let k = -3; k < 30; k++) { // left side, fronts at x = -6.5 (Grandma's at z = 0: cream with a blue door)
+    const zc = -k * 8.5;
+    house(b, -6.5 - 4.5, zc, Math.PI / 2, 8, 9, k === 0 ? 7 : H[(k + 8) % 4], k === 0 ? 0 : ((((k * 3 + 5) % 8) + 8) % 8), 0, k === 0);
+  }
+  for (let k = -3; k < 30; k++) house(b, 6.5 + 4.5, -k * 9 + 4, -Math.PI / 2, k % 3 ? 8.5 : 7, 9, H[(k + 5) % 4], (((k * 5 + 2) % 8) + 8) % 8);
+  for (let k = 0; k < 18; k++) {
+    const z = 22 - k * 15.5 + r() * 3, sx = k % 2 ? 1 : -1;
+    if (Math.abs(z + 15) < 4 || Math.abs(z) < 5) continue;
+    prop(b, kit, k % 3 ? "tree_oak" : "tree-high-round", sx * 5.3, 0, z, 6.5 + r() * 2, r() * 6);
+  }
+  prop(b, kit, "tree_oak", 5.0, 0, -15, 7.2, 1.3);
+  // street lamps, a red post box by the kerb, a flower pot at Grandma's door
+  const lampM = lam("lampPost", () => ({ color: "#2b2d33" })), glass = lam("lampGlass", () => ({ color: "#fff1c4" }));
+  for (let z = 14; z > -260; z -= 22) {
+    if (inTheWay(4.4, 4.8, 0, 5, z - 0.2, z + 0.2, true)) continue;
+    b.add(new THREE.CylinderGeometry(0.07, 0.1, 4.2, 8).translate(4.6, 2.1, z), lampM);
+    b.add(boxGeo(V(4.42, 4.2, z - 0.18), V(4.78, 4.62, z + 0.18)), glass);
+  }
+  b.add(new THREE.CylinderGeometry(0.28, 0.28, 1.25, 16).translate(4.4, 0.62, -6.5), lam("postBox", () => ({ color: "#c8323a" })));
+  laneBox(b, lam("flowerPot", () => ({ color: "#b8684a" })), new THREE.Matrix4(), -6.2, -5.6, 0, 0.6, -2.15, -1.55);
+  prop(b, kit, "plant_bush", -5.9, 0.6, -1.85, 0.55, 0.4);
+  const hill = new THREE.SphereGeometry(1, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2);
+  const hm = [lam("hillA", () => ({ color: "#78b257" })), lam("hillB", () => ({ color: "#6aa24e" }))];
+  ([[-260, -420, 220, 46, 120], [140, -460, 260, 58, 140], [420, -300, 170, 40, 130], [-420, -160, 190, 36, 150]] as const)
+    .forEach(([x, z, sx, sy, sz], i) => b.add(hill, hm[i % 2], new THREE.Matrix4().compose(V(x, -2, z), new THREE.Quaternion(), V(sx, sy, sz))));
+  b.build(root);
+  sight = [];
+};
+
+// ---------------- Dadi version: an Indian village ----------------
+type VStyle = { wall: string; shutter: string };
+const VSTY: VStyle[] = [
+  { wall: "#e8dcc2", shutter: "#2f6fb5" },  // 0 Dadi: whitewash, blue door
+  { wall: "#c99a63", shutter: "#5a3b2a" },  // mud plaster
+  { wall: "#86aecf", shutter: "#8c3b4a" },  // indigo wash
+  { wall: "#d8a95f", shutter: "#2f6a43" },  // ochre
+  { wall: "#c47a5c", shutter: "#2f5f6a" },  // red earth
+];
+/** single-storey house: front facade at local +z, clay-tile gable roof (ridge along x), a low plinth */
+const villageHouse = (b: Batch, x: number, z: number, yaw: number, w: number, d: number, h: number, si: number, keep = false) => {
+  const across = Math.abs(Math.sin(yaw)) > 0.5, hx = (across ? d : w) / 2 + 0.6, hz = (across ? w : d) / 2 + 0.6;
+  if (!keep && inTheWay(x - hx, x + hx, 0, h + d * 0.4 + 0.5, z - hz, z + hz)) return;
+  const st = VSTY[si % VSTY.length];
+  const m = new THREE.Matrix4().makeRotationY(yaw).setPosition(x, 0, z);
+  const front = lam(`vf${si}_${w}_${h}`, () => ({ map: facadeHD(`vf${si}_${w}_${h}`, w, h, { wall: st.wall, shutter: st.shutter, door: true }) }));
+  const side = lam(`vs${si}_${h}`, () => ({ map: facadeHD(`vs${si}_${h}`, 8, h, { wall: st.wall, shutter: st.shutter }) }));
+  const wall = lam("vw" + st.wall, () => ({ color: st.wall })), rm = roofMat("#b5583a");
+  const hw = w / 2, hd = d / 2, rh = d * 0.38, o = 0.55;
+  b.add(quad(V(-hw, 0, hd), V(hw, 0, hd), V(hw, h, hd), V(-hw, h, hd)), front, m);
+  b.add(quad(V(hw, 0, -hd), V(-hw, 0, -hd), V(-hw, h, -hd), V(hw, h, -hd)), side, m);
+  b.add(quad(V(-hw, 0, -hd), V(-hw, 0, hd), V(-hw, h, hd), V(-hw, h, -hd)), side, m);
+  b.add(quad(V(hw, 0, hd), V(hw, 0, -hd), V(hw, h, -hd), V(hw, h, hd)), side, m);
+  b.add(tri(V(-hw, h, -hd), V(-hw, h, hd), V(-hw, h + rh, 0)), wall, m);
+  b.add(tri(V(hw, h, hd), V(hw, h, -hd), V(hw, h + rh, 0)), wall, m);
+  const ru = (w + 2 * o) / 4, rv = Math.hypot(hd + o, rh) / 4;
+  b.add(quad(V(-hw - o, h - 0.3, hd + o), V(hw + o, h - 0.3, hd + o), V(hw + o, h + rh, 0), V(-hw - o, h + rh, 0), ru, rv), rm, m);
+  b.add(quad(V(hw + o, h - 0.3, -hd - o), V(-hw - o, h - 0.3, -hd - o), V(-hw - o, h + rh, 0), V(hw + o, h + rh, 0), ru, rv), rm, m);
+  laneBox(b, lam("vPlinth", () => ({ color: "#b39370" })), m, -hw - 0.1, hw + 0.1, 0, 0.35, -hd - 0.1, hd + 0.1);
+};
+const villageLane = (root: THREE.Object3D, kit: Kit, rays: Ray[]) => {
+  const b = new Batch(), r = rng(47);
+  sight = rays;
+  for (let k = -3; k < 24; k++) { // left: Dadi's house at z = 0, neighbours with gaps
+    if (k !== 0 && r() < 0.25) continue;
+    villageHouse(b, -6.5 - 3.5, -k * 9.5, Math.PI / 2, k === 0 ? 8 : 7, 7, 3.4, k === 0 ? 0 : 1 + ((((k * 3 + 1) % 4) + 4) % 4), k === 0);
+  }
+  for (let k = -3; k < 24; k++) { // right: set back behind yards (cows, a well)
+    if (r() < 0.3) continue;
+    villageHouse(b, 10.5 + 3.5, -k * 10 + 3, -Math.PI / 2, 7, 7, 3.2 + 0.4 * (k % 2), 1 + ((((k * 5 + 2) % 4) + 4) % 4));
+  }
+  // fields: green paddies and yellow mustard beyond the houses, haystacks
+  const fieldM = [lam("fieldG", () => ({ color: "#7fae4a" })), lam("fieldY", () => ({ color: "#e3c43a" })), lam("fieldG2", () => ({ color: "#94bb55" }))];
+  for (let i = 0; i < 26; i++) {
+    const sx = i % 2 ? 1 : -1, x0 = sx * (19 + r() * 6), z0 = 30 - i * 14 - r() * 6, w = 18 + r() * 30, d = 10 + r() * 8;
+    b.add(boxGeo(V(sx > 0 ? x0 : x0 - w, 0, z0 - d), V(sx > 0 ? x0 + w : x0, 0.05, z0)), fieldM[i % 3]);
+  }
+  const hay = lam("hay", () => ({ color: "#d9b45a" })), hayCone = new THREE.ConeGeometry(1.4, 2.6, 14);
+  for (let i = 0; i < 12; i++) {
+    const sx = i % 2 ? 1 : -1, x = sx * (22 + r() * 20), z = 10 - i * 22 - r() * 8;
+    if (inTheWay(x - 1.5, x + 1.5, 0, 2.6, z - 1.5, z + 1.5, true)) continue;
+    b.add(hayCone, hay, new THREE.Matrix4().makeTranslation(x, 1.3, z));
+  }
+  // neem trees, a stone well in the right-hand yard, a few poles
+  for (let k = 0; k < 16; k++) {
+    const z = 24 - k * 16 + r() * 4, sx = k % 2 ? 1 : -1;
+    if (Math.abs(z + 15) < 4 || Math.abs(z) < 5) continue;
+    prop(b, kit, k % 3 ? "tree_fat" : "tree_oak", sx * (sx > 0 ? 7.5 : 5.2), 0, z, 6.5 + r() * 2.5, r() * 6);
+  }
+  prop(b, kit, "tree_oak", 5.0, 0, -15, 7.2, 1.3);
+  const stone = lam("wellStone", () => ({ map: stoneHD("copeHD") }));
+  b.add(new THREE.CylinderGeometry(0.9, 0.95, 0.85, 20, 1, true).translate(8.6, 0.42, 5.5), stone);
+  b.add(new THREE.TorusGeometry(0.9, 0.12, 8, 24).rotateX(Math.PI / 2).translate(8.6, 0.85, 5.5), stone);
+  const pole = lam("pole", () => ({ color: "#b9b2a6" }));
+  for (let z = 14; z > -220; z -= 40) if (!inTheWay(4.4, 4.8, 0, 8, z - 0.2, z + 0.2, true)) b.add(new THREE.CylinderGeometry(0.09, 0.13, 7, 8).translate(4.6, 3.5, z), pole);
+  const hill = new THREE.SphereGeometry(1, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2);
+  const hm = [lam("hillA", () => ({ color: "#86a95a" })), lam("hillB", () => ({ color: "#9bb565" }))];
+  ([[-260, -420, 220, 46, 120], [140, -460, 260, 58, 140], [420, -300, 170, 40, 130], [-420, -160, 190, 36, 150]] as const)
+    .forEach(([x, z, sx, sy, sz], i) => b.add(hill, hm[i % 2], new THREE.Matrix4().compose(V(x, -2, z), new THREE.Quaternion(), V(sx, sy, sz))));
+  // Dadi's doorstep: tulsi pot and a marigold garland
+  laneBox(b, lam("tulsiPot", () => ({ color: "#c96a3c" })), new THREE.Matrix4(), -6.2, -5.6, 0, 0.75, -2.15, -1.55);
+  prop(b, kit, "plant_bush", -5.9, 0.75, -1.85, 0.55, 0.4);
+  const mari = [lam("mariA", () => ({ color: "#f39c12" })), lam("mariB", () => ({ color: "#e67e22" }))], ball = new THREE.SphereGeometry(0.075, 10, 8);
+  for (let i = 0; i <= 14; i++) { const u = i / 14; b.add(ball, mari[i % 2], new THREE.Matrix4().makeTranslation(-6.42, 2.35 - 0.22 * Math.sin(u * Math.PI), -0.85 + 1.7 * u)); }
+  b.build(root);
+  sight = [];
 };

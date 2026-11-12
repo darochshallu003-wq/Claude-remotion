@@ -960,13 +960,35 @@ export const GRANDMA2: Outfit[] = [
 ];
 export const GRANDKID: Outfit = { jacket: "#3f6fb5", pants: "#34466e", boots: "#f4f1ea", hat: "hair", hair: "#2a1f1f", skin: "#d9a074" };
 export const DRIVER: Outfit = { jacket: "#efe9da", pants: "#5a5e6e", boots: "#3a2a22", hat: "cap", cap: "#f2efe6", moustache: "#2a1f1a", skin: "#c58a5e", build: "stout", buttons: "#c9ccd2" };
+// English version
+export const GRANDMA_EN: Outfit = { jacket: "#b8463a", pants: "#3b3f52", boots: "#6b4a3a", dress: "#3d5a8c", hat: "hair", hair: "#e9e6e0",
+  bun: true, glasses: true, skin: "#f2c9a8", build: "stout" };
+export const GRANDMA2_EN: Outfit[] = [
+  { ...GRANDMA_EN, jacket: "#2f6a43", dress: "#7a4b3a", skin: "#f0c4a0", glasses: false },
+  { ...GRANDMA_EN, jacket: "#d9a441", dress: "#3b4f7a", skin: "#c98f62" },
+  { ...GRANDMA_EN, jacket: "#3f6fb5", dress: "#8c3b4a", skin: "#f2cdb0", glasses: false },
+  { ...GRANDMA_EN, jacket: "#8c3b6a", dress: "#3a3f4a", skin: "#e8b896" },
+];
+export const DRIVER_EN: Outfit = { jacket: "#2f3440", pants: "#3a3f4a", boots: "#2a2420", hat: "cap", cap: "#5a5e6e", moustache: "#5a4030", skin: "#f0c09a", build: "stout", buttons: "#9aa3ab" };
+export const MUM_EN: Outfit = { jacket: "#c2457a", pants: "#34466e", boots: "#3a2a22", hat: "hair", hair: "#6b4a2e", skin: "#f0c4a0" };
 export const MUM: Outfit = { jacket: "#c2457a", pants: "#c2457a", boots: "#b8865a", dress: "#c2457a", border: "#f2c94c", hat: "hair", hair: "#2a1f1f", skin: "#e0a87e" };
 
+import { isEN } from "./theme";
 const NOTE_P = "#b9c7a2";
 export type Item = "note" | "coin" | "plate" | "wad" | "tiffin" | null;
-const NOTE = "#b9c7a2", NOTE_D = "#8fa27a", STEEL = "#cfd5da", STEEL_D = "#9aa3ab", GOLD = "#e3b23c";
+let NOTE = "#b9c7a2", NOTE_D = "#8fa27a", STEEL = "#cfd5da";
+const STEEL_D = "#9aa3ab", GOLD = "#e3b23c", COPPER = "#c9824f";
+/** money colours per version: rupee notes (green-grey) / a tenner (orange-brown) */
+const money = () => { if (isEN()) { NOTE = "#e3a866"; NOTE_D = "#b9783e"; } else { NOTE = "#b9c7a2"; NOTE_D = "#8fa27a"; } };
 /** a held item drawn at the hand (hx, hy), u = 1 % of the head width */
 const drawItem = (p: Pen, it: Item, hx: number, hy: number, u: number) => {
+  money();
+  if (it === "tiffin" && isEN()) { // plastic sandwich box
+    p.poly(rrect(hx - 22 * u, hy - 24 * u, hx + 22 * u, hy - 2 * u, 4 * u), "#5aa0d8", 2.2 * u);
+    p.stroke([[hx - 22 * u, hy - 18 * u], [hx + 22 * u, hy - 18 * u]], 1.6 * u);
+    return;
+  }
+  if (it === "coin" && isEN()) { p.ell(hx + 2 * u, hy - 9 * u, 8 * u, 8 * u, COPPER, 2 * u); p.ell(hx + 2 * u, hy - 9 * u, 4.8 * u, 4.8 * u, null, 1.1 * u); return; }
   if (it === "note") { // a note folded small: two creased layers
     p.poly([[hx - 9 * u, hy - 14 * u], [hx + 10 * u, hy - 16 * u], [hx + 12 * u, hy - 3 * u], [hx - 8 * u, hy - 1 * u]], NOTE, 2 * u);
     p.stroke([[hx - 7 * u, hy - 8 * u], [hx + 10 * u, hy - 10 * u]], 1.4 * u, NOTE_D);
@@ -1011,11 +1033,12 @@ const bigNote = (p: Pen, x: number, y: number, s: number, rot = 0, col = NOTE) =
   p.stroke([R(-s, 0.05 * s), R(s, -0.05 * s)], 3, NOTE_D);
 };
 /** handshake: Grandma's hand (green sleeve, gold border) pressing a tiny folded note into the kid's palm; 900 x 640 */
-export const insertHandshake = (p: Pen, k: number, giverSleeve = "#2f8a5a", takerSleeve = "#3f6fb5", giverSkin = "#e9b98d", takerSkin = "#d9a074") => {
+export const insertHandshake = (p: Pen, k: number, giverSleeve = isEN() ? "#b8463a" : "#2f8a5a", takerSleeve = "#3f6fb5", giverSkin = isEN() ? "#f2c9a8" : "#e9b98d", takerSkin = "#d9a074") => {
+  money();
   hand(p, 900, 470, 520, 300, takerSkin, takerSleeve, 120, true);
   bigNote(p, 450 + 20 * (1 - k), 300 - 40 * (1 - k), 34, -0.25);
   hand(p, 0, 120, 360 + 60 * k, 250 + 20 * k, giverSkin, giverSleeve, 112, false);
-  p.band([[30, 70], [230, 175]], "#e3b23c", 14, 4);
+  if (giverSleeve === "#2f8a5a") p.band([[30, 70], [230, 175]], "#e3b23c", 14, 4);
 };
 /** shirt pocket with the note poking out; 700 x 700 */
 export const insertPocket = (p: Pen, k: number) => {
@@ -1037,9 +1060,11 @@ export const insertBag = (p: Pen, k: number) => {
   p.band([[40, 262], [860, 262]], "#5b3466", 26, 7);
 };
 /** the driver's hand (white sleeve) passing the note back over the seat to the kid's hand; 900 x 640 */
-export const insertHandBack = (p: Pen, k: number) => insertHandshake(p, k, "#efe9da", "#3f6fb5", "#c58a5e", "#d9a074");
+export const insertHandBack = (p: Pen, k: number) => insertHandshake(p, k, isEN() ? "#2f3440" : "#efe9da", "#3f6fb5", isEN() ? "#f0c09a" : "#c58a5e", "#d9a074");
 /** open tiffin: parathas, a pickle cup and the folded 501 (a note and a coin) on top; 900 x 700 */
 export const insertTiffin = (p: Pen, k: number) => {
+  money();
+  if (isEN()) return insertSandwich(p, k);
   p.ell(450, 420, 400, 250, STEEL, 9);
   p.ell(450, 405, 360, 215, "#b9c0c6", 6);
   for (let i = 0; i < 3; i++) p.ell(400 + i * 20, 430 - i * 22, 250, 120, i % 2 ? "#e7b25a" : "#f0c470", 7);
@@ -1052,17 +1077,19 @@ export const insertTiffin = (p: Pen, k: number) => {
 };
 /** a fat wad pressed into the kid's palm; 900 x 640 */
 export const insertWad = (p: Pen, k: number) => {
+  money();
+  if (isEN()) { NOTE = "#d9776a"; NOTE_D = "#a9524a"; } // fifties
   hand(p, 900, 470, 520, 320, "#d9a074", "#3f6fb5", 120, true);
   for (let i = 0; i < 6; i++) bigNote(p, 470 + i * 4, 290 - i * 14 - 40 * (1 - k), 70, -0.2 + 0.05 * i, i % 2 ? NOTE_D : NOTE);
   p.band([[440, 180 - 40 * (1 - k)], [500, 330 - 40 * (1 - k)]], "#d9534f", 14, 4);
-  hand(p, 0, 120, 360 + 60 * k, 250 + 20 * k, "#e9b98d", "#2f8a5a", 112, false);
-  p.band([[30, 70], [230, 175]], "#e3b23c", 14, 4);
+  hand(p, 0, 120, 360 + 60 * k, 250 + 20 * k, isEN() ? "#f2c9a8" : "#e9b98d", isEN() ? "#b8463a" : "#2f8a5a", 112, false);
+  if (!isEN()) p.band([[30, 70], [230, 175]], "#e3b23c", 14, 4);
 };
 
 // ---- story effects ----
 /** a coin seen face-on, embossed with a numeral drawn as strokes (1 or 0); 400 x 400 */
 export const fxCoin = (p: Pen, digit: 0 | 1, glint = 0) => {
-  p.ell(200, 200, 180, 180, digit ? STEEL : "#d8b54f", 12);
+  p.ell(200, 200, 180, 180, digit ? (isEN() ? COPPER : "#cfd5da") : "#d8b54f", 12);
   p.ell(200, 200, 140, 140, null, 6);
   if (digit) p.stroke([[170, 140], [205, 105], [205, 300]], 22);
   else p.ell(200, 200, 50, 85, null, 22);
@@ -1130,3 +1157,45 @@ export const insertBagTop = (p: Pen, k: number) => {
   sock(200, 320, "#f2c94c", 6);
   p.band([[20, 20], [680, 20]], "#3d2448", 22, 6);
 };
+
+// ---- English version: sandwich box insert, an empty purse; village: a cow ----
+/** open sandwich box: triangle sandwiches, an apple, the twenty and the lucky penny on top; 900 x 700 */
+export const insertSandwich = (p: Pen, k: number) => {
+  p.poly(rrect(60, 120, 840, 660, 50), "#5aa0d8", 10);
+  p.poly(rrect(95, 155, 805, 625, 36), "#e8f3fb", 6);
+  for (const [x, y, r] of [[300, 400, -8], [520, 420, 10]] as const) {
+    p.poly([[x - 150, y + 120], [x + 150, y + 120], [x, y - 130]].map(([a, b]) => [a, b] as P2), "#f4e2b8", 9);
+    p.stroke([[x - 120, y + 80], [x + 120, y + 80]], 14, "#7fb24a");
+    void r;
+  }
+  p.ell(700, 300, 70, 66, "#d64541", 8); p.stroke([[700, 236], [710, 205]], 8, "#6b4a2e");
+  const y = 330 - 90 * (1 - k);
+  bigNote(p, 440, y, 125, -0.1, "#9b84c4");
+  p.ell(600, y + 60, 44, 44, COPPER, 7); p.ell(600, y + 60, 26, 26, null, 4);
+};
+/** an open purse, empty, seen from the front; 400 x 360 */
+export const fxPurse = (p: Pen) => {
+  p.poly([[40, 150], [360, 150], [330, 330], [70, 330]], "#8c3b4a", 10);
+  p.poly([[60, 150], [340, 150], [320, 175], [80, 175]], "#4a1f2a", 0);
+  p.arc(200, 150, 120, 110, 180, 360, 12, "#d9b45a");
+  p.dot(110, 150, 14, "#d9b45a"); p.dot(290, 150, 14, "#d9b45a");
+};
+/** a cartoon cow standing side-on (facing right); 700 x 520, feet at y = 500 */
+export const fxCow = (p: Pen, chew: number) => {
+  for (const x of [190, 250, 450, 510]) p.stroke([[x, 330], [x, 495]], 22, "#3b2f2a");
+  p.poly(rrect(130, 170, 560, 360, 90), "#efe7da", 10);
+  p.ell(280, 230, 60, 40, "#8a6a52", 0); p.ell(430, 300, 50, 32, "#8a6a52", 0);
+  p.poly(rrect(130, 170, 560, 360, 90), null, 10);
+  p.stroke([[135, 220], [95, 330]], 8, INK); p.ell(92, 340, 14, 22, "#3b2f2a", 5);
+  p.ell(600, 210, 75, 62, "#efe7da", 10);
+  p.ell(640, 245, 42, 30, "#e8a99a", 7);
+  p.dot(625, 248 + 2 * chew, 5, INK); p.dot(655, 248, 5, INK);
+  p.dot(585, 192, 8, INK);
+  p.poly([[560, 150], [540, 110], [575, 140]], "#d9cfbf", 6); p.poly([[630, 150], [655, 108], [645, 150]], "#d9cfbf", 6);
+  p.ell(520, 175, 30, 15, "#efe7da", 7, 0, 360, -30);
+};
+
+/** the cast for the rendering version */
+export const castOf = () => isEN()
+  ? { gran: GRANDMA_EN, grans: GRANDMA2_EN, driver: DRIVER_EN, mum: MUM_EN, kid: GRANDKID }
+  : { gran: GRANDMA, grans: GRANDMA2, driver: DRIVER, mum: MUM, kid: GRANDKID };

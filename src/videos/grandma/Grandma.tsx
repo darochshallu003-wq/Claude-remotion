@@ -19,6 +19,8 @@ import { LensBlur, GrainEffect } from "./lensblur";
 import { GradeEffect, GRADES, GRADE_STRENGTH, gradeFor } from "./grade";
 import { Kit } from "./build";
 import { TOTAL, FLASH_AT, SHOTS, layersAt, dofAt } from "./story";
+import { WARPS } from "./warps";
+import { Version, setVersion } from "./theme";
 
 export const GRANDMA_FRAMES = TOTAL;
 
@@ -46,8 +48,7 @@ const useKit = () => {
   return kit;
 };
 
-const Inner: React.FC<{ id: number; kit: Kit }> = ({ id, kit }) => {
-  const f = useCurrentFrame();
+const Inner: React.FC<{ id: number; kit: Kit; f: number }> = ({ id, kit, f }) => {
   const { camera, scene } = useThree();
   const world = useMemo(() => new World(kit), [kit]);
   const target = useMemo(() => new THREE.Vector3(), []);
@@ -62,7 +63,7 @@ const Inner: React.FC<{ id: number; kit: Kit }> = ({ id, kit }) => {
   }), [camera, scene]);
   useEffect(() => () => fx.ink.dispose(), [fx]);
   const post = useMemo(() => (
-    <EffectComposer multisampling={4}>
+    <EffectComposer multisampling={(getInputProps() as { post?: { msaa?: number } }).post?.msaa ?? 4}>
       {([
         on.ink ? <primitive key="ink" object={fx.ink} dispose={null} /> : null,
         on.lens && on.pre ? <primitive key="pre" object={fx.lens.pre} dispose={null} /> : null,
@@ -95,24 +96,41 @@ const Inner: React.FC<{ id: number; kit: Kit }> = ({ id, kit }) => {
 
 /** test stills only: inputProps `{ post: { dpr: 0.5 } }` forces the WebGL buffer size (R3F clamps dpr to >= 1 by default) */
 const dprOverride = () => (getInputProps() as { post?: { dpr?: number } }).post?.dpr;
-const ShotView: React.FC<{ id: number; kit: Kit; alpha: number }> = ({ id, kit, alpha }) => (
+const ShotView: React.FC<{ id: number; kit: Kit; alpha: number; f: number }> = ({ id, kit, alpha, f }) => (
   <AbsoluteFill style={{ opacity: alpha }}>
     <ThreeCanvas width={1080} height={1920} {...(dprOverride() ? { dpr: dprOverride() } : {})} shadows gl={{ antialias: false, stencil: false, powerPreference: "high-performance", toneMappingExposure: 1.0 }}
       camera={{ fov: 40, near: 0.2, far: 1500 }}>
-      <Inner id={id} kit={kit} />
+      <Inner id={id} kit={kit} f={f} />
     </ThreeCanvas>
   </AbsoluteFill>
 );
 
-export const GrandmaShort: React.FC = () => {
-  const f = useCurrentFrame();
+/** new frame -> original-timeline frame (piecewise linear through the version's word anchors) */
+const warp = (v: Version, fn: number) => {
+  const w = WARPS[v];
+  if (!w) return fn;
+  const { nf, of } = w;
+  if (fn <= nf[0]) return of[0];
+  for (let i = 1; i < nf.length; i++) if (fn <= nf[i]) return of[i - 1] + ((of[i] - of[i - 1]) * (fn - nf[i - 1])) / (nf[i] - nf[i - 1]);
+  return of[of.length - 1] + (fn - nf[nf.length - 1]);
+};
+export const framesOf = (v: Version) => WARPS[v]?.total ?? TOTAL;
+
+const makeShort = (v: Version): React.FC => () => {
+  setVersion(v);
+  const fn = useCurrentFrame();
+  const f = Math.min(TOTAL - 1, warp(v, fn));
   const kit = useKit();
   if (!kit) return null;
-  const flash = f >= FLASH_AT && f < FLASH_AT + 4 ? [1, 0.75, 0.45, 0.2][f - FLASH_AT] : 0;
+  const k = Math.floor(f - FLASH_AT);
+  const flash = k >= 0 && k < 4 ? [1, 0.75, 0.45, 0.2][k] : 0;
   return (
     <AbsoluteFill style={{ background: "#cfe3f2" }}>
-      {layersAt(f).map((l, i) => <ShotView key={i ? "over" : "base"} id={l.id} kit={kit} alpha={l.alpha} />)}
+      {layersAt(f).map((l, i) => <ShotView key={i ? "over" : "base"} id={l.id} kit={kit} alpha={l.alpha} f={f} />)}
       {flash > 0 && <AbsoluteFill style={{ background: "#ffffff", opacity: flash }} />}
     </AbsoluteFill>
   );
 };
+export const GrandmaShort = makeShort("grandma");
+export const DadiShort = makeShort("dadi");
+export const GrandmaEnShort = makeShort("grandma_en");
