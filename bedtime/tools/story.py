@@ -13,6 +13,21 @@ VOICES = {
     "M": ("en-US-JennyNeural", "-22%", "-8Hz"),   # the Moon
 }
 
+TEXT = dict(
+    project="moonlight",
+    lang="en",
+    font_family="Fraunces",
+    font_link="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&display=block",
+    extra_css="",
+    t_small="a bedtime story",
+    t_big="Bramble",
+    t_sub="and the Little Lost Star",
+    end_title="The End",
+    end_sub="sweet dreams",
+    end_credit="Bramble and the Little Lost Star",
+    chapters_file="youtube-chapters.txt",
+)
+
 STORY = [
     dict(id="title", chapter="Title",
          cap="",

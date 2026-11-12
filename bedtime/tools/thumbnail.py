@@ -1,6 +1,6 @@
 """Render the YouTube thumbnail (1280x720 PNG) from the film's own artwork.
 
-Usage: python3 tools/thumbnail.py
+Usage: python3 tools/thumbnail.py [lang]   (lang: en (default) or hi)
 Builds thumbnail/thumbnail.html from the art functions in tools/template.html,
 then screenshots it with the pre-installed Playwright Chromium.
 """
@@ -8,10 +8,21 @@ then screenshots it with the pre-installed Playwright Chromium.
 import os
 import re
 import subprocess
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, "thumbnail")
+LANG = sys.argv[1] if len(sys.argv) > 1 else "en"
+L = {
+    "en": dict(fonts='''@font-face { font-family: "Thumb"; src: url("fonts/Fraunces-700.woff2") format("woff2"); font-weight: 700; }
+@font-face { font-family: "Thumb"; src: url("fonts/Fraunces-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }''',
+               css="", pill="a bedtime story", big="Bramble", sub="and the Little<br/>Lost Star", out="youtube-thumbnail.png"),
+    "hi": dict(fonts='''@font-face { font-family: "Thumb"; src: url("fonts/Baloo2.woff2") format("woff2"); font-weight: 400 800; }''',
+               css=".pill,.sub{font-style:normal}.pill{font-size:44px;font-weight:600}.big{font-size:210px;line-height:1.15;font-weight:800}"
+                   ".sub{font-size:88px;line-height:1.15;font-weight:700}",
+               pill="सोने से पहले की कहानी", big="ब्रैम्बल", sub="और खोई हुई<br/>नन्ही तारिका", out="youtube-thumbnail-hindi.png"),
+}[LANG]
 
 tpl = open(os.path.join(HERE, "template.html")).read()
 defs = re.search(r"<defs>.*?</defs>", tpl, re.S).group(0)
@@ -20,11 +31,10 @@ art = tpl[tpl.index("      function starPath"):tpl.index("      // =====", tpl.i
 page = f"""<!doctype html>
 <html><head><meta charset="utf-8" />
 <style>
-@font-face {{ font-family: "FrauncesThumb"; src: url("fonts/Fraunces-700.woff2") format("woff2"); font-weight: 700; }}
-@font-face {{ font-family: "FrauncesThumb"; src: url("fonts/Fraunces-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }}
+{L["fonts"]}
 html, body {{ margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0b0e30; }}
 #stage {{ position: relative; width: 1920px; height: 1080px;
-  background: radial-gradient(ellipse at 70% 30%, #2c3280 0%, #1a1f5c 45%, #0b0e30 100%); font-family: "FrauncesThumb", Georgia, serif; }}
+  background: radial-gradient(ellipse at 70% 30%, #2c3280 0%, #1a1f5c 45%, #0b0e30 100%); font-family: "Thumb", Georgia, serif; }}
 svg {{ position: absolute; inset: 0; }}
 .title {{ position: absolute; left: 90px; top: 70px; color: #fff4d6; }}
 .pill {{ display: inline-block; padding: 12px 34px; border-radius: 999px; background: #ffd36b; color: #241a4a;
@@ -33,10 +43,11 @@ svg {{ position: absolute; inset: 0; }}
   text-shadow: 0 6px 0 #241a4a, 0 0 60px rgba(255, 211, 107, 0.45); }}
 .sub {{ font-size: 92px; font-style: italic; font-weight: 400; color: #ffd36b; margin-top: 6px;
   text-shadow: 0 4px 0 #241a4a; }}
+{L["css"]}
 </style></head>
 <body><div id="stage">
 <svg width="1920" height="1080" viewBox="0 0 1920 1080">{defs}<g id="art"></g></svg>
-<div class="title"><div class="pill">a bedtime story</div><div class="big">Bramble</div><div class="sub">and the Little<br/>Lost Star</div></div>
+<div class="title"><div class="pill">{L["pill"]}</div><div class="big">{L["big"]}</div><div class="sub">{L["sub"]}</div></div>
 </div>
 <script>
 const P = (n) => (+n).toFixed(1);
@@ -61,7 +72,7 @@ document.getElementById("art").innerHTML = stars + moon +
   `<g transform="translate(1440 540) rotate(10) scale(2.3)">${{starM("pip", false)}}</g>`;
 </script></body></html>"""
 os.makedirs(OUT, exist_ok=True)
-html_path = os.path.join(OUT, "thumbnail.html")
+html_path = os.path.join(OUT, "thumbnail.html" if LANG == "en" else f"thumbnail-{LANG}.html")
 open(html_path, "w").write(page)
 
 shot = os.path.join(OUT, "thumbnail-1920.png")
@@ -78,7 +89,7 @@ const {{ chromium }} = require('playwright');
 }})();
 """
 subprocess.run(["node", "-e", js], check=True)
-final = os.path.join(ROOT, "youtube-thumbnail.png")
+final = os.path.join(ROOT, L["out"])
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", shot, "-vf", "scale=1280:720:flags=lanczos", final], check=True)
 os.remove(shot)
 print("wrote", final)

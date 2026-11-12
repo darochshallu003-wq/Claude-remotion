@@ -1,6 +1,6 @@
 """Assemble the HyperFrames composition from the story and its narration.
 
-Usage: python3 tools/build.py
+Usage: python3 tools/build.py [lang]   (lang: en (default) or hi)
 Reads tools/story.py, tools/template.html and moonlight/assets/vo/words.json
 (from tools/vo.py), then writes:
   moonlight/index.html        — the composition, with every clip timed to the voice
@@ -9,6 +9,8 @@ Reads tools/story.py, tools/template.html and moonlight/assets/vo/words.json
 """
 
 import html
+import importlib
+import unicodedata
 import json
 import os
 import re
@@ -17,9 +19,12 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-PROJ = os.path.join(ROOT, "moonlight")
 sys.path.insert(0, HERE)
-from story import STORY  # noqa: E402
+LANG = sys.argv[1] if len(sys.argv) > 1 else "en"
+_story = importlib.import_module("story" if LANG == "en" else "story_" + LANG)
+STORY, TEXT = _story.STORY, _story.TEXT
+PROJ = os.path.join(ROOT, TEXT["project"])
+CUES = {s["id"]: s.get("cues", {}) for s in STORY}
 
 LEAD = 0.6   # silence before the voice starts in a scene
 TAIL = 1.0   # pause after the voice ends
@@ -27,10 +32,14 @@ XFADE = 1.0  # each clip runs this long into the next scene while it fades in
 
 
 def norm(w):
-    return re.sub(r"[^a-z0-9']", "", w.lower().replace("’", "'"))
+    w = w.lower().replace("’", "'")
+    return "".join(c for c in w if c == "'" or unicodedata.category(c)[0] in "LMN")
 
 
-def word_time(words, start, word, n=1):
+def word_time(words, start, word, n=1, scene=None):
+    cue = CUES.get(scene, {}).get(word if n == 1 else f"{word}:{n}")
+    if cue:
+        word, n = cue
     for w, t in words:
         if norm(w) == norm(word):
             n -= 1
@@ -79,12 +88,12 @@ def main():
         clip_dur = s["dur"] if last else s["dur"] + XFADE
         inner = f'<svg viewBox="0 0 1920 1080"><g id="art-{s["id"]}"></g></svg>'
         if s["id"] == "title":
-            inner += ('<div class="title-wrap"><div class="t-small">a bedtime story</div>'
-                      '<div class="t-big">Bramble</div><div class="t-sub">and the Little Lost Star</div></div>')
+            inner += (f'<div class="title-wrap"><div class="t-small">{TEXT["t_small"]}</div>'
+                      f'<div class="t-big">{TEXT["t_big"]}</div><div class="t-sub">{TEXT["t_sub"]}</div></div>')
         elif s["id"] == "end":
-            inner = ('<div class="end-wrap"><div class="end-title">The End</div>'
-                     '<div class="end-sub">sweet dreams</div>'
-                     '<div class="end-credit">Bramble and the Little Lost Star</div></div>')
+            inner = (f'<div class="end-wrap"><div class="end-title">{TEXT["end_title"]}</div>'
+                     f'<div class="end-sub">{TEXT["end_sub"]}</div>'
+                     f'<div class="end-credit">{TEXT["end_credit"]}</div></div>')
         if s["cap"]:
             inner += f'<div class="shade"></div><div class="cap" id="cap-{s["id"]}">{caption_html(s["cap"])}</div>'
         blocks.append(
@@ -104,9 +113,14 @@ def main():
         total=total,
         scenes=[{k: s[k] for k in ("id", "start", "dur", "vo", "vodur")} for s in scenes],
         words={s["id"]: words[s["id"]] for s in scenes},
+        cues={k: v for k, v in CUES.items() if v},
     )
     tpl = open(os.path.join(HERE, "template.html")).read()
     out = (tpl.replace("__TOTAL__", str(total))
+              .replace("__LANG__", TEXT["lang"])
+              .replace("__FONT_LINK__", TEXT["font_link"])
+              .replace("__FONT_FAMILY__", TEXT["font_family"])
+              .replace("__EXTRA_CSS__", TEXT["extra_css"])
               .replace("__SCENES__", "\n".join(blocks))
               .replace("__AUDIO__", "\n".join(audio))
               .replace("__DATA__", json.dumps(data, separators=(",", ":"))))
@@ -115,17 +129,17 @@ def main():
     # Music: sparkle chimes on the star's big moments.
     by = {s["id"]: s for s in scenes}
     sparkles = [
-        word_time(words["plink"], by["plink"]["vo"], "plink"),
-        word_time(words["stones"], by["stones"]["vo"], "brightest"),
-        word_time(words["home"], by["home"]["vo"], "sparkled"),
-        word_time(words["wave"], by["wave"]["vo"], "twinkled"),
+        word_time(words["plink"], by["plink"]["vo"], "plink", scene="plink"),
+        word_time(words["stones"], by["stones"]["vo"], "brightest", scene="stones"),
+        word_time(words["home"], by["home"]["vo"], "sparkled", scene="home"),
+        word_time(words["wave"], by["wave"]["vo"], "twinkled", scene="wave"),
     ]
     subprocess.run([sys.executable, os.path.join(HERE, "lullaby.py"), os.path.join(PROJ, "assets", "lullaby.wav"),
                     str(total), json.dumps(sparkles)], check=True)
 
     lines = [f"{fmt(s['start'])} {s['chapter']}" for s in scenes if s["chapter"]]
     lines[0] = "0:00 " + lines[0].split(" ", 1)[1]
-    open(os.path.join(ROOT, "youtube-chapters.txt"), "w").write("\n".join(lines) + "\n")
+    open(os.path.join(ROOT, TEXT["chapters_file"]), "w").write("\n".join(lines) + "\n")
 
     for s in scenes:
         print(f"{s['id']:<12} {fmt(s['start']):>5}  {s['dur']:5.2f}s")

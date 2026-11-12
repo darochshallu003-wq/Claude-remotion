@@ -1,7 +1,7 @@
 """Generate the story narration with edge-tts: one clip per scene, built from
 per-voice segments, plus word timings for the read-along captions.
 
-Usage: python3 tools/vo.py <out_dir>
+Usage: python3 tools/vo.py <out_dir> [lang]   (lang: en (default) or hi)
 Writes <out_dir>/<scene>.mp3 and <out_dir>/words.json
 ({scene: [[word, seconds], ...], scene_dur: seconds}).
 Segments are cached in <out_dir>/seg/ by a hash of voice + text.
@@ -19,7 +19,11 @@ import edge_tts
 from edge_tts import communicate
 
 sys.path.insert(0, os.path.dirname(__file__))
-from story import STORY, VOICES  # noqa: E402
+import importlib  # noqa: E402
+
+LANG = sys.argv[2] if len(sys.argv) > 2 else "en"
+_story = importlib.import_module("story" if LANG == "en" else "story_" + LANG)
+STORY, VOICES = _story.STORY, _story.VOICES
 
 # Trust the environment's CA bundle (edge-tts pins certifi by default).
 _ca = os.environ.get("SSL_CERT_FILE") or "/root/.ccr/ca-bundle.crt"

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-resolution="landscape">
+<html lang="__LANG__" data-resolution="landscape">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&display=block"
+      href="__FONT_LINK__"
     />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
     <style>
@@ -15,7 +15,7 @@
         --ground: #0d1033;
         --ink: #fff4d6;
         --gold: #ffd36b;
-        --font-display: "Fraunces", "Liberation Serif", Georgia, serif;
+        --font-display: "__FONT_FAMILY__", "Liberation Serif", Georgia, serif;
       }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
@@ -44,6 +44,7 @@
       .end-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ink); text-align: center; }
       .end-title { font-size: 150px; font-weight: 700; font-style: italic; opacity: 0; text-shadow: 0 0 40px rgba(255,211,107,0.35); }
       .end-sub { margin-top: 10px; font-size: 50px; font-style: italic; font-weight: 400; color: #c9c6f2; opacity: 0; }
+      __EXTRA_CSS__
       .end-credit { margin-top: 70px; font-size: 32px; font-weight: 400; color: #9d9ad0; opacity: 0; letter-spacing: 0.03em; }
     </style>
   </head>
@@ -1122,7 +1123,7 @@ __AUDIO__
       tl.fromTo($("moon"), { y: 50 }, { y: 0, duration: 10, ease: "sine.out" }, 0);
       tl.to($("moon"), { rotation: 4, duration: 6, yoyo: true, repeat: 2 * Math.floor(TOTAL / 12) - 1, ease: "sine.inOut", transformOrigin: "50% 50%" }, 0);
 
-      const norm = (x) => x.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']/g, "");
+      const norm = (x) => x.toLowerCase().replace(/’/g, "'").replace(/[^\p{L}\p{M}\p{N}']/gu, "");
 
       DATA.scenes.forEach((sc, idx) => {
         const p = sc.id;
@@ -1132,6 +1133,10 @@ __AUDIO__
           t: sc.start, d: sc.dur, v: sc.vo, vd: sc.vodur, e: sc.start + sc.dur,
           w(word, n) {
             n = n || 1;
+            // Other languages map the English cue word to their own word.
+            const cues = (DATA.cues || {})[p] || {};
+            const cue = cues[word + ":" + n] || (n === 1 ? cues[word] : null);
+            if (cue) { word = cue[0]; n = cue[1]; }
             const target = norm(word);
             for (const [w, t] of words) if (norm(w) === target && --n === 0) return sc.vo + t;
             console.warn("word not found", p, word);
