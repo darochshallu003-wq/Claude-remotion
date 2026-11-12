@@ -8,10 +8,10 @@ const ribs = Array.from({ length: 19 }, (_, i) => `<path d="M120,${180 + i * 90}
 
 export function fridgeBack() {
   return `
-  <rect x="-200" y="-200" width="1480" height="2320" fill="#E2EFF7"/>
+  <rect x="-200" y="-200" width="1480" height="2800" fill="#E2EFF7"/>
   <g stroke="#D2E4EF" stroke-width="5">${ribs}</g>
-  <path d="M-200,-200 L120,140 L120,1780 L-200,2120 Z" fill="#CCE0EC" stroke="${INK}" stroke-width="6"/>
-  <path d="M1280,-200 L960,140 L960,1780 L1280,2120 Z" fill="#CCE0EC" stroke="${INK}" stroke-width="6"/>
+  <path d="M-200,-200 L120,140 L120,1780 L-200,2600 Z" fill="#CCE0EC" stroke="${INK}" stroke-width="6"/>
+  <path d="M1280,-200 L960,140 L960,1780 L1280,2600 Z" fill="#CCE0EC" stroke="${INK}" stroke-width="6"/>
   <path d="M120,140 L960,140" stroke="${INK}" stroke-width="6"/>
   <rect x="400" y="150" width="280" height="24" rx="12" fill="#FFFFFF" stroke="${INK}" stroke-width="6"/>`;
 }
@@ -50,7 +50,7 @@ export function midShelfFront() {
   return `<rect x="-40" y="1206" width="1160" height="36" fill="#F7FBFD" stroke="${INK}" stroke-width="6"/>`;
 }
 
-// The crisper drawer below the stage, with a green chilli peeking out: a future cast member.
+// The crisper drawer below the stage (Mirchi lives here).
 export function crisper(p) {
   return `
   <rect x="60" y="1300" width="960" height="560" rx="34" fill="#CDEAD8" stroke="${INK}" stroke-width="6"/>
@@ -58,11 +58,6 @@ export function crisper(p) {
     <ellipse cx="220" cy="1420" rx="90" ry="46" fill="#6DBE5A" stroke="${INK}" stroke-width="5"/>
     <ellipse cx="320" cy="1400" rx="70" ry="40" fill="#5AAE48" stroke="${INK}" stroke-width="5"/>
     <ellipse cx="760" cy="1420" rx="64" ry="54" fill="#F2D640" stroke="${INK}" stroke-width="5"/>
-    <g id="${p}-mirchi">
-      <path d="M470,1440 Q520,1360 640,1372 Q560,1392 520,1448 Z" fill="#3E9B37" stroke="${INK}" stroke-width="5"/>
-      <path d="M640,1372 q14,-10 26,-2" fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>
-      <circle cx="586" cy="1386" r="6" fill="${INK}"/><circle cx="604" cy="1384" r="6" fill="${INK}"/>
-    </g>
   </g>
   <rect x="60" y="1300" width="960" height="120" rx="34" fill="#E6F5EC" opacity="0.55"/>
   <rect x="420" y="1330" width="240" height="30" rx="15" fill="#A9D3BA" stroke="${INK}" stroke-width="5"/>`;
@@ -105,4 +100,25 @@ export function fridgeDoor() {
   <rect x="900" y="280" width="46" height="420" rx="23" fill="#E9F3F0" stroke="${INK}" stroke-width="7"/>
   <rect x="900" y="1300" width="46" height="300" rx="23" fill="#E9F3F0" stroke="${INK}" stroke-width="7"/>
   <path d="M120,160 Q118,600 130,1150" fill="none" stroke="#C6EDE2" stroke-width="16" stroke-linecap="round"/>`;
+}
+
+// Bhindi's emergency torch. Its grip is at (0, 0) and it points along +x; the lens is at (74, 0).
+export function torch(p) {
+  return `<g id="${p}-torch" opacity="0">
+    <rect x="-14" y="-13" width="58" height="26" rx="8" fill="#5C6B7A" stroke="${INK}" stroke-width="5"/>
+    <path d="M44,-13 L64,-22 L74,-22 L74,22 L64,22 L44,13 Z" fill="#F2C94C" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="8" y="-17" width="14" height="8" rx="3" fill="#D7263D" stroke="${INK}" stroke-width="3"/>
+  </g>`;
+}
+
+// The torch beam: a cone and a soft spot that colour-dodge the dimmed set back to its colours.
+export function beam(p) {
+  return `<defs>
+    <radialGradient id="${p}-spot-g"><stop offset="0" stop-color="#C9BE97"/><stop offset="0.62" stop-color="#C2B68C"/>
+      <stop offset="1" stop-color="#000"/></radialGradient>
+  </defs>
+  <g id="${p}-beam" opacity="0" style="mix-blend-mode: color-dodge">
+    <polygon id="${p}-cone" points="0,0 0,0 0,0" fill="#6E6650" opacity="0.55"/>
+    <circle id="${p}-spot" cx="0" cy="0" r="150" fill="url(#${p}-spot-g)"/>
+  </g>`;
 }

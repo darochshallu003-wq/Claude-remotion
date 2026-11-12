@@ -18,7 +18,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const HF = "0.9.39";
 const GSAP = "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js";
 const SFX_SRC = path.join(process.env.HOME, ".claude/skills/media-use/audio/assets/sfx");
-const ACCENT = { tamatar: "#E8402E", aloo: "#B5702F", bhindi: "#3E9B37", mummy: "#D7263D", pizza: "#E08A1E" };
+const ACCENT = { tamatar: "#E8402E", aloo: "#B5702F", bhindi: "#3E9B37", mummy: "#D7263D", pizza: "#E08A1E", mirchi: "#2FA84F" };
 
 const ep = process.argv[2] || "ep01";
 const EPDIR = path.join(ROOT, "episodes", ep);
@@ -54,7 +54,7 @@ const shots = episode.shots.map((s) => {
     const v = vo[id];
     if (!v) throw new Error(`no voice for ${id}: run engine/voice.py ${ep}`);
     // A line never starts before the previous bubble has been on screen long enough to read.
-    const minStart = prev ? prev.start + 0.8 * (0.5 + 0.3 * prev.cap.split(/\s+/).length) : 0;
+    const minStart = prev ? prev.start + 0.95 * (0.5 + 0.3 * prev.cap.split(/\s+/).length) : 0;
     const start = ln.at ?? Math.max(minStart, cursor + (n === 0 ? 0 : ln.gap ?? 0.25));
     const end = start + v.dur;
     cursor = end;
@@ -95,24 +95,33 @@ const capHTML = (cap) => esc(cap).replace(/\b([A-Z][A-Z!?']{2,}(?:\s[A-Z][A-Z!?'
 function world(s) {
   const p = s.id;
   if (s.world === "door") return stage.fridgeDoor() + (s.svg || "");
-  const chars = Object.keys(s.cast || {})
-    .map((w) => {
-      const c = (s.clip || {})[w];
-      if (!c) return drawChar(p, w);
-      return `<clipPath id="${p}-clip-${w}" clipPathUnits="userSpaceOnUse"><rect x="${c[0]}" y="${c[1]}" width="${c[2]}" height="${c[3]}"/></clipPath>
+  // Characters listed in s.front are drawn in front of the crisper drawer (they live in it).
+  const front = new Set(s.front || []);
+  const draw = (w) => {
+    const c = (s.clip || {})[w];
+    if (!c) return drawChar(p, w);
+    return `<clipPath id="${p}-clip-${w}" clipPathUnits="userSpaceOnUse"><rect x="${c[0]}" y="${c[1]}" width="${c[2]}" height="${c[3]}"/></clipPath>
       <g clip-path="url(#${p}-clip-${w})">${drawChar(p, w)}</g>`;
-    })
-    .join("\n");
+  };
+  const who = Object.keys(s.cast || {});
   return [
+    // The set is two groups (behind and in front of the gang) so a blackout can dim it.
+    `<g id="${p}-set">`,
     stage.fridgeBack(),
     stage.topShelf({ p, bottle: s.bottle !== false }),
     s.svgBack || "",
     stage.midShelf(),
-    chars,
+    `</g>`,
+    who.filter((w) => !front.has(w)).map(draw).join("\n"),
+    `<g id="${p}-set2">`,
     stage.midShelfFront(),
     stage.crisper(p),
     stage.pizzaBox(p),
+    `</g>`,
+    who.filter((w) => front.has(w)).map(draw).join("\n"),
     s.svg || "",
+    stage.torch(p),
+    stage.beam(p),
     stage.hand(p),
   ].join("\n");
 }

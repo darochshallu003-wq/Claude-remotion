@@ -17,9 +17,13 @@ OBJECTS: eggs in a tray, a steel katori of dahi, a water bottle, the crisper wit
 MOTION:  mood changes go through a take (squash 0.08 s, elastic settle 0.5 s); hops anticipate,
          stretch and land with squash; arms on back.out(2); camera cuts are hard, punch-ins 0.35–0.55 s
          power3.inOut; nobody moves in unison (offsets 0.05–0.12 s).
-SHOTS:   ep01 — s1 freeze + title · s2 Sunday panic · s3 the plan, OPERATION SADDA HUA slam ·
-         s4 three disguise close-ups · s5 the door opens, the hand plucks the raisin, "Sab fresh hain… mix veg!" ·
-         s6 "hum teeno saath" — Team Fridge Gang · s7 pizza moves in · s8 magnet end card.
+SHOTS:   ep01 "Bijli Gayi!" — s1 "Aloo kachaloo" sing-song, power cut, six eyes blink in the dark, title ·
+         s2 the emergency torch lands on Aloo's face: "BHOOT!" · s3 Aloo's scary story, the Garam Masala
+         Monster as a shadow on the wall · s4 eyes in the crisper drawer (only the audience sees them),
+         then right next to Tamatar: SCREAM, hide, faint, torch flies · s5 it's Mirchi; the sneeze ·
+         s6 friends, power's back · s7 the door opens, Mirchi doesn't know the freeze rule · s8 end card.
+         Power cut look: set and bodies at brightness 0.2 / saturate 0.55, faces untouched (eyes glow);
+         the torch spot colour-dodges the set back to its own colours.
 BANNED:  dark void, glow and particles, gradients, cream paper + serif, everything centred and
          fading up, titles that drift after landing, logo docked in a corner, a sign repeating
          what the action already shows.

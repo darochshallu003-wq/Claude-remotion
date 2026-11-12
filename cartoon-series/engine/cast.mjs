@@ -12,6 +12,7 @@ export const VOICES = {
   bhindi: { voice: "hi-IN-SwaraNeural", pitch: "+14Hz", rate: "+10%" },
   mummy: { voice: "hi-IN-SwaraNeural", pitch: "-6Hz", rate: "+4%" },
   pizza: { voice: "hi-IN-MadhurNeural", pitch: "-35Hz", rate: "-18%" },
+  mirchi: { voice: "hi-IN-SwaraNeural", pitch: "+48Hz", rate: "+4%" },
 };
 
 // Mouth shapes, centred on the mouth anchor. [d, filled]
@@ -80,7 +81,7 @@ const feet = (dx, c = INK) => `
   <ellipse cx="${-dx}" cy="-10" rx="34" ry="15" fill="${c}"/>
   <ellipse cx="${dx}" cy="-10" rx="34" ry="15" fill="${c}"/>`;
 
-const face = (p, who, f) => `
+const face = (p, who, f) => `</g><g id="${p}-${who}-face">
   ${eye(p, who, "L", { ...f.eye, x: -f.eye.dx, body: f.body })}
   ${eye(p, who, "R", { ...f.eye, x: f.eye.dx, body: f.body })}
   <g transform="translate(${f.mouth.x},${f.mouth.y}) scale(${f.mouth.s})">
@@ -171,6 +172,31 @@ export const CAST = {
         sweat: [58, -470],
       })}`,
   },
+  mirchi: {
+    name: "Mirchi",
+    height: 250,
+    headTop: -300,
+    body: "#2FA84F",
+    draw: (p) => `
+      ${feet(24, "#1F6B34")}
+      ${arm(p, "mirchi", "L", { x: 44, y: -128, len: 62, bend: 18, hand: 12 })}
+      ${arm(p, "mirchi", "R", { x: 44, y: -128, len: 62, bend: 18, hand: 12 })}
+      <path d="M-46,-214 Q-58,-120 -40,-58 Q-26,-14 4,-12 Q40,-10 56,-36 Q70,-56 84,-44 Q92,-34 82,-22
+        Q60,8 8,10 Q-56,10 -64,-60 Q-74,-140 -50,-226 Z" fill="#2FA84F" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M-50,-226 Q-40,-250 0,-252 Q40,-250 50,-224 Q60,-130 44,-60 Q36,-30 4,-12" fill="#2FA84F" stroke="${INK}" stroke-width="7"/>
+      <path d="M30,-200 Q44,-130 30,-70" fill="none" stroke="#7FD38F" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+      <path d="M-44,-236 Q0,-268 46,-236 Q30,-222 0,-224 Q-30,-222 -44,-236 Z" fill="#1F6B34" stroke="${INK}" stroke-width="5"/>
+      <path d="M2,-256 Q0,-290 26,-304" fill="none" stroke="${INK}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M26,-304 q14,-6 22,4 q-12,8 -22,-4 Z" fill="#7CC456" stroke="${INK}" stroke-width="4"/>
+      <ellipse cx="-34" cy="-128" rx="13" ry="8" fill="#F58FA0" opacity="0.85"/>
+      <ellipse cx="34" cy="-128" rx="13" ry="8" fill="#F58FA0" opacity="0.85"/>
+      ${face(p, "mirchi", {
+        body: "#2FA84F",
+        eye: { dx: 22, y: -168, rx: 19, ry: 24, pr: 10 },
+        mouth: { x: 0, y: -118, s: 0.62 },
+        sweat: [48, -220],
+      })}`,
+  },
   pizza: {
     name: "Pizza",
     height: 300,
@@ -204,6 +230,6 @@ export const CAST = {
 export function drawChar(p, who) {
   const c = CAST[who];
   return `<g id="${p}-${who}" class="ch" data-who="${who}">
-    <g id="${p}-${who}-sz"><g id="${p}-${who}-pose"><g id="${p}-${who}-sq"><g id="${p}-${who}-br">${c.draw(p)}</g></g></g></g>
+    <g id="${p}-${who}-sz"><g id="${p}-${who}-pose"><g id="${p}-${who}-sq"><g id="${p}-${who}-br"><g id="${p}-${who}-body">${c.draw(p)}</g></g></g></g></g>
   </g>`;
 }

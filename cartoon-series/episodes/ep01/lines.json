@@ -2,23 +2,55 @@
  {
   "id": "s1-0",
   "who": "tamatar",
-  "say": "फ़्यू… बच गए!",
+  "say": "आलू कचालू बेटा कहाँ गए थे?",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
  },
  {
-  "id": "s2-0",
+  "id": "s1-1",
+  "who": "bhindi",
+  "say": "बैंगन की टोकरी में सो रहे थे!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s1-2",
+  "who": "aloo",
+  "say": "मैं किसी टोकरी में नहीं सोया।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s1-3",
   "who": "tamatar",
-  "say": "Guys… आज Sunday है!",
+  "say": "ये… क्या हुआ?",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
+ },
+ {
+  "id": "s1-4",
+  "who": "aloo",
+  "say": "बिजली गई।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s2-0",
+  "who": "bhindi",
+  "say": "घबराओ मत! मेरे पास है… emergency torch!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
  },
  {
   "id": "s2-1",
   "who": "tamatar",
-  "say": "Mummy सब्ज़ी बनाएँगी… और सबसे पहले मुझे उठाएँगी!",
+  "say": "आआआह! भूत!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
@@ -26,47 +58,55 @@
  {
   "id": "s2-2",
   "who": "aloo",
-  "say": "तो? मैं तो हर सब्ज़ी में होता हूँ। Chill.",
+  "say": "मैं हूँ। आलू।",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "-22Hz",
   "rate": "-12%"
  },
  {
   "id": "s2-3",
-  "who": "bhindi",
-  "say": "Chill नहीं। Plan चाहिए।",
-  "voice": "hi-IN-SwaraNeural",
-  "pitch": "+14Hz",
-  "rate": "+10%"
- },
- {
-  "id": "s3-0",
-  "who": "bhindi",
-  "say": "जो सबसे बेकार दिखेगा… उसे कोई नहीं उठाएगा।",
-  "voice": "hi-IN-SwaraNeural",
-  "pitch": "+14Hz",
-  "rate": "+10%"
- },
- {
-  "id": "s3-1",
   "who": "tamatar",
-  "say": "मतलब… हम ख़राब बन जाएँ?!",
+  "say": "मुझे डर नहीं लगता! बस… थोड़ी गर्मी लग रही है।",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
  },
  {
+  "id": "s3-0",
+  "who": "aloo",
+  "say": "तो सुनो… एक डरावनी कहानी।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s3-1",
+  "who": "aloo",
+  "say": "इस fridge में रहता है… गरम मसाला monster!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
   "id": "s3-2",
-  "who": "bhindi",
-  "say": "बिल्कुल। Operation… सड़ा हुआ!",
-  "voice": "hi-IN-SwaraNeural",
-  "pitch": "+14Hz",
-  "rate": "+10%"
+  "who": "aloo",
+  "say": "जो उसके पास जाए… उसकी आँखों में आँसू आ जाते हैं!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s3-3",
+  "who": "aloo",
+  "say": "और वो रहता है… नीचे… crisper drawer में।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
  },
  {
   "id": "s4-0",
   "who": "tamatar",
-  "say": "देखो! मैं तो सड़ गया!",
+  "say": "वहाँ… कुछ नहीं है। है ना?",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
@@ -74,95 +114,151 @@
  {
   "id": "s4-1",
   "who": "bhindi",
-  "say": "और मैं… मुरझा गई।",
+  "say": "सब ठीक है। सिर्फ़ कहानी थी।",
   "voice": "hi-IN-SwaraNeural",
   "pitch": "+14Hz",
   "rate": "+10%"
  },
  {
   "id": "s4-2",
-  "who": "aloo",
-  "say": "मैं तो… already उग रहा हूँ।",
-  "voice": "hi-IN-MadhurNeural",
-  "pitch": "-22Hz",
-  "rate": "-12%"
- },
- {
-  "id": "s5-0",
-  "who": "mummy",
-  "say": "अरे! सारी सब्ज़ी ख़राब हो गई?!",
+  "who": "mirchi",
+  "say": "Hello…?",
   "voice": "hi-IN-SwaraNeural",
-  "pitch": "-6Hz",
+  "pitch": "+48Hz",
   "rate": "+4%"
  },
  {
-  "id": "s5-1",
-  "who": "mummy",
-  "say": "एक मिनट… ये तो किशमिश है!",
-  "voice": "hi-IN-SwaraNeural",
-  "pitch": "-6Hz",
-  "rate": "+4%"
- },
- {
-  "id": "s5-2",
-  "who": "mummy",
-  "say": "सब fresh हैं! शाम को बनेगी… mix veg!",
-  "voice": "hi-IN-SwaraNeural",
-  "pitch": "-6Hz",
-  "rate": "+4%"
- },
- {
-  "id": "s6-0",
+  "id": "s4-3",
   "who": "tamatar",
-  "say": "Mix veg… मतलब हम तीनों साथ?!",
+  "say": "आआआआआह!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
  },
  {
-  "id": "s6-1",
+  "id": "s5-0",
+  "who": "mirchi",
+  "say": "डरो मत… मैं monster नहीं हूँ। मैं मिर्ची हूँ।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-1",
+  "who": "mirchi",
+  "say": "अँधेरे में… मुझे अकेले डर लग रहा था।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-2",
+  "who": "tamatar",
+  "say": "तुम… गरम मसाला monster नहीं हो?",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s5-3",
+  "who": "mirchi",
+  "say": "मैं तो बस… थोड़ी सी तीखी हूँ।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-4",
+  "who": "mirchi",
+  "say": "आ… आ… आच्छू!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-5",
+  "who": "tamatar",
+  "say": "थोड़ी सी?!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s5-6",
+  "who": "aloo",
+  "say": "Monster… गया क्या?",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s6-0",
   "who": "bhindi",
-  "say": "तीनों साथ? फिर तो हम superstar!",
+  "say": "मिर्ची, तुम हमारे साथ रहो ना!",
   "voice": "hi-IN-SwaraNeural",
   "pitch": "+14Hz",
   "rate": "+10%"
  },
  {
-  "id": "s6-2",
-  "who": "tamatar",
-  "say": "Team… Fridge Gang!",
-  "voice": "hi-IN-MadhurNeural",
-  "pitch": "+38Hz",
-  "rate": "+12%"
+  "id": "s6-1",
+  "who": "mirchi",
+  "say": "सच्ची?!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
  },
  {
-  "id": "s6-3",
+  "id": "s6-2",
   "who": "aloo",
-  "say": "मैंने बोला था… chill.",
+  "say": "ठीक है। पर अगली कहानी… funny वाली।",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "-22Hz",
   "rate": "-12%"
  },
  {
-  "id": "s7-0",
-  "who": "pizza",
-  "say": "Hello… नए पड़ोसियो।",
-  "voice": "hi-IN-MadhurNeural",
-  "pitch": "-35Hz",
-  "rate": "-18%"
- },
- {
-  "id": "s7-1",
+  "id": "s6-3",
   "who": "tamatar",
-  "say": "ये… कौन है?",
+  "say": "बिजली आ गई!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
  },
  {
+  "id": "s7-0",
+  "who": "bhindi",
+  "say": "मिर्ची… freeze!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s7-1",
+  "who": "mummy",
+  "say": "अरे! मेरा torch यहाँ कैसे आया?",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "-6Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s7-2",
+  "who": "mirchi",
+  "say": "वाह! ये तो मज़ेदार game है!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+48Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s7-3",
+  "who": "aloo",
+  "say": "Fridge Gang में… स्वागत है।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
   "id": "s8-0",
   "who": "tamatar",
-  "say": "ये नया पड़ोसी कौन है? अगले episode में मिलते हैं!",
+  "say": "अगले episode में मिलते हैं!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"

@@ -7,8 +7,8 @@ vegetables come alive whenever the door is shut. Every episode builds in two for
 
 | | Episode | Status |
 | --- | --- | --- |
-| 1 | **Sabzi Kaun Banega?** — it's Sunday; the gang fakes being rotten so Mummy won't cook them. Mummy finds the raisin stuck on Tamatar: they're all fresh, and tonight is mix veg. Being cooked together turns out to be the best plan. Then a pizza slice moves in. (77 s) | wide: `episodes/ep01/wide/renders/fridge-gang-ep01-wide.mp4` · vertical: `episodes/ep01/renders/fridge-gang-ep01.mp4` |
-| 2 | *open* — set up by Ep 1: Pizza, the cool new neighbour (and Mirchi, peeking out of the crisper) | — |
+| 1 | **Bijli Gayi!** — the gang is singing "Aloo kachaloo" when the power cuts out. Bhindi's emergency torch, Aloo's scary story about the Garam Masala Monster, eyes in the crisper drawer… and the "monster" is Mirchi, a tiny chilli scared of the dark. The power comes back, Mummy opens the door, and the new girl learns the gang's rule: when the light comes on, FREEZE. (1:44) | wide: `episodes/ep01/wide/renders/fridge-gang-ep01-wide.mp4` · vertical: `episodes/ep01/renders/fridge-gang-ep01.mp4` |
+| 2 | **Fridge Ka Raja** (teased on the Ep 1 end card) — a show-off pizza slice moves in and declares himself king | — |
 
 ## The cast (`engine/cast.mjs`)
 
@@ -18,11 +18,15 @@ vegetables come alive whenever the door is shut. Every episode builds in two for
 | **Aloo** | lazy, unbothered — "main toh har sabzi mein hota hoon"; wins by doing nothing | Madhur, pitched down, slow |
 | **Bhindi** | the schemer with a bindi; names every plan "Operation …" | Swara |
 | **Mummy** | only her hand (red and gold bangles) and her voice; the gang's weather | Swara |
-| **Pizza** | sunglasses, smooth talker, new in Ep 1 | Madhur, deep and slow |
-| **Mirchi** | hidden in the crisper drawer in Ep 1: a future episode's cast | — |
+| **Mirchi** | tiny, shy, *thodi si* teekhi; lived alone in the crisper drawer until Ep 1; her sneeze makes everyone cry | Swara, pitched high |
+| **Pizza** | sunglasses, smooth talker; Ep 2's show-off | Madhur, deep and slow |
 
 Series rules: the gang freezes whenever the light comes on; Mummy is never seen above the wrist;
 every episode ends on the fridge door with magnet letters and a tease of the next episode.
+
+Story rules (learned the hard way: the first Ep 1 was three vegetables standing still and talking):
+every episode has one clear want, an obstacle that gets worse three times, physical comedy on
+screen (running, hiding, fainting, sneezing), and an ending the gang causes themselves.
 
 Made for kids: vegetables are the heroes and food is never the joke's loser; nobody is mean
 for long; no "subscribe or else" pressure, no links, no handles in the picture; the end card
@@ -47,7 +51,9 @@ An episode is a list of shots. Each shot has a cast with marks, its lines (`say`
 Devanagari + English, `cap` is the speech bubble; CAPS words take the speaker's colour), sound
 effects, and an `act(R, L)` function that animates the rig: `R.hop`, `R.arm`, `R.lean`, `R.mood`
 (`normal happy scared sad sleepy sly angry shock cool droop`), `R.look`, `R.shake`, `R.sweat`,
-`R.cam` (punch-ins), `R.light` (door open/shut), `R.slam` (title words). Lip-sync, blinks, breathing,
+`R.walk`, `R.faint`/`R.getUp`, `R.cam` (punch-ins), `R.light` (door open/shut), `R.blackout`
+(power cut: the set and bodies go dark, only the eyes stay bright), `R.aim`/`R.beamOn` (the torch),
+`R.slam` (title words). Lip-sync, blinks, breathing,
 eyes-on-the-speaker, bubble placement and the hand-drawn line boil are automatic. Lines are timed by
 the voice, so changing a line never breaks the timing. Direct every shot in vertical terms; the wide
 build re-frames each camera move for 16:9 automatically (wide shots centre on the gang, close-ups

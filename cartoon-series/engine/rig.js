@@ -194,6 +194,78 @@ function makeRig(P, tl) {
     tl.to(words, { scale: 0.7, opacity: 0, duration: 0.16, ease: "power2.in", stagger: 0.03 }, t + hold);
   };
 
+  // ---------- power cut: the set and every body dim, the faces (eyes) stay bright ----------
+  const DIM = "brightness(0.2) saturate(0.55)", LIT = "brightness(1) saturate(1)";
+  const dimmable = () => [$("set"), $("set2"), ...Object.keys(R.pos).flatMap((w) => [$(w + "-body"), $(w + "-lidL"), $(w + "-lidR")])].filter(Boolean);
+  R.blackoutAt0 = () => {
+    tl.set(dimmable(), { filter: DIM }, 0);
+    tl.set($("dark"), { opacity: 0 }, 0);
+  };
+  // on: the night light sputters and dies. off: the power comes back (door still shut: night tint).
+  R.blackout = (t, on) => {
+    const els = dimmable();
+    const seq = on ? [DIM, LIT, DIM, LIT, DIM] : [LIT, DIM, LIT, DIM, LIT];
+    const at = [0, 0.09, 0.2, 0.32, 0.5];
+    seq.forEach((f, i) => tl.set(els, { filter: f }, t + at[i]));
+    if (on) tl.set($("dark"), { opacity: 0 }, t);
+    else tl.to($("dark"), { opacity: 0.45, duration: 0.3 }, t + 0.5);
+  };
+
+  // ---------- the torch ----------
+  // Where a character's hand is (world units) with that arm raised `raise` degrees.
+  R.handPos = (who, side, raise) => {
+    const a = $(who + "-arm" + side), h = a.querySelector("circle");
+    const sx = +a.dataset.sx, sy = +a.dataset.sy;
+    const vx = +h.getAttribute("cx") - sx, vy = +h.getAttribute("cy") - sy;
+    const th = ((side === "L" ? raise : -raise) * Math.PI) / 180;
+    const p = R.pos[who][R.pos[who].length - 1];
+    const sc = p.s;
+    return [p.x + sc * (sx + vx * Math.cos(th) - vy * Math.sin(th)), p.y + sc * (sy + vx * Math.sin(th) + vy * Math.cos(th))];
+  };
+  // Point the torch from grip (gx, gy) at (tx, ty) with a spot of radius r.
+  R.aim = (t, gx, gy, tx, ty, r = 150, dur = 0, ease = "power2.inOut") => {
+    const ang = Math.atan2(ty - gy, tx - gx);
+    const lx = gx + 74 * Math.cos(ang), ly = gy + 74 * Math.sin(ang);
+    const px = -Math.sin(ang) * r * 0.8, py = Math.cos(ang) * r * 0.8;
+    const pts = `${lx},${ly} ${tx + px},${ty + py} ${tx - px},${ty - py}`;
+    const deg = (ang * 180) / Math.PI;
+    const go = (el, v) => (dur <= 0 ? tl.set(el, v, t) : tl.to(el, { ...v, duration: dur, ease }, t));
+    go($("torch"), { x: gx, y: gy, rotation: deg, svgOrigin: "0 0" });
+    go($("spot"), { attr: { cx: tx, cy: ty, r } });
+    go($("cone"), { attr: { points: pts } });
+  };
+  R.beamOn = (t, on) => tl.set($("beam"), { opacity: on ? 1 : 0 }, t);
+  R.torchOn = (t, show) => tl.set($("torch"), { opacity: show ? 1 : 0 }, t);
+
+  // ---------- getting around ----------
+  // A waddle: little hops, a sway, feet on the shelf at every step.
+  R.walk = (who, t, x, dur = 0.8, hop = 16) => {
+    const p = posAt(who, t), el = $(who), br = $(who + "-br");
+    const n = Math.max(2, Math.round(dur / 0.16)), st = dur / n;
+    tl.to(el, { x, duration: dur, ease: "power1.inOut" }, t);
+    for (let k = 0; k < n; k++) {
+      tl.to(el, { y: p.y - hop, duration: st / 2, ease: "sine.out" }, t + k * st);
+      tl.to(el, { y: p.y, duration: st / 2, ease: "sine.in" }, t + k * st + st / 2);
+    }
+    tl.fromTo(br, { rotation: -5, svgOrigin: "0 0" }, { rotation: 5, duration: st, ease: "sine.inOut", yoyo: true, repeat: n - 1, svgOrigin: "0 0" }, t);
+    tl.to(br, { rotation: 0, duration: 0.15, svgOrigin: "0 0" }, t + dur);
+    R.pos[who].push({ t: t + dur * 0.5, x, y: p.y, s: p.s });
+  };
+  // Keel over sideways (deg > 0 falls to the right), and get back up.
+  // Faint: a stiff topple back, squashed flat, eyes shut.
+  R.faint = (who, t, deg = -24) => {
+    R.mood(who, t, "shock");
+    R.lean(who, t + 0.15, deg, 0.6, "bounce.out");
+    R.stretch(who, t + 0.15, 1.18, 0.72, 0.6, "bounce.out");
+    R.set(who + "-lidL", t + 0.85, { attr: { d: "M-30,-2 A30,30 0 0 1 30,-2 A30,30 0 0 1 -30,-2 Z" } });
+    R.set(who + "-lidR", t + 0.85, { attr: { d: "M-30,-2 A30,30 0 0 1 30,-2 A30,30 0 0 1 -30,-2 Z" } });
+  };
+  R.getUp = (who, t, mood = "sleepy") => {
+    R.lean(who, t, 0, 0.45, "back.out(1.6)");
+    R.stretch(who, t, 1, 1, 0.45, "back.out(1.6)");
+    R.mood(who, t + 0.2, mood);
+  };
+
   // ---------- finish: breath, blinks, lip-sync, looks, bubbles, line boil ----------
   R.finish = () => {
     const cast = Object.keys(R.pos);
