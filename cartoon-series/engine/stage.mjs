@@ -99,7 +99,7 @@ export function pizzaBox(p) {
 // End card world: the outside of the fridge door, retro mint, with a handle.
 export function fridgeDoor() {
   return `
-  <rect x="-200" y="-200" width="1480" height="2320" fill="#8FD3C1"/>
+  <rect x="-1200" y="-600" width="3480" height="3120" fill="#8FD3C1"/>
   <rect x="60" y="80" width="960" height="1760" rx="60" fill="#9EDCCB" stroke="${INK}" stroke-width="8"/>
   <path d="M60,1210 L1020,1210" stroke="${INK}" stroke-width="8"/>
   <rect x="900" y="280" width="46" height="420" rx="23" fill="#E9F3F0" stroke="${INK}" stroke-width="7"/>

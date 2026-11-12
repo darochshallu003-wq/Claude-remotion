@@ -5,7 +5,10 @@
 function makeRig(P, tl) {
   const { MOUTHS, BROWS, MOODS, CAST } = RIG_DATA;
   const $ = (id) => document.getElementById(P + "-" + id);
-  const R = { tl, P, $, D: SHOT.dur, L: SHOT.lines, pos: {}, moods: {}, cams: [], looks: {}, blinkOff: {} };
+  // Canvas: 1080x1920 (vertical) or 1920x1080 (wide). Episodes are directed in vertical terms;
+  // in wide, every camera move is re-framed for 16:9 (see R.cam).
+  const W = SHOT.w, H = SHOT.h, WIDE = W > H;
+  const R = { W, H, WIDE, tl, P, $, D: SHOT.dur, L: SHOT.lines, pos: {}, moods: {}, cams: [], looks: {}, blinkOff: {} };
 
   const rng = (seed) => () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -138,22 +141,32 @@ function makeRig(P, tl) {
   };
 
   // ---------- camera, light, props ----------
-  // Frames world point (cx, cy) at the screen point (540, 960) at scale s.
+  // Frames world point (cx, cy) at the centre of the canvas at scale s. In wide, a vertical framing
+  // becomes a tighter one on the same subject: wide shots centre on the gang, and the view never
+  // leaves the drawn set.
+  const wideFrame = (s, cx, cy) => {
+    if (RIG_DATA.WORLD === "door") return [s, 540, 760];
+    const sw = s < 1.3 ? 1.38 : Math.max(1.38, s * 0.92);
+    const cyw = s < 1.3 ? 900 : cy - 60;
+    const hw = W / 2 / sw, hh = H / 2 / sw;
+    return [sw, Math.max(-200 + hw, Math.min(1280 - hw, cx)), Math.max(-200 + hh, Math.min(2120 - hh, cyw))];
+  };
   R.cam = (t, s, cx, cy, dur = 0, ease = "power3.inOut") => {
-    const v = { x: 540 - s * cx, y: 960 - s * cy, scale: s, svgOrigin: "0 0" };
+    if (WIDE) [s, cx, cy] = wideFrame(s, cx, cy);
+    const v = { x: W / 2 - s * cx, y: H / 2 - s * cy, scale: s, svgOrigin: "0 0" };
     if (dur <= 0) tl.set($("cam"), v, t);
     else tl.to($("cam"), { ...v, duration: dur, ease }, t);
     R.cams.push({ t: t + dur, s, cx, cy });
     R.cams.sort((a, b) => a.t - b.t);
   };
   const camAt = (t) => {
-    let c = { s: 1, cx: 540, cy: 960 };
+    let c = { s: 1, cx: W / 2, cy: H / 2 };
     for (const k of R.cams) if (k.t <= t + 1e-6) c = k;
     return c;
   };
   R.toScreen = (x, y, t) => {
     const c = camAt(t);
-    return [540 + c.s * (x - c.cx), 960 + c.s * (y - c.cy), c.s];
+    return [W / 2 + c.s * (x - c.cx), H / 2 + c.s * (y - c.cy), c.s];
   };
   R.light = (t, on) => {
     const el = $("dark");
@@ -228,10 +241,16 @@ function makeRig(P, tl) {
         const head = RIG_DATA.CAST[ln.who].headTop * p.s;
         [sx, sy] = R.toScreen(p.x, p.y + head, ln.start);
       } else {
-        sx = 1060; sy = 760; // off screen to the right: Mummy at the door
+        sx = W - 20; sy = H * 0.4; // off screen to the right: Mummy at the door
       }
-      const bottom = Math.max(190 + h, Math.min(1300, sy - 40));
-      const left = Math.max(80, Math.min(1000 - w, sx - w / 2));
+      // Above the head; in wide, when there is no room above, beside the head instead.
+      const top0 = WIDE ? 40 : 190, mx = WIDE ? 100 : 80;
+      let bottom = Math.max(top0 + h, Math.min(H - (WIDE ? 80 : 620), sy - 40));
+      let left = Math.max(mx, Math.min(W - mx - w, sx - w / 2));
+      if (WIDE && sy - 40 - h < top0 && R.pos[ln.who]) {
+        bottom = Math.min(H - 80, Math.max(top0 + h, sy + h * 0.6));
+        left = sx > W / 2 ? Math.max(mx, sx - 110 - w) : Math.min(W - mx - w, sx + 110);
+      }
       b.style.left = left + "px";
       b.style.top = bottom - h + "px";
       tail.style.left = Math.max(46, Math.min(w - 46, sx - left)) + "px";

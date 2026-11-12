@@ -1,7 +1,8 @@
 # Fridge Gang — series spec
 
 GOAL:    a viewer laughs at the freeze gag, follows the plan without sound, and wants Episode 2.
-OUTPUT:  HyperFrames, 1080 x 1920, 30 fps, 55–75 s per episode.
+OUTPUT:  HyperFrames, 30 fps, two builds per script: 1920 x 1080 (YouTube Kids episode) and
+         1080 x 1920 (Shorts). Ep 1 is a 77 s pilot; later episodes aim for 3–5 min in wide.
 TIME:    the voice is the clock: each line starts 0.25–0.5 s after the last ends, never before the
          previous bubble has been up 0.8 × (0.5 s + 0.3 s a word).
 LOOK:    inside of a fridge. Back wall #E2EFF7 with ribs #D2E4EF; glass shelves #BFE3F2 with white
@@ -17,8 +18,8 @@ MOTION:  mood changes go through a take (squash 0.08 s, elastic settle 0.5 s); h
          stretch and land with squash; arms on back.out(2); camera cuts are hard, punch-ins 0.35–0.55 s
          power3.inOut; nobody moves in unison (offsets 0.05–0.12 s).
 SHOTS:   ep01 — s1 freeze + title · s2 Sunday panic · s3 the plan, OPERATION SADDA HUA slam ·
-         s4 three disguise close-ups · s5 the door opens, the hand hovers, Mummy gives up ·
-         s6 celebration · s7 pizza moves in · s8 magnet end card.
+         s4 three disguise close-ups · s5 the door opens, the hand plucks the raisin, "Sab fresh hain… mix veg!" ·
+         s6 "hum teeno saath" — Team Fridge Gang · s7 pizza moves in · s8 magnet end card.
 BANNED:  dark void, glow and particles, gradients, cream paper + serif, everything centred and
          fading up, titles that drift after landing, logo docked in a corner, a sign repeating
          what the action already shows.

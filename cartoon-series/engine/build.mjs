@@ -22,6 +22,11 @@ const ACCENT = { tamatar: "#E8402E", aloo: "#B5702F", bhindi: "#3E9B37", mummy: 
 
 const ep = process.argv[2] || "ep01";
 const EPDIR = path.join(ROOT, "episodes", ep);
+// --wide builds the 16:9 version (1920x1080) into episodes/<ep>/wide/; the default is 9:16.
+const WIDE = process.argv.includes("--wide");
+const [W, H] = WIDE ? [1920, 1080] : [1080, 1920];
+const OUT = WIDE ? path.join(EPDIR, "wide") : EPDIR;
+const TAG = WIDE ? `${ep}-wide` : ep;
 const episode = (await import(pathToFileURL(path.join(EPDIR, "episode.mjs")).href)).default;
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -68,7 +73,7 @@ const TOTAL = r3(clock);
 // ---------- scene files ----------
 const CSS = `
 #root { position: absolute; inset: 0; overflow: hidden; background: #E2EFF7; font-family: "Nunito", sans-serif; }
-#root .stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#root .stage { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; }
 #root .bub { position: absolute; left: 0; top: 0; z-index: 5; }
 #root .bub-in { position: relative; width: max-content; max-width: 820px; padding: 24px 40px 28px; background: #fff;
   border: 7px solid ${INK}; border-radius: 48px; color: ${INK}; font-weight: 900; font-size: 60px; line-height: 1.1;
@@ -79,7 +84,7 @@ const CSS = `
 ${Object.entries(ACCENT).map(([w, c]) => `#root .bub.${w} b { color: ${c}; }`).join("\n")}
 #root .bub.mummy .bub-in { background: #FFF1D6; }
 #root .bub.mummy .bub-in .tail { background: #FFF1D6; }
-#root .slam { position: absolute; left: 0; width: 1080px; text-align: center; z-index: 6; }
+#root .slam { position: absolute; left: 0; width: 100%; text-align: center; z-index: 6; }
 #root .slam span { display: inline-block; font-family: "Archivo Black", sans-serif; color: #fff; font-size: 128px;
   line-height: 1.02; letter-spacing: 0.01em; -webkit-text-stroke: 12px ${INK}; paint-order: stroke fill;
   text-shadow: 0 12px 0 ${INK}; margin: 0 14px; }
@@ -124,15 +129,15 @@ function scene(s) {
   </div>`;
     })
     .join("\n");
-  const rigData = { MOUTHS, BROWS, MOODS, CAST: Object.fromEntries(Object.entries(CAST).map(([k, v]) => [k, { headTop: v.headTop }])) };
-  const shotData = { id: p, dur: s.dur, cast: s.cast, lines: s.lines.map(({ file, ...l }) => l) };
+  const rigData = { WORLD: s.world || "fridge", MOUTHS, BROWS, MOODS, CAST: Object.fromEntries(Object.entries(CAST).map(([k, v]) => [k, { headTop: v.headTop }])) };
+  const shotData = { id: p, w: W, h: H, dur: s.dur, cast: s.cast, lines: s.lines.map(({ file, ...l }) => l) };
   const marks = Object.entries(s.cast || {})
     .map(([w, [x, y, sc = 1, flip = false]]) => `R.place(${JSON.stringify(w)}, ${x}, ${y}, ${sc}, ${flip});`)
     .join("\n      ");
   return `<template id="${p}-template">
-  <style>${CSS}${s.css || ""}</style>
-  <div id="root" data-composition-id="${p}" data-width="1080" data-height="1920" data-duration="${s.dur}">
-    <svg id="${p}-svg" class="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overflow>
+  <style>${CSS}${s.css || ""}${WIDE ? s.cssWide || "" : ""}</style>
+  <div id="root" data-composition-id="${p}" data-width="${W}" data-height="${H}" data-duration="${s.dur}">
+    <svg id="${p}-svg" class="stage" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" data-layout-allow-overflow>
       <defs>
         <filter id="${p}-boil" x="-2%" y="-2%" width="104%" height="104%">
           <feTurbulence id="${p}-turb" type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="1" result="n"/>
@@ -142,7 +147,7 @@ function scene(s) {
       <g id="${p}-cam"><g filter="url(#${p}-boil)">
 ${world(s)}
       </g></g>
-      <rect id="${p}-dark" x="0" y="0" width="1080" height="1920" fill="#1D3366" opacity="0" pointer-events="none"/>
+      <rect id="${p}-dark" x="0" y="0" width="${W}" height="${H}" fill="#1D3366" opacity="0" pointer-events="none"/>
     </svg>
 ${bubbles}
 ${s.html || ""}
@@ -173,8 +178,8 @@ ${fs.readFileSync(path.join(ROOT, "engine/rig.js"), "utf8").replace(/^/gm, "    
 `;
 }
 
-fs.mkdirSync(path.join(EPDIR, "compositions"), { recursive: true });
-for (const s of shots) fs.writeFileSync(path.join(EPDIR, "compositions", `${s.id}.html`), scene(s));
+fs.mkdirSync(path.join(OUT, "compositions"), { recursive: true });
+for (const s of shots) fs.writeFileSync(path.join(OUT, "compositions", `${s.id}.html`), scene(s));
 
 // ---------- sound: voices and effects on the root ----------
 const sfxUsed = new Set();
@@ -192,29 +197,33 @@ for (const s of shots) {
     audio.push(`    <audio id="fx-${s.id}-${k}" class="clip" src="assets/sfx/${name}.mp3" data-start="${r3(s.at + t)}" data-duration="${r3(d)}" data-track-index="${11 + (k % 3)}" data-volume="${vol}"></audio>`);
   });
 }
-fs.mkdirSync(path.join(EPDIR, "assets/sfx"), { recursive: true });
-for (const n of sfxUsed) fs.copyFileSync(path.join(SFX_SRC, `${n}.mp3`), path.join(EPDIR, "assets/sfx", `${n}.mp3`));
-fs.copyFileSync(path.join(SFX_SRC, "CREDITS.md"), path.join(EPDIR, "assets/sfx/CREDITS.md"));
+fs.mkdirSync(path.join(OUT, "assets/sfx"), { recursive: true });
+if (WIDE) {
+  fs.mkdirSync(path.join(OUT, "assets/vo"), { recursive: true });
+  for (const f of fs.readdirSync(path.join(EPDIR, "assets/vo"))) fs.copyFileSync(path.join(EPDIR, "assets/vo", f), path.join(OUT, "assets/vo", f));
+}
+for (const n of sfxUsed) fs.copyFileSync(path.join(SFX_SRC, `${n}.mp3`), path.join(OUT, "assets/sfx", `${n}.mp3`));
+fs.copyFileSync(path.join(SFX_SRC, "CREDITS.md"), path.join(OUT, "assets/sfx/CREDITS.md"));
 
 const hosts = shots
-  .map((s) => `    <div id="${s.id}" data-composition-id="${s.id}" data-composition-src="compositions/${s.id}.html" data-start="${s.at}" data-duration="${s.dur}" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>`)
+  .map((s) => `    <div id="${s.id}" data-composition-id="${s.id}" data-composition-src="compositions/${s.id}.html" data-start="${s.at}" data-duration="${s.dur}" data-track-index="1" data-track-kind="graphics" data-width="${W}" data-height="${H}"></div>`)
   .join("\n");
 
 const index = `<!doctype html>
-<html lang="hi" data-resolution="portrait">
+<html lang="hi" data-resolution="${WIDE ? "landscape" : "portrait"}">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1920" />
+    <meta name="viewport" content="width=${W}, height=${H}" />
     <title>Fridge Gang · ${esc(episode.title)}</title>
     <script src="${GSAP}"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #E2EFF7; }
+      html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; background: #E2EFF7; }
     </style>
   </head>
   <body>
     <!-- Generated by engine/build.mjs from episode.mjs. Edit episode.mjs and rebuild, or edit here in the Studio. -->
-    <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="${W}" data-height="${H}">
 ${hosts}
 ${audio.join("\n")}
     </div>
@@ -225,17 +234,17 @@ ${audio.join("\n")}
   </body>
 </html>
 `;
-fs.writeFileSync(path.join(EPDIR, "index.html"), index);
+fs.writeFileSync(path.join(OUT, "index.html"), index);
 fs.writeFileSync(
-  path.join(EPDIR, "hyperframes.json"),
+  path.join(OUT, "hyperframes.json"),
   JSON.stringify({ $schema: "https://hyperframes.heygen.com/schema/hyperframes.json", paths: { blocks: "compositions", components: "compositions/components", assets: "assets" }, media: { autoProxy: true } }, null, 2) + "\n",
 );
-fs.writeFileSync(path.join(EPDIR, "meta.json"), JSON.stringify({ id: `fridge-gang-${ep}`, name: `Fridge Gang ${ep}: ${episode.title}` }, null, 2) + "\n");
+fs.writeFileSync(path.join(OUT, "meta.json"), JSON.stringify({ id: `fridge-gang-${TAG}`, name: `Fridge Gang ${TAG}: ${episode.title}` }, null, 2) + "\n");
 fs.writeFileSync(
-  path.join(EPDIR, "package.json"),
-  JSON.stringify({ name: `fridge-gang-${ep}`, private: true, type: "module", scripts: {
+  path.join(OUT, "package.json"),
+  JSON.stringify({ name: `fridge-gang-${TAG}`, private: true, type: "module", scripts: {
     dev: `npx --yes hyperframes@${HF} preview`, check: `npx --yes hyperframes@${HF} check`,
-    render: `npx --yes hyperframes@${HF} render -o renders/fridge-gang-${ep}.mp4` } }, null, 2) + "\n",
+    render: `npx --yes hyperframes@${HF} render -o renders/fridge-gang-${TAG}.mp4` } }, null, 2) + "\n",
 );
-console.log(`${shots.length} shots, ${allLines.length} lines, ${TOTAL}s -> ${EPDIR}`);
+console.log(`${shots.length} shots, ${allLines.length} lines, ${TOTAL}s, ${W}x${H} -> ${OUT}`);
 for (const s of shots) console.log(`  ${s.id.padEnd(4)} ${String(s.at).padStart(7)}s  +${s.dur}s  ${s.name || ""}`);

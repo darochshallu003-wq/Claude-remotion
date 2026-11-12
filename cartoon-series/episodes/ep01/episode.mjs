@@ -1,6 +1,7 @@
 // Fridge Gang · Episode 1 · "Sabzi Kaun Banega?"
 // Sunday. Mummy is going to cook a sabzi. Tamatar, Aloo and Bhindi fake being rotten so she
-// picks none of them... and she orders pizza instead. Then a new neighbour moves in.
+// picks none of them... but Mummy finds the raisin stuck on Tamatar: they're all fresh, and
+// tonight is MIX VEG. Turns out being cooked together is the best plan of all. Then a pizza moves in.
 //
 // Marks: cast { who: [x, feetY, scale, flip] }. Lines: `say` is voiced (Devanagari + English),
 // `cap` is the speech bubble (CAPS words are highlighted in the speaker's colour).
@@ -12,7 +13,6 @@ const MARKS = { aloo: [292, MID], tamatar: [578, MID], bhindi: [832, MID] };
 
 export default {
   title: "Sabzi Kaun Banega?",
-  handle: "@mythmitao",
 
   // Shared moves, attached to the rig in every shot.
   helpers: (R) => {
@@ -26,6 +26,15 @@ export default {
       R.mood("aloo", t, "sleepy", false);
       R.mood("tamatar", t, "sad", false);
       R.$("aloo-extra").querySelectorAll(".sprout").forEach((el) => R.set(el, t, { scale: 1 }));
+    };
+    // Mummy saw through it: the disguises drop (Aloo's sprouts stay, he really is sprouting).
+    R.busted = (t = 0, d = 0.001) => {
+      R.set("tamatar-extra", t, { opacity: 0 });
+      R.stretch("tamatar", t, 1, 1, d);
+      R.lean("bhindi", t, 0, d);
+      R.stretch("bhindi", t, 1, 1, d);
+      R.mood("bhindi", t, "normal", false);
+      R.mood("tamatar", t, "normal", false);
     };
     R.fresh = () => {
       R.set("tamatar-extra", 0, { opacity: 0 });
@@ -48,7 +57,7 @@ export default {
   <div id="s1-sub" class="ep-sub"><span>Episode 1 · Sabzi Kaun Banega?</span></div>`,
       css: `
 #root .ep-sub span { display: inline-block; padding: 14px 40px; background: #F6C445; border: 6px solid #2A1B14; border-radius: 40px; }
-#root .ep-sub { position: absolute; left: 0; width: 1080px; top: 610px; text-align: center; z-index: 6;
+#root .ep-sub { position: absolute; left: 0; width: 100%; top: 610px; text-align: center; z-index: 6;
   font-family: "Nunito", sans-serif; font-weight: 900; font-size: 50px; color: #2A1B14; }
 `,
       act: (R, L) => {
@@ -226,7 +235,8 @@ export default {
       tail: 1.1,
       lines: [
         { who: "mummy", cap: "Arre! Saari sabzi KHARAB ho gayi?!", say: "अरे! सारी सब्ज़ी ख़राब हो गई?!" },
-        { who: "mummy", gap: 0.55, cap: "Chhodo… aaj PIZZA mangwa lete hain.", say: "छोड़ो… आज pizza मँगवा लेते हैं।" },
+        { who: "mummy", gap: 1.2, cap: "Ek minute… ye toh KISHMISH hai!", say: "एक मिनट… ये तो किशमिश है!" },
+        { who: "mummy", gap: 0.45, cap: "Sab FRESH hain! Shaam ko banegi… MIX VEG!", say: "सब fresh हैं! शाम को बनेगी… mix veg!" },
       ],
       act: (R, L) => {
         R.rotten(0);
@@ -243,46 +253,69 @@ export default {
         R.squash("aloo", 2.95, 1.16, 0.82, 0.08);
         R.handTo(3.05, -470, 790, 0.3, "back.out(2)");
         R.look("aloo", 3.0, 0, -8, 2.5);
-        // Mummy talks; the gang peeks at the door.
-        R.look("tamatar", L[0].start + 0.2, 9, -2, 3);
-        R.look("bhindi", L[0].start + 0.3, 9, -2, 3);
-        R.handTo(L[1].end + 0.1, 700, 760, 0.4, "power3.in");
-        R.light(L[1].end + 0.6, false);
+        R.look("bhindi", L[0].start + 0.3, 9, -2, 2);
+        // The hand finds the raisin on Tamatar's cheek and plucks it off.
+        const tP = L[0].end + 0.25;
+        R.handTo(tP, -100, 1070, 0.5, "power2.inOut");
+        R.look("tamatar", tP + 0.2, 6, -4, 2.5);
+        R.shake("tamatar", tP + 0.3, 0.5, 4);
+        R.handTo(tP + 0.75, -100, 1088, 0.08, "power2.in");
+        R.set("tamatar-extra", tP + 0.83, { opacity: 0 });
+        R.stretch("tamatar", tP + 0.83, 1, 1, 0.4, "elastic.out(1, 0.4)");
+        R.mood("tamatar", tP + 0.85, "shock");
+        R.handTo(tP + 0.9, -60, 960, 0.3, "power2.out");
+        // Busted. Everyone gives up the act while Mummy decides.
+        R.mood("bhindi", L[2].start + 0.2, "shock");
+        R.lean("bhindi", L[2].start + 0.25, 0, 0.4, "back.out(2)");
+        R.stretch("bhindi", L[2].start + 0.25, 1, 1, 0.4, "back.out(2)");
+        R.mood("aloo", L[2].start + 0.4, "shock");
+        R.handTo(L[2].end + 0.1, 700, 760, 0.4, "power3.in");
+        R.light(L[2].end + 0.6, false);
       },
-      sfx: (L) => [["click", 0.4, 0.5], ["whoosh-short", 0.85, 0.3], ["pop", 2.97, 0.35], ["whoosh-short", L[1].end + 0.1, 0.3],
-        ["impact-bass-2", L[1].end + 0.58, 0.3]],
+      sfx: (L) => [["click", 0.4, 0.5], ["whoosh-short", 0.85, 0.3], ["pop", 2.97, 0.35], ["pop", L[0].end + 1.1, 0.55],
+        ["whoosh-short", L[2].end + 0.1, 0.3], ["impact-bass-2", L[2].end + 0.58, 0.3]],
     },
 
     {
       id: "s6",
       bottle: false,
-      name: "celebrate",
+      name: "together",
       cast: { ...MARKS },
       light: "off",
-      lead: 0.55,
+      lead: 0.45,
       tail: 0.6,
       lines: [
-        { who: "tamatar", cap: "Operation… SUCCESSFUL!", say: "Operation… successful!", yell: true },
-        { who: "aloo", gap: 0.3, cap: "Maine bola tha… CHILL.", say: "मैंने बोला था… chill." },
+        { who: "tamatar", cap: "Mix veg… matlab hum TEENO saath?!", say: "Mix veg… मतलब हम तीनों साथ?!" },
+        { who: "bhindi", gap: 0.35, cap: "Teeno saath? Phir toh hum SUPERSTAR!", say: "तीनों साथ? फिर तो हम superstar!" },
+        { who: "tamatar", gap: 0.3, cap: "TEAM FRIDGE GANG!", say: "Team… Fridge Gang!", yell: true },
+        { who: "aloo", gap: 0.35, cap: "Maine bola tha… CHILL.", say: "मैंने बोला था… chill." },
       ],
       act: (R, L) => {
         R.rotten(0);
+        R.busted(0);
+        R.mood("aloo", 0, "shock", false);
         R.cam(0, 1.16, 562, 985);
-        R.mood("tamatar", 0.25, "happy");
-        R.arms("tamatar", 0.3, 165, 165, 0.25);
-        R.hop("tamatar", 0.3, { h: 120, dur: 0.5 });
-        R.hop("tamatar", L[0].end - 0.3, { h: 80, dur: 0.42 });
-        R.mood("bhindi", 0.35, "happy");
-        R.lean("bhindi", 0.35, 0, 0.4, "back.out(2)");
-        R.stretch("bhindi", 0.35, 1, 1, 0.4, "back.out(2)");
-        R.arms("bhindi", 0.4, 150, 150, 0.25);
-        R.hop("bhindi", 0.42, { h: 90, dur: 0.48 });
-        R.hop("aloo", 0.6, { h: 22, dur: 0.3 });
-        R.arms("aloo", L[1].start - 0.2, 155, 155, 0.45, "power2.out");
-        R.mood("bhindi", L[1].start + 0.4, "sly");
-        R.look("bhindi", L[1].start + 0.4, -5, -9, 1.5);
+        R.mood("tamatar", 0.1, "shock");
+        R.look("tamatar", L[0].start + 0.6, -7, 0, 0.8);
+        R.look("tamatar", L[0].start + 1.2, 7, 0, 0.8);
+        R.mood("bhindi", L[1].start, "happy");
+        R.arms("bhindi", L[1].start + 0.6, 150, 150, 0.25);
+        R.hop("bhindi", L[1].end - 0.5, { h: 70, dur: 0.44 });
+        R.mood("tamatar", L[1].end - 0.2, "happy");
+        R.mood("aloo", L[2].start - 0.3, "happy");
+        R.arms("tamatar", L[2].start, 165, 165, 0.25);
+        R.hop("tamatar", L[2].start + 0.05, { h: 120, dur: 0.5 });
+        R.arms("aloo", L[2].start + 0.12, 150, 150, 0.3);
+        R.hop("aloo", L[2].start + 0.2, { h: 40, dur: 0.36 });
+        R.hop("bhindi", L[2].start + 0.1, { h: 90, dur: 0.48 });
+        R.mood("aloo", L[3].start - 0.3, "sleepy");
+        R.arms("aloo", L[3].start - 0.2, 155, 155, 0.45, "power2.out");
+        R.arms("tamatar", L[3].start, 0, 0, 0.4, "power2.out");
+        R.arms("bhindi", L[3].start + 0.1, 0, 0, 0.4, "power2.out");
+        R.mood("bhindi", L[3].start + 0.4, "sly");
+        R.look("bhindi", L[3].start + 0.4, -5, -9, 1.5);
       },
-      sfx: (L) => [["pop", 0.92, 0.3]],
+      sfx: (L) => [["pop", L[1].end - 0.05, 0.3], ["impact-bass-1", L[2].start + 0.05, 0.35]],
     },
 
     {
@@ -300,6 +333,7 @@ export default {
       ],
       act: (R, L) => {
         R.rotten(0);
+        R.busted(0);
         R.noBlink("pizza");
         R.cam(0, 1.16, 562, 985);
         R.mood("pizza", 0, "cool", false);
@@ -337,7 +371,7 @@ export default {
       world: "door",
       lead: 0.5,
       tail: 1.6,
-      lines: [{ who: "tamatar", noBubble: true, cap: "Follow karo… warna Mummy humein utha legi!", say: "Follow करो… वरना Mummy हमें उठा लेंगी!" }],
+      lines: [{ who: "tamatar", noBubble: true, cap: "Ye naya padosi kaun hai? Agle episode mein milte hain!", say: "ये नया पड़ोसी कौन है? अगले episode में मिलते हैं!" }],
       html: `
   <div id="s8-logo" class="magnets">
     <span class="m c1">F</span><span class="m c2">R</span><span class="m c3">I</span><span class="m c4">D</span><span class="m c5">G</span><span class="m c1">E</span>
@@ -345,23 +379,27 @@ export default {
   </div>
   <div id="s8-note" class="note">
     <div class="n1">Episode 2 jaldi aa raha hai…</div>
-    <div class="n2">Follow karo, warna Mummy humein utha legi!</div>
-    <div class="n3">@mythmitao</div>
+    <div class="n2">Naya padosi kaun hai?</div>
   </div>`,
       css: `
 #root { background: #8FD3C1; }
-#root .magnets { position: absolute; left: 0; top: 330px; width: 1080px; text-align: center; z-index: 6; }
+#root .magnets { position: absolute; left: 0; top: 330px; width: 100%; text-align: center; z-index: 6; }
 #root .magnets .m { display: inline-block; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1.1;
   margin: 0 4px; -webkit-text-stroke: 9px #2A1B14; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(42,27,20,0.35); }
 #root .m.c1 { color: #E8402E; } #root .m.c2 { color: #F6C445; } #root .m.c3 { color: #5DAA3C; }
 #root .m.c4 { color: #3D8BE0; } #root .m.c5 { color: #F08A24; }
-#root .note { position: absolute; left: 170px; top: 780px; width: 740px; padding: 40px 44px; background: #FFF27A;
+#root .note { position: absolute; left: 50%; margin-left: -370px; top: 780px; width: 740px; padding: 40px 44px; background: #FFF27A;
   border: 6px solid #2A1B14; box-shadow: 0 14px 0 rgba(42,27,20,0.25); z-index: 6; color: #2A1B14;
   font-family: "Nunito", sans-serif; text-align: center; }
 #root .note .n1 { font-weight: 900; font-size: 46px; line-height: 1.1; }
 #root .note .n2 { font-weight: 800; font-size: 44px; line-height: 1.15; margin-top: 20px; }
-#root .note .n3 { font-weight: 900; font-size: 46px; margin-top: 24px; color: #D7263D; }`,
+`,
+      cssWide: `
+#root .magnets { top: 140px; }
+#root .magnets .m { font-size: 112px; -webkit-text-stroke: 8px #2A1B14; }
+#root .note { top: 560px; width: 660px; margin-left: -330px; }`,
       act: (R, L) => {
+        R.cam(0, 1, 540, 960);
         const ms = R.$("logo").querySelectorAll(".m");
         ms.forEach((m, i) => R.fromTo(m, 0.15 + i * 0.09,
           { y: -260, rotation: i % 2 ? 14 : -12, opacity: 0, scale: 1.3 },

@@ -1,0 +1,649 @@
+<template id="s2-template">
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #E2EFF7; font-family: "Nunito", sans-serif; }
+#root .stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+#root .bub { position: absolute; left: 0; top: 0; z-index: 5; }
+#root .bub-in { position: relative; width: max-content; max-width: 820px; padding: 24px 40px 28px; background: #fff;
+  border: 7px solid #2A1B14; border-radius: 48px; color: #2A1B14; font-weight: 900; font-size: 60px; line-height: 1.1;
+  text-align: center; box-shadow: 0 10px 0 rgba(42, 27, 20, 0.18); }
+#root .bub-in .tail { position: absolute; bottom: -27px; width: 40px; height: 40px; margin-left: -20px; background: #fff;
+  border-right: 7px solid #2A1B14; border-bottom: 7px solid #2A1B14; transform: rotate(45deg); }
+#root .bub-in span { position: relative; z-index: 1; }
+#root .bub.tamatar b { color: #E8402E; }
+#root .bub.aloo b { color: #B5702F; }
+#root .bub.bhindi b { color: #3E9B37; }
+#root .bub.mummy b { color: #D7263D; }
+#root .bub.pizza b { color: #E08A1E; }
+#root .bub.mummy .bub-in { background: #FFF1D6; }
+#root .bub.mummy .bub-in .tail { background: #FFF1D6; }
+#root .slam { position: absolute; left: 0; width: 100%; text-align: center; z-index: 6; }
+#root .slam span { display: inline-block; font-family: "Archivo Black", sans-serif; color: #fff; font-size: 128px;
+  line-height: 1.02; letter-spacing: 0.01em; -webkit-text-stroke: 12px #2A1B14; paint-order: stroke fill;
+  text-shadow: 0 12px 0 #2A1B14; margin: 0 14px; }
+</style>
+  <div id="root" data-composition-id="s2" data-width="1920" data-height="1080" data-duration="12.491">
+    <svg id="s2-svg" class="stage" viewBox="0 0 1920 1080" width="1920" height="1080" data-layout-allow-overflow>
+      <defs>
+        <filter id="s2-boil" x="-2%" y="-2%" width="104%" height="104%">
+          <feTurbulence id="s2-turb" type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="1" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <g id="s2-cam"><g filter="url(#s2-boil)">
+
+  <rect x="-200" y="-200" width="1480" height="2320" fill="#E2EFF7"/>
+  <g stroke="#D2E4EF" stroke-width="5"><path d="M120,180 L960,180" /><path d="M120,270 L960,270" /><path d="M120,360 L960,360" /><path d="M120,450 L960,450" /><path d="M120,540 L960,540" /><path d="M120,630 L960,630" /><path d="M120,720 L960,720" /><path d="M120,810 L960,810" /><path d="M120,900 L960,900" /><path d="M120,990 L960,990" /><path d="M120,1080 L960,1080" /><path d="M120,1170 L960,1170" /><path d="M120,1260 L960,1260" /><path d="M120,1350 L960,1350" /><path d="M120,1440 L960,1440" /><path d="M120,1530 L960,1530" /><path d="M120,1620 L960,1620" /><path d="M120,1710 L960,1710" /><path d="M120,1800 L960,1800" /></g>
+  <path d="M-200,-200 L120,140 L120,1780 L-200,2120 Z" fill="#CCE0EC" stroke="#2A1B14" stroke-width="6"/>
+  <path d="M1280,-200 L960,140 L960,1780 L1280,2120 Z" fill="#CCE0EC" stroke="#2A1B14" stroke-width="6"/>
+  <path d="M120,140 L960,140" stroke="#2A1B14" stroke-width="6"/>
+  <rect x="400" y="150" width="280" height="24" rx="12" fill="#FFFFFF" stroke="#2A1B14" stroke-width="6"/>
+
+  <path d="M120,500 L960,500 L1080,560 L0,560 Z" fill="#BFE3F2" opacity="0.8"/>
+  <g id="s2-eggs">
+    <ellipse cx="205" cy="490" rx="27" ry="34" fill="#F4E6CC" stroke="#2A1B14" stroke-width="5"/><ellipse cx="267" cy="490" rx="27" ry="34" fill="#F4E6CC" stroke="#2A1B14" stroke-width="5"/><ellipse cx="329" cy="490" rx="27" ry="34" fill="#F4E6CC" stroke="#2A1B14" stroke-width="5"/><ellipse cx="391" cy="490" rx="27" ry="34" fill="#F4E6CC" stroke="#2A1B14" stroke-width="5"/>
+    <path d="M160,512 L440,512 L430,556 L170,556 Z" fill="#9C8A70" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+  <g id="s2-katori">
+    <path d="M520,486 L700,486 Q690,556 610,556 Q530,556 520,486 Z" fill="#B8C3CB" stroke="#2A1B14" stroke-width="6"/>
+    <ellipse cx="610" cy="486" rx="90" ry="16" fill="#FBFBF5" stroke="#2A1B14" stroke-width="6"/>
+    <path d="M548,508 Q560,540 600,546" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  </g>
+  <g id="s2-bottle" opacity="0">
+    <rect x="782" y="232" width="62" height="40" rx="8" fill="#2E7FC1" stroke="#2A1B14" stroke-width="6"/>
+    <path d="M770,290 Q770,270 792,268 L834,268 Q856,270 856,290 L866,330 L866,540 Q866,556 850,556 L776,556 Q760,556 760,540 L760,330 Z"
+      fill="#A8DAF0" stroke="#2A1B14" stroke-width="6"/>
+    <rect x="760" y="380" width="106" height="70" fill="#5BB8E0" stroke="#2A1B14" stroke-width="5"/>
+    <path d="M780,300 L780,530" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+  </g>
+  <rect x="-40" y="556" width="1160" height="32" fill="#F7FBFD" stroke="#2A1B14" stroke-width="6"/>
+
+
+  <path d="M120,1140 L960,1140 L1080,1212 L0,1212 Z" fill="#BFE3F2" opacity="0.85"/>
+<g id="s2-aloo" class="ch" data-who="aloo">
+    <g id="s2-aloo-sz"><g id="s2-aloo-pose"><g id="s2-aloo-sq"><g id="s2-aloo-br">
+      
+  <ellipse cx="-70" cy="-10" rx="34" ry="15" fill="#5A3A22"/>
+  <ellipse cx="70" cy="-10" rx="34" ry="15" fill="#5A3A22"/>
+      
+  <g id="s2-aloo-armL" data-sx="-170" data-sy="-140">
+    <path d="M-170,-140 Q-192,-101.5 -178.8,-70"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="-178.8" cy="-64" r="18" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      
+  <g id="s2-aloo-armR" data-sx="170" data-sy="-140">
+    <path d="M170,-140 Q192,-101.5 178.8,-70"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="178.8" cy="-64" r="18" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      <path d="M-150,-60 Q-196,-150 -150,-232 Q-100,-300 -10,-292 Q70,-304 140,-252 Q196,-196 176,-110
+        Q170,-30 90,-14 Q0,0 -80,-12 Q-130,-24 -150,-60 Z" fill="#C99A5B" stroke="#2A1B14" stroke-width="7"/>
+      <path d="M120,-40 Q176,-90 168,-170 Q190,-80 100,-24 Z" fill="#A87A40"/>
+      <circle cx="-110" cy="-120" r="7" fill="#8A6334"/><circle cx="120" cy="-210" r="6" fill="#8A6334"/>
+      <circle cx="96" cy="-70" r="8" fill="#8A6334"/><circle cx="-60" cy="-250" r="6" fill="#8A6334"/>
+      <g id="s2-aloo-extra">
+        <g class="sprout" data-i="0"><path d="M-40,-286 Q-56,-330 -36,-352" fill="none" stroke="#5DAA3C" stroke-width="9" stroke-linecap="round"/>
+          <ellipse cx="-30" cy="-358" rx="16" ry="10" fill="#7CC456" stroke="#2A1B14" stroke-width="4"/></g>
+        <g class="sprout" data-i="1"><path d="M20,-292 Q24,-344 6,-372" fill="none" stroke="#5DAA3C" stroke-width="9" stroke-linecap="round"/>
+          <ellipse cx="2" cy="-378" rx="18" ry="11" fill="#7CC456" stroke="#2A1B14" stroke-width="4"/></g>
+        <g class="sprout" data-i="2"><path d="M80,-276 Q110,-312 98,-338" fill="none" stroke="#5DAA3C" stroke-width="9" stroke-linecap="round"/>
+          <ellipse cx="100" cy="-344" rx="14" ry="9" fill="#7CC456" stroke="#2A1B14" stroke-width="4"/></g>
+      </g>
+      
+  
+  <g transform="translate(-52,-186)">
+    <g id="s2-aloo-eyeL">
+      <ellipse rx="28" ry="28" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-aloo-pupL">
+        <circle cx="0" cy="3" r="12" fill="#2A1B14"/>
+        <circle cx="-4.199999999999999" cy="-1.8000000000000007" r="3.84" fill="#fff"/>
+      </g>
+      <path id="s2-aloo-lidL" d="M0,0" fill="#C99A5B" stroke="#2A1B14" stroke-width="6"
+        data-rx="28" data-ry="28"/>
+    </g>
+  </g>
+  <g transform="translate(-52,-230) scale(1,1)">
+    <path id="s2-aloo-browL" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <g transform="translate(52,-186)">
+    <g id="s2-aloo-eyeR">
+      <ellipse rx="28" ry="28" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-aloo-pupR">
+        <circle cx="0" cy="3" r="12" fill="#2A1B14"/>
+        <circle cx="-4.199999999999999" cy="-1.8000000000000007" r="3.84" fill="#fff"/>
+      </g>
+      <path id="s2-aloo-lidR" d="M0,0" fill="#C99A5B" stroke="#2A1B14" stroke-width="6"
+        data-rx="28" data-ry="28"/>
+    </g>
+  </g>
+  <g transform="translate(52,-230) scale(-1,1)">
+    <path id="s2-aloo-browR" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(0,-112) scale(1.2)">
+    <path id="s2-aloo-mouth" d="M-34,-6 Q0,26 34,-6" fill="none" stroke="#2A1B14" stroke-width="5.833333333333334"
+      stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path id="s2-aloo-sweat" d="M0,-26 Q16,0 0,10 Q-16,0 0,-26 Z" fill="#8FD0F2" stroke="#2A1B14" stroke-width="5"
+    transform="translate(140,-250)" opacity="0"/></g></g></g></g>
+  </g>
+<g id="s2-tamatar" class="ch" data-who="tamatar">
+    <g id="s2-tamatar-sz"><g id="s2-tamatar-pose"><g id="s2-tamatar-sq"><g id="s2-tamatar-br">
+      
+  <ellipse cx="-46" cy="-10" rx="34" ry="15" fill="#2A1B14"/>
+  <ellipse cx="46" cy="-10" rx="34" ry="15" fill="#2A1B14"/>
+      
+  <g id="s2-tamatar-armL" data-sx="-116" data-sy="-118">
+    <path d="M-116,-118 Q-142,-67.4 -126.4,-26"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="-126.4" cy="-20" r="16" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      
+  <g id="s2-tamatar-armR" data-sx="116" data-sy="-118">
+    <path d="M116,-118 Q142,-67.4 126.4,-26"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="126.4" cy="-20" r="16" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      <ellipse cx="0" cy="-122" rx="128" ry="114" fill="#E8402E" stroke="#2A1B14" stroke-width="7"/>
+      <path d="M70,-30 Q118,-80 112,-150 Q128,-60 60,-18 Z" fill="#C22D1F"/>
+      <ellipse cx="-62" cy="-188" rx="24" ry="14" fill="#fff" opacity="0.6" transform="rotate(-25 -62 -188)"/>
+      <path d="M0,-236 L-22,-262 L-6,-246 L-30,-232 L-2,-232 L-12,-206 L6,-226 L28,-210 L18,-234 L44,-244 L14,-246 L20,-270 Z"
+        fill="#3FA34D" stroke="#2A1B14" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M2,-250 Q-2,-276 12,-290" fill="none" stroke="#2A1B14" stroke-width="7" stroke-linecap="round"/>
+      <g id="s2-tamatar-extra" opacity="0">
+        <ellipse cx="74" cy="-104" rx="22" ry="17" fill="#4A2A1E" stroke="#2A1B14" stroke-width="4"/>
+        <path d="M60,-110 Q74,-100 88,-108" fill="none" stroke="#2A140C" stroke-width="3"/>
+        <path d="M-96,-60 Q-80,-70 -64,-62 M-100,-44 Q-84,-54 -68,-46" fill="none" stroke="#9C2216" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      
+  
+  <g transform="translate(-42,-146)">
+    <g id="s2-tamatar-eyeL">
+      <ellipse rx="30" ry="36" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-tamatar-pupL">
+        <circle cx="0" cy="3" r="13" fill="#2A1B14"/>
+        <circle cx="-4.55" cy="-2.2" r="4.16" fill="#fff"/>
+      </g>
+      <path id="s2-tamatar-lidL" d="M0,0" fill="#E8402E" stroke="#2A1B14" stroke-width="6"
+        data-rx="30" data-ry="36"/>
+    </g>
+  </g>
+  <g transform="translate(-42,-198) scale(1,1)">
+    <path id="s2-tamatar-browL" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <g transform="translate(42,-146)">
+    <g id="s2-tamatar-eyeR">
+      <ellipse rx="30" ry="36" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-tamatar-pupR">
+        <circle cx="0" cy="3" r="13" fill="#2A1B14"/>
+        <circle cx="-4.55" cy="-2.2" r="4.16" fill="#fff"/>
+      </g>
+      <path id="s2-tamatar-lidR" d="M0,0" fill="#E8402E" stroke="#2A1B14" stroke-width="6"
+        data-rx="30" data-ry="36"/>
+    </g>
+  </g>
+  <g transform="translate(42,-198) scale(-1,1)">
+    <path id="s2-tamatar-browR" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(0,-82) scale(1)">
+    <path id="s2-tamatar-mouth" d="M-34,-6 Q0,26 34,-6" fill="none" stroke="#2A1B14" stroke-width="7"
+      stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path id="s2-tamatar-sweat" d="M0,-26 Q16,0 0,10 Q-16,0 0,-26 Z" fill="#8FD0F2" stroke="#2A1B14" stroke-width="5"
+    transform="translate(96,-210)" opacity="0"/></g></g></g></g>
+  </g>
+<g id="s2-bhindi" class="ch" data-who="bhindi">
+    <g id="s2-bhindi-sz"><g id="s2-bhindi-pose"><g id="s2-bhindi-sq"><g id="s2-bhindi-br">
+      
+  <ellipse cx="-30" cy="-10" rx="34" ry="15" fill="#2F5E1E"/>
+  <ellipse cx="30" cy="-10" rx="34" ry="15" fill="#2F5E1E"/>
+      
+  <g id="s2-bhindi-armL" data-sx="-56" data-sy="-262">
+    <path d="M-56,-262 Q-86,-200.39999999999998 -68,-150"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="-68" cy="-144" r="15" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      
+  <g id="s2-bhindi-armR" data-sx="56" data-sy="-262">
+    <path d="M56,-262 Q86,-200.39999999999998 68,-150"
+      fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="68" cy="-144" r="15" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+  </g>
+      <path d="M-62,-40 Q-74,-280 -40,-470 Q-20,-536 6,-546 Q36,-530 46,-470 Q76,-280 62,-40 Q60,-12 0,-10 Q-60,-12 -62,-40 Z"
+        fill="#5DAA3C" stroke="#2A1B14" stroke-width="7"/>
+      <path d="M-22,-60 Q-34,-300 -14,-500 M22,-60 Q34,-300 16,-500" fill="none" stroke="#3E7F27" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-16,-536 Q4,-560 24,-536 L18,-520 Q4,-528 -10,-520 Z" fill="#3E7F27" stroke="#2A1B14" stroke-width="5"/>
+      <path d="M4,-552 Q14,-590 44,-600" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="0" cy="-468" r="9" fill="#D7263D" stroke="#2A1B14" stroke-width="3"/>
+      <path d="M-58,-408 l-12,-8 M-56,-400 l-14,0 M58,-408 l12,-8 M56,-400 l14,0" stroke="#2A1B14" stroke-width="5" stroke-linecap="round"/>
+      
+  
+  <g transform="translate(-26,-404)">
+    <g id="s2-bhindi-eyeL">
+      <ellipse rx="21" ry="27" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-bhindi-pupL">
+        <circle cx="0" cy="3" r="10" fill="#2A1B14"/>
+        <circle cx="-3.5" cy="-1" r="3.2" fill="#fff"/>
+      </g>
+      <path id="s2-bhindi-lidL" d="M0,0" fill="#5DAA3C" stroke="#2A1B14" stroke-width="6"
+        data-rx="21" data-ry="27"/>
+    </g>
+  </g>
+  <g transform="translate(-26,-447) scale(1,1)">
+    <path id="s2-bhindi-browL" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <g transform="translate(26,-404)">
+    <g id="s2-bhindi-eyeR">
+      <ellipse rx="21" ry="27" fill="#fff" stroke="#2A1B14" stroke-width="6"/>
+      <g id="s2-bhindi-pupR">
+        <circle cx="0" cy="3" r="10" fill="#2A1B14"/>
+        <circle cx="-3.5" cy="-1" r="3.2" fill="#fff"/>
+      </g>
+      <path id="s2-bhindi-lidR" d="M0,0" fill="#5DAA3C" stroke="#2A1B14" stroke-width="6"
+        data-rx="21" data-ry="27"/>
+    </g>
+  </g>
+  <g transform="translate(26,-447) scale(-1,1)">
+    <path id="s2-bhindi-browR" d="M-22,0 Q0,-8 22,0" fill="none" stroke="#2A1B14" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(0,-334) scale(0.8)">
+    <path id="s2-bhindi-mouth" d="M-34,-6 Q0,26 34,-6" fill="none" stroke="#2A1B14" stroke-width="8.75"
+      stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path id="s2-bhindi-sweat" d="M0,-26 Q16,0 0,10 Q-16,0 0,-26 Z" fill="#8FD0F2" stroke="#2A1B14" stroke-width="5"
+    transform="translate(58,-470)" opacity="0"/></g></g></g></g>
+  </g>
+<rect x="-40" y="1206" width="1160" height="36" fill="#F7FBFD" stroke="#2A1B14" stroke-width="6"/>
+
+  <rect x="60" y="1300" width="960" height="560" rx="34" fill="#CDEAD8" stroke="#2A1B14" stroke-width="6"/>
+  <g opacity="0.9">
+    <ellipse cx="220" cy="1420" rx="90" ry="46" fill="#6DBE5A" stroke="#2A1B14" stroke-width="5"/>
+    <ellipse cx="320" cy="1400" rx="70" ry="40" fill="#5AAE48" stroke="#2A1B14" stroke-width="5"/>
+    <ellipse cx="760" cy="1420" rx="64" ry="54" fill="#F2D640" stroke="#2A1B14" stroke-width="5"/>
+    <g id="s2-mirchi">
+      <path d="M470,1440 Q520,1360 640,1372 Q560,1392 520,1448 Z" fill="#3E9B37" stroke="#2A1B14" stroke-width="5"/>
+      <path d="M640,1372 q14,-10 26,-2" fill="none" stroke="#2A1B14" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="586" cy="1386" r="6" fill="#2A1B14"/><circle cx="604" cy="1384" r="6" fill="#2A1B14"/>
+    </g>
+  </g>
+  <rect x="60" y="1300" width="960" height="120" rx="34" fill="#E6F5EC" opacity="0.55"/>
+  <rect x="420" y="1330" width="240" height="30" rx="15" fill="#A9D3BA" stroke="#2A1B14" stroke-width="5"/>
+<g id="s2-box" opacity="0">
+    <path d="M-150,-70 L150,-70 L150,0 L-150,0 Z" fill="#E7C08A" stroke="#2A1B14" stroke-width="7"/>
+    <g id="s2-lid">
+      <path d="M-158,-86 L158,-86 L150,-70 L-150,-70 Z" fill="#F0CF9C" stroke="#2A1B14" stroke-width="7" stroke-linejoin="round"/>
+    </g>
+    <circle cx="0" cy="-36" r="22" fill="#C8402F" stroke="#2A1B14" stroke-width="5"/>
+    <path d="M-10,-40 Q0,-30 10,-40" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+<g id="s2-hand" opacity="0">
+    <g id="s2-hand-in">
+      <path d="M1400,-70 L960,-56 Q900,-54 872,-36 L872,40 Q900,56 960,54 L1400,70 Z" fill="#C68A5C" stroke="#2A1B14" stroke-width="7"/>
+      <rect x="1010" y="-74" width="22" height="148" rx="8" fill="#D7263D" stroke="#2A1B14" stroke-width="5"/>
+      <rect x="1038" y="-76" width="16" height="152" rx="6" fill="#E2B23A" stroke="#2A1B14" stroke-width="5"/>
+      <rect x="1060" y="-76" width="22" height="152" rx="8" fill="#D7263D" stroke="#2A1B14" stroke-width="5"/>
+      <path d="M880,-40 Q820,-62 770,-50 Q744,-40 770,-30 L830,-28 Q760,-22 740,-6 Q734,8 760,8 L830,6
+        Q770,20 758,34 Q756,50 780,46 L840,34 Q800,52 804,62 Q812,74 840,64 L880,44 Z"
+        fill="#C68A5C" stroke="#2A1B14" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M884,-40 Q852,-84 812,-92 Q790,-90 806,-74 L846,-36" fill="#C68A5C" stroke="#2A1B14" stroke-width="7" stroke-linejoin="round"/>
+    </g>
+  </g>
+      </g></g>
+      <rect id="s2-dark" x="0" y="0" width="1920" height="1080" fill="#1D3366" opacity="0" pointer-events="none"/>
+    </svg>
+  <div id="s2-b0" class="clip bub tamatar" data-start="0.39" data-duration="2.04" data-track-index="3">
+    <div class="bub-in"><span>Guys… aaj <b>SUNDAY</b> hai!</span><i class="tail"></i></div>
+  </div>
+  <div id="s2-b1" class="clip bub tamatar" data-start="2.37" data-duration="3.991" data-track-index="4">
+    <div class="bub-in"><span>Mummy sabzi banayengi… aur sabse pehle <b>MUJHE</b> uthayengi!</span><i class="tail"></i></div>
+  </div>
+  <div id="s2-b2" class="clip bub aloo" data-start="6.451" data-duration="3.701" data-track-index="3">
+    <div class="bub-in"><span>Toh? Main toh har sabzi mein hota hoon. <b>CHILL</b>.</span><i class="tail"></i></div>
+  </div>
+  <div id="s2-b3" class="clip bub bhindi" data-start="10.142" data-duration="2.049" data-track-index="4">
+    <div class="bub-in"><span>Chill nahi. <b>PLAN</b> chahiye.</span><i class="tail"></i></div>
+  </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script>
+  (function () {
+    const RIG_DATA = {"WORLD":"fridge","MOUTHS":{"smile":["M-34,-6 Q0,26 34,-6",false],"flat":["M-26,4 L26,4",false],"frown":["M-30,14 Q0,-12 30,14",false],"fear":["M-34,6 Q-23,-6 -11,6 Q0,18 11,6 Q23,-6 34,6",false],"smirk":["M-30,6 Q4,12 32,-10",false],"grin":["M-44,-10 Q0,52 44,-10 Q0,2 -44,-10 Z",true],"o":["M-15,0 Q-15,-17 0,-17 Q15,-17 15,0 Q15,19 0,19 Q-15,19 -15,0 Z",true],"open":["M-32,-10 Q0,-18 32,-10 Q30,36 0,38 Q-30,36 -32,-10 Z",true],"yell":["M-36,-16 Q0,-24 36,-16 Q34,46 0,50 Q-34,46 -36,-16 Z",true]},"BROWS":{"neutral":"M-22,0 Q0,-8 22,0","worried":"M-22,6 Q0,-2 22,-14","angry":"M-22,-12 Q0,-6 22,6","raised":"M-22,-8 Q0,-24 22,-8","sly":"M-22,-4 Q0,-10 22,4"},"MOODS":{"normal":["neutral","smile","none"],"happy":["raised","grin","none"],"scared":["worried","fear","none"],"sad":["worried","frown","none"],"sleepy":["neutral","flat","half"],"sly":["sly","smirk","half"],"angry":["angry","frown","none"],"shock":["raised","o","none"],"cool":["neutral","smirk","none"],"droop":["worried","frown","half"]},"CAST":{"tamatar":{"headTop":-250},"aloo":{"headTop":-300},"bhindi":{"headTop":-560},"pizza":{"headTop":-320}}};
+    const SHOT = {"id":"s2","w":1920,"h":1080,"dur":12.491,"cast":{"aloo":[292,1186],"tamatar":[578,1186],"bhindi":[832,1186]},"lines":[{"i":0,"id":"s2-0","who":"tamatar","cap":"Guys… aaj SUNDAY hai!","yell":false,"noBubble":false,"start":0.45,"end":2.13,"hold":0.3,"mouth":[0,2,2,2,1,0,0,0,0,0,0,2,2,2,1,0,2,2,2,2,2,2,1,1,0]},{"i":1,"id":"s2-1","who":"tamatar","cap":"Mummy sabzi banayengi… aur sabse pehle MUJHE uthayengi!","yell":false,"noBubble":false,"start":2.43,"end":6.061,"hold":0.3,"mouth":[1,2,2,2,2,0,2,1,1,2,2,2,2,2,1,2,2,1,1,0,0,0,0,0,0,2,2,2,0,2,2,0,1,2,0,2,2,2,2,2,2,1,2,2,1,2,0,1,2,2,1,1,1,0]},{"i":2,"id":"s2-2","who":"aloo","cap":"Toh? Main toh har sabzi mein hota hoon. CHILL.","yell":false,"noBubble":false,"start":6.511,"end":9.852,"hold":0.3,"mouth":[2,2,2,0,0,0,0,0,2,2,2,2,2,0,2,2,1,2,2,1,0,0,2,1,1,1,2,2,2,2,1,1,2,1,1,1,1,1,1,0,0,0,0,0,0,2,2,2,2,0]},{"i":3,"id":"s2-3","who":"bhindi","cap":"Chill nahi. PLAN chahiye.","yell":false,"noBubble":false,"start":10.202,"end":11.891,"hold":0.3,"mouth":[1,2,2,2,2,2,2,1,0,0,0,0,0,0,2,2,2,1,1,2,2,1,2,1,0]}]};
+    // Fridge Gang rig. Inlined by engine/build.mjs into every scene's <script>, after RIG_DATA and SHOT.
+    // Everything is placed on one paused GSAP timeline at absolute seconds, so any frame can be
+    // seeked on its own. No clocks, no Math.random: randomness comes from a seeded PRNG.
+    /* global gsap, RIG_DATA, SHOT */
+    function makeRig(P, tl) {
+      const { MOUTHS, BROWS, MOODS, CAST } = RIG_DATA;
+      const $ = (id) => document.getElementById(P + "-" + id);
+      // Canvas: 1080x1920 (vertical) or 1920x1080 (wide). Episodes are directed in vertical terms;
+      // in wide, every camera move is re-framed for 16:9 (see R.cam).
+      const W = SHOT.w, H = SHOT.h, WIDE = W > H;
+      const R = { W, H, WIDE, tl, P, $, D: SHOT.dur, L: SHOT.lines, pos: {}, moods: {}, cams: [], looks: {}, blinkOff: {} };
+    
+      const rng = (seed) => () => {
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+      R.rng = rng;
+      const clampT = (t) => Math.max(0, Math.min(R.D - 0.001, t));
+    
+      // ---------- placement and movement ----------
+      R.place = (who, x, y, s = 1, flip = false) => {
+        R.pos[who] = [{ t: 0, x, y, s }];
+        R.moods[who] = [[0, "normal"]];
+        R.looks[who] = [];
+        tl.set($(who), { x, y }, 0);
+        tl.set($(who + "-sz"), { scaleX: flip ? -s : s, scaleY: s, svgOrigin: "0 0" }, 0);
+        tl.set($(who + "-sq"), { scaleX: 1, scaleY: 1, rotation: 0, x: 0, y: 0, svgOrigin: "0 0" }, 0);
+        tl.set($(who + "-pose"), { scaleX: 1, scaleY: 1, rotation: 0, svgOrigin: "0 0" }, 0);
+        tl.set($(who + "-br"), { x: 0 }, 0);
+        ["L", "R"].forEach((s2) => {
+          const a = $(who + "-arm" + s2);
+          tl.set(a, { rotation: 0, svgOrigin: a.dataset.sx + " " + a.dataset.sy }, 0);
+          tl.set($(who + "-pup" + s2), { x: 0, y: 0 }, 0);
+        });
+        tl.set($(who + "-sweat"), { opacity: 0 }, 0);
+        R.applyMood(who, 0, "normal", false);
+      };
+      const posAt = (who, t) => {
+        const list = R.pos[who] || [{ x: 540, y: 1186, s: 1 }];
+        let p = list[0];
+        for (const q of list) if (q.t <= t) p = q;
+        return p;
+      };
+      R.posAt = posAt;
+      R.move = (who, t, x, y, dur = 0.5, ease = "power2.inOut") => {
+        const s = posAt(who, t).s;
+        tl.to($(who), { x, y, duration: dur, ease }, t);
+        R.pos[who].push({ t: t + dur * 0.5, x, y, s });
+      };
+      // Squashes and hops share one group; a new one is skipped while another is still settling.
+      const sqSpans = {};
+      const sqOk = (who, a, b) => {
+        const spans = (sqSpans[who] = sqSpans[who] || []);
+        if (spans.some(([x, y]) => a < y && b > x)) return false;
+        spans.push([a, b]);
+        return true;
+      };
+      R.squash = (who, t, sx = 1.12, sy = 0.86, dur = 0.12) => {
+        if (!sqOk(who, t, t + dur + 0.5)) return;
+        const el = $(who + "-sq");
+        tl.to(el, { scaleX: sx, scaleY: sy, duration: dur, ease: "power2.out", svgOrigin: "0 0" }, t);
+        tl.to(el, { scaleX: 1, scaleY: 1, duration: 0.5, ease: "elastic.out(1, 0.4)", svgOrigin: "0 0" }, t + dur);
+      };
+      R.hop = (who, t, { x, y, h = 90, dur = 0.5 } = {}) => {
+        const p = posAt(who, t);
+        const tx = x ?? p.x, ty = y ?? p.y;
+        const el = $(who), sq = $(who + "-sq");
+        (sqSpans[who] = sqSpans[who] || []).push([t, t + 0.68 + dur]);
+        tl.to(sq, { scaleX: 1.14, scaleY: 0.84, duration: 0.1, ease: "power2.out", svgOrigin: "0 0" }, t);
+        tl.to(sq, { scaleX: 0.9, scaleY: 1.14, duration: 0.14, ease: "power2.out", svgOrigin: "0 0" }, t + 0.1);
+        tl.to(el, { x: tx, duration: dur, ease: "none" }, t + 0.1);
+        tl.to(el, { y: Math.min(p.y, ty) - h, duration: dur * 0.5, ease: "power2.out" }, t + 0.1);
+        tl.to(el, { y: ty, duration: dur * 0.5, ease: "power2.in" }, t + 0.1 + dur * 0.5);
+        tl.to(sq, { scaleX: 1, scaleY: 1, duration: dur * 0.3, ease: "sine.inOut", svgOrigin: "0 0" }, t + 0.24);
+        tl.to(sq, { scaleX: 1.18, scaleY: 0.8, duration: 0.08, ease: "power2.out", svgOrigin: "0 0" }, t + 0.1 + dur);
+        tl.to(sq, { scaleX: 1, scaleY: 1, duration: 0.5, ease: "elastic.out(1, 0.35)", svgOrigin: "0 0" }, t + 0.18 + dur);
+        R.pos[who].push({ t: t + 0.1 + dur, x: tx, y: ty, s: p.s });
+      };
+      // Held poses live on their own group, so a squash or a hop never resets them.
+      R.lean = (who, t, deg, dur = 0.35, ease = "back.out(1.8)") =>
+        tl.to($(who + "-pose"), { rotation: deg, duration: dur, ease, svgOrigin: "0 0" }, t);
+      R.stretch = (who, t, sx, sy, dur = 0.35, ease = "back.out(1.6)") =>
+        tl.to($(who + "-pose"), { scaleX: sx, scaleY: sy, duration: dur, ease, svgOrigin: "0 0" }, t);
+      // raise: 0 hangs down, 90 points out sideways, 160 is straight up.
+      R.arm = (who, side, t, raise, dur = 0.3, ease = "back.out(2)") => {
+        const a = $(who + "-arm" + side);
+        tl.to(a, { rotation: side === "L" ? raise : -raise, duration: dur, ease, svgOrigin: a.dataset.sx + " " + a.dataset.sy }, t);
+      };
+      R.arms = (who, t, l, r, dur, ease) => { R.arm(who, "L", t, l, dur, ease); R.arm(who, "R", t + 0.05, r, dur, ease); };
+      // A finite tremble on the breath group (x only, so it never fights the breath's scale).
+      R.shake = (who, t, dur = 1, amp = 5) => {
+        const n = Math.max(1, Math.floor(dur / 0.06));
+        const el = $(who + "-br");
+        tl.fromTo(el, { x: -amp }, { x: amp, duration: 0.06, ease: "none", yoyo: true, repeat: n - 1 }, t);
+        tl.to(el, { x: 0, duration: 0.06 }, t + n * 0.06);
+      };
+      R.look = (who, t, dx, dy = 0, hold = 1.2) => {
+        tl.to([$(who + "-pupL"), $(who + "-pupR")], { x: dx, y: dy, duration: 0.12, ease: "power2.out" }, t);
+        (R.looks[who] = R.looks[who] || []).push([t, t + hold]);
+      };
+      R.sweat = (who, t, dur = 1.2) => {
+        const el = $(who + "-sweat");
+        tl.fromTo(el, { opacity: 0, y: 0 }, { opacity: 1, duration: 0.15 }, t);
+        tl.to(el, { y: 40, duration: dur, ease: "power1.in" }, t + 0.15);
+        tl.to(el, { opacity: 0, duration: 0.15 }, t + 0.15 + dur);
+      };
+    
+      // ---------- face ----------
+      const lidD = (lid, el) => {
+        if (lid !== "half") return "M0,0";
+        const rx = +el.dataset.rx + 3, ry = +el.dataset.ry + 3;
+        return `M${-rx},-2 A${rx},${ry} 0 0 1 ${rx},-2 Z`;
+      };
+      R.applyMood = (who, t, mood, take = true) => {
+        const [brow, mouth, lid] = MOODS[mood];
+        tl.set([$(who + "-browL"), $(who + "-browR")], { attr: { d: BROWS[brow] } }, t);
+        tl.set($(who + "-mouth"), { attr: { d: MOUTHS[mouth][0], fill: MOUTHS[mouth][1] ? "#5B1A1A" : "none" } }, t);
+        tl.set($(who + "-lidL"), { attr: { d: lidD(lid, $(who + "-lidL")) } }, t);
+        tl.set($(who + "-lidR"), { attr: { d: lidD(lid, $(who + "-lidR")) } }, t);
+        if (take) R.squash(who, Math.max(0, t - 0.08), 1.06, 0.93, 0.08);
+      };
+      R.mood = (who, t, mood, take = true) => {
+        R.moods[who].push([t, mood]);
+        R.moods[who].sort((a, b) => a[0] - b[0]);
+        R.applyMood(who, t, mood, take);
+      };
+      const moodAt = (who, t) => {
+        let m = "normal";
+        for (const [mt, mm] of R.moods[who] || []) if (mt <= t + 1e-6) m = mm;
+        return m;
+      };
+      R.mouth = (who, t, shape) =>
+        tl.set($(who + "-mouth"), { attr: { d: MOUTHS[shape][0], fill: MOUTHS[shape][1] ? "#5B1A1A" : "none" } }, t);
+      R.noBlink = (who) => (R.blinkOff[who] = true);
+      R.blink = (who, t) => {
+        const els = [$(who + "-eyeL"), $(who + "-eyeR")];
+        tl.to(els, { scaleY: 0.08, duration: 0.05, ease: "power1.in", svgOrigin: "0 0" }, t);
+        tl.to(els, { scaleY: 1, duration: 0.09, ease: "power1.out", svgOrigin: "0 0" }, t + 0.06);
+      };
+    
+      // ---------- camera, light, props ----------
+      // Frames world point (cx, cy) at the centre of the canvas at scale s. In wide, a vertical framing
+      // becomes a tighter one on the same subject: wide shots centre on the gang, and the view never
+      // leaves the drawn set.
+      const wideFrame = (s, cx, cy) => {
+        if (RIG_DATA.WORLD === "door") return [s, 540, 760];
+        const sw = s < 1.3 ? 1.38 : Math.max(1.38, s * 0.92);
+        const cyw = s < 1.3 ? 900 : cy - 60;
+        const hw = W / 2 / sw, hh = H / 2 / sw;
+        return [sw, Math.max(-200 + hw, Math.min(1280 - hw, cx)), Math.max(-200 + hh, Math.min(2120 - hh, cyw))];
+      };
+      R.cam = (t, s, cx, cy, dur = 0, ease = "power3.inOut") => {
+        if (WIDE) [s, cx, cy] = wideFrame(s, cx, cy);
+        const v = { x: W / 2 - s * cx, y: H / 2 - s * cy, scale: s, svgOrigin: "0 0" };
+        if (dur <= 0) tl.set($("cam"), v, t);
+        else tl.to($("cam"), { ...v, duration: dur, ease }, t);
+        R.cams.push({ t: t + dur, s, cx, cy });
+        R.cams.sort((a, b) => a.t - b.t);
+      };
+      const camAt = (t) => {
+        let c = { s: 1, cx: W / 2, cy: H / 2 };
+        for (const k of R.cams) if (k.t <= t + 1e-6) c = k;
+        return c;
+      };
+      R.toScreen = (x, y, t) => {
+        const c = camAt(t);
+        return [W / 2 + c.s * (x - c.cx), H / 2 + c.s * (y - c.cy), c.s];
+      };
+      R.light = (t, on) => {
+        const el = $("dark");
+        if (on) {
+          tl.set(el, { opacity: 0.35 }, t);
+          tl.set(el, { opacity: 0 }, t + 0.05);
+          tl.set(el, { opacity: 0.22 }, t + 0.1);
+          tl.set(el, { opacity: 0 }, t + 0.15);
+        } else {
+          tl.to(el, { opacity: 0.45, duration: 0.08, ease: "power1.in" }, t);
+        }
+      };
+      R.lightAt0 = (on) => tl.set($("dark"), { opacity: on ? 0 : 0.45 }, 0);
+      R.show = (id, t, v = 1) => tl.set($(id), { opacity: v }, t);
+      R.to = (id, t, vars) => tl.to(typeof id === "string" ? $(id) : id, vars, t);
+      R.fromTo = (id, t, from, to) => tl.fromTo(typeof id === "string" ? $(id) : id, from, to, t);
+      R.set = (id, t, vars) => tl.set(typeof id === "string" ? $(id) : id, vars, t);
+      // Title words that slam in one by one (a .slam element holding <span>s).
+      R.slam = (id, t, hold = 1.4) => {
+        const words = $(id).querySelectorAll("span");
+        words.forEach((w, i) => {
+          tl.fromTo(w, { scale: 2.4, opacity: 0, rotation: i % 2 ? 6 : -6 },
+            { scale: 1, opacity: 1, rotation: i % 2 ? 2 : -2, duration: 0.22, ease: "back.out(2.5)" }, t + i * 0.12);
+        });
+        tl.to(words, { scale: 0.7, opacity: 0, duration: 0.16, ease: "power2.in", stagger: 0.03 }, t + hold);
+      };
+    
+      // ---------- finish: breath, blinks, lip-sync, looks, bubbles, line boil ----------
+      R.finish = () => {
+        const cast = Object.keys(R.pos);
+        cast.forEach((who, ci) => {
+          const r = rng(1000 + ci * 77 + P.length * 13);
+          // Idle breath, each character on its own period and phase.
+          const per = 2.1 + r() * 0.9;
+          const n = Math.max(1, Math.floor(R.D / (per / 2)));
+          tl.fromTo($(who + "-br"), { scaleY: 1, scaleX: 1, svgOrigin: "0 0" },
+            { scaleY: 1.03, scaleX: 0.99, duration: per / 2, ease: "sine.inOut", yoyo: true, repeat: n - 1, svgOrigin: "0 0" }, r() * 0.4);
+          // Blinks every 2-4 s.
+          if (!R.blinkOff[who]) for (let t = 0.6 + r() * 1.5; t < R.D - 0.3; t += 2 + r() * 2.2) R.blink(who, t);
+        });
+        // Lip-sync from the voice envelope (15 levels a second) and eyes on the speaker.
+        R.L.forEach((ln) => {
+          if (!R.pos[ln.who]) return;
+          let last = null;
+          ln.mouth.forEach((lv, k) => {
+            const t = ln.start + k / 15;
+            const shape = lv === 0 ? MOODS[moodAt(ln.who, t)][1] : lv === 1 ? "o" : ln.yell ? "yell" : "open";
+            if (shape !== last) R.mouth(ln.who, clampT(t), shape);
+            last = shape;
+          });
+          R.mouth(ln.who, clampT(ln.end + 0.02), MOODS[moodAt(ln.who, ln.end + 0.02)][1]);
+          R.squash(ln.who, Math.max(0, ln.start - 0.05), 1.04, 0.96, 0.08);
+          const sp = posAt(ln.who, ln.start);
+          cast.forEach((o) => {
+            if (o === ln.who) return;
+            const busy = (R.looks[o] || []).some(([a, b]) => ln.start + 0.1 < b && ln.start + 0.1 >= a - 0.2);
+            if (busy) return;
+            const op = posAt(o, ln.start);
+            const dx = Math.sign(sp.x - op.x) * 7;
+            tl.to([$(o + "-pupL"), $(o + "-pupR")], { x: dx, y: -3, duration: 0.14, ease: "power2.out" }, ln.start + 0.1);
+          });
+        });
+        // Speech bubbles, placed over the speaker's head as framed by the camera at that moment.
+        R.L.forEach((ln) => {
+          const b = $("b" + ln.i);
+          if (!b) return;
+          const inner = b.firstElementChild, tail = b.querySelector(".tail");
+          const w = Math.min(820, inner.offsetWidth), h = inner.offsetHeight;
+          let sx, sy;
+          if (R.pos[ln.who]) {
+            const p = posAt(ln.who, ln.start);
+            const head = RIG_DATA.CAST[ln.who].headTop * p.s;
+            [sx, sy] = R.toScreen(p.x, p.y + head, ln.start);
+          } else {
+            sx = W - 20; sy = H * 0.4; // off screen to the right: Mummy at the door
+          }
+          // Above the head; in wide, when there is no room above, beside the head instead.
+          const top0 = WIDE ? 40 : 190, mx = WIDE ? 100 : 80;
+          let bottom = Math.max(top0 + h, Math.min(H - (WIDE ? 80 : 620), sy - 40));
+          let left = Math.max(mx, Math.min(W - mx - w, sx - w / 2));
+          if (WIDE && sy - 40 - h < top0 && R.pos[ln.who]) {
+            bottom = Math.min(H - 80, Math.max(top0 + h, sy + h * 0.6));
+            left = sx > W / 2 ? Math.max(mx, sx - 110 - w) : Math.min(W - mx - w, sx + 110);
+          }
+          b.style.left = left + "px";
+          b.style.top = bottom - h + "px";
+          tail.style.left = Math.max(46, Math.min(w - 46, sx - left)) + "px";
+          tl.fromTo(inner, { scale: 0.4, opacity: 0, transformOrigin: `${Math.max(46, Math.min(w - 46, sx - left))}px 100%` },
+            { scale: 1, opacity: 1, duration: 0.26, ease: "back.out(2.2)" }, Math.max(0, ln.start - 0.06));
+          const out = Math.min(R.D - 0.02, ln.end + ln.hold) - 0.14;
+          tl.to(inner, { scale: 0.85, opacity: 0, duration: 0.12, ease: "power2.in" }, out);
+        });
+        // Hand-drawn line boil: re-seed the wobble filter 12 times a second.
+        const turb = $("turb");
+        for (let k = 0; k < Math.ceil(R.D * 12); k++) tl.set(turb, { attr: { seed: (k % 6) + 1 } }, k / 12);
+      };
+      return R;
+    }
+    
+    const build = () => {
+      const tl = gsap.timeline({ paused: true });
+      const R = makeRig("s2", tl);
+      R.lightAt0(false);
+      R.place("aloo", 292, 1186, 1, false);
+      R.place("tamatar", 578, 1186, 1, false);
+      R.place("bhindi", 832, 1186, 1, false);
+      const helpers = (R) => {
+    // Disguises from "Operation Sadda Hua", kept on from shot s4 onwards.
+    R.rotten = (t = 0, d = 0.001) => {
+      R.set("tamatar-extra", t, { opacity: 1 });
+      R.stretch("tamatar", t, 1.06, 0.94, d);
+      R.lean("bhindi", t, 13, d);
+      R.stretch("bhindi", t, 0.96, 0.9, d);
+      R.mood("bhindi", t, "droop", false);
+      R.mood("aloo", t, "sleepy", false);
+      R.mood("tamatar", t, "sad", false);
+      R.$("aloo-extra").querySelectorAll(".sprout").forEach((el) => R.set(el, t, { scale: 1 }));
+    };
+    // Mummy saw through it: the disguises drop (Aloo's sprouts stay, he really is sprouting).
+    R.busted = (t = 0, d = 0.001) => {
+      R.set("tamatar-extra", t, { opacity: 0 });
+      R.stretch("tamatar", t, 1, 1, d);
+      R.lean("bhindi", t, 0, d);
+      R.stretch("bhindi", t, 1, 1, d);
+      R.mood("bhindi", t, "normal", false);
+      R.mood("tamatar", t, "normal", false);
+    };
+    R.fresh = () => {
+      R.set("tamatar-extra", 0, { opacity: 0 });
+      R.set("aloo-extra", 0, { opacity: 0 });
+    };
+    R.handAt = (t, x, y) => R.set("hand", t, { x, y, opacity: 1 });
+    R.handTo = (t, x, y, dur = 0.5, ease = "power3.out") => R.to("hand", t, { x, y, duration: dur, ease });
+  };
+      helpers(R);
+      const act = (R, L) => {
+        R.fresh();
+        R.cam(0, 1.16, 562, 985);
+        R.mood("tamatar", 0.15, "scared");
+        R.shake("tamatar", 0.2, L[0].end - 0.2, 4);
+        R.sweat("tamatar", 0.5, 1.4);
+        R.arms("tamatar", L[1].start, 160, 160, 0.3);
+        R.hop("tamatar", L[1].start + 0.9, { h: 60, dur: 0.42 });
+        R.arm("tamatar", "L", L[1].end - 1.3, 40, 0.25);
+        R.arm("tamatar", "R", L[1].end - 1.3, 0, 0.3, "power2.out");
+        R.arm("tamatar", "L", L[1].end + 0.2, 0, 0.4, "power2.out");
+        R.mood("aloo", L[2].start - 0.4, "sleepy");
+        R.mouth("aloo", L[2].start - 0.35, "open");
+        R.mouth("aloo", L[2].start - 0.05, "flat");
+        R.arms("aloo", L[2].start - 0.3, 155, 155, 0.5, "power2.out");
+        R.lean("aloo", L[2].start - 0.3, 8, 0.6, "power2.out");
+        R.mood("bhindi", L[3].start - 0.25, "sly");
+        R.lean("bhindi", L[3].start - 0.2, -10, 0.4);
+        R.arm("bhindi", "L", L[3].start + 0.1, 85, 0.25);
+        R.cam(L[3].start - 0.1, 1.22, 680, 900, 0.55);
+      };
+      act(R, SHOT.lines);
+      R.finish();
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s2"] = tl;
+    };
+    document.fonts.ready.then(build);
+  })();
+  </script>
+</template>

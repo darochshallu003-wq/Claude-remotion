@@ -1,6 +1,6 @@
 # Cartoon series — three storylines
 
-> **Picked: C, Fridge Gang**, with Hinglish voices (the vegetables speak short lines; the gags still carry it). Episode 1 is in `episodes/ep01/`.
+> **Picked: C, Fridge Gang**, with Hinglish voices (the vegetables speak short lines; the gags still carry it). Episode 1 is in `episodes/ep01/`. Now made for a YouTube Kids channel, in wide 16:9 and vertical 9:16.
 
 Each is a whole series format; Episode 1 is the pilot. Vertical 1080×1920, 60–75 s per episode,
 all characters drawn in code (SVG + GSAP), free Hindi neural voices (as in the explainers) and

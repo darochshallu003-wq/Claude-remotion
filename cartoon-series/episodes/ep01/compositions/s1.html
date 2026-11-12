@@ -16,13 +16,13 @@
 #root .bub.pizza b { color: #E08A1E; }
 #root .bub.mummy .bub-in { background: #FFF1D6; }
 #root .bub.mummy .bub-in .tail { background: #FFF1D6; }
-#root .slam { position: absolute; left: 0; width: 1080px; text-align: center; z-index: 6; }
+#root .slam { position: absolute; left: 0; width: 100%; text-align: center; z-index: 6; }
 #root .slam span { display: inline-block; font-family: "Archivo Black", sans-serif; color: #fff; font-size: 128px;
   line-height: 1.02; letter-spacing: 0.01em; -webkit-text-stroke: 12px #2A1B14; paint-order: stroke fill;
   text-shadow: 0 12px 0 #2A1B14; margin: 0 14px; }
 
 #root .ep-sub span { display: inline-block; padding: 14px 40px; background: #F6C445; border: 6px solid #2A1B14; border-radius: 40px; }
-#root .ep-sub { position: absolute; left: 0; width: 1080px; top: 610px; text-align: center; z-index: 6;
+#root .ep-sub { position: absolute; left: 0; width: 100%; top: 610px; text-align: center; z-index: 6;
   font-family: "Nunito", sans-serif; font-weight: 900; font-size: 50px; color: #2A1B14; }
 </style>
   <div id="root" data-composition-id="s1" data-width="1080" data-height="1920" data-duration="6.122">
@@ -308,8 +308,8 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
   <script>
   (function () {
-    const RIG_DATA = {"MOUTHS":{"smile":["M-34,-6 Q0,26 34,-6",false],"flat":["M-26,4 L26,4",false],"frown":["M-30,14 Q0,-12 30,14",false],"fear":["M-34,6 Q-23,-6 -11,6 Q0,18 11,6 Q23,-6 34,6",false],"smirk":["M-30,6 Q4,12 32,-10",false],"grin":["M-44,-10 Q0,52 44,-10 Q0,2 -44,-10 Z",true],"o":["M-15,0 Q-15,-17 0,-17 Q15,-17 15,0 Q15,19 0,19 Q-15,19 -15,0 Z",true],"open":["M-32,-10 Q0,-18 32,-10 Q30,36 0,38 Q-30,36 -32,-10 Z",true],"yell":["M-36,-16 Q0,-24 36,-16 Q34,46 0,50 Q-34,46 -36,-16 Z",true]},"BROWS":{"neutral":"M-22,0 Q0,-8 22,0","worried":"M-22,6 Q0,-2 22,-14","angry":"M-22,-12 Q0,-6 22,6","raised":"M-22,-8 Q0,-24 22,-8","sly":"M-22,-4 Q0,-10 22,4"},"MOODS":{"normal":["neutral","smile","none"],"happy":["raised","grin","none"],"scared":["worried","fear","none"],"sad":["worried","frown","none"],"sleepy":["neutral","flat","half"],"sly":["sly","smirk","half"],"angry":["angry","frown","none"],"shock":["raised","o","none"],"cool":["neutral","smirk","none"],"droop":["worried","frown","half"]},"CAST":{"tamatar":{"headTop":-250},"aloo":{"headTop":-300},"bhindi":{"headTop":-560},"pizza":{"headTop":-320}}};
-    const SHOT = {"id":"s1","dur":6.122,"cast":{"aloo":[292,1186],"tamatar":[578,1186],"bhindi":[832,1186]},"lines":[{"i":0,"id":"s1-0","who":"tamatar","cap":"Phew… bach gaye!","yell":false,"noBubble":false,"start":1.9,"end":3.022,"hold":0.3,"mouth":[0,2,2,1,0,0,0,0,0,1,2,0,0,2,2,1]}]};
+    const RIG_DATA = {"WORLD":"fridge","MOUTHS":{"smile":["M-34,-6 Q0,26 34,-6",false],"flat":["M-26,4 L26,4",false],"frown":["M-30,14 Q0,-12 30,14",false],"fear":["M-34,6 Q-23,-6 -11,6 Q0,18 11,6 Q23,-6 34,6",false],"smirk":["M-30,6 Q4,12 32,-10",false],"grin":["M-44,-10 Q0,52 44,-10 Q0,2 -44,-10 Z",true],"o":["M-15,0 Q-15,-17 0,-17 Q15,-17 15,0 Q15,19 0,19 Q-15,19 -15,0 Z",true],"open":["M-32,-10 Q0,-18 32,-10 Q30,36 0,38 Q-30,36 -32,-10 Z",true],"yell":["M-36,-16 Q0,-24 36,-16 Q34,46 0,50 Q-34,46 -36,-16 Z",true]},"BROWS":{"neutral":"M-22,0 Q0,-8 22,0","worried":"M-22,6 Q0,-2 22,-14","angry":"M-22,-12 Q0,-6 22,6","raised":"M-22,-8 Q0,-24 22,-8","sly":"M-22,-4 Q0,-10 22,4"},"MOODS":{"normal":["neutral","smile","none"],"happy":["raised","grin","none"],"scared":["worried","fear","none"],"sad":["worried","frown","none"],"sleepy":["neutral","flat","half"],"sly":["sly","smirk","half"],"angry":["angry","frown","none"],"shock":["raised","o","none"],"cool":["neutral","smirk","none"],"droop":["worried","frown","half"]},"CAST":{"tamatar":{"headTop":-250},"aloo":{"headTop":-300},"bhindi":{"headTop":-560},"pizza":{"headTop":-320}}};
+    const SHOT = {"id":"s1","w":1080,"h":1920,"dur":6.122,"cast":{"aloo":[292,1186],"tamatar":[578,1186],"bhindi":[832,1186]},"lines":[{"i":0,"id":"s1-0","who":"tamatar","cap":"Phew… bach gaye!","yell":false,"noBubble":false,"start":1.9,"end":3.022,"hold":0.3,"mouth":[0,2,2,1,0,0,0,0,0,1,2,0,0,2,2,1]}]};
     // Fridge Gang rig. Inlined by engine/build.mjs into every scene's <script>, after RIG_DATA and SHOT.
     // Everything is placed on one paused GSAP timeline at absolute seconds, so any frame can be
     // seeked on its own. No clocks, no Math.random: randomness comes from a seeded PRNG.
@@ -317,7 +317,10 @@
     function makeRig(P, tl) {
       const { MOUTHS, BROWS, MOODS, CAST } = RIG_DATA;
       const $ = (id) => document.getElementById(P + "-" + id);
-      const R = { tl, P, $, D: SHOT.dur, L: SHOT.lines, pos: {}, moods: {}, cams: [], looks: {}, blinkOff: {} };
+      // Canvas: 1080x1920 (vertical) or 1920x1080 (wide). Episodes are directed in vertical terms;
+      // in wide, every camera move is re-framed for 16:9 (see R.cam).
+      const W = SHOT.w, H = SHOT.h, WIDE = W > H;
+      const R = { W, H, WIDE, tl, P, $, D: SHOT.dur, L: SHOT.lines, pos: {}, moods: {}, cams: [], looks: {}, blinkOff: {} };
     
       const rng = (seed) => () => {
         seed = (seed + 0x6d2b79f5) | 0;
@@ -450,22 +453,32 @@
       };
     
       // ---------- camera, light, props ----------
-      // Frames world point (cx, cy) at the screen point (540, 960) at scale s.
+      // Frames world point (cx, cy) at the centre of the canvas at scale s. In wide, a vertical framing
+      // becomes a tighter one on the same subject: wide shots centre on the gang, and the view never
+      // leaves the drawn set.
+      const wideFrame = (s, cx, cy) => {
+        if (RIG_DATA.WORLD === "door") return [s, 540, 760];
+        const sw = s < 1.3 ? 1.38 : Math.max(1.38, s * 0.92);
+        const cyw = s < 1.3 ? 900 : cy - 60;
+        const hw = W / 2 / sw, hh = H / 2 / sw;
+        return [sw, Math.max(-200 + hw, Math.min(1280 - hw, cx)), Math.max(-200 + hh, Math.min(2120 - hh, cyw))];
+      };
       R.cam = (t, s, cx, cy, dur = 0, ease = "power3.inOut") => {
-        const v = { x: 540 - s * cx, y: 960 - s * cy, scale: s, svgOrigin: "0 0" };
+        if (WIDE) [s, cx, cy] = wideFrame(s, cx, cy);
+        const v = { x: W / 2 - s * cx, y: H / 2 - s * cy, scale: s, svgOrigin: "0 0" };
         if (dur <= 0) tl.set($("cam"), v, t);
         else tl.to($("cam"), { ...v, duration: dur, ease }, t);
         R.cams.push({ t: t + dur, s, cx, cy });
         R.cams.sort((a, b) => a.t - b.t);
       };
       const camAt = (t) => {
-        let c = { s: 1, cx: 540, cy: 960 };
+        let c = { s: 1, cx: W / 2, cy: H / 2 };
         for (const k of R.cams) if (k.t <= t + 1e-6) c = k;
         return c;
       };
       R.toScreen = (x, y, t) => {
         const c = camAt(t);
-        return [540 + c.s * (x - c.cx), 960 + c.s * (y - c.cy), c.s];
+        return [W / 2 + c.s * (x - c.cx), H / 2 + c.s * (y - c.cy), c.s];
       };
       R.light = (t, on) => {
         const el = $("dark");
@@ -540,10 +553,16 @@
             const head = RIG_DATA.CAST[ln.who].headTop * p.s;
             [sx, sy] = R.toScreen(p.x, p.y + head, ln.start);
           } else {
-            sx = 1060; sy = 760; // off screen to the right: Mummy at the door
+            sx = W - 20; sy = H * 0.4; // off screen to the right: Mummy at the door
           }
-          const bottom = Math.max(190 + h, Math.min(1300, sy - 40));
-          const left = Math.max(80, Math.min(1000 - w, sx - w / 2));
+          // Above the head; in wide, when there is no room above, beside the head instead.
+          const top0 = WIDE ? 40 : 190, mx = WIDE ? 100 : 80;
+          let bottom = Math.max(top0 + h, Math.min(H - (WIDE ? 80 : 620), sy - 40));
+          let left = Math.max(mx, Math.min(W - mx - w, sx - w / 2));
+          if (WIDE && sy - 40 - h < top0 && R.pos[ln.who]) {
+            bottom = Math.min(H - 80, Math.max(top0 + h, sy + h * 0.6));
+            left = sx > W / 2 ? Math.max(mx, sx - 110 - w) : Math.min(W - mx - w, sx + 110);
+          }
           b.style.left = left + "px";
           b.style.top = bottom - h + "px";
           tail.style.left = Math.max(46, Math.min(w - 46, sx - left)) + "px";
@@ -577,6 +596,15 @@
       R.mood("aloo", t, "sleepy", false);
       R.mood("tamatar", t, "sad", false);
       R.$("aloo-extra").querySelectorAll(".sprout").forEach((el) => R.set(el, t, { scale: 1 }));
+    };
+    // Mummy saw through it: the disguises drop (Aloo's sprouts stay, he really is sprouting).
+    R.busted = (t = 0, d = 0.001) => {
+      R.set("tamatar-extra", t, { opacity: 0 });
+      R.stretch("tamatar", t, 1, 1, d);
+      R.lean("bhindi", t, 0, d);
+      R.stretch("bhindi", t, 1, 1, d);
+      R.mood("bhindi", t, "normal", false);
+      R.mood("tamatar", t, "normal", false);
     };
     R.fresh = () => {
       R.set("tamatar-extra", 0, { opacity: 0 });

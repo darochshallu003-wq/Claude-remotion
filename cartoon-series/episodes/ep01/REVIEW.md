@@ -1,17 +1,17 @@
 # Episode 1 review
 
-- **Calls made:** picked storyline C (Fridge Gang) with Hinglish voices, so the planned silent
-  slapstick became short voiced lines over the same gags. Not built: A (Mitthu Bolta Hai) and B
-  (Rasoi Ke Raaz), kept in `../../STORYLINES.md`.
-- **Measured:** `hyperframes check` passes with 0 errors (lint, runtime, layout, motion, contrast,
-  audio). Render: 67.3 s, 1080×1920, 30 fps, h264 + aac, −16.3 LUFS integrated. The sound was
-  measured, not heard.
-- **Looked at:** the 16 beat frames, every seam, and the lid and end card after fixes.
+- **Audience:** YouTube Kids. The first cut ended with Mummy ordering pizza (the veg "won" by
+  avoiding being eaten) and a "follow karo, warna…" call to action under the @mythmitao handle.
+  Now Mummy finds the raisin, everyone is fresh, and tonight is mix veg; the gang decides being
+  together in one dish makes them superstars. The end card teases Episode 2 with no handle and no
+  pressure line.
+- **Formats:** one script, two builds: `wide/` (1920×1080) and the vertical root project (1080×1920).
+- **Measured:** `hyperframes check` passes with 0 errors in both. Renders: 77.1 s, 30 fps, h264 +
+  aac, −16.5 LUFS integrated, true peak −1.1 dBFS. The sound was measured, not heard.
+- **Looked at:** the beat frames of both formats, the raisin pluck, the new s6 and both end cards.
 - **Warnings kept:** a few `line_unread` warnings come from one empty sample splitting a bubble that
-  is actually up for about 2 s; six `gsap_tween_tail` overlaps between a hop and a squash on the
-  same frame, which settle back to rest; `duplicate_audio_track` where two sound effects
-  overlap on purpose.
-- **No music bed yet:** music needs a HeyGen sign-in for the catalog
-  (`npx hyperframes auth login`). Add one at ~0.14 volume under the voices.
-- **Weakest shot:** s6 (celebration) is short and plain. With more time: a high-five between Bhindi
-  and Aloo, and the raisin spot flying off Tamatar.
+  is on screen for about 2 s; `gsap_tween_tail` where a hop and a squash overlap (they settle to rest);
+  `duplicate_audio_track` where sound effects overlap on purpose.
+- **No music bed yet:** needs a HeyGen sign-in for the catalog (`npx hyperframes auth login`).
+- **Weakest spots:** in wide, the "TEAM FRIDGE GANG!" bubble sits over Tamatar mid-hop; the raisin
+  is plucked off rather than seen travelling in the hand.

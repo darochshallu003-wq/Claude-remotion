@@ -98,7 +98,15 @@
  {
   "id": "s5-1",
   "who": "mummy",
-  "say": "छोड़ो… आज pizza मँगवा लेते हैं।",
+  "say": "एक मिनट… ये तो किशमिश है!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "-6Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-2",
+  "who": "mummy",
+  "say": "सब fresh हैं! शाम को बनेगी… mix veg!",
   "voice": "hi-IN-SwaraNeural",
   "pitch": "-6Hz",
   "rate": "+4%"
@@ -106,13 +114,29 @@
  {
   "id": "s6-0",
   "who": "tamatar",
-  "say": "Operation… successful!",
+  "say": "Mix veg… मतलब हम तीनों साथ?!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
  },
  {
   "id": "s6-1",
+  "who": "bhindi",
+  "say": "तीनों साथ? फिर तो हम superstar!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s6-2",
+  "who": "tamatar",
+  "say": "Team… Fridge Gang!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s6-3",
   "who": "aloo",
   "say": "मैंने बोला था… chill.",
   "voice": "hi-IN-MadhurNeural",
@@ -138,7 +162,7 @@
  {
   "id": "s8-0",
   "who": "tamatar",
-  "say": "Follow करो… वरना Mummy हमें उठा लेंगी!",
+  "say": "ये नया पड़ोसी कौन है? अगले episode में मिलते हैं!",
   "voice": "hi-IN-MadhurNeural",
   "pitch": "+38Hz",
   "rate": "+12%"
