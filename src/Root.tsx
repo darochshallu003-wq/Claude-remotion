@@ -6,6 +6,7 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
+import { GRANDMA_FRAMES, GrandmaShort } from "./videos/grandma/Grandma";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -60,6 +61,15 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
       />
       <Composition id="CastSheet" component={CastSheet} durationInFrames={1} fps={30} width={1080} height={1300} />
+      {/* The Goodbye Money: cartoon-3d-short skill (three.js world, 2D cast); voice + mix are muxed after render */}
+      <Composition
+        id="GrandmaShort"
+        component={GrandmaShort}
+        durationInFrames={GRANDMA_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
     </>
   );
 };

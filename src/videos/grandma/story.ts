@@ -115,7 +115,7 @@ const S2a = (f: number) => dolly([4.5, 7.5, 16], [-1.5, 1.2, -4], pushK(f, 152, 
 const S2b = (f: number) => dolly([-0.6, 0.75, 7.6], [BAGS[0], 0.45, BAGS[2]], pushK(f, 193, 0.003), { fov: 38, roll: 0.03 });
 const S2c = (f: number) => dolly([-1.4, 1.2, 8.8], [TAXI0[0], 0.75, TAXI0[2] + 1.0], pushK(f, 221, 0.0025), { fov: 40, roll: -0.03 });
 // shot 3: glide past the lane's grandmas at their doors -> the one peeking from behind the neem tree
-const S3a = (f: number) => { const u = (f - 257) / 142; return { pos: [-0.6, 1.5, -5.6 - 19 * u] as V3, look: [-5.6, 1.1, -8.4 - 19 * u] as V3, fov: 42, roll: -0.02 }; };
+const S3a = (f: number) => { const u = (f - 257) / 142; return { pos: [-0.6, 1.5, -5.6 - 19 * u] as V3, look: [-5.6, 1.1, -6.9 - 19 * u] as V3, fov: 42, roll: -0.02 }; };
 const S3b = (f: number) => dolly([TREE[0] - 3.2, 1.45, TREE[2] + 2.2], [TREE[0] - 0.55, 1.36, TREE[2] + 0.25], pushK(f, 399, 0.002, 0.006, 35), { fov: 34, roll: 0.04 });
 // shot 4: the doorstep two-shot -> the handshake insert (hands card)
 const mid = (a: V3, b: V3): V3 => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2];
@@ -157,7 +157,7 @@ const S13a = (f: number) => onTaxi(13, f, [-3.0, 1.45, 1.4], [-0.35, 1.35, 0.6],
 const S13b = (f: number) => onTaxi(13, f, [-2.4, 1.45, 1.15], [-0.35, 1.4, 0.6], pushK(f, 1730, 0.002, 0.006, 30), { fov: 38, roll: -0.035 });
 // shot 14: the coin held up to the sunset -> the coin against the sun
 const S14a = (f: number) => onTaxi(14, f, [-2.6, 1.3, 1.6], [-0.35, 1.25, 0.6], pushK(f, 1775, 0.0025), { fov: 38, roll: 0.03 });
-const S14b = (f: number) => onTaxi(14, f, [-1.2, 1.12, 1.5], [-0.75, 1.3, -1.0], pushK(f, 1833, 0.002, 0.005, 30), { fov: 34, roll: -0.03 });
+const S14b = (f: number) => onTaxi(14, f, [-2.4, 1.15, 1.2], [-2.3, 1.45, -3.0], pushK(f, 1833, 0.002, 0.005, 30), { fov: 36, roll: -0.03 });
 // shot 15 (day): next month at the door -> Grandma CU -> the wad insert -> the final two-shot
 const S15a = (f: number) => dolly([DUO[0] + 0.6, 1.55, DUO[2] + 5.2], [DUO[0], 1.2, DUO[2]], pushK(f, 1895, 0.0022), { fov: 40 });
 const S15b = (f: number) => dolly([-4.1, 1.38, 2.7], [GRAN[0], GE - 0.05, GRAN[2]], pushK(f, 1989, 0.0025, 0.006, 25), { fov: 36, roll: 0.035 });

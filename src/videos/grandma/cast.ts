@@ -356,7 +356,7 @@ export const stage = (id: number, t: number, cam: CamInfo, light: "day" | "golde
     case 12: {
       if (f < 1405) {
         who(cam, out, 1, GRANDMA, "gran", GRAN, { expr: "smile_closed", reach: 0.45, item: "coin" }, t, [1, 1, 3]);
-        for (const w of [1363, 1443]) burst(out, t, w, [GRAN[0] + 0.55, 1.35, GRAN[2] + 0.35], 0.32);
+        for (const w of [1363, 1443]) burst(out, t, w, [GRAN[0] + 0.5, 0.98, GRAN[2] + 0.45], 0.3);
       } else {
         // the zero rolls in from the left and topples flat ("ending"); the one stands and rolls away ("beginning")
         const z0 = COIN_Z0, R = 0.28;
