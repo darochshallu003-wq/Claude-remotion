@@ -1,0 +1,146 @@
+[
+ {
+  "id": "s1-0",
+  "who": "tamatar",
+  "say": "फ़्यू… बच गए!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s2-0",
+  "who": "tamatar",
+  "say": "Guys… आज Sunday है!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s2-1",
+  "who": "tamatar",
+  "say": "Mummy सब्ज़ी बनाएँगी… और सबसे पहले मुझे उठाएँगी!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s2-2",
+  "who": "aloo",
+  "say": "तो? मैं तो हर सब्ज़ी में होता हूँ। Chill.",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s2-3",
+  "who": "bhindi",
+  "say": "Chill नहीं। Plan चाहिए।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s3-0",
+  "who": "bhindi",
+  "say": "जो सबसे बेकार दिखेगा… उसे कोई नहीं उठाएगा।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s3-1",
+  "who": "tamatar",
+  "say": "मतलब… हम ख़राब बन जाएँ?!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s3-2",
+  "who": "bhindi",
+  "say": "बिल्कुल। Operation… सड़ा हुआ!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s4-0",
+  "who": "tamatar",
+  "say": "देखो! मैं तो सड़ गया!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s4-1",
+  "who": "bhindi",
+  "say": "और मैं… मुरझा गई।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "+14Hz",
+  "rate": "+10%"
+ },
+ {
+  "id": "s4-2",
+  "who": "aloo",
+  "say": "मैं तो… already उग रहा हूँ।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s5-0",
+  "who": "mummy",
+  "say": "अरे! सारी सब्ज़ी ख़राब हो गई?!",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "-6Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s5-1",
+  "who": "mummy",
+  "say": "छोड़ो… आज pizza मँगवा लेते हैं।",
+  "voice": "hi-IN-SwaraNeural",
+  "pitch": "-6Hz",
+  "rate": "+4%"
+ },
+ {
+  "id": "s6-0",
+  "who": "tamatar",
+  "say": "Operation… successful!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s6-1",
+  "who": "aloo",
+  "say": "मैंने बोला था… chill.",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-22Hz",
+  "rate": "-12%"
+ },
+ {
+  "id": "s7-0",
+  "who": "pizza",
+  "say": "Hello… नए पड़ोसियो।",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "-35Hz",
+  "rate": "-18%"
+ },
+ {
+  "id": "s7-1",
+  "who": "tamatar",
+  "say": "ये… कौन है?",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ },
+ {
+  "id": "s8-0",
+  "who": "tamatar",
+  "say": "Follow करो… वरना Mummy हमें उठा लेंगी!",
+  "voice": "hi-IN-MadhurNeural",
+  "pitch": "+38Hz",
+  "rate": "+12%"
+ }
+]

@@ -3,3 +3,6 @@
 node_modules/
 out/
 public/cucumber-salad-graded.mp4
+# Fridge Gang build caches
+cartoon-series/.cache/
+cartoon-series/**/.hyperframes/
