@@ -26,7 +26,7 @@ CH_B = [(58, "M"), (55, "m"), (53, "M"), (53, "M"), (48, "M"), (58, "M"), (48, "
 TRIAD = {"M": (0, 4, 7), "m": (0, 3, 7)}
 
 # Sparkle chimes at story beats (seconds): star lands, star returns, thank-you twinkle.
-SPARKLES = [24.0, 63.0, 69.5]
+SPARKLES = [25.1, 63.0, 69.5]
 
 
 def hz(m):
