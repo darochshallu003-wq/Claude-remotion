@@ -23,19 +23,19 @@ export const SCRIPT: Beat[] = [
   {
     id: "ask",
     seconds: 7.86,
-    enter: "wipe",
+    enter: "zoom",
     vo: "Interview में यही सवाल आता है। एक train, तीन सौ seats, और एक ही minute में दस लाख लोग। आप system कैसे बनाओगे?",
   },
   {
     id: "crash",
     seconds: 7.35,
-    enter: "iris",
+    enter: "whip",
     vo: "सबको सीधा database पर भेज दिया, तो database वहीं बैठ जाएगा। लाखों requests एक साथ, और सबको timeout.",
   },
   {
     id: "queue",
     seconds: 10.07,
-    enter: "wipe",
+    enter: "zoom",
     vo: "तो पहले सबको line में लगाओ। हर user को एक token मिलता है, और अंदर उतने ही लोग जाते हैं जितने server संभाल सके। इसे कहते हैं virtual waiting room.",
   },
   {
@@ -53,31 +53,31 @@ export const SCRIPT: Beat[] = [
   {
     id: "race",
     seconds: 8.1,
-    enter: "wipe",
+    enter: "whip",
     vo: "पर एक पेच है। अगर ठीक उसी millisecond पर दो लोग एक ही seat पर click कर दें तो? दोनों को लगेगा seat उनकी है।",
   },
   {
     id: "cas",
     seconds: 9.08,
-    enter: "iris",
+    enter: "zoom",
     vo: "इसलिए seat सिर्फ़ एक शर्त पर बदलती है, अगर वो अभी भी खाली है। पहला जीतता है, दूसरे को साफ़ मना। इसे कहते हैं compare-and-set.",
   },
   {
     id: "pay",
     seconds: 12.66,
-    enter: "wipe",
+    enter: "whip",
     vo: "और payment पर network अटका, आपने घबराकर दो बार Pay दबा दिया तो? हर payment के साथ एक unique key जाती है। वही key दोबारा आई, तो पैसा दोबारा नहीं कटता। इसे कहते हैं idempotency key.",
   },
   {
     id: "recap",
     seconds: 11.41,
-    enter: "iris",
+    enter: "zoom",
     vo: "तो पूरा design: बाहर waiting room, अंदर seat पर timer वाला lock, हर seat पर compare-and-set, और payment पर idempotency key. चार परतें, और एक भी seat दो बार नहीं बिकती।",
   },
   {
     id: "cta",
     seconds: 6.85,
-    enter: "wipe",
+    enter: "iris",
     vo: "अब system आपका है। Lock का timer दस मिनट रखोगे, या दो मिनट? Comment में जवाब दो, वजह के साथ।",
   },
 ];

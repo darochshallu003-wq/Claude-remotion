@@ -17,7 +17,7 @@ import { C, FPS, HEAD, MONO } from "../onion/theme";
 // with their transitions, lays the voiceover clips, music bed and
 // transition whooshes under them, and ends on a fade-to-black outro.
 
-export type Enter = "cut" | "iris" | "wipe" | "fade";
+export type Enter = "cut" | "iris" | "wipe" | "fade" | "zoom" | "whip";
 export type Beat = { id: string; seconds: number; enter: Enter; vo: string };
 
 export const TRANSITION_FRAMES = 14;
@@ -96,6 +96,22 @@ const Enterer: React.FC<{ enter: Enter; children: React.ReactNode }> = ({ enter,
           />
         )}
       </>
+    );
+  }
+  if (enter === "zoom") {
+    // punch through: the new scene rushes in from oversized and blurred
+    return (
+      <AbsoluteFill style={{ opacity: Math.min(1, p * 2.2), transform: `scale(${1 + (1 - p) * 0.9})`, filter: p < 1 ? `blur(${(1 - p) * 14}px)` : undefined }}>
+        {children}
+      </AbsoluteFill>
+    );
+  }
+  if (enter === "whip") {
+    // fast sideways whip-pan with motion blur
+    return (
+      <AbsoluteFill style={{ transform: `translateX(${(1 - p) * 100}%)`, filter: p < 1 ? `blur(${Math.sin(p * Math.PI) * 18}px)` : undefined }}>
+        {children}
+      </AbsoluteFill>
     );
   }
   if (enter === "fade") return <AbsoluteFill style={{ opacity: p }}>{children}</AbsoluteFill>;
@@ -217,7 +233,7 @@ export const makeExplainer = ({
         />
 
         {placed
-          .filter((p, i) => i > 0 && (p.enter === "iris" || p.enter === "wipe"))
+          .filter((p, i) => i > 0 && p.enter !== "cut" && p.enter !== "fade")
           .map((p) => (
             <Sequence key={`wh-${p.id}`} from={p.start - TRANSITION_FRAMES - 4}>
               <Audio src={staticFile("sfx/whoosh.wav")} volume={0.35} />

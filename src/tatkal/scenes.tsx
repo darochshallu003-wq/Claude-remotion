@@ -1,9 +1,9 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, random, useCurrentFrame } from "remotion";
+import { Easing, interpolate, random, useCurrentFrame } from "remotion";
 import { clamp, useCue, useEnter } from "../onion/components";
 import { MONO } from "../onion/theme";
 import { Sfx } from "../mitti/kraft";
-import { BlueprintBg, BOLD, Called, Header, inr, K, Lock, Phone, Stamp, Tag } from "./kit";
+import { BOLD, Called, inr, K, Lock, Phone, Shot, Stamp, Tag } from "./kit";
 
 const ease = Easing.inOut(Easing.cubic);
 
@@ -23,9 +23,12 @@ export const Hook: React.FC = () => {
   const pulse = isOpen ? 1 + 0.05 * Math.sin((frame - open) / 3) : 1;
 
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header />
+    <Shot keys={[
+        { t: 0, x: 540, y: 410, z: 1.38, rz: -3 },
+        { t: 0.38, x: 540, y: 420, z: 1.3, rz: 1, ease: "lin" },
+        { t: 0.47, x: 540, y: 930, z: 0.92, rz: 0, ease: "snap" },
+        { t: 1, x: 540, y: 1010, z: 1.18, rx: 14, ease: "io" },
+      ]}>
       <Tag text="AC Tatkal · opens at" x={540} y={250} center at={4} />
       <div
         style={{
@@ -111,7 +114,7 @@ export const Hook: React.FC = () => {
       <Sfx at={Math.round(step)} src="onion/tick.wav" volume={0.4} />
       <Sfx at={Math.round(step * 2)} src="onion/tick.wav" volume={0.4} />
       <Sfx at={open} src="sfx/pop.wav" volume={0.6} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -153,9 +156,12 @@ export const Ask: React.FC = () => {
     ["60 SEC", "TO SELL OUT"],
   ];
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="THE QUESTION" />
+    <Shot keys={[
+        { t: 0, x: 540, y: 380, z: 1.75, rx: 28 },
+        { t: 0.16, x: 540, y: 560, z: 1.12, rx: 0, ease: "out" },
+        { t: 0.6, x: 540, y: 900, z: 1.04, ease: "io" },
+        { t: 1, x: 640, y: 1250, z: 1.35, ry: -10, ease: "io" },
+      ]} section="THE QUESTION">
       <div
         style={{
           position: "absolute",
@@ -208,7 +214,7 @@ export const Ask: React.FC = () => {
       {[0.18, 0.3, 0.42, 0.54].map((f) => (
         <Sfx key={f} at={cue(f)} src="onion/tick.wav" volume={0.35} />
       ))}
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -246,9 +252,13 @@ export const Crash: React.FC = () => {
   const load = interpolate(frame, [cue(0.05), melt], [0.08, 1], { ...clamp, easing: Easing.in(Easing.quad) });
   const broken = frame >= melt;
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="NAIVE DESIGN" />
+    <Shot keys={[
+        { t: 0, x: 280, y: 820, z: 1.35, rz: 4, ry: 16 },
+        { t: 0.5, x: 760, y: 760, z: 1.6, rz: 0, ry: -8, ease: "io" },
+        { t: 0.56, shake: 34, ease: "snap" },
+        { t: 0.72, x: 540, y: 950, z: 1.0, ry: 0, shake: 10, ease: "snap" },
+        { t: 1, x: 540, y: 1000, z: 0.96, shake: 0, ease: "out" },
+      ]} section="NAIVE DESIGN">
       {/* request streams */}
       {new Array(70).fill(0).map((_, i) => {
         const y0 = 420 + random(`y${i}`) * 820;
@@ -291,7 +301,7 @@ export const Crash: React.FC = () => {
         ))}
       <Stamp text="SERVER DOWN" x={540} y={1360} at={cue(0.72)} />
       <Sfx at={melt} src="onion/thud.wav" volume={0.6} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -322,6 +332,9 @@ const along = (s: number): [number, number] => {
   return SNAKE[SNAKE.length - 1];
 };
 
+/** Where the yellow YOU dot is in the queue at frame f (camera follows it). */
+const youAt = (f: number): [number, number] => along(Math.max(0, 100 + 30 * 46 - f * 1.6));
+
 export const Queue: React.FC = () => {
   const frame = useCurrentFrame();
   const cue = useCue();
@@ -331,9 +344,12 @@ export const Queue: React.FC = () => {
   const server = useEnter(4);
   const path = SNAKE.map(([x, y], i) => `${i ? "L" : "M"}${x} ${y}`).join(" ");
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="FIX 1 · THE LINE" />
+    <Shot keys={[
+        { t: 0, z: 2.0, rx: 52, rz: -28, tw: 1 },
+        { t: 0.42, z: 1.55, rx: 46, rz: -16, tw: 1, ease: "lin" },
+        { t: 0.7, x: 540, y: 820, z: 0.95, rx: 0, rz: 0, tw: 0, ease: "io" },
+        { t: 1, x: 540, y: 880, z: 1.02, ease: "lin" },
+      ]} track={youAt} section="FIX 1 · THE LINE" hud={<Called name="Virtual waiting room" sub="sab andar nahi, line se andar" at={cue(0.78)} />}>
       <div
         style={{
           position: "absolute",
@@ -406,9 +422,8 @@ export const Queue: React.FC = () => {
           </div>
         );
       })()}
-      <Called name="Virtual waiting room" sub="sab andar nahi, line se andar" at={cue(0.78)} />
       <Sfx at={cue(0.78)} src="onion/sparkle.wav" volume={0.45} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -534,17 +549,22 @@ export const Hold: React.FC = () => {
   const left = 300 - Math.max(0, frame - pick) / 30;
   const timerIn = useEnter(cue(0.52));
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="FIX 2 · HOLD THE SEAT" />
+    <Shot keys={[
+        { t: 0, x: 540, y: 760, z: 1.0, rx: 42, rz: 12 },
+        { t: 0.27, x: 372, y: 880, z: 1.3, rx: 18, rz: 0, ease: "io" },
+        { t: 0.35, x: 372, y: 882, z: 2.5, rx: 0, ease: "snap" },
+        { t: 0.5, z: 2.35, ease: "lin" },
+        { t: 0.62, x: 480, y: 1190, z: 1.5, ease: "io" },
+        { t: 0.8, x: 540, y: 1060, z: 1.0, ease: "io" },
+        { t: 1, z: 1.04, ease: "lin" },
+      ]} section="FIX 2 · HOLD THE SEAT" hud={<Called name="Lock + TTL" sub="time-to-live · 5 min ka timer" at={cue(0.82)} />}>
       <SeatMap mine={frame >= pick ? mine : 0} />
       <div style={{ opacity: timerIn }}>
         <Timer left={left} color={K.yellow} x={150} y={1170} />
       </div>
-      <Called name="Lock + TTL" sub="time-to-live · 5 min ka timer" at={cue(0.82)} />
       <Sfx at={pick} src="onion/tick.wav" volume={0.55} />
       <Sfx at={cue(0.82)} src="onion/sparkle.wav" volume={0.45} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -561,9 +581,14 @@ export const Expire: React.FC = () => {
   const walk = interpolate(frame, [cue(0.6), cue(0.85)], [0, 1], { ...clamp, easing: ease });
   const taken = frame >= cue(0.85);
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="FIX 2 · TIMER RUNS OUT" />
+    <Shot keys={[
+        { t: 0, x: 470, y: 1245, z: 1.8, rz: -2 },
+        { t: 0.33, x: 470, y: 1245, z: 2.0, rz: 1, ease: "lin" },
+        { t: 0.42, x: 372, y: 882, z: 2.0, rz: 0, ease: "snap" },
+        { t: 0.56, x: 460, y: 1080, z: 1.1, rx: 28, ease: "io" },
+        { t: 0.85, x: 400, y: 960, z: 1.35, rx: 10, ease: "io" },
+        { t: 1, x: 540, y: 1040, z: 1.0, rx: 0, ease: "io" },
+      ]} section="FIX 2 · TIMER RUNS OUT">
       <SeatMap mine={1} lockOpen={lockOpen} heldBy={frame >= end ? K.red : K.yellow} free={taken ? 0 : free} />
       {taken && (
         <div
@@ -598,7 +623,7 @@ export const Expire: React.FC = () => {
       <Tag text="Next in line →" x={540} y={1450} center at={cue(0.58)} color={K.pink} size={30} />
       <Sfx at={end} src="onion/thud.wav" volume={0.5} />
       <Sfx at={cue(0.85)} src="sfx/pop.wav" volume={0.5} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -665,9 +690,18 @@ export const Race: React.FC = () => {
     />
   );
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="THE CATCH" />
+    <Shot keys={[
+        { t: 0, x: 210, y: 1210, z: 2.1, rz: -4 },
+        { t: 0.14, z: 2.2, ease: "lin" },
+        { t: 0.2, x: 830, y: 1210, z: 2.1, rz: 4, ease: "snap" },
+        { t: 0.3, z: 2.2, ease: "lin" },
+        { t: 0.4, x: 540, y: 950, z: 1.0, rz: 0, ease: "io" },
+        { t: 0.55, x: 540, y: 690, z: 1.55, ease: "in" },
+        { t: 0.6, z: 1.35, shake: 22, ease: "snap" },
+        { t: 0.73, x: 540, y: 860, z: 1.08, shake: 0, ease: "io" },
+        { t: 0.78, shake: 16, ease: "snap" },
+        { t: 1, x: 540, y: 900, z: 1.04, shake: 0, ease: "out" },
+      ]} section="THE CATCH">
       <BigSeat x={seat[0]} y={seat[1]} color={frame >= hit ? K.red : K.green}>
         32
       </BigSeat>
@@ -684,7 +718,7 @@ export const Race: React.FC = () => {
       <Stamp text="DOUBLE BOOKING" x={540} y={950} at={cue(0.75)} size={70} />
       <Sfx at={hit} src="onion/tick.wav" volume={0.6} />
       <Sfx at={cue(0.75)} src="onion/thud.wav" volume={0.6} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -702,9 +736,14 @@ export const Cas: React.FC = () => {
   ];
   const lines = ["UPDATE seats", "SET holder = :user", "WHERE seat_no = 32", "  AND holder IS NULL;"];
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="FIX 3 · ONE SEAT, ONE WINNER" />
+    <Shot keys={[
+        { t: 0, x: 500, y: 420, z: 1.45, ry: -18 },
+        { t: 0.3, x: 420, y: 545, z: 1.95, ry: 0, ease: "io" },
+        { t: 0.38, x: 540, y: 960, z: 1.0, ease: "snap" },
+        { t: 0.62, x: 540, y: 1020, z: 1.15, ease: "lin" },
+        { t: 0.74, x: 540, y: 960, z: 1.0, ease: "io" },
+        { t: 1, z: 1.05, ease: "lin" },
+      ]} section="FIX 3 · ONE SEAT, ONE WINNER" hud={<Called name="Compare-and-set" sub="check aur update, ek hi step mein" at={cue(0.74)} y={1340} />}>
       <div
         style={{
           position: "absolute",
@@ -765,11 +804,10 @@ export const Cas: React.FC = () => {
           </div>
         );
       })}
-      <Called name="Compare-and-set" sub="check aur update, ek hi step mein" at={cue(0.74)} y={1340} />
       <Sfx at={cue(0.4)} src="sfx/pop.wav" volume={0.5} />
       <Sfx at={cue(0.55)} src="onion/thud.wav" volume={0.45} />
       <Sfx at={cue(0.74)} src="onion/sparkle.wav" volume={0.45} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -811,9 +849,16 @@ export const Pay: React.FC = () => {
     );
   };
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="FIX 4 · PAY ONLY ONCE" />
+    <Shot keys={[
+        { t: 0, x: 540, y: 1390, z: 2.25, rx: 22 },
+        { t: 0.12, x: 540, y: 1330, z: 1.9, rx: 0, ease: "out" },
+        { t: 0.26, y: 1300, z: 1.85, ease: "lin" },
+        { t: 0.38, x: 540, y: 560, z: 1.4, ease: "io" },
+        { t: 0.5, y: 620, z: 1.5, ease: "lin" },
+        { t: 0.54, shake: 18, ease: "snap" },
+        { t: 0.72, x: 540, y: 960, z: 1.0, shake: 0, ease: "io" },
+        { t: 1, z: 1.04, ease: "lin" },
+      ]} section="FIX 4 · PAY ONLY ONCE" hud={<Called name="Idempotency key" sub="same key = same payment" at={cue(0.78)} y={1500} />}>
       <div
         style={{
           position: "absolute",
@@ -885,14 +930,13 @@ export const Pay: React.FC = () => {
       </Phone>
       <Tag text="tap" x={790} y={1330} at={taps[0]} color={K.white} size={26} />
       <Tag text="tap again!" x={790} y={1390} at={taps[1]} color={K.red} size={26} />
-      <Called name="Idempotency key" sub="same key = same payment" at={cue(0.78)} y={1500} />
       {taps.map((t) => (
         <Sfx key={t} at={t} src="onion/tick.wav" volume={0.6} />
       ))}
       <Sfx at={arrive[0]} src="sfx/pop.wav" volume={0.5} />
       <Sfx at={arrive[1]} src="onion/thud.wav" volume={0.5} />
       <Sfx at={cue(0.78)} src="onion/sparkle.wav" volume={0.45} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -910,9 +954,12 @@ export const Recap: React.FC = () => {
   ];
   const step = [0.04, 0.24, 0.42, 0.6];
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header section="OUR DESIGN" />
+    <Shot keys={[
+        { t: 0, x: 540, y: 520, z: 1.6, rx: 50, rz: -20 },
+        { t: 0.66, x: 540, y: 820, z: 1.02, rx: 42, rz: -12, ease: "lin" },
+        { t: 0.8, x: 540, y: 960, z: 1.0, rx: 0, rz: 0, ease: "io" },
+        { t: 1, z: 1.06, ease: "lin" },
+      ]} section="OUR DESIGN">
       <svg width={1080} height={1920} style={{ position: "absolute", left: 0, top: 0 }}>
         <line
           x1={130}
@@ -963,7 +1010,7 @@ export const Recap: React.FC = () => {
         <Sfx key={s} at={cue(s)} src="onion/tick.wav" volume={0.4} />
       ))}
       <Sfx at={cue(0.8)} src="onion/sparkle.wav" volume={0.5} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
@@ -978,9 +1025,13 @@ export const Cta: React.FC = () => {
     ["2", K.red, "seats jaldi ghoomti", "par payment beech mein toote", 0.38],
   ];
   return (
-    <AbsoluteFill>
-      <BlueprintBg />
-      <Header />
+    <Shot keys={[
+        { t: 0, x: 540, y: 360, z: 1.5, rz: -2 },
+        { t: 0.18, y: 700, z: 1.1, rz: 0, ease: "io" },
+        { t: 0.5, y: 900, z: 1.05, ease: "lin" },
+        { t: 0.62, y: 960, z: 1.0, ease: "io" },
+        { t: 1, z: 1.1, ease: "lin" },
+      ]}>
       <div
         style={{
           position: "absolute",
@@ -1044,7 +1095,7 @@ export const Cta: React.FC = () => {
       </div>
       <Sfx at={cue(0.2)} src="sfx/pop.wav" volume={0.45} />
       <Sfx at={cue(0.38)} src="sfx/pop.wav" volume={0.45} />
-    </AbsoluteFill>
+    </Shot>
   );
 };
 
