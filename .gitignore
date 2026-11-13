@@ -3,3 +3,5 @@
 node_modules/
 out/
 public/cucumber-salad-graded.mp4
+# Local secrets written by `elevenlabs onboard`
+/.env.local
