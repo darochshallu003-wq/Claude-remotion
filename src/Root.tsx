@@ -6,6 +6,7 @@ import { TAMRA_TOTAL_FRAMES, TamraExplainer } from "./tamra/TamraExplainer";
 import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
+import { DOUDOU_FPS, DOUDOU_TOTAL_FRAMES, DoudouMoon } from "./doudou/DoudouMoon";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -58,6 +59,14 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
+      />
+      <Composition
+        id="DoudouMoon"
+        component={DoudouMoon}
+        durationInFrames={DOUDOU_TOTAL_FRAMES}
+        fps={DOUDOU_FPS}
+        width={1920}
+        height={1080}
       />
       <Composition id="CastSheet" component={CastSheet} durationInFrames={1} fps={30} width={1080} height={1300} />
     </>
