@@ -1,6 +1,6 @@
 # Doudou and the Moon — review notes
 
-**Film:** 1920×1080, 30 fps, 258.4 s. 14 scenes, one per paragraph of the script. Rendered to `renders/doudou-and-the-moon.mp4`.
+**Film:** 1920×1080, 30 fps, 258.4 s. 14 scenes, one per paragraph of the script. The full-quality render (116 MB, CRF 16) is in `renders/` and not committed. `doudou-and-the-moon.mp4` (35 MB, CRF 22) is the committed delivery copy.
 
 ## Creative calls
 - The person's script is the story, used word for word as narration. No storyline alternatives were pitched.
@@ -12,6 +12,7 @@
 ## Measured vs. looked at
 - `hyperframes check`: 0 errors and 0 warnings (lint, runtime, layout, motion, contrast, craft, audio).
 - Contact sheets looked at: every scene's start and middle, every seam, plus spot frames at 0, 3, 7, 9.5, 14, 19, 60, 75, 160–171, 200, 215, 222 and 256 s.
+- Measured on the delivery file: integrated loudness -17.1 LUFS, true peak -1.2 dBFS. That is a calm level for bedtime; raise it about 2 dB for social feeds.
 - **Sound was measured, not heard.** Nobody has listened to the Kokoro narration. Pronunciation of "Doudou" should be checked by ear.
 - **No music bed.** HeyGen's catalog needs a sign-in, and Openverse and Hugging Face (MusicGen) are blocked by this environment's network policy. To add one, put a track at `assets/bgm/bed.mp3` and add `<audio id="bgm" class="clip" src="assets/bgm/bed.mp3" data-start="0" data-duration="258.35" data-volume="0.14" data-fade-in="2" data-fade-out="5">` to `index.html`. At 0.14 it sits under the voice.
 
