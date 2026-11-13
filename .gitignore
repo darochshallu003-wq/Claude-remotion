@@ -3,3 +3,8 @@
 node_modules/
 out/
 public/cucumber-salad-graded.mp4
+
+# HyperFrames: CLI install scratch, check/snapshot artifacts, render staging
+hyperframes/
+doudou-moon/.hyperframes/
+doudou-moon/renders/

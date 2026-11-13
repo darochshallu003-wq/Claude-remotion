@@ -1,0 +1,93 @@
+{
+  "voice": "af_heart",
+  "speed": 0.86,
+  "sentence_gap": 0.55,
+  "scene_tail": 1.4,
+  "scenes": [
+    { "id": "s01-bed", "lines": [
+      "Night came to the forest, and one by one the little lights went out.",
+      "Little Bear Doudou lay in his bed.",
+      "He counted the last sheep, but he still could not sleep.",
+      "Wind slipped through the window, carrying the smell of green grass and lake water.",
+      "Then Doudou heard a very soft sound outside, like someone crying."
+    ]},
+    { "id": "s02-moon", "lines": [
+      "He put on his soft slippers and went to the door.",
+      "Moonlight lay on the ground like a silver path.",
+      "Doudou looked up and saw that the moon was missing a small corner, like a cookie with one bite taken out.",
+      "The moon sat beside a cloud and said softly,",
+      "“I lost a little piece of light. Without it, I cannot sleep tonight, and I cannot help light everyone’s dreams.”",
+      "“I will help you find it,” said Doudou."
+    ]},
+    { "id": "s03-forest", "lines": [
+      "The moon showed him a path made of moonlight. Doudou followed it into the forest.",
+      "The night forest was not frightening.",
+      "An owl kept watch in a tree.",
+      "A stream snored softly beside the stones.",
+      "Dewdrops sat quietly on the leaves.",
+      "Doudou walked more and more gently, as if he were afraid of waking someone."
+    ]},
+    { "id": "s04-firefly", "lines": [
+      "In the grass, he met a little firefly who had lost its way.",
+      "The firefly said, “I saw a small piece of light fall into the hollow of the old oak tree.”"
+    ]},
+    { "id": "s05-hollow", "lines": [
+      "The hollow was dark and deep.",
+      "Doudou reached inside, and his heart beat fast.",
+      "He found something warm. It was not danger. It was a little piece of moonlight.",
+      "The moonlight rested in his paw and slowly turned into a soft moon candy.",
+      "When Doudou brought it close to his nose, it smelled like roasted chestnuts and blankets dried in the sun."
+    ]},
+    { "id": "s06-lake", "lines": [
+      "Doudou carried the moon candy back to the lake.",
+      "He held it up, and the moon leaned down and smiled.",
+      "It turned out that what the moon had lost was not just light.",
+      "It was the last dream of the night."
+    ]},
+    { "id": "s07-gift", "lines": [
+      "The moon became round again.",
+      "It poured its gentle light over Doudou’s bed and said,",
+      "“Thank you. Now I will give this little piece of light to you, to be your pillow.”",
+      "The moonlight wrapped around Doudou’s shoulders like a soft silk scarf."
+    ]},
+    { "id": "s08-pillow", "lines": [
+      "Doudou went home and climbed under his blanket.",
+      "His pillow felt warm, as if a little moon were hidden inside.",
+      "The moon breathed slowly, in and out, like his mother patting his back."
+    ]},
+    { "id": "s09-dream", "lines": [
+      "Doudou closed his eyes.",
+      "He dreamed that he was sailing in a moon boat over a quiet forest.",
+      "Fireflies carried their lights ahead of him, and the wind pulled a cloud over him like a blanket.",
+      "The little rabbit, the squirrel, and the bird were all asleep, and a small piece of moonlight shone in their dreams too."
+    ]},
+    { "id": "s10-words", "lines": [
+      "In the dream, the moon said to Doudou,",
+      "“Whatever you did not finish today can wait for tomorrow.",
+      "Whatever you did not say today can wait for a dream.",
+      "Just close your eyes, and give the rest to the night.”"
+    ]},
+    { "id": "s11-drift", "lines": [
+      "Doudou listened and listened. His breathing became slow.",
+      "He felt as if he had turned into moonlight, falling gently on the treetops, on the lake, and into every dream that had already fallen asleep."
+    ]},
+    { "id": "s12-morning", "lines": [
+      "The next morning, Doudou woke up and found a little patch of silver light beside his pillow.",
+      "Outside, the forest was waking too.",
+      "A bird sang in the branches, and a squirrel stretched in its tree hollow.",
+      "Doudou hugged his pillow and smiled, because he knew it was the moon’s goodnight."
+    ]},
+    { "id": "s13-after", "lines": [
+      "After that, Doudou sometimes still could not sleep. But he was no longer worried.",
+      "He would touch his pillow and remember the moon that night, and the kind thing he had done for a heart that could not sleep.",
+      "Then he would close his eyes and breathe slowly.",
+      "He would place his last little worry beside the pillow."
+    ]},
+    { "id": "s14-goodnight", "lines": [
+      "Goodnight, Doudou.",
+      "Goodnight, Moon.",
+      "Goodnight, forest.",
+      "Goodnight, little one."
+    ]}
+  ]
+}

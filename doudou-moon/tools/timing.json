@@ -1,0 +1,387 @@
+{
+ "scenes": [
+  {
+   "id": "s01-bed",
+   "voice": 20.639,
+   "slot": 22.039,
+   "lines": [
+    {
+     "text": "Night came to the forest, and one by one the little lights went out.",
+     "start": 0.35,
+     "end": 4.386
+    },
+    {
+     "text": "Little Bear Doudou lay in his bed.",
+     "start": 4.936,
+     "end": 6.954
+    },
+    {
+     "text": "He counted the last sheep, but he still could not sleep.",
+     "start": 7.504,
+     "end": 10.694
+    },
+    {
+     "text": "Wind slipped through the window, carrying the smell of green grass and lake water.",
+     "start": 11.244,
+     "end": 15.997
+    },
+    {
+     "text": "Then Doudou heard a very soft sound outside, like someone crying.",
+     "start": 16.547,
+     "end": 20.639
+    }
+   ]
+  },
+  {
+   "id": "s02-moon",
+   "voice": 26.734,
+   "slot": 28.134,
+   "lines": [
+    {
+     "text": "He put on his soft slippers and went to the door.",
+     "start": 0.35,
+     "end": 2.99
+    },
+    {
+     "text": "Moonlight lay on the ground like a silver path.",
+     "start": 3.54,
+     "end": 6.325
+    },
+    {
+     "text": "Doudou looked up and saw that the moon was missing a small corner, like a cookie with one bite taken out.",
+     "start": 6.875,
+     "end": 13.076
+    },
+    {
+     "text": "The moon sat beside a cloud and said softly,",
+     "start": 13.627,
+     "end": 16.478
+    },
+    {
+     "text": "“I lost a little piece of light. Without it, I cannot sleep tonight, and I cannot help light everyone’s dreams.”",
+     "start": 17.028,
+     "end": 23.975
+    },
+    {
+     "text": "“I will help you find it,” said Doudou.",
+     "start": 24.525,
+     "end": 26.734
+    }
+   ]
+  },
+  {
+   "id": "s03-forest",
+   "voice": 21.048,
+   "slot": 22.448,
+   "lines": [
+    {
+     "text": "The moon showed him a path made of moonlight. Doudou followed it into the forest.",
+     "start": 0.35,
+     "end": 5.143
+    },
+    {
+     "text": "The night forest was not frightening.",
+     "start": 5.693,
+     "end": 7.683
+    },
+    {
+     "text": "An owl kept watch in a tree.",
+     "start": 8.233,
+     "end": 10.036
+    },
+    {
+     "text": "A stream snored softly beside the stones.",
+     "start": 10.586,
+     "end": 13.148
+    },
+    {
+     "text": "Dewdrops sat quietly on the leaves.",
+     "start": 13.698,
+     "end": 15.841
+    },
+    {
+     "text": "Doudou walked more and more gently, as if he were afraid of waking someone.",
+     "start": 16.391,
+     "end": 21.048
+    }
+   ]
+  },
+  {
+   "id": "s04-firefly",
+   "voice": 9.997,
+   "slot": 11.397,
+   "lines": [
+    {
+     "text": "In the grass, he met a little firefly who had lost its way.",
+     "start": 0.35,
+     "end": 3.939
+    },
+    {
+     "text": "The firefly said, “I saw a small piece of light fall into the hollow of the old oak tree.”",
+     "start": 4.489,
+     "end": 9.997
+    }
+   ]
+  },
+  {
+   "id": "s05-hollow",
+   "voice": 23.275,
+   "slot": 24.675,
+   "lines": [
+    {
+     "text": "The hollow was dark and deep.",
+     "start": 0.35,
+     "end": 2.081
+    },
+    {
+     "text": "Doudou reached inside, and his heart beat fast.",
+     "start": 2.631,
+     "end": 5.724
+    },
+    {
+     "text": "He found something warm. It was not danger. It was a little piece of moonlight.",
+     "start": 6.274,
+     "end": 11.183
+    },
+    {
+     "text": "The moonlight rested in his paw and slowly turned into a soft moon candy.",
+     "start": 11.733,
+     "end": 16.387
+    },
+    {
+     "text": "When Doudou brought it close to his nose, it smelled like roasted chestnuts and blankets dried in the sun.",
+     "start": 16.937,
+     "end": 23.275
+    }
+   ]
+  },
+  {
+   "id": "s06-lake",
+   "voice": 12.745,
+   "slot": 14.145,
+   "lines": [
+    {
+     "text": "Doudou carried the moon candy back to the lake.",
+     "start": 0.35,
+     "end": 2.826
+    },
+    {
+     "text": "He held it up, and the moon leaned down and smiled.",
+     "start": 3.376,
+     "end": 6.407
+    },
+    {
+     "text": "It turned out that what the moon had lost was not just light.",
+     "start": 6.957,
+     "end": 10.418
+    },
+    {
+     "text": "It was the last dream of the night.",
+     "start": 10.968,
+     "end": 12.745
+    }
+   ]
+  },
+  {
+   "id": "s07-gift",
+   "voice": 15.263,
+   "slot": 16.663,
+   "lines": [
+    {
+     "text": "The moon became round again.",
+     "start": 0.35,
+     "end": 2.029
+    },
+    {
+     "text": "It poured its gentle light over Doudou’s bed and said,",
+     "start": 2.579,
+     "end": 5.842
+    },
+    {
+     "text": "“Thank you. Now I will give this little piece of light to you, to be your pillow.”",
+     "start": 6.392,
+     "end": 10.633
+    },
+    {
+     "text": "The moonlight wrapped around Doudou’s shoulders like a soft silk scarf.",
+     "start": 11.183,
+     "end": 15.263
+    }
+   ]
+  },
+  {
+   "id": "s08-pillow",
+   "voice": 12.404,
+   "slot": 13.804,
+   "lines": [
+    {
+     "text": "Doudou went home and climbed under his blanket.",
+     "start": 0.35,
+     "end": 3.174
+    },
+    {
+     "text": "His pillow felt warm, as if a little moon were hidden inside.",
+     "start": 3.724,
+     "end": 7.47
+    },
+    {
+     "text": "The moon breathed slowly, in and out, like his mother patting his back.",
+     "start": 8.02,
+     "end": 12.404
+    }
+   ]
+  },
+  {
+   "id": "s09-dream",
+   "voice": 20.035,
+   "slot": 21.435,
+   "lines": [
+    {
+     "text": "Doudou closed his eyes.",
+     "start": 0.35,
+     "end": 1.88
+    },
+    {
+     "text": "He dreamed that he was sailing in a moon boat over a quiet forest.",
+     "start": 2.43,
+     "end": 6.355
+    },
+    {
+     "text": "Fireflies carried their lights ahead of him, and the wind pulled a cloud over him like a blanket.",
+     "start": 6.905,
+     "end": 12.624
+    },
+    {
+     "text": "The little rabbit, the squirrel, and the bird were all asleep, and a small piece of moonlight shone in their dreams too.",
+     "start": 13.174,
+     "end": 20.035
+    }
+   ]
+  },
+  {
+   "id": "s10-words",
+   "voice": 13.375,
+   "slot": 14.775,
+   "lines": [
+    {
+     "text": "In the dream, the moon said to Doudou,",
+     "start": 0.35,
+     "end": 2.606
+    },
+    {
+     "text": "“Whatever you did not finish today can wait for tomorrow.",
+     "start": 3.156,
+     "end": 6.374
+    },
+    {
+     "text": "Whatever you did not say today can wait for a dream.",
+     "start": 6.924,
+     "end": 9.971
+    },
+    {
+     "text": "Just close your eyes, and give the rest to the night.”",
+     "start": 10.521,
+     "end": 13.375
+    }
+   ]
+  },
+  {
+   "id": "s11-drift",
+   "voice": 13.41,
+   "slot": 14.81,
+   "lines": [
+    {
+     "text": "Doudou listened and listened. His breathing became slow.",
+     "start": 0.35,
+     "end": 4.16
+    },
+    {
+     "text": "He felt as if he had turned into moonlight, falling gently on the treetops, on the lake, and into every dream that had already fallen asleep.",
+     "start": 4.71,
+     "end": 13.41
+    }
+   ]
+  },
+  {
+   "id": "s12-morning",
+   "voice": 17.945,
+   "slot": 19.345,
+   "lines": [
+    {
+     "text": "The next morning, Doudou woke up and found a little patch of silver light beside his pillow.",
+     "start": 0.35,
+     "end": 5.578
+    },
+    {
+     "text": "Outside, the forest was waking too.",
+     "start": 6.128,
+     "end": 8.36
+    },
+    {
+     "text": "A bird sang in the branches, and a squirrel stretched in its tree hollow.",
+     "start": 8.91,
+     "end": 12.943
+    },
+    {
+     "text": "Doudou hugged his pillow and smiled, because he knew it was the moon’s goodnight.",
+     "start": 13.493,
+     "end": 17.945
+    }
+   ]
+  },
+  {
+   "id": "s13-after",
+   "voice": 18.877,
+   "slot": 20.277,
+   "lines": [
+    {
+     "text": "After that, Doudou sometimes still could not sleep. But he was no longer worried.",
+     "start": 0.35,
+     "end": 5.135
+    },
+    {
+     "text": "He would touch his pillow and remember the moon that night, and the kind thing he had done for a heart that could not sleep.",
+     "start": 5.684,
+     "end": 12.342
+    },
+    {
+     "text": "Then he would close his eyes and breathe slowly.",
+     "start": 12.892,
+     "end": 15.471
+    },
+    {
+     "text": "He would place his last little worry beside the pillow.",
+     "start": 16.021,
+     "end": 18.877
+    }
+   ]
+  },
+  {
+   "id": "s14-goodnight",
+   "voice": 9.007,
+   "slot": 10.407,
+   "lines": [
+    {
+     "text": "Goodnight, Doudou.",
+     "start": 0.35,
+     "end": 1.52
+    },
+    {
+     "text": "Goodnight, Moon.",
+     "start": 2.82,
+     "end": 3.881
+    },
+    {
+     "text": "Goodnight, forest.",
+     "start": 5.181,
+     "end": 6.422
+    },
+    {
+     "text": "Goodnight, little one.",
+     "start": 7.722,
+     "end": 9.007
+    }
+   ]
+  }
+ ]
+}
