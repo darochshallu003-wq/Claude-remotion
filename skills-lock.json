@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "skills": {
+    "agents": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "agents/SKILL.md",
+      "computedHash": "de1d1821813176d993bff7d8eb3184556da41eeb2c3352fcca0c2a863cf0b67d",
+      "installMode": "copy"
+    },
+    "dubbing": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "dubbing/SKILL.md",
+      "computedHash": "02199ec6cbcb7387988149082c8a4412a0cf66f8feb85e26c77771cb487df798",
+      "installMode": "copy"
+    },
+    "music": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "music/SKILL.md",
+      "computedHash": "526c5156d1c711c459c6ad8688a8bee245a6605545a59c0c46decc948337a701",
+      "installMode": "copy"
+    },
+    "onboarding": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "onboarding/SKILL.md",
+      "computedHash": "bf439a164c6869bbd9d7dfb733fe64c0a6c6929aa6a7ace2e02f4f6a5c8bc1f7",
+      "installMode": "copy"
+    },
+    "realtime": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "realtime/SKILL.md",
+      "computedHash": "8e31cd0fe0f10c17bad926431d993b61a52368498df43b8f1f89479543ffd6d3",
+      "installMode": "copy"
+    },
+    "setup-api-key": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "setup-api-key/SKILL.md",
+      "computedHash": "a7861a506946fe70b8026bb84c427399d440fe20a030ce96704bd4704f1304ba",
+      "installMode": "copy"
+    },
+    "sound-effects": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "sound-effects/SKILL.md",
+      "computedHash": "5c0a1d653194633986f9887c599f3f98c595bce0fcb0e16dc5d90935ec65a6df",
+      "installMode": "copy"
+    },
+    "speech-engine": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "speech-engine/SKILL.md",
+      "computedHash": "20089682e0b981131b30f8e263b3bc8dc13319d63aa1a2edb544da0e02f98bdd",
+      "installMode": "copy"
+    },
+    "speech-to-text": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "speech-to-text/SKILL.md",
+      "computedHash": "2ea97cf745f81e0eb1095d1cff35ffe183e74fc1aa6039b6034703e118f4d7f1",
+      "installMode": "copy"
+    },
+    "text-to-speech": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "text-to-speech/SKILL.md",
+      "computedHash": "fec523d1f12af3c06c94783129f2d556fafc9309ee3f13578170f7ef33c5f97e",
+      "installMode": "copy"
+    },
+    "update-skills-from-changelog": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/update-skills-from-changelog/SKILL.md",
+      "computedHash": "3a86dc0af1cb46697b086b33787582fe9df893964bc61b404c3cfbd131b108ca",
+      "installMode": "copy"
+    },
+    "voice-changer": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "voice-changer/SKILL.md",
+      "computedHash": "c7dbca7fbc40c9216f0065d2d4aaa015e297280922dec2a6659a3ffd4d3b416c",
+      "installMode": "copy"
+    },
+    "voice-isolator": {
+      "source": "elevenlabs/skills",
+      "sourceType": "github",
+      "skillPath": "voice-isolator/SKILL.md",
+      "computedHash": "8bc07ba491ce751835f29027fb879f54e518851bcb60fd29d1e0c39cc3a2547d",
+      "installMode": "copy"
+    }
+  }
+}
