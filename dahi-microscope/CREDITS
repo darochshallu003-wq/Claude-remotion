@@ -1,0 +1,20 @@
+Dahi, under the microscope: third-party material
+
+IMAGE
+  "Yogurt Bacteria.jpg" by Andreacise
+  https://commons.wikimedia.org/wiki/File:Yogurt_Bacteria.jpg
+  Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+  Changes: downsampled into plates, one global colour grade (glass to warm white), cropped to the
+  eyepiece field; counted pixels overlaid in amber; camera moves, labels and measurements added.
+  Credited on screen for the whole film (top right).
+
+FONTS (SIL Open Font License 1.1, files in fonts/, licence texts alongside)
+  Barlow Condensed and Barlow: Jeremy Tribby, https://github.com/google/fonts/tree/main/ofl/barlowcondensed and /ofl/barlow
+  IBM Plex Mono: IBM, https://github.com/google/fonts/tree/main/ofl/ibmplexmono
+  Instrument Serif: Instrument, https://github.com/google/fonts/tree/main/ofl/instrumentserif
+
+SOUND
+  None: a silent film (the audio track is digital silence).
+
+TOOLS
+  Rendered with the Lemo-Opuscar library's core render tools (headless Chromium, ffmpeg).

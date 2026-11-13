@@ -1,0 +1,41 @@
+{
+ "stain_threshold": 0.18,
+ "bead_um": 0.8,
+ "bead_ring_um": 2.6,
+ "count_roll_deg": -36,
+ "circle": {
+  "cx": 1523,
+  "cy": 1008,
+  "r": 200
+ },
+ "points": {
+  "rod_a": [
+   1214,
+   827
+  ],
+  "rod_b": [
+   1247,
+   914
+  ],
+  "rod": [
+   1230,
+   870
+  ],
+  "bead": [
+   1097,
+   661
+  ]
+ },
+ "fov": {
+  "open": 300,
+  "ref": 300,
+  "land": 95,
+  "count": 104
+ },
+ "roll": {
+  "open": -6,
+  "land": -39,
+  "count": -36,
+  "end": -2
+ }
+}
