@@ -8,6 +8,7 @@ import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
 import { CarouselCompositions } from "./carousel/Carousel";
 import { TETANUS_TOTAL_FRAMES, TetanusExplainer } from "./tetanus/TetanusExplainer";
+import { CHHATH_TOTAL_FRAMES, ChhathExplainer } from "./chhath/ChhathExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -65,6 +66,14 @@ export const RemotionRoot: React.FC = () => {
         id="TetanusExplainer"
         component={TetanusExplainer}
         durationInFrames={TETANUS_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="ChhathExplainer"
+        component={ChhathExplainer}
+        durationInFrames={CHHATH_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}
