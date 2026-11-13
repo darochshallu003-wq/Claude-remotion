@@ -7,26 +7,68 @@ phonetic spelling in the spoken text only, so the voice says them clearly.
 The voice's 1-1.5 s sentence pauses are cut to 0.15 s. Questions are asked by
 a second voice (QUESTION_VOICE) and answered by the narrator.
 
-Usage: python3 scripts/vo_tts.py <project> [voice] [rate]
+Usage: python3 scripts/vo_tts.py <project> [voice] [rate] [--elevenlabs]
   e.g.  python3 scripts/vo_tts.py haldi
+        python3 scripts/vo_tts.py haldi --elevenlabs
   defaults: hi-IN-MadhurNeural  +22%
 Then run scripts/vo_timing.py <project> to fit the scenes to the clips.
+
+With --elevenlabs the lines are spoken by ElevenLabs (api.elevenlabs.io)
+instead, with the eleven_multilingual_v2 model. `voice` is then an ElevenLabs
+voice id, and `rate` a percentage that becomes ElevenLabs' speed (capped to
+its 0.7-1.2 range). Environment variables:
+  ELEVENLABS_API_KEY            the key (may be omitted when a proxy adds it)
+  ELEVENLABS_VOICE              narrator voice id   (default: George)
+  ELEVENLABS_QUESTION_VOICE     question voice id   (default: Sarah)
+  ELEVENLABS_MODEL              model id            (default: eleven_multilingual_v2)
 """
 
 import asyncio
+import json
 import os
 import pathlib
 import re
 import subprocess
 import sys
-
-import edge_tts
+import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # Questions are asked by a second voice, so they sound like someone asking.
 QUESTION_VOICE = "hi-IN-SwaraNeural"
 QUESTION_RATE = "+12%"
+
+# ElevenLabs premade voices; any voice speaks Hindi with the multilingual model.
+EL_VOICE = os.environ.get("ELEVENLABS_VOICE", "JBFqnCBsd6RMkjVDRZzb")  # George
+EL_QUESTION_VOICE = os.environ.get("ELEVENLABS_QUESTION_VOICE", "EXAVITQu4vr4xnJGb6EG")  # Sarah
+EL_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_multilingual_v2")
+
+
+def el_speed(rate: str) -> float:
+    """'+22%' -> 1.2 (ElevenLabs accepts speeds from 0.7 to 1.2)."""
+    return max(0.7, min(1.2, 1 + int(rate.rstrip("%")) / 100))
+
+
+def el_say(text: str, voice: str, rate: str, path: pathlib.Path) -> None:
+    body = json.dumps({
+        "text": text,
+        "model_id": EL_MODEL,
+        "voice_settings": {"stability": 0.5, "similarity_boost": 0.75, "speed": el_speed(rate)},
+    }).encode()
+    req = urllib.request.Request(
+        f"https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_44100_128",
+        data=body,
+        headers={
+            "xi-api-key": os.environ.get("ELEVENLABS_API_KEY", "injected-by-proxy"),
+            "Content-Type": "application/json",
+            "Accept": "audio/mpeg",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            path.write_bytes(resp.read())
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"ElevenLabs {e.code}: {e.read().decode(errors='replace')}")
 
 SAY = {
     # onion
@@ -62,11 +104,16 @@ SAY = {
 
 
 async def main() -> None:
-    if len(sys.argv) < 2:
+    eleven = "--elevenlabs" in sys.argv
+    args = [a for a in sys.argv[1:] if a != "--elevenlabs"]
+    if not args:
         raise SystemExit(__doc__)
-    project = sys.argv[1]
-    voice = sys.argv[2] if len(sys.argv) > 2 else "hi-IN-MadhurNeural"
-    rate = sys.argv[3] if len(sys.argv) > 3 else "+22%"
+    project = args[0]
+    voice = args[1] if len(args) > 1 else (EL_VOICE if eleven else "hi-IN-MadhurNeural")
+    rate = args[2] if len(args) > 2 else "+22%"
+    q_voice = EL_QUESTION_VOICE if eleven else QUESTION_VOICE
+    if not eleven:
+        import edge_tts
     script = ROOT / "src" / project / "script.ts"
     out = ROOT / "public" / project / "vo"
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
@@ -91,8 +138,11 @@ async def main() -> None:
         raws = []
         for k, (who, text) in enumerate(parts):
             raw = out / f"{scene_id}.{k}.raw.mp3"
-            v, r = (QUESTION_VOICE, QUESTION_RATE) if who == "q" else (voice, rate)
-            await edge_tts.Communicate(text, v, rate=r, proxy=proxy).save(str(raw))
+            v, r = (q_voice, QUESTION_RATE) if who == "q" else (voice, rate)
+            if eleven:
+                el_say(text, v, r, raw)
+            else:
+                await edge_tts.Communicate(text, v, rate=r, proxy=proxy).save(str(raw))
             raws.append(raw)
         # join the parts, then cut any pause longer than 0.15 s down to
         # 0.15 s and trim the ends
@@ -111,7 +161,7 @@ async def main() -> None:
         for raw in raws:
             raw.unlink()
         asked = sum(1 for who, _ in parts if who == "q")
-        print("wrote", scene_id, f"({asked} question{'s' if asked != 1 else ''} by {QUESTION_VOICE})" if asked else "")
+        print("wrote", scene_id, f"({asked} question{'s' if asked != 1 else ''} by {q_voice})" if asked else "")
 
 
 if __name__ == "__main__":
