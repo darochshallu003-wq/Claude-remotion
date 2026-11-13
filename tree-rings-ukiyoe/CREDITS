@@ -1,0 +1,12 @@
+How old is this tree? (vertical): third-party material in this film
+
+Fonts (SIL Open Font License 1.1, licence texts in fonts/OFL-*.txt), from github.com/google/fonts, subset to the glyphs used:
+- Shippori Mincho (Medium, Bold), by FONTDASU
+- Yuji Syuku, by Kinuta Font Factory
+
+Code: the print engine (print.js) is adapted from the Ukiyo-e style of the Lemo-Opuscar library
+(github.com/lemomo-ai/lemo-opuscar), MIT licence, Copyright (c) 2026 Lemomo (LemoLab); the MIT licence text is in
+LICENSE-MIT. core/lib.js is loaded from the same library.
+
+Everything else in the picture is drawn in code for this film. No images, footage, voice, music or sound effects
+are used (silent film). Fact sources: FACTS.md.
