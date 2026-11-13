@@ -1,0 +1,11 @@
+1
+00:00:01,150 --> 00:00:04,050
+A quake heaves up the sea
+
+2
+00:00:04,100 --> 00:00:06,950
+Deep sea: low, jet-fast
+
+3
+00:00:07,000 --> 00:00:10,000
+Near shore: slows, grows tall
