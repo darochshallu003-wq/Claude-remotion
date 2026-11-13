@@ -26,7 +26,7 @@ export const DoudouMoon: React.FC = () => {
           <Sequence key={t.id} name={t.id} from={from} durationInFrames={next - from}>
             <SceneHost scene={SCENES[i]} />
             <Sequence name={`vo ${t.id}`} durationInFrames={Math.ceil(t.voice * DOUDOU_FPS)} layout="none">
-              <Audio src={staticFile(`doudou/voice/${t.id}.wav`)} />
+              <Audio src={staticFile(`doudou/voice/${t.id}.wav`)} volume={1.4} />
             </Sequence>
           </Sequence>
         );

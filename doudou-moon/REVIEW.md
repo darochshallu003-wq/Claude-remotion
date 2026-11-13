@@ -29,5 +29,6 @@ The same film is also a Remotion composition, `DoudouMoon` (`src/doudou/`, regis
 - `tools/build.py` writes both outputs from one source: HyperFrames scenes go to `compositions/*.html`, and Remotion scene modules go to `src/doudou/scenes/*.ts` and `src/doudou/timing.ts`.
 - `src/doudou/SceneHost.tsx` mounts a scene's cut-paper SVG and builds its GSAP timeline paused. On every frame it seeks the timeline to `useCurrentFrame() / fps`, so every frame is a pure function of time and parallel rendering is safe.
 - Narration and texture are in `public/doudou/`. Nunito (SIL OFL) is in `public/doudou/fonts/`.
+- Rendered: `doudou-and-the-moon-remotion.mp4` (51 MB; −17.1 LUFS, −1.3 dBFS peak, level-matched to the HyperFrames cut). The narration volume is now 1.4 in source, so future renders come out at the same level without post-gain.
 - Render: `npx remotion render DoudouMoon out/doudou-moon-remotion.mp4`. In this cloud container, add `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`, because Remotion's own Chrome download host is blocked.
 - Change from the first cut: the star twinkle in s14 now staggers `from: "edges"` instead of `"random"`, so every render matches (both versions).
