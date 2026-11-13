@@ -58,6 +58,11 @@ SAY = {
     "lactic acid": "लैक्टिक एसिड",
     "casein": "कैसीन",
     "casserole": "कैसरोल",
+    # tatkal
+    "TTL": "टी-टी-एल",
+    "idempotency": "आइडेम-पोटेंसी",
+    "compare-and-set": "कम्पेयर ऐंड सेट",
+    "B4": "बी-फ़ोर",
 }
 
 
