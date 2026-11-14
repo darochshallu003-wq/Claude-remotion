@@ -32,3 +32,11 @@ The same film is also a Remotion composition, `DoudouMoon` (`src/doudou/`, regis
 - Rendered: `doudou-and-the-moon-remotion.mp4` (51 MB; −17.1 LUFS, −1.3 dBFS peak, level-matched to the HyperFrames cut). The narration volume is now 1.4 in source, so future renders come out at the same level without post-gain.
 - Render: `npx remotion render DoudouMoon out/doudou-moon-remotion.mp4`. In this cloud container, add `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`, because Remotion's own Chrome download host is blocked.
 - Change from the first cut: the star twinkle in s14 now staggers `from: "edges"` instead of `"random"`, so every render matches (both versions).
+
+## Captions (Remotion version)
+- The narration is captioned on screen. `tools/build.py` writes `src/doudou/captions.ts` from `tools/timing.json`, and `src/doudou/Captions.tsx` draws it.
+- Each spoken sentence is one caption of at most two lines (80 characters). A longer sentence splits at punctuation, never after "a", "the" or another small word, and its time is shared by length. Chunks of one sentence swap on the cut; each caption fades over 0.15 s after a pause and lingers 0.25 s.
+- Style: Nunito 700 at 46 px, cream on a 74% dark band, 72 px from the bottom, inside title-safe.
+- s14 has no captions, because its four goodnights are already on screen as large type.
+- s10: Doudou's small sleeping head moved up (y 1000 → 850) so the caption no longer covers it, in both versions.
+- The HyperFrames version has no captions yet.

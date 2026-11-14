@@ -1,6 +1,7 @@
 import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
 import { loadFont } from "@remotion/fonts";
 import { SceneHost } from "./SceneHost";
+import { Captions } from "./Captions";
 import { DOUDOU_SECONDS, SCENES, SCENE_TIMES } from "./timing";
 
 // "Doudou and the Moon": a narrated cut-paper bedtime story, 1920x1080.
@@ -31,6 +32,7 @@ export const DoudouMoon: React.FC = () => {
           </Sequence>
         );
       })}
+      <Captions />
     </AbsoluteFill>
   );
 };
