@@ -7,6 +7,7 @@ import { MITTI_TOTAL_FRAMES, MittiExplainer } from "./mitti/MittiExplainer";
 import { CastSheet } from "./dev/CastSheet";
 import { DAHI_TOTAL_FRAMES, DahiExplainer } from "./dahi/DahiExplainer";
 import { TATKAL_TOTAL_FRAMES, TatkalExplainer } from "./tatkal/TatkalExplainer";
+import { STREAM_TOTAL_FRAMES, StreamExplainer } from "./stream/StreamExplainer";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -64,6 +65,14 @@ export const RemotionRoot: React.FC = () => {
         id="TatkalExplainer"
         component={TatkalExplainer}
         durationInFrames={TATKAL_TOTAL_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="StreamExplainer"
+        component={StreamExplainer}
+        durationInFrames={STREAM_TOTAL_FRAMES}
         fps={30}
         width={1080}
         height={1920}

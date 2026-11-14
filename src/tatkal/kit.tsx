@@ -45,12 +45,12 @@ export const BlueprintBg: React.FC<{ drift?: boolean }> = ({ drift = true }) => 
 };
 
 /** Series line top-left plus an optional section label under it. */
-export const Header: React.FC<{ section?: string }> = ({ section }) => {
+export const Header: React.FC<{ section?: string; episode?: string }> = ({ section, episode = EPISODE }) => {
   const e = useEnter(4);
   return (
     <>
       <div style={{ position: "absolute", left: 70, top: 96, fontFamily: MONO, fontSize: 26, letterSpacing: 3, color: K.mute }}>
-        {SERIES} · <span style={{ color: K.yellow }}>{EPISODE}</span>
+        {SERIES} · <span style={{ color: K.yellow }}>{episode}</span>
       </div>
       {section && (
         <div
@@ -328,9 +328,10 @@ export const Shot: React.FC<{
   keys: CamKey[];
   track?: (f: number) => [number, number];
   section?: string;
+  episode?: string;
   hud?: React.ReactNode;
   children: React.ReactNode;
-}> = ({ keys, track, section, hud, children }) => {
+}> = ({ keys, track, section, episode, hud, children }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const c = camFrame(keys, frame, durationInFrames, track);
@@ -358,7 +359,7 @@ export const Shot: React.FC<{
       </div>
       <Dust cam={c} />
       <AbsoluteFill style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.6) 100%)" }} />
-      <Header section={section} />
+      <Header section={section} episode={episode} />
       {hud}
     </AbsoluteFill>
   );
